@@ -5,14 +5,14 @@ import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
   title: 'Technology',
-  description: 'Site monitoring, current-condition estimates and planned features for bio-coated solar panels.',
+  description: 'Site monitoring, current-condition estimates, manual inspections and recorded maintenance.',
 };
 
 const MODULES = [
-  { icon: Brain,       title: 'Coating intelligence',  desc: 'Coming soon: coating condition tracking requires dedicated measurements.' },
-  { icon: Eye,         title: 'Visual inspection',     desc: 'Coming soon: web-based camera inspection is not connected.' },
+  { icon: Brain, title: 'Manual coating records', desc: 'Dated area/photo/condition observations with visible categorical rules. Numerical coating score and material performance are unavailable.' },
+  { icon: Eye, title: 'Camera inspection', desc: 'Authorized proxy, snapshots and manual records require a configured camera and storage. Automatic classification remains unavailable.' },
   { icon: TrendingUp,  title: 'Generation forecasting', desc: 'Current-condition estimates are available when sufficient telemetry exists; weather-ahead forecasts are not yet connected.' },
-  { icon: ShieldAlert, title: 'Predictive maintenance', desc: 'Site-level sensor rules and anomaly detection can flag unusual readings; per-panel fault prediction is not yet connected.' },
+  { icon: ShieldAlert, title: 'Maintenance review', desc: 'Site-level sensor rules and unusual-pattern estimates support review, with persistent alerts/work orders. They do not confirm a physical fault.' },
   { icon: Boxes,       title: 'Digital twin',          desc: 'Coming soon: digital twin.' },
   { icon: Cpu,         title: 'Adaptive control',      desc: 'Coming soon: automated energy control.' },
 ];
@@ -26,10 +26,10 @@ export default function TechnologyPage() {
           <div className="text-center mb-14">
             <div className="section-tag mx-auto w-fit"><Cpu size={12} /> Technology</div>
             <h1 className="text-4xl sm:text-5xl font-black text-white mt-3 mb-4">
-              AI built for <span className="gradient-text">bio-coated solar</span>
+              Software for <span className="gradient-text">equipment review</span>
             </h1>
             <p className="text-slate-500 max-w-2xl mx-auto">
-              Site-level sensor readings can inform monitoring and estimates. Individual-panel sensing, camera inspection and automated control are planned.
+              Site readings and manual records support review when hardware and services are configured. Individual-panel sensing and autonomous energy dispatch remain planned. Field performance is unverified.
             </p>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">

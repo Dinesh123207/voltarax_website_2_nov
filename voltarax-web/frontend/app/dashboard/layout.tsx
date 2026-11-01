@@ -4,6 +4,7 @@ import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
 import DataQualityBadge from '@/components/ui/DataQualityBadge';
 import type { DataQuality } from '@/components/ui/DataQualityBadge';
+import ISTClock from '@/components/ui/ISTClock';
 import {
   Zap, LayoutDashboard, Sun, Bell, Wrench,
   TestTube, Battery, Leaf, Users, Settings,
@@ -130,6 +131,8 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
         <header className="h-14 bg-[#111a14]/80 backdrop-blur border-b border-green-900/20 flex items-center gap-3 px-4 sticky top-0 z-20">
           <button
             onClick={() => setSideOpen(!sideOpen)}
+            aria-label={sideOpen ? 'Close dashboard navigation' : 'Open dashboard navigation'}
+            aria-expanded={sideOpen}
             className="lg:hidden p-1.5 text-slate-400 hover:text-white"
           >
             {sideOpen ? <X size={20} /> : <Menu size={20} />}
@@ -145,7 +148,8 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
           </div>
 
           <div className="ml-auto flex items-center gap-3">
-            <div className="flex items-center gap-2 text-xs text-green-600 font-mono">
+            <ISTClock />
+            <div className="hidden md:flex items-center gap-2 text-xs text-green-600 font-mono">
               {testMode && <span className="text-amber-300">Test data</span>}
               Dashboard
             </div>

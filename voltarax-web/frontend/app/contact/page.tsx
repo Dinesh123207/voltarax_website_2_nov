@@ -72,7 +72,7 @@ function ContactForm() {
             {/* Contact info */}
             <div className="lg:col-span-2 space-y-6">
               {[
-                { icon: MapPin, title: 'Location',  lines: ['Jaipur, Rajasthan', 'India'] },
+                { icon: MapPin, title: 'Location', lines: [process.env.NEXT_PUBLIC_CONTACT_LOCATION || 'Unavailable until confirmed'] },
                 ...(CONTACT_EMAIL ? [{ icon: Mail,  title: 'Email', lines: [CONTACT_EMAIL] }] : []),
                 ...(CONTACT_PHONE ? [{ icon: Phone, title: 'Phone', lines: [CONTACT_PHONE] }] : []),
                 { icon: Calendar, title: 'Demo',    lines: ['Use the form to request a session'] },

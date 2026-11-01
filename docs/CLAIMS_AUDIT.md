@@ -1,5 +1,18 @@
 # Claims audit
 
+## Phase 8 follow-up (2026-11-02)
+
+| Source | Finding | Action |
+| --- | --- | --- |
+| Hero, landing, metadata, footer, FAQ | Material conversion/identity, predictive and automatic improvement implications | Unsupported claims removed; current estimates/manual records/setup limits described |
+| About, landing team | Person/role/advisor/incubation/client/patent details lack publication proof | Public details withheld; coming-soon/unavailable placeholders; history/assets preserved |
+| About/contact/footer | Conflicting assumed locations and unreviewed external profile | No default city/profile; reviewed optional environment values only |
+| Products/technology/sustainability | Inspection/work orders/reports still called coming soon | Conditional availability and evidence requirements; no field/tax/carbon-credit claim |
+| Landing cloud/applications | Guaranteed improvement, fewer visits/earlier warnings implied | Candidate rejection and proposed-application/field-verification limits |
+| Sustainability | Coating properties and institutional collaboration implied | Independent measurements needed; illustrative objectives without affiliation/verified impact |
+
+No scientific, people, legal, deployment/customer or performance facts invented. Proof/publication review remains manual. Earlier entries below are historical; current status is PROGRESS.md.
+
 Reviewed public pages, landing/chat components and dashboard sections against implemented behavior. Earlier capability corrections are recorded in DECISIONS.md and baseline-to-branch Git history. No public accuracy certification, confirmed customers, field savings or deployment count is asserted. Implementation claims remain conditional on connected hardware and data.
 
 | File under voltarax-web | Previous text | Replacement |

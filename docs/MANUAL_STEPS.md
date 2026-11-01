@@ -1,5 +1,9 @@
 # Manual steps and external verification
 
+## Phase 8 public facts and publication review
+
+Before public use, supply and approve real legal entity/contact/location, people/roles/biographies, institutional/client permissions and patent/performance evidence. None is inferred from old code or conflicting cities. Set only reviewed NEXT_PUBLIC_CONTACT_LOCATION/email/phone and HTTPS social profile values; blank keeps details hidden/unavailable. Material conversion/lifetime benefits, field savings, deployment/customer counts and automatic model improvement remain absent without proof. Review English/Hindi and legal wording before indexing or publication. No private facts or external profile were published here.
+
 ## Phase 7 commerce configuration (in progress; not enabled)
 
 After the phase gate, an operator can verify non-production commerce as follows; none of these provider/account/deployment steps were run:

@@ -4,6 +4,8 @@
 
 ## Active roadmap
 
+Phase 8 copy/clock task: remaining unsupported claims removed, public business facts left unconfirmed, conditional current features updated, responsive navigation/IST clock implemented. Clock test and narrow lint/typecheck passed. Verified MIT i18n/sitemap dependencies installed. Next task is routing and English/Hindi messages, then SEO/legal/accessibility and full gate.
+
 Phase 7 is locally gated/tagged (65 backend, 28 AI, full lint/typecheck/build/audit/scan/diff passed). Continue Phase 8 on its own branch. Real commerce/provider/PostgreSQL/tax checks remain explicit manual limits, not verified capabilities.
 
 Phase 7 UI task verified by narrow lint/typecheck, exact currency conversion and six order/lifecycle regressions. Full phase gate is now required before phase-07-done. Next Phase 8 adds English/Hindi/SEO/legal/accessibility and reviews PDF font coverage; no browser/provider/hardware or tax claim is established.

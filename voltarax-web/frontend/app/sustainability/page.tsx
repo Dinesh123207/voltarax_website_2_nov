@@ -13,15 +13,15 @@ const SDGs = [
   { num: '7',  title: 'Affordable Clean Energy',      desc: 'Solar monitoring supports energy awareness' },
   { num: '9',  title: 'Industry, Innovation',         desc: 'Deeptech for renewable energy infrastructure' },
   { num: '11', title: 'Sustainable Cities',           desc: 'Smart solar management for urban and peri-urban sites' },
-  { num: '13', title: 'Climate Action',               desc: 'Estimated CO₂ offset; ESG reporting is planned' },
-  { num: '17', title: 'Partnerships for Goals',       desc: 'Collaboration with research institutions and solar developers' },
+  { num: '13', title: 'Climate Action', desc: 'Carbon estimates require recorded energy and emission-factor evidence; impact is unverified' },
+  { num: '17', title: 'Partnerships for Goals', desc: 'An illustrative collaboration objective; no institutional affiliation is asserted' },
 ];
 
 const BIO_COATING = [
-  'Made from fruit-peel waste — a natural UV absorber',
-  'UV-to-visible conversion is a research objective',
+  'Coating material performance is unverified',
+  'Optical conversion requires independent measurements',
   'Material and environmental properties require independent verification',
-  'Coating condition monitoring is planned',
+  'Manual observations do not establish material chemistry or coating lifetime',
 ];
 
 export default function SustainabilityPage() {
@@ -61,9 +61,9 @@ export default function SustainabilityPage() {
                 <div className="space-y-3">
                   {[
                     'Estimated CO₂ offset based on available readings',
-                    'ESG report generation coming soon',
+                    'Reports require sufficient recorded coverage and emission-factor evidence',
                     'Illustrative tree equivalent; methodology requires validation',
-                    'Illustrative grid savings using an assumed tariff',
+                    'Savings estimates require an explicitly configured tariff; no guarantee is made',
                     'API endpoint: /api/carbon for direct integration',
                   ].map((item, i) => (
                     <div key={i} className="flex items-center gap-3 text-sm text-slate-300">
@@ -82,7 +82,7 @@ export default function SustainabilityPage() {
               {/* Visual carbon card */}
               <div className="glass rounded-2xl p-6 border border-green-500/15">
                 <div className="text-xs text-green-600 font-mono font-bold mb-4">CARBON DASHBOARD</div>
-                <p className="text-slate-400 text-sm">Real readings and estimates are available after authorized hardware is connected. ESG report generation is coming soon.</p>
+                <p className="text-slate-400 text-sm">Readings require authorized configured hardware. Reports refuse insufficient coverage, missing factor evidence and synthetic inputs; they do not certify carbon credits.</p>
               </div>
             </div>
           </div>
@@ -111,21 +111,20 @@ export default function SustainabilityPage() {
             </div>
 
             <div>
-              <div className="section-tag"><Leaf size={12} /> Bio Innovation</div>
+              <div className="section-tag"><Leaf size={12} /> Coating records</div>
               <h2 className="text-3xl font-bold text-white mt-2 mb-4">
-                Nature-Derived Panel Coating
+                Observations with clear limits
               </h2>
               <p className="text-slate-400 leading-relaxed mb-4">
-                Our bio-fluorescent coating is made from fruit-peel waste —
-                being investigated as a UV absorber. Environmental and material properties require verification.
+                Coating composition, optical conversion and environmental performance
+                require independent measurements. No material benefit is established here.
               </p>
               <p className="text-slate-400 leading-relaxed mb-6">
-                Coating health monitoring is planned,
-                with the goal of supporting recoating decisions. This does not yet eliminate
-                premature recoating waste or efficiency loss.
+                Dated manual observations, photos and visible categorical rules can support review.
+                They do not establish coating lifetime, a chemical health score or avoided recoating waste.
               </p>
               <Link href="/technology" className="btn-green text-sm py-2.5 px-5">
-                BFCI Technology Deep Dive <ChevronRight size={14} />
+                Review inspection capabilities <ChevronRight size={14} />
               </Link>
             </div>
           </div>
@@ -137,7 +136,7 @@ export default function SustainabilityPage() {
             <div className="text-center mb-10">
               <div className="section-tag mx-auto w-fit"><Globe size={12} /> Global Goals</div>
               <h2 className="text-3xl font-bold text-white mt-2">UN Sustainable Development Goals</h2>
-              <p className="text-slate-500 mt-2">Project objectives relate to these sustainability goals</p>
+              <p className="text-slate-400 mt-2">Illustrative project objectives; no affiliation or verified contribution is asserted.</p>
             </div>
             <div className="grid sm:grid-cols-2 lg:grid-cols-5 gap-4">
               {SDGs.map(({ num, title, desc }) => (

@@ -19,14 +19,14 @@ function Heading({ tag, title, accent, sub }: { tag: string; title: string; acce
 /* 1 ── Why it matters ─────────────────────────────────────────────────────── */
 export function WhySection() {
   const FIGS = [
-    { big: 'Solar', text: 'Panel output depends on equipment, weather and site conditions.' },
-    { big: 'UV',   text: 'conversion is being investigated as a coating research objective.' },
-    { big: 'Waste', text: 'Fruit-peel waste is abundant and cheap — a useful input, not a disposal problem.' },
+    { big: 'Read', text: 'Distinguish recorded sensor readings from estimates and missing inputs.' },
+    { big: 'Review', text: 'Keep dated manual observations and photos for equipment areas.' },
+    { big: 'Track', text: 'Maintain alert and work-order history when storage is configured.' },
   ];
   return (
     <section id="why" className="relative py-28 bg-[#0a0f0d]">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-        <Heading tag="Why it matters" title="Sunlight is abundant." accent="Most of it is wasted." sub="Rajasthan is one of the sunniest regions in India — an excellent resource that ordinary panels still leave largely unused." />
+        <Heading tag="Why monitoring matters" title="Understand recorded" accent="equipment behavior." sub="Measurements, estimates and missing inputs are distinguished so operators can review their basis." />
         <div className="grid md:grid-cols-3 gap-6">
           {FIGS.map((f) => (
             <div key={f.big} className="stat-card text-center py-10">
@@ -43,14 +43,14 @@ export function WhySection() {
 /* 2 ── Coating process ────────────────────────────────────────────────────── */
 export function CoatingSection() {
   const STEPS = [
-    { n: '01', title: 'Collect & process', text: 'Fruit-peel waste is dried and processed into a fluorescent material.' },
-    { n: '02', title: 'Formulate & coat',  text: 'The material is formulated into a coating and applied to the panel surface.' },
-    { n: '03', title: 'Sense & monitor',   text: 'Coating monitoring is planned and requires additional measurements.' },
+    { n: '01', title: 'Record an observation', text: 'Choose an equipment area and enter its actual observation time and condition.' },
+    { n: '02', title: 'Attach a photo', text: 'Save an authorized camera snapshot or equipment photo with notes.' },
+    { n: '03', title: 'Review dated records', text: 'Compare manual observations. Categorical rules are visible; no physical coating score is inferred.' },
   ];
   return (
     <section id="coating" className="relative py-28 bg-[#111a14]/40">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-        <Heading tag="The coating" title="Waste becomes a" accent="UV-to-visible converter" sub="The research investigates fruit-peel-derived materials for UV-to-visible conversion. Field performance requires validation." />
+        <Heading tag="Coating records" title="Document actual" accent="observations" sub="Manual inspection records do not establish optical conversion, material performance or coating lifetime. Those research claims remain unverified." />
         <div className="grid md:grid-cols-3 gap-6">
           {STEPS.map((s) => (
             <div key={s.n} className="stat-card relative overflow-hidden">
@@ -71,19 +71,19 @@ export function CoatingSection() {
 /* 3 ── Eight AI capabilities ──────────────────────────────────────────────── */
 export function CapabilitiesSection() {
   const CAPS = [
-    { icon: TrendingUp, title: 'Generation forecasting', text: 'Provides a current-condition estimate; weather-ahead forecasts are planned.' },
+    { icon: TrendingUp, title: 'Current power estimates', text: 'Fresh inputs can support a current-condition estimate. Future weather forecasts remain unavailable.' },
     { icon: Zap,        title: 'Energy optimisation',    text: 'Coming soon: energy dispatch control.' },
-    { icon: ShieldAlert,title: 'Predictive maintenance', text: 'Site-level sensor rules and anomaly detection flag unusual readings.' },
-    { icon: Activity,   title: 'Environmental monitoring', text: 'Temperature, humidity, light and air quality in one picture.' },
-    { icon: Eye,        title: 'Computer vision',        text: 'Coming soon: camera inspection.' },
+    { icon: ShieldAlert,title: 'Alerts and maintenance', text: 'Sensor rules and validated unusual-pattern estimates can support review; stored work orders track operator actions.' },
+    { icon: Activity, title: 'Environmental readings', text: 'Configured sensors report light, temperature and humidity; airborne dust is an estimate and calibration is unverified.' },
+    { icon: Eye, title: 'Camera and manual inspection', text: 'Configured camera proxy and dated manual photo records. Automatic ML classification is unavailable.' },
     { icon: Boxes,      title: 'Digital twin',           text: 'Coming soon: a virtual replica.' },
-    { icon: Cpu,        title: 'Autonomous control',     text: 'Coming soon: automated relay control.' },
-    { icon: Leaf,       title: 'Carbon analytics',       text: 'Estimates CO₂ offset from readings; ESG reports are coming soon.' },
+    { icon: Cpu, title: 'Relay command review', text: 'Authorized commands and device acknowledgements require configured hardware. Physical contact feedback is unavailable; autonomous dispatch is coming soon.' },
+    { icon: Leaf, title: 'Energy and carbon reports', text: 'Recorded energy and estimated carbon require coverage and factor evidence. Report generation refuses insufficient or synthetic data.' },
   ];
   return (
     <section id="ai" className="relative py-28 bg-[#0a0f0d]">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <Heading tag="AI capabilities" title="Monitoring and" accent="planned capabilities" sub="Current site-level monitoring and planned features are shown below." />
+        <Heading tag="Software capabilities" title="Monitoring and" accent="planned capabilities" sub="Availability depends on authorized hardware, storage and service configuration. Field performance is not established by the software alone." />
         <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
           {CAPS.map(({ icon: Icon, title, text }, i) => (
             <div key={title} className="stat-card group relative overflow-hidden">
@@ -111,7 +111,7 @@ export function HowItWorksSection() {
   const LAYERS = [
     { icon: Radio,           name: 'Sense',     title: 'Site-level sensors', text: 'Site-level electrical and environmental readings can be collected from connected hardware.' },
     { icon: Server,          name: 'Edge',      title: 'On-site display',                    text: 'The Raspberry Pi reference dashboard can analyze readings fetched from the API.' },
-    { icon: Cloud,           name: 'Cloud',     title: 'Analytics and model improvement',    text: 'History is stored and models keep improving as more data builds up.' },
+    { icon: Cloud, name: 'History', title: 'Analytics and candidate evaluation', text: 'Model candidates are evaluated on later held-out inputs. More data does not guarantee better performance; a candidate may be rejected.' },
     { icon: LayoutDashboard, name: 'Dashboard', title: 'One view for operators',             text: 'Access telemetry, calculated health and estimates; additional features are planned.' },
   ];
   return (
@@ -143,7 +143,7 @@ export function HowItWorksSection() {
 /* 5 ── Applications ───────────────────────────────────────────────────────── */
 export function ApplicationsSection() {
   const APPS = [
-    { icon: Tent,      title: 'Remote & off-grid', text: 'Fewer site visits and earlier fault warnings where access is difficult.' },
+    { icon: Tent, title: 'Remote and off-grid', text: 'A proposed application; communications, equipment and field reliability require site-specific verification.' },
     { icon: Sun,       title: 'Defence & disaster relief', text: 'A proposed application where field reliability still requires validation.' },
     { icon: Building2, title: 'Building-integrated PV', text: 'A proposed application for limited roof and façade area.' },
   ];
@@ -167,20 +167,13 @@ export function ApplicationsSection() {
 
 /* 6 ── Team ───────────────────────────────────────────────────────────────── */
 export function TeamSection() {
-  const TEAM = [
-    { name: 'Shubhika', role: 'Founder & Managing Director' },
-    { name: 'Dinesh Kumar', role: 'Team Member' },
-    { name: 'Pradeep Patel', role: 'Team Member' },
-    { name: 'Rohan', role: 'Team Member' },
-    { name: 'Manodeep', role: 'Team Member' },
-    { name: 'Dr. Jai Gopal Sharma', role: 'Mentor & Startup Advisor' },
-  ];
+  const TEAM: { name: string; role: string }[] = [];
   return (
     <section id="team" className="relative py-24 bg-[#07110b] overflow-hidden">
       <div className="absolute inset-0 opacity-40 bg-grid" />
       <div className="relative max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         <Heading tag="People" title="The team behind" accent="Voltarax" />
-        <p className="text-slate-500 max-w-2xl mb-10">A multidisciplinary team building practical technology for the renewable-energy transition.</p>
+        <p className="text-slate-400 max-w-2xl mb-10">Team and affiliation details are coming soon, pending publication review. No unverified founder, advisor or institutional claim is made here.</p>
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
           {TEAM.map((m, i) => (
             <div key={m.name} className={`stat-card group ${i === 5 ? 'border-emerald-400/20 bg-emerald-400/[.03]' : ''}`}>

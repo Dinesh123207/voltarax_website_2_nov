@@ -1,5 +1,12 @@
 # Decisions and audit limitations
 
+## 2026-11-02: Phase 8 public copy and clock
+
+- [FOUND] A fresh review found remaining material-conversion claims, conflicting locations, unverified person/role/affiliation content, automatic model-improvement promises and stale coming-soon descriptions. Public pages/metadata/footer/FAQ now describe implemented conditional software behavior and explicit unverified/planned limits. Team, institution, patent, client, location and legal-entity facts require proof/publication approval; private details are not republished as copy. Existing history/assets are preserved.
+- [ASSUMED] Public contact location and social profiles appear only from reviewed explicit optional environment values. HTTPS social links reject credential-bearing/non-HTTPS URLs. No registered city or official external profile is inferred from old source text. Navigation switches to its compact menu until desktop width so the added pricing link does not crowd tablets.
+- [FOUND] The IST clock initializes with identical server/client placeholder, ticks aligned to seconds, pauses when hidden, resumes immediately and removes listeners/timers. One controlled India-midnight/visibility/cleanup regression passed; narrow frontend lint/typecheck passed. This is a device-clock calculation, not time certification; browser E2E remains pending.
+- [FOUND] Read MIT licenses for downloaded next-intl/next-sitemap and installed next-intl. Official registry confirms next-intl 4.14.9 compatible with Next 15/React 18 and next-sitemap 4.2.3; exact install passed in 21.81 seconds. No source copied. English/Hindi routing/messages are the next task; multilingual completeness is not yet claimed.
+
 ## 2026-11-01: In-place mode change
 
 - [FOUND] Telemetry now uses `readings/{site}/{key}` and `sites/{site}/latest`, with paged timestamp-ordered compatibility reads from legacy history. Rows are deduplicated by device/timestamp, matching the sampling contract; partition values take precedence. The bridge dual-writes atomically; firmware writes the same deterministic device/time key on both paths. No live migration was run.

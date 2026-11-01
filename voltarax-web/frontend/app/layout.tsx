@@ -8,15 +8,15 @@ import ChatWidget from '@/components/chat/ChatWidget';
 
 export const metadata: Metadata = {
   title: {
-    default: 'Voltarax — AI-Integrated BioSolar Energy Platform',
+    default: 'Voltarax — Renewable Equipment Monitoring',
     template: '%s | Voltarax',
   },
   description:
     'Site telemetry, calculated health and current-condition energy estimates.',
   keywords: [
-    'biosolar', 'AI energy', 'solar panel management',
+    'solar telemetry', 'equipment monitoring', 'solar panel management',
     'VoltVision', 'Voltarax', 'sustainable energy India',
-    'IoT solar', 'predictive maintenance solar',
+    'IoT solar', 'maintenance records',
   ],
   authors:  [{ name: 'Voltarax' }],
   creator:  'Voltarax',
@@ -25,12 +25,12 @@ export const metadata: Metadata = {
     locale:      'en_IN',
     url:         'https://voltarax.in',
     siteName:    'Voltarax',
-    title:       'Voltarax — AI-Integrated BioSolar Energy Platform',
-    description: 'AI for bio-coated solar panels.',
+    title:       'Voltarax — Renewable Equipment Monitoring',
+    description: 'Site telemetry, dated inspections and current-condition estimates.',
   },
   twitter: {
     card:        'summary_large_image',
-    title:       'Voltarax — AI-Integrated BioSolar Energy Platform',
+    title:       'Voltarax — Renewable Equipment Monitoring',
     description: 'Solar monitoring and energy estimates.',
   },
 };

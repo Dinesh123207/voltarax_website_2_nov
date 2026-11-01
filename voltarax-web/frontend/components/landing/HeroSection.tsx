@@ -5,12 +5,12 @@ import { ChevronRight, ArrowDown, Zap, Leaf, Brain, Sun, Wind, Activity } from '
 import WindTurbineBackdrop from './WindTurbineBackdrop';
 
 const STATS = [
-  { value: 'Pilot', label: 'Deployment planned', icon: Zap },
+  { value: 'Setup', label: 'Configuration required', icon: Zap },
   { value: 'AI', label: 'Analysis under validation', icon: Brain },
   { value: 'IoT', label: 'Sensor telemetry', icon: Activity },
-  { value: 'Bio', label: 'Waste-derived coating', icon: Leaf },
+  { value: 'Records', label: 'Manual inspections', icon: Leaf },
 ];
-const PHRASES = ['BioSolar Intelligence.', 'Smarter Clean Energy.', 'AI for Renewable Power.', 'A Sustainable Future.'];
+const PHRASES = ['Site telemetry.', 'Current-condition estimates.', 'Recorded maintenance.', 'Renewable equipment data.'];
 
 function useTypewriter(phrases: string[], typeMs = 70, deleteMs = 40, holdMs = 1400) {
   const [text, setText] = useState('');
@@ -59,8 +59,8 @@ export default function HeroSection() {
               <span className="text-emerald-300 font-semibold">{typed}</span><span className="text-emerald-300 animate-pulse">|</span>
             </p>
             <p className="text-slate-400 text-base sm:text-lg max-w-2xl leading-relaxed mb-9">
-              Voltarax combines bio-fluorescent solar technology with AI-powered monitoring,
-              and estimates from sensor data. Camera inspection and automated control are planned.
+              View site readings, record inspections and track maintenance.
+              Estimates require suitable inputs. Hardware and service setup must be verified for each installation.
             </p>
 
             <div className="flex flex-col sm:flex-row gap-3 mb-12">
@@ -92,8 +92,8 @@ export default function HeroSection() {
 
       <div className="relative overflow-hidden border-y border-emerald-900/30 bg-[#07110b] py-3">
         <div className="flex animate-marquee whitespace-nowrap">
-          {['BIO-SOLAR INTELLIGENCE','AI MONITORING','PREDICTIVE MAINTENANCE','CLEAN ENERGY','CARBON ANALYTICS','RENEWABLE FUTURES',
-            'BIO-SOLAR INTELLIGENCE','AI MONITORING','PREDICTIVE MAINTENANCE','CLEAN ENERGY','CARBON ANALYTICS','RENEWABLE FUTURES'].map((x,i)=>(
+          {['SITE TELEMETRY','CURRENT ESTIMATES','SENSOR ALERTS','MANUAL INSPECTIONS','CARBON ESTIMATES','DATA QUALITY',
+            'SITE TELEMETRY','CURRENT ESTIMATES','SENSOR ALERTS','MANUAL INSPECTIONS','CARBON ESTIMATES','DATA QUALITY'].map((x,i)=>(
             <span key={i} className="text-[11px] tracking-[.2em] text-emerald-700 font-semibold mx-9">{x}</span>
           ))}
         </div>

@@ -8,9 +8,9 @@ type Msg = { id: number; role: 'user' | 'bot'; text: string; chips?: string[] };
 
 const QUESTIONS = ['What is VoltVision?', 'How does the coating work?', 'What can the AI do?'];
 const ANSWERS: Record<string, string> = {
-  'what is voltvision?': "VoltVision AI is Voltarax's renewable-energy intelligence platform for bio-coated solar panels. It displays site readings and calculated health when telemetry is available.",
-  'how does the coating work?': 'The bio-fluorescent coating is made from fruit-peel waste and is intended to convert UV light into visible light. Coating health monitoring is planned.',
-  'what can the ai do?': 'VoltVision supports site telemetry and rule-based analysis, with data-driven estimates when sufficient history is available. Camera inspection and automated controls are planned.',
+  'what is voltvision?': 'VoltVision is the Voltarax monitoring interface. It displays site readings, current-condition estimates, manual inspections and maintenance records when hardware and services are configured. Field calibration and reliability require separate verification.',
+  'how does the coating work?': 'Coating material performance and optical conversion are unverified. The software records dated manual area, condition, photo and note observations; these do not establish material chemistry or a numerical coating health score.',
+  'what can the ai do?': 'Current-condition models require suitable fresh inputs, sufficient history and candidate validation. Unusual patterns are estimates rather than confirmed faults. A configured camera supports snapshots and manual records; automatic vision classification, weather-ahead forecasting and autonomous dispatch remain unavailable.',
 };
 
 export default function ChatWidget() {

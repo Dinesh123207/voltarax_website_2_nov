@@ -10,10 +10,10 @@ export const metadata: Metadata = {
 };
 
 const PRODUCTS = [
-  { icon: LayoutDashboard, title: 'VoltVision dashboard', desc: 'Site-level telemetry, calculated health and estimated generation, with planned work orders and energy flow.' },
-  { icon: Sun,             title: 'Bio-coating solution',  desc: 'A fruit-peel-derived coating research project; field performance and coating monitoring require validation.' },
-  { icon: Bell,            title: 'Alerts and maintenance', desc: 'Site-level warnings are available; persistent work orders are coming soon.' },
-  { icon: Leaf,            title: 'Carbon reporting',      desc: 'Calculates an estimated CO₂ offset from available generation data; downloadable reports are coming soon.' },
+  { icon: LayoutDashboard, title: 'VoltVision dashboard', desc: 'Site readings, estimated current power, dated manual inspections and recorded maintenance, when services are configured.' },
+  { icon: Sun, title: 'Coating records', desc: 'Manual area/condition/photo records with visible categorical rules. Material performance and numerical coating scores are unverified.' },
+  { icon: Bell, title: 'Alerts and maintenance', desc: 'Persistent alert acknowledgement/resolution and work-order history require configured storage and authorized operators.' },
+  { icon: Leaf, title: 'Energy and carbon reporting', desc: 'Evidence-backed PDFs require sufficient real recorded-power coverage and a reviewed emission factor/source. Missing evidence blocks generation.' },
 ];
 
 export default function ProductsPage() {

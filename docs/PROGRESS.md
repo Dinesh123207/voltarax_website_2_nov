@@ -1,6 +1,6 @@
 # Autopilot progress
 
-RESUME HERE: Phase 8 — verify public claims/clock, then English-Hindi routing/messages, SEO/legal drafts, accessibility/performance and gate
+RESUME HERE: Phase 8 — next-intl English/Hindi routing/messages/switcher, then SEO/legal drafts, accessibility/font review and full gate
 
 Status key: [ ] todo; [~] in progress; [x] done and verified as stated; [!] skipped with a reason. A phase is done only after its full gate passes.
 
@@ -84,7 +84,9 @@ Status key: [ ] todo; [~] in progress; [x] done and verified as stated; [!] skip
 - [x] Local gate: 65 backend tests, 28 AI tests, full lint/typecheck and production build (48.66 s) passed. Production audits frontend 0/backend 8 moderate/no high-critical. Scan: 651 files/no matches; diff passed. Evidence: test-results/phase07-gate-*. Tag: phase-07-done. Browser/provider test checkout, real PostgreSQL and GST/legal/tax remain manual, never claimed complete.
 
 ## Phase 8 — public website
-- [ ] Current capability/content and metadata review, remove unsupported remaining claims; responsive navigation and IST header clock.
+- [x] Public copy/metadata/FAQ review removed unverified material-performance, personal-role/affiliation, location and automatic-improvement claims; current inspection/work-order/report limits updated. Social/contact details now optional configured public values. Responsive navigation avoids crowded tablet header; navigation labels/expansion state added.
+- [x] IST header clock uses an SSR-safe placeholder, aligned second ticks, visibility pause/resume and cleanup, aria-live off and Calculated marker. Actual India-midnight/pause/resume unit test passed; narrow copy/clock lint/typecheck passed. Browser hydration/accessibility remain E2E checks.
+- [x] next-intl 4.14.9 and next-sitemap 4.2.3 stable/MIT registry metadata verified, reference licenses read and exact install passed (21.81 s); no template/library source copied. Routing/messages integration is next.
 - [ ] next-intl English/Hindi routing/messages/switcher; preserve existing app/auth/hardware paths and localize public/core workflows.
 - [ ] Metadata, next-sitemap, Open Graph and Organization/Product structured data without invented business facts; indexing off until configured/reviewed.
 - [ ] Privacy/Terms/Refund drafts with current official India sources and explicit legal review; no invented retention/contact/seller tax facts.

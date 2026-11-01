@@ -1,0 +1,14 @@
+{
+  "command": [
+    "npm.cmd",
+    "view",
+    "next-intl",
+    "version",
+    "license",
+    "peerDependencies",
+    "--json"
+  ],
+  "cwd": "voltarax-web/frontend",
+  "exit_code": 0,
+  "seconds": 4.73
+}

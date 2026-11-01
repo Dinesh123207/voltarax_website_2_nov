@@ -1,5 +1,10 @@
 # Reference sources
 
+## Phase 8 localization/SEO preparation (2026-11-02)
+
+- Downloaded next-intl root LICENSE (MIT, Jan Amann) and next-sitemap root LICENSE (MIT, Vishnu Sankar) read before use. Official registry metadata saved for next-intl 4.14.9 (Next 15/React 18 supported) and next-sitemap 4.2.3; normal exact installation passed. Installed next-intl LICENSE also read; npm next-sitemap metadata states MIT and upstream reference retains the notice. No template/library source copied into product code.
+- Official integration references read: https://next-intl.dev/docs/routing/setup , https://next-intl.dev/docs/routing/navigation and https://next-intl.dev/docs/routing/configuration . Next 15 uses middleware.ts; examples in current docs may call it proxy.ts for Next 16. Routing/messages are not yet claimed integrated. Original public-copy corrections use actual implemented modules and deliberately omit unsupported business/material/people facts rather than invent evidence.
+
 Inspected archive root licenses and root package manifests on 2026-11-01. Classification is preliminary; inspect each project and nested license before adaptation. References are read-only and excluded from Git. Symlinks were omitted for safe extraction. No third-party source was copied into the application. Source snapshots may not identify a commit.
 
 | Archive in Downloads | Root version | Root license assessment | License path | Symlinks omitted |

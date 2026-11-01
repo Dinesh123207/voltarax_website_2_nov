@@ -7,11 +7,11 @@
  */
 const ENTRIES = [
   { id: 'what', kws: ['what', 'voltvision', 'platform', 'product', 'voltarax'],
-    a: "VoltVision AI is Voltarax's renewable-energy intelligence platform for bio-coated solar panels. It displays site readings and calculated health when telemetry is available." },
+    a: 'VoltVision is the Voltarax monitoring interface. It displays site readings, current-condition estimates, manual inspections and maintenance records when hardware and services are configured. Field calibration and reliability require separate verification.' },
   { id: 'coating', kws: ['coating', 'bio', 'fluorescent', 'peel', 'organic', 'waste'],
-    a: 'The bio-fluorescent coating is made from fruit-peel waste and is intended to convert UV light into visible light. Coating health monitoring is planned.' },
+    a: 'Coating material performance and optical conversion are unverified. The software records dated manual area, condition, photo and note observations; these do not establish material chemistry or a numerical coating health score.' },
   { id: 'ai', kws: ['ai', 'can do', 'capability', 'capabilities', 'feature'],
-    a: 'VoltVision supports site telemetry and rule-based analysis, with data-driven estimates when sufficient history is available. Camera inspection and automated controls are planned.' },
+    a: 'Current-condition models require suitable fresh inputs, sufficient history and candidate validation. Unusual patterns are estimates rather than confirmed faults. A configured camera supports snapshots and manual records; automatic vision classification, weather-ahead forecasting and autonomous dispatch remain unavailable.' },
 ];
 
 const STOP = new Set('a an the is are was were be been being of to in on for with and or how what who when where why does do can could would should i you it this that my our your please tell me about show give'.split(' '));

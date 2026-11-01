@@ -1,0 +1,20 @@
+{
+  "command": [
+    "npx.cmd",
+    "eslint",
+    "app/about",
+    "app/contact",
+    "app/products",
+    "app/technology",
+    "app/sustainability",
+    "app/dashboard/layout.tsx",
+    "app/layout.tsx",
+    "components/landing",
+    "components/ui",
+    "components/chat",
+    "lib/clock.ts"
+  ],
+  "cwd": "voltarax-web/frontend",
+  "exit_code": 0,
+  "seconds": 11.13
+}

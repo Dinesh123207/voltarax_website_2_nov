@@ -1,0 +1,13 @@
+{
+  "command": [
+    "npm.cmd",
+    "install",
+    "--save-exact",
+    "next-intl@4.14.9",
+    "next-sitemap@4.2.3",
+    "--ignore-scripts"
+  ],
+  "cwd": "voltarax-web/frontend",
+  "exit_code": 0,
+  "seconds": 21.81
+}

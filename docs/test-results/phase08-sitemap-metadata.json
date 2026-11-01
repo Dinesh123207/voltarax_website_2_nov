@@ -1,0 +1,13 @@
+{
+  "command": [
+    "npm.cmd",
+    "view",
+    "next-sitemap",
+    "version",
+    "license",
+    "--json"
+  ],
+  "cwd": "voltarax-web/frontend",
+  "exit_code": 0,
+  "seconds": 4.8
+}

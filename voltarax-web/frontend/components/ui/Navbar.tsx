@@ -51,7 +51,7 @@ export default function Navbar() {
             </Link>
 
             {/* Desktop links */}
-            <div className="hidden md:flex items-center gap-1">
+            <div className="hidden xl:flex items-center gap-1">
               {NAV_LINKS.map(link => (
                 <Link
                   key={link.href}
@@ -68,7 +68,7 @@ export default function Navbar() {
             </div>
 
             {/* CTA */}
-            <div className="hidden md:flex items-center gap-3">
+            <div className="hidden xl:flex items-center gap-3">
               <Link href="/dashboard" className="text-sm text-slate-400 hover:text-white transition-colors font-medium">
                 Dashboard
               </Link>
@@ -83,7 +83,9 @@ export default function Navbar() {
             {/* Mobile menu toggle */}
             <button
               onClick={() => setMenuOpen(!menuOpen)}
-              className="md:hidden p-2 text-slate-400 hover:text-white"
+              className="xl:hidden p-2 text-slate-400 hover:text-white"
+              aria-label={menuOpen ? 'Close navigation' : 'Open navigation'}
+              aria-expanded={menuOpen}
             >
               {menuOpen ? <X size={22} /> : <Menu size={22} />}
             </button>
@@ -93,7 +95,7 @@ export default function Navbar() {
 
       {/* Mobile menu */}
       {menuOpen && (
-        <div className="fixed inset-0 z-40 bg-[#0a0f0d]/98 backdrop-blur-xl pt-16 md:hidden">
+        <div className="fixed inset-0 z-40 bg-[#0a0f0d]/98 backdrop-blur-xl pt-16 xl:hidden">
           <div className="flex flex-col gap-1 p-4">
             {NAV_LINKS.map(link => (
               <Link
