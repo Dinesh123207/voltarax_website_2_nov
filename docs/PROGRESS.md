@@ -2,6 +2,8 @@
 
 RESUME HERE: Phase 8 — complete English/Hindi page/workflow messages and coverage audit, then SEO/legal drafts, accessibility/font review and full gate
 
+Current localization checkpoint: source wiring across 35 files passes lint/types; exact-source lookup boundary regression and real HTTP Hindi About render passed (29.03 s). Catalog: 971 source phrases, 69 Hindi entries, 902 still pending. Review queue: .local-tools/localization/pending.json. Use tools/merge-hindi.cjs for validated batches and tools/localize-ui.cjs for coverage. Chat/typewriter, dynamic templates and remaining layout/attribute text still need a final audit; do not mark multilingual complete yet.
+
 Status key: [ ] todo; [~] in progress; [x] done and verified as stated; [!] skipped with a reason. A phase is done only after its full gate passes.
 
 ## Phase 1 — stabilization (phase-01-stabilize)
@@ -89,6 +91,7 @@ Status key: [ ] todo; [~] in progress; [x] done and verified as stated; [!] skip
 - [x] next-intl 4.14.9 and next-sitemap 4.2.3 stable/MIT registry metadata verified, reference licenses read and exact install passed (21.81 s); no template/library source copied. Routing/messages integration is next.
 - [x] next-intl routing foundation: existing route tree moved in place under [locale], default English URLs preserved, Hindi /hi, locale preference/switcher, locale-aware navigation and document language/provider. API/health remain unprefixed. Seed navigation/quality/clock Hindi messages. Full lint and source typecheck passed; actual local HTTP smoke passed document languages, Hindi navigation, preference redirect, API/health proxy and Hindi Checkout CSP (65.33 s final rerun).
 - [~] Complete remaining English/Hindi page/workflow messages and coverage audit. Only foundation/navigation labels are translated so far; full multilingual content is NOT yet complete.
+- [x] Original AST copy wiring and reviewed Hindi About page: literal/system messages use next-intl context; source binding prevents hash-only substitution, numeric/boolean/object values remain intact, opaque keys/IDs and entered record fields are excluded. One boundary regression, full lint/source types and actual HTTP Hindi content check passed. Corrected JSX apostrophe entity handling. Remaining 902 phrases/templates/FAQ typing remain in progress.
 - [ ] Metadata, next-sitemap, Open Graph and Organization/Product structured data without invented business facts; indexing off until configured/reviewed.
 - [ ] Privacy/Terms/Refund drafts with current official India sources and explicit legal review; no invented retention/contact/seller tax facts.
 - [ ] Accessibility/360 px, form spam/performance checks and PDF Hindi/font coverage review; run actual checks and record any limits.

@@ -2,6 +2,8 @@ import Navbar from '@/components/ui/Navbar';
 import Footer from '@/components/ui/Footer';
 import { Brain, Eye, TrendingUp, ShieldAlert, Boxes, Cpu } from 'lucide-react';
 import type { Metadata } from 'next';
+import { useCopy } from '@/i18n/copy';
+
 
 export const metadata: Metadata = {
   title: 'Technology',
@@ -18,19 +20,19 @@ const MODULES = [
 ];
 
 export default function TechnologyPage() {
+  const copyText = useCopy();
   return (
     <>
       <Navbar />
       <main className="relative z-10 pt-28 pb-20">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-14">
-            <div className="section-tag mx-auto w-fit"><Cpu size={12} /> Technology</div>
+            <div className="section-tag mx-auto w-fit"><Cpu size={12} /> {copyText(" Technology")}</div>
             <h1 className="text-4xl sm:text-5xl font-black text-white mt-3 mb-4">
-              Software for <span className="gradient-text">equipment review</span>
+              {copyText("Software for")}<span className="gradient-text">{copyText("equipment review")}</span>
             </h1>
             <p className="text-slate-500 max-w-2xl mx-auto">
-              Site readings and manual records support review when hardware and services are configured. Individual-panel sensing and autonomous energy dispatch remain planned. Field performance is unverified.
-            </p>
+              {copyText("Site readings and manual records support review when hardware and services are configured. Individual-panel sensing and autonomous energy dispatch remain planned. Field performance is unverified.")}</p>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
             {MODULES.map(({ icon: Icon, title, desc }) => (
@@ -38,14 +40,13 @@ export default function TechnologyPage() {
                 <div className="w-10 h-10 rounded-lg bg-green-500/10 border border-green-500/20 flex items-center justify-center mb-4">
                   <Icon size={18} className="text-green-400" />
                 </div>
-                <h3 className="text-white font-semibold mb-2">{title}</h3>
-                <p className="text-slate-500 text-sm leading-relaxed">{desc}</p>
+                <h3 className="text-white font-semibold mb-2">{copyText(title)}</h3>
+                <p className="text-slate-500 text-sm leading-relaxed">{copyText(desc)}</p>
               </div>
             ))}
           </div>
           <p className="text-center text-slate-600 text-xs mt-10">
-            Technical detail is shared with partners on request. Public intellectual-property statements are under review.
-          </p>
+            {copyText("Technical detail is shared with partners on request. Public intellectual-property statements are under review.")}</p>
         </div>
       </main>
       <Footer />

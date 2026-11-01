@@ -1,0 +1,9 @@
+{
+  "command": [
+    "node",
+    "../../tools/localize-ui.cjs"
+  ],
+  "cwd": "voltarax-web/frontend",
+  "exit_code": 0,
+  "seconds": 0.91
+}

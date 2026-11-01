@@ -17,6 +17,7 @@ const NAV_LINKS = [
 ];
 
 export default function Navbar() {
+  const copyText = useCopy();
   const c = useCopy();
   const [scrolled,  setScrolled]  = useState(false);
   const [menuOpen,  setMenuOpen]  = useState(false);
@@ -46,7 +47,7 @@ export default function Navbar() {
                 <Zap size={16} className="text-black" />
               </div>
               <div>
-                <span className="font-bold text-white text-lg tracking-tight">Voltarax</span>
+                <span className="font-bold text-white text-lg tracking-tight">{copyText("Voltarax")}</span>
                 <div className="text-[10px] text-green-500 font-mono leading-none">
                   {c('Powering a Sustainable Future')}
                 </div>
@@ -91,7 +92,7 @@ export default function Navbar() {
               aria-label={c(menuOpen ? 'Close navigation' : 'Open navigation')}
               aria-expanded={menuOpen}
             >
-              {menuOpen ? <X size={22} /> : <Menu size={22} />}
+              {copyText(menuOpen ? <X size={22} /> : <Menu size={22} />)}
             </button>
           </div>
         </div>
@@ -118,12 +119,10 @@ export default function Navbar() {
             <div className="pt-4 mt-2 border-t border-green-900/30 flex flex-col gap-3">
               <Link href="/dashboard" onClick={() => setMenuOpen(false)}
                 className="px-4 py-3 text-center text-slate-300 hover:text-white rounded-xl hover:bg-white/5 font-medium">
-                Dashboard
-              </Link>
+                {copyText("Dashboard")}</Link>
               <Link href="/contact?type=demo" onClick={() => setMenuOpen(false)}
                 className="btn-green justify-center">
-                Request Demo
-              </Link>
+                {copyText("Request Demo")}</Link>
             </div>
           </div>
         </div>

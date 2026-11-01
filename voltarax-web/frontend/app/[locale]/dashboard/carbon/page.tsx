@@ -3,9 +3,12 @@ import { useEffect, useState } from 'react';
 import { Leaf, RefreshCw, ExternalLink, Globe, TrendingUp } from 'lucide-react';
 import DataQualityBadge from '@/components/ui/DataQualityBadge';
 import Reports from '@/components/operations/Reports';
+import { useCopy } from '@/i18n/copy';
+
 
 
 export default function CarbonPage() {
+  const copyText = useCopy();
   const [data,    setData]    = useState<any>(null);
   const [monthly, setMonthly] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
@@ -31,17 +34,16 @@ export default function CarbonPage() {
     <div className="space-y-6">
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-2xl font-bold text-white">Carbon Impact Analytics</h1>
-          <p className="text-slate-500 text-sm mt-0.5">Estimated from generation and the configured grid factor</p>
+          <h1 className="text-2xl font-bold text-white">{copyText("Carbon Impact Analytics")}</h1>
+          <p className="text-slate-500 text-sm mt-0.5">{copyText("Estimated from generation and the configured grid factor")}</p>
           <DataQualityBadge quality={data ? 'Estimated' : 'Unavailable'} />
         </div>
         <div className="flex gap-2">
           <a href={`/api/carbon`} target="_blank" rel="noopener noreferrer"
-            className="btn-outline py-2 px-3 text-xs"><ExternalLink size={12} /> API</a>
+            className="btn-outline py-2 px-3 text-xs"><ExternalLink size={12} /> {copyText(" API")}</a>
           <button onClick={load} disabled={loading}
             className="btn-green py-2 px-3 text-xs disabled:opacity-60">
-            <RefreshCw size={12} className={loading ? 'animate-spin' : ''} /> Refresh
-          </button>
+            <RefreshCw size={12} className={loading ? 'animate-spin' : ''} /> {copyText("Refresh")}</button>
         </div>
       </div>
 
@@ -56,15 +58,15 @@ export default function CarbonPage() {
           { label: 'Trees Equivalent',    value: data.trees_equivalent,  unit: '🌳', color: 'text-green-400' },
         ].map(k => (
           <div key={k.label} className="stat-card">
-            <div className="text-xs text-slate-500 mb-1">{k.label}</div>
+            <div className="text-xs text-slate-500 mb-1">{copyText(k.label)}</div>
             <div className={`text-2xl font-counter font-bold ${k.color}`}>
-              {k.value == null ? 'Unavailable' : k.value}<span className="text-sm text-slate-500 ml-1">{k.value == null ? '' : k.unit}</span>
+              {copyText(k.value == null ? 'Unavailable' : k.value)}<span className="text-sm text-slate-500 ml-1">{copyText(k.value == null ? '' : k.unit)}</span>
             </div>
           </div>
         )) : (
           <div className="col-span-4 ai-placeholder py-10">
             <Leaf size={28} className="text-green-500/30" />
-            <div className="text-slate-600 text-sm">Carbon data unavailable</div>
+            <div className="text-slate-600 text-sm">{copyText("Carbon data unavailable")}</div>
           </div>
         )}
       </div>
@@ -73,7 +75,7 @@ export default function CarbonPage() {
         {/* Monthly chart */}
         {monthly.length > 0 && (
           <div className="lg:col-span-2 stat-card">
-            <div className="text-sm font-semibold text-white mb-4">Monthly CO₂ Offset (kg)</div>
+            <div className="text-sm font-semibold text-white mb-4">{copyText("Monthly CO₂ Offset (kg)")}</div>
             <div className="flex items-end gap-2 h-36">
               {monthly.map((m: any, i: number) => {
                 const max = Math.max(...monthly.map((x: any) => x.co2_kg));
@@ -81,22 +83,21 @@ export default function CarbonPage() {
                 return (
                   <div key={i} className="flex-1 flex flex-col items-center gap-1 group relative">
                     <div className="absolute bottom-8 left-1/2 -translate-x-1/2 bg-[#111a14] border border-green-900/40 rounded px-2 py-1 text-[9px] text-green-400 opacity-0 group-hover:opacity-100 whitespace-nowrap z-10 font-mono">
-                      {m.co2_kg?.toFixed(1)} kg
-                    </div>
+                      {copyText(m.co2_kg?.toFixed(1))} {copyText("kg")}</div>
                     <div
                       className={`w-full rounded-t transition-all ${m.is_projected ? 'bg-blue-500/40 border border-blue-500/20 border-b-0' : 'bg-green-500/60'}`}
                       style={{ height: `${Math.max(pct, 4)}%` }}
                     />
                     <div className="text-[8px] text-slate-600 text-center leading-tight">
-                      {m.month?.split(' ')[0]}
+                      {copyText(m.month?.split(' ')[0])}
                     </div>
                   </div>
                 );
               })}
             </div>
             <div className="flex gap-4 mt-1 text-xs text-slate-600">
-              <span><span className="text-green-500">■</span> Actual</span>
-              <span><span className="text-blue-500">■</span> Projected</span>
+              <span><span className="text-green-500">■</span> {copyText(" Actual")}</span>
+              <span><span className="text-blue-500">■</span> {copyText(" Projected")}</span>
             </div>
           </div>
         )}
@@ -106,7 +107,7 @@ export default function CarbonPage() {
           <div className="stat-card flex flex-col gap-4">
             <div className="flex items-center gap-2">
               <Globe size={15} className="text-green-500" />
-              <div className="text-sm font-semibold text-white">Impact Summary</div>
+              <div className="text-sm font-semibold text-white">{copyText("Impact Summary")}</div>
             </div>
             <div className="space-y-3">
               {[
@@ -116,12 +117,12 @@ export default function CarbonPage() {
                 { label: 'Recorded Monthly kWh', value: data.month_kwh == null ? 'Unavailable' : `${data.month_kwh} kWh` },
               ].map(({ label, value }) => (
                 <div key={label} className="flex items-center justify-between py-1.5 border-b border-green-900/10 last:border-0">
-                  <div className="text-slate-400 text-sm">{label}</div>
-                  <div className="text-green-400 font-mono font-bold text-sm">{value}</div>
+                  <div className="text-slate-400 text-sm">{copyText(label)}</div>
+                  <div className="text-green-400 font-mono font-bold text-sm">{copyText(value)}</div>
                 </div>
               ))}
             </div>
-            <a href="#saved-reports" className="btn-green w-full justify-center py-2.5 text-sm mt-auto"><TrendingUp size={14} /> Review saved reports</a>
+            <a href="#saved-reports" className="btn-green w-full justify-center py-2.5 text-sm mt-auto"><TrendingUp size={14} /> {copyText(" Review saved reports")}</a>
           </div>
         )}
       </div>

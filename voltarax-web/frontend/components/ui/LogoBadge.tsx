@@ -1,5 +1,7 @@
 'use client';
 import { useState } from 'react';
+import { useCopy } from '@/i18n/copy';
+
 
 /**
  * Same idea as AvatarImage but for institution/client logos: shows
@@ -7,12 +9,13 @@ import { useState } from 'react';
  * logo is fabricated — this is a placeholder until the real file is added.
  */
 export default function LogoBadge({ src, name }: { src?: string; name: string }) {
+  const copyText = useCopy();
   const [failed, setFailed] = useState(false);
 
   if (!src || failed) {
     return (
       <div className="h-16 px-6 flex items-center justify-center rounded-xl border border-green-900/30 bg-[#111a14]">
-        <span className="text-slate-300 font-semibold tracking-wide text-sm sm:text-base">{name}</span>
+        <span className="text-slate-300 font-semibold tracking-wide text-sm sm:text-base">{copyText(name)}</span>
       </div>
     );
   }
@@ -22,7 +25,7 @@ export default function LogoBadge({ src, name }: { src?: string; name: string })
       {/* eslint-disable-next-line @next/next/no-img-element */}
       <img
         src={src}
-        alt={`${name} logo`}
+        alt={copyText(`${name} logo`)}
         onError={() => setFailed(true)}
         className="max-h-10 max-w-full object-contain"
       />

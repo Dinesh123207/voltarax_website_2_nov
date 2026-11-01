@@ -4,6 +4,8 @@
 
 ## Active roadmap
 
+Phase 8 localization wiring/first content group: 35 source files, boundary regression/lint/types and actual Hindi About HTTP render passed. 69 Hindi entries of 971 source phrases are present; 902 pending. Continue validated translation batches plus manual chat/typewriter/template/attribute audit before claiming completion, then SEO/legal/accessibility/font and full gate.
+
 Phase 8 routing foundation verified with actual local Next HTTP plus lint/source types: English/Hindi URLs/document language/navigation/preference, API/health bypass and localized Checkout CSP. Existing app moved in place, not rebuilt. Complete all page/workflow message translations and coverage next; SEO/legal/accessibility/font work and full phase gate remain pending.
 
 Phase 8 copy/clock task: remaining unsupported claims removed, public business facts left unconfirmed, conditional current features updated, responsive navigation/IST clock implemented. Clock test and narrow lint/typecheck passed. Verified MIT i18n/sitemap dependencies installed. Next task is routing and English/Hindi messages, then SEO/legal/accessibility and full gate.

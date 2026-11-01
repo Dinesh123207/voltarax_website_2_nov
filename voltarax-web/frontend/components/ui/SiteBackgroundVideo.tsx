@@ -1,5 +1,7 @@
 'use client';
 import { useState } from 'react';
+import { useCopy } from '@/i18n/copy';
+
 
 /**
  * Site-wide background video, sat behind everything else (ParticlesBg is
@@ -20,11 +22,12 @@ import { useState } from 'react';
  * the static overlay/background only, no autoplaying video.
  */
 export default function SiteBackgroundVideo() {
+  const copyText = useCopy();
   const [failed, setFailed] = useState(false);
 
   return (
     <div className="fixed inset-0 -z-10 overflow-hidden bg-[#0a0f0d]" aria-hidden="true">
-      {!failed && (
+      {copyText(!failed && (
         <video
           className="w-full h-full object-cover opacity-40 motion-reduce:hidden"
           autoPlay
@@ -37,7 +40,7 @@ export default function SiteBackgroundVideo() {
         >
           <source src="/media/renewable-bg.mp4" type="video/mp4" />
         </video>
-      )}
+      ))}
       {/* Dark translucent overlay — keeps the video from ever fighting with
           foreground text/contrast, and IS the whole background when no
           video file has been added yet. */}

@@ -1,4 +1,7 @@
+
+import { useCopy } from '@/i18n/copy';
 export default function DashboardLoading() {
+  const copyText = useCopy();
   return (
     <div className="space-y-6 animate-pulse">
       <div className="h-8 w-64 rounded bg-green-900/20" />

@@ -76,15 +76,16 @@ with log_path.open('w', encoding='utf-8') as log:
         _, hindi, _ = request('/hi')
         assert '<html lang="en"' in english and '<html lang="hi"' in hindi, 'Locale document language missing'
         assert 'मुख्य पृष्ठ' in hindi and 'उत्पाद' in hindi, 'Hindi navigation not rendered'
-        url, _, _ = request('/about', 'VOLTARAX_LOCALE=hi')
+        url, about, _ = request('/about', 'VOLTARAX_LOCALE=hi')
         assert '/hi/about' in url, 'Language preference was not preserved'
+        assert 'Voltarax के बारे में' in about and 'बौद्धिक संपदा' in about, 'Hindi page copy was not rendered'
         _, health, _ = request('/health')
         _, api, _ = request('/api/local-routing-probe')
         assert json.loads(health) == {'synthetic': True, 'path': '/health'}
         assert json.loads(api) == {'synthetic': True, 'path': '/api/local-routing-probe'}
         _, _, headers = request('/hi/account/orders/synthetic-routing-probe')
         assert 'checkout.razorpay.com' in headers.get('Content-Security-Policy', ''), 'Localized payment-page CSP missing'
-        result = {'english_and_hindi_document_languages': True, 'hindi_navigation': True, 'locale_preference_redirect': True,
+        result = {'english_and_hindi_document_languages': True, 'hindi_navigation': True, 'hindi_about_content': True, 'locale_preference_redirect': True,
                   'api_and_health_proxy_unprefixed': True, 'localized_checkout_header': True,
                   'backend': 'Owned loopback synthetic fixture only', 'browser_workflow': 'Not run by this HTTP smoke test'}
         (root / f'docs/test-results/{label}-fixture.json').write_text(json.dumps(result, indent=2) + '\n', encoding='utf-8')

@@ -3,6 +3,8 @@ import { useEffect, useState } from 'react';
 import { Link } from '@/i18n/navigation';
 import { ChevronRight, ArrowDown, Zap, Leaf, Brain, Sun, Wind, Activity } from 'lucide-react';
 import WindTurbineBackdrop from './WindTurbineBackdrop';
+import { useCopy } from '@/i18n/copy';
+
 
 const STATS = [
   { value: 'Setup', label: 'Configuration required', icon: Zap },
@@ -35,6 +37,7 @@ function useTypewriter(phrases: string[], typeMs = 70, deleteMs = 40, holdMs = 1
 }
 
 export default function HeroSection() {
+  const copyText = useCopy();
   const typed = useTypewriter(PHRASES);
   return (
     <>
@@ -47,45 +50,41 @@ export default function HeroSection() {
           <div className="max-w-3xl">
             <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-emerald-300/20 bg-emerald-300/5 text-emerald-200 text-xs font-semibold uppercase tracking-[.18em] mb-7">
               <Wind size={14} />
-              Renewable Energy · AI · Climate Tech
-            </div>
+              {copyText("Renewable Energy · AI · Climate Tech")}</div>
 
             <h1 className="text-5xl sm:text-6xl lg:text-8xl font-black text-white leading-[.94] tracking-[-.04em] mb-7">
-              Intelligence for<br />
-              <span className="gradient-text">clean energy.</span>
+              {copyText("Intelligence for")}<br />
+              <span className="gradient-text">{copyText("clean energy.")}</span>
             </h1>
 
             <p className="text-lg sm:text-xl text-slate-300 mb-3 max-w-2xl">
-              <span className="text-emerald-300 font-semibold">{typed}</span><span className="text-emerald-300 animate-pulse">|</span>
+              <span className="text-emerald-300 font-semibold">{copyText(typed)}</span><span className="text-emerald-300 animate-pulse">|</span>
             </p>
             <p className="text-slate-400 text-base sm:text-lg max-w-2xl leading-relaxed mb-9">
-              View site readings, record inspections and track maintenance.
-              Estimates require suitable inputs. Hardware and service setup must be verified for each installation.
-            </p>
+              {copyText("View site readings, record inspections and track maintenance. Estimates require suitable inputs. Hardware and service setup must be verified for each installation.")}</p>
 
             <div className="flex flex-col sm:flex-row gap-3 mb-12">
               <Link href="/products" className="btn-green text-base px-7 py-3.5">
-                Explore VoltVision <ChevronRight size={18} />
+                {copyText("Explore VoltVision")}<ChevronRight size={18} />
               </Link>
               <Link href="/contact?type=demo" className="btn-outline text-base px-7 py-3.5">
-                Request a Demo
-              </Link>
+                {copyText("Request a Demo")}</Link>
             </div>
 
             <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 max-w-3xl">
               {STATS.map(({ value, label, icon: Icon }) => (
                 <div key={label} className="hero-stat">
                   <Icon size={16} className="text-emerald-300 mb-3" />
-                  <div className="text-2xl font-bold text-white tracking-tight">{value}</div>
-                  <div className="text-xs text-slate-500 mt-1">{label}</div>
+                  <div className="text-2xl font-bold text-white tracking-tight">{copyText(value)}</div>
+                  <div className="text-xs text-slate-500 mt-1">{copyText(label)}</div>
                 </div>
               ))}
             </div>
           </div>
         </div>
 
-        <a href="#why" aria-label="Scroll to content" className="absolute bottom-7 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 text-slate-600 hover:text-emerald-300">
-          <span className="text-[10px] tracking-[.25em] uppercase">Discover</span>
+        <a href="#why" aria-label={copyText("Scroll to content")} className="absolute bottom-7 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 text-slate-600 hover:text-emerald-300">
+          <span className="text-[10px] tracking-[.25em] uppercase">{copyText("Discover")}</span>
           <ArrowDown size={15} />
         </a>
       </section>
@@ -94,7 +93,7 @@ export default function HeroSection() {
         <div className="flex animate-marquee whitespace-nowrap">
           {['SITE TELEMETRY','CURRENT ESTIMATES','SENSOR ALERTS','MANUAL INSPECTIONS','CARBON ESTIMATES','DATA QUALITY',
             'SITE TELEMETRY','CURRENT ESTIMATES','SENSOR ALERTS','MANUAL INSPECTIONS','CARBON ESTIMATES','DATA QUALITY'].map((x,i)=>(
-            <span key={i} className="text-[11px] tracking-[.2em] text-emerald-700 font-semibold mx-9">{x}</span>
+            <span key={i} className="text-[11px] tracking-[.2em] text-emerald-700 font-semibold mx-9">{copyText(x)}</span>
           ))}
         </div>
       </div>

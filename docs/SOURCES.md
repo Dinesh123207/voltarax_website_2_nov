@@ -2,6 +2,8 @@
 
 ## Phase 8 localization/SEO preparation (2026-11-02)
 
+- Original copy extraction/wiring/merge helpers use the already installed TypeScript compiler API (installed LICENSE.txt checked: Apache-2.0); no compiler source copied. Translation text is original, reviewed against current English copy, and does not create scientific/business facts. Exact source binding and opaque/nonstring preservation are tested. Hindi linguistic/legal review remains an operator task; the catalog is currently partial, as tracked in PROGRESS.md.
+
 - Routing foundation now implemented and actual local HTTP tested. Existing next-intl API/docs were used with original configuration and a literal-copy lookup through its message context; no library/template source copied. English/Hindi seed navigation is not a claim of completed whole-app translation. Own source navigation update helper confines writes to existing app/components.
 - Local loopback rewrite behavior investigated with actual diagnostics and upstream reports https://github.com/amannn/next-intl/issues/524 and https://github.com/vercel/next.js/issues/48230 . Our localhost binding/origin retry passed; this is an observed local setup issue, not proof of behavior on every proxy/version. Product middleware remained standard; temporary diagnostics removed before final rerun.
 

@@ -30,6 +30,7 @@ const NAV = [
 ];
 
 export default function DashboardLayout({ children }: { children: React.ReactNode }) {
+  const copyText = useCopy();
   const c = useCopy();
   const pathname   = usePathname();
   const router     = useRouter();
@@ -68,7 +69,7 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
     <div className="min-h-screen bg-[#0a0f0d] flex">
 
       {/* Sidebar */}
-      {sessionMessage && <p role="alert" className="fixed bottom-2 right-2 z-50 bg-slate-900 p-3 text-white">{sessionMessage}</p>}
+      {copyText(sessionMessage && <p role="alert" className="fixed bottom-2 right-2 z-50 bg-slate-900 p-3 text-white">{copyText(sessionMessage)}</p>)}
       <aside className={`fixed inset-y-0 left-0 z-40 w-60 bg-[#111a14] border-r border-green-900/20 flex flex-col transition-transform duration-300 ${
         sideOpen ? 'translate-x-0' : '-translate-x-full'
       } lg:translate-x-0`}>
@@ -79,8 +80,8 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
             <Zap size={14} className="text-black" />
           </div>
           <div>
-            <div className="font-bold text-white text-sm">Voltarax Solar Intelligence</div>
-            <div className="text-[9px] text-green-600 font-mono leading-none">Site monitoring</div>
+            <div className="font-bold text-white text-sm">{copyText("Voltarax Solar Intelligence")}</div>
+            <div className="text-[9px] text-green-600 font-mono leading-none">{copyText("Site monitoring")}</div>
           </div>
         </div>
 
@@ -95,7 +96,7 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
             >
               <Icon size={15} />
               <span>{c(label)}</span>
-              {pathname === href && <ChevronRight size={13} className="ml-auto text-green-500" />}
+              {copyText(pathname === href && <ChevronRight size={13} className="ml-auto text-green-500" />)}
             </Link>
           ))}
         </nav>
@@ -109,7 +110,7 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
             </div>
             <div className="flex-1 min-w-0">
               <div className="text-white text-xs font-semibold truncate">{user?.name || 'Account'}</div>
-              <div className="text-slate-500 text-[10px] truncate">{user?.role || 'Unavailable'}</div>
+              <div className="text-slate-500 text-[10px] truncate">{copyText(user?.role || 'Unavailable')}</div>
             </div>
             <button onClick={logout} className="p-1.5 text-slate-500 hover:text-red-400 transition-colors rounded">
               <LogOut size={14} />
@@ -119,12 +120,12 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
       </aside>
 
       {/* Sidebar overlay (mobile) */}
-      {sideOpen && (
+      {copyText(sideOpen && (
         <div
           className="fixed inset-0 z-30 bg-black/60 lg:hidden"
           onClick={() => setSideOpen(false)}
         />
-      )}
+      ))}
 
       {/* Main */}
       <div className="flex-1 lg:ml-60 flex flex-col min-h-screen">
@@ -137,12 +138,12 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
             aria-expanded={sideOpen}
             className="lg:hidden p-1.5 text-slate-400 hover:text-white"
           >
-            {sideOpen ? <X size={20} /> : <Menu size={20} />}
+            {copyText(sideOpen ? <X size={20} /> : <Menu size={20} />)}
           </button>
 
           {/* Breadcrumb */}
           <div className="text-slate-400 text-sm hidden sm:flex items-center gap-1">
-            <Link href="/" className="hover:text-green-400 transition-colors">Voltarax</Link>
+            <Link href="/" className="hover:text-green-400 transition-colors">{copyText("Voltarax")}</Link>
             <ChevronRight size={13} />
             <span className="text-white">
               {c(NAV.find(n => n.href === pathname)?.label || 'Dashboard')}
@@ -152,7 +153,7 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
           <div className="ml-auto flex items-center gap-3">
             <ISTClock />
             <div className="hidden md:flex items-center gap-2 text-xs text-green-600 font-mono">
-              {testMode && <span className="text-amber-300">{c('Test data')}</span>}
+              {copyText(testMode && <span className="text-amber-300">{c('Test data')}</span>)}
               {c('Dashboard')}
             </div>
           </div>
@@ -164,7 +165,7 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
             <span>{c('Section data:')}</span><DataQualityBadge quality={sectionQuality} />
             <span>{c('Individual readings are labelled where their quality differs. Missing data is unavailable.')}</span>
           </div>
-          {siteAccess || pathname === '/dashboard/settings' ? children : <p role="status" className="stat-card text-slate-300">Site data is Unavailable. Ask an administrator to assign access to this site. You can still manage your password in Settings.</p>}
+          {copyText(siteAccess || pathname === '/dashboard/settings' ? children : <p role="status" className="stat-card text-slate-300">{copyText("Site data is Unavailable. Ask an administrator to assign access to this site. You can still manage your password in Settings.")}</p>)}
         </main>
       </div>
     </div>

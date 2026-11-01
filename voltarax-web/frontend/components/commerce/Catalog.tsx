@@ -4,7 +4,10 @@ import { Link } from '@/i18n/navigation';
 import { api, inr } from '@/lib/commerce';
 import type { Plan, Order } from '@/lib/commerce';
 import DataQualityBadge from '@/components/ui/DataQualityBadge';
+import { useCopy } from '@/i18n/copy';
+
 export default function Catalog() {
+  const copyText = useCopy();
   const [plans, setPlans] = useState<Plan[]>([]), [enabled, setEnabled] = useState(false), [loaded, setLoaded] = useState(false);
   const [message, setMessage] = useState('Loading plans…'), [error, setError] = useState(''), [busy, setBusy] = useState(false);
   useEffect(() => {
@@ -32,19 +35,19 @@ export default function Catalog() {
     finally { setBusy(false); }
   };
   return <div className="space-y-6">
-    <h1 className="text-3xl font-bold text-white">Plans and pricing</h1>
-    <p className="text-amber-300">Test mode only · one-time purchases · no recurring billing or real funds.</p>
+    <h1 className="text-3xl font-bold text-white">{copyText("Plans and pricing")}</h1>
+    <p className="text-amber-300">{copyText("Test mode only · one-time purchases · no recurring billing or real funds.")}</p>
     <DataQualityBadge quality={loaded ? 'Calculated' : 'Unavailable'} />
-    <p className="text-slate-300">{message}</p>
-    {error && <p role="alert" className="text-red-300">{error}</p>}
-    <Link href="/account/orders" className="text-green-300 underline">My test orders</Link>
-    {loaded && !plans.length && <p className="stat-card">Plans are coming soon. No products or prices have been published.</p>}
+    <p className="text-slate-300">{copyText(message)}</p>
+    {copyText(error && <p role="alert" className="text-red-300">{copyText(error)}</p>)}
+    <Link href="/account/orders" className="text-green-300 underline">{copyText("My test orders")}</Link>
+    {copyText(loaded && !plans.length && <p className="stat-card">{copyText("Plans are coming soon. No products or prices have been published.")}</p>)}
     <div className="grid gap-5 md:grid-cols-2">{plans.map(plan => <section key={plan.id} className="stat-card space-y-4">
       <h2 className="text-xl font-semibold text-white">{plan.name}</h2><p className="text-slate-300 whitespace-pre-wrap">{plan.description}</p>
-      <p className="text-2xl text-green-300">{inr(plan.pricePaise)}</p><DataQualityBadge quality={plan.pricePaise == null ? 'Unavailable' : 'Calculated'} />
-      <p className="text-sm text-slate-400">One-time purchase. Payment does not automatically grant site access or establish delivery.</p>
-      <button disabled={!enabled || plan.pricePaise == null || busy} onClick={() => void purchase(plan)} className="btn-green disabled:opacity-50">{plan.pricePaise == null ? 'Checkout blocked: price unset' : 'Review test order'}</button>
+      <p className="text-2xl text-green-300">{copyText(inr(plan.pricePaise))}</p><DataQualityBadge quality={plan.pricePaise == null ? 'Unavailable' : 'Calculated'} />
+      <p className="text-sm text-slate-400">{copyText("One-time purchase. Payment does not automatically grant site access or establish delivery.")}</p>
+      <button disabled={!enabled || plan.pricePaise == null || busy} onClick={() => void purchase(plan)} className="btn-green disabled:opacity-50">{copyText(plan.pricePaise == null ? 'Checkout blocked: price unset' : 'Review test order')}</button>
     </section>)}</div>
-    <p className="text-sm text-slate-400">GST invoicing is unavailable. A test receipt is issued only after a verified captured-payment webhook. Review the plan and price before continuing.</p>
+    <p className="text-sm text-slate-400">{copyText("GST invoicing is unavailable. A test receipt is issued only after a verified captured-payment webhook. Review the plan and price before continuing.")}</p>
   </div>;
 }

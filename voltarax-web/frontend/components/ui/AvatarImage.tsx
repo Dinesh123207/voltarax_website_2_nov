@@ -1,5 +1,7 @@
 'use client';
 import { useState } from 'react';
+import { useCopy } from '@/i18n/copy';
+
 
 /**
  * Renders /public<src> if it loads; otherwise falls back to the gradient
@@ -15,6 +17,7 @@ export default function AvatarImage({
   colorClass: string;
   size?: number;
 }) {
+  const copyText = useCopy();
   const [failed, setFailed] = useState(false);
 
   if (!src || failed) {
@@ -23,7 +26,7 @@ export default function AvatarImage({
         className={`rounded-2xl bg-gradient-to-br ${colorClass} flex items-center justify-center mx-auto mb-4 text-white text-2xl font-black shadow-lg group-hover:scale-105 transition-transform`}
         style={{ width: size, height: size }}
       >
-        {initial}
+        {copyText(initial)}
       </div>
     );
   }
@@ -35,7 +38,7 @@ export default function AvatarImage({
     // eslint-disable-next-line @next/next/no-img-element
     <img
       src={src}
-      alt={alt}
+      alt={copyText(alt)}
       width={size}
       height={size}
       onError={() => setFailed(true)}
