@@ -55,6 +55,10 @@ async function dashboard() {
     panel_temp_avg_c: qualityOf(result.panel_temp_avg_c, QUALITY.MEASURED),
     co2_offset_today_kg: qualityOf(result.co2_offset_today_kg, QUALITY.ESTIMATED),
     active_alerts: qualityOf(result.active_alerts, QUALITY.CALCULATED),
+    panels_optimal: qualityOf(result.panels_optimal, QUALITY.ESTIMATED),
+    panels_warning: qualityOf(result.panels_warning, QUALITY.ESTIMATED),
+    panels_critical: qualityOf(result.panels_critical, QUALITY.ESTIMATED),
+    panels_offline: qualityOf(result.panels_offline, QUALITY.ESTIMATED),
   };
   return result;
 }
@@ -64,7 +68,7 @@ async function panels() {
   const count = Number(process.env.SOLAR_PANEL_COUNT || 32);
   const age = reading ? (Date.now() - Number(reading.ts || 0) * 1000) / 1000 : Infinity;
   const status = age > 60 ? 'offline' : !analysis || analysis.status === 'UNAVAILABLE' ? 'unknown' : analysis.status === 'FAULT' ? 'critical' : analysis.status === 'WARNING' ? 'warning' : 'optimal';
-  const perPanelPower = reading ? n(reading.power_mw) / 1000 / count : null;
+  const perPanelPower = reading?.power_mw != null ? n(reading.power_mw) / 1000 / count : null;
   return Array.from({ length: count }, (_, i) => {
     const row = String.fromCharCode(65 + Math.floor(i / 8));
     const col = (i % 8) + 1;

@@ -57,7 +57,7 @@ export default function CarbonPage() {
           <div key={k.label} className="stat-card">
             <div className="text-xs text-slate-500 mb-1">{k.label}</div>
             <div className={`text-2xl font-counter font-bold ${k.color}`}>
-              {k.value}<span className="text-sm text-slate-500 ml-1">{k.unit}</span>
+              {k.value == null ? 'Unavailable' : k.value}<span className="text-sm text-slate-500 ml-1">{k.value == null ? '' : k.unit}</span>
             </div>
           </div>
         )) : (
@@ -110,7 +110,7 @@ export default function CarbonPage() {
             <div className="space-y-3">
               {[
                 { label: 'Today Generation',  value: `${data.today_kwh} kWh` },
-                { label: 'Grid Saved (Year)', value: `₹${data.grid_saved_inr?.toLocaleString()}` },
+                { label: 'Grid Saved (Year)', value: data.grid_saved_inr == null ? 'Unavailable' : `₹${data.grid_saved_inr.toLocaleString('en-IN')}` },
                 { label: 'Emission Factor',   value: `${data.emission_factor} kg/kWh` },
                 { label: 'Monthly kWh',       value: `${data.month_kwh} kWh` },
               ].map(({ label, value }) => (

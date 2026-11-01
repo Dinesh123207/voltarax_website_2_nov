@@ -48,7 +48,7 @@ export default function SettingsPage() {
           </div>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
             {[
-              { label: 'Name',      value: user.name || user.full_name || '—' },
+              { label: 'Name',      value: user.name || user.full_name || 'Unavailable' },
               { label: 'Email',     value: user.email },
               { label: 'Role',      value: user.role },
               { label: 'Token',     value: localStorage.getItem('vv_token')?.slice(0,20) + '…' },

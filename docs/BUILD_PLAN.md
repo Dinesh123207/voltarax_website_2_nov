@@ -17,7 +17,9 @@
 
 Preserve Firebase and hardware data, use real measurements or clear unavailable states, and proceed continuously through phases under the user's autopilot instruction. Detailed task and gate status lives in `PROGRESS.md`.
 
-### Phase 1 status
+### Phase 1 status (superseded detail below)
+
+The Phase 1 local gate passed on 2026-11-01: 15 backend tests, 9 Python tests, frontend lint/typecheck/build, final secret scan, and production dependency audits. Bounded site-aware telemetry, compatibility writers, offline migration, quality metadata and truthful copy are implemented. Hardware compilation/live Firebase checks require manual verification and are explicitly skipped, not claimed passed. See PROGRESS.md and test-results/ for current evidence. Earlier in-progress text below is retained only as historical context.
 
 In progress. A local baseline and phase branch exist. Source text files have been read in chunks and inventoried. Admin enforcement, IST energy calculations, selected honesty fixes, firmware secret separation, and indexed Firebase filters have been implemented. Remaining acceptance work includes a complete claims and route audit, consistently bounded queries without losing site-filter semantics, complete measured/estimated/calculated/unavailable labels, test coverage of the remaining behavior, and firmware/Firebase integration verification. See `DECISIONS.md` for limits. Do not treat Phase 1 as complete while those items remain open.
 

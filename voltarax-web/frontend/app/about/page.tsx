@@ -6,7 +6,7 @@ import LogoBadge from '@/components/ui/LogoBadge';
 import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: 'About — Voltarax Private Limited',
+  title: 'About — Voltarax',
   description: 'Learn about Voltarax — the team behind AI for bio-coated solar panels, our research and our mission for sustainable energy.',
 };
 
@@ -58,7 +58,7 @@ export default function AboutPage() {
               <span className="gradient-text">Sustainable Future</span>
             </h1>
             <p className="text-lg text-slate-400 leading-relaxed">
-              Voltarax Private Limited is a deeptech startup from Delhi, India —
+              Voltarax is a deeptech startup from Delhi, India —
               building AI-integrated BioSolar energy management systems.
               developing a monitoring platform for renewable-energy applications.
             </p>
@@ -89,7 +89,7 @@ export default function AboutPage() {
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center mb-12">
               <div className="section-tag mx-auto w-fit"><Users size={12} /> Core Team</div>
-              <h2 className="text-3xl font-bold text-white mt-2">The Inventors</h2>
+              <h2 className="text-3xl font-bold text-white mt-2">The Team</h2>
               <p className="text-slate-500 mt-2">The team working on Voltarax</p>
             </div>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-4xl mx-auto">

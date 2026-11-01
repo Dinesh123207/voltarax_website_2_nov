@@ -20,7 +20,7 @@ router.post('/contact', [
       ...req.body,
       ip: req.ip,
     });
-    res.status(201).json({ success: true, message: 'Message received. We\'ll respond within 24 hours.' });
+    res.status(201).json({ success: true, message: 'Your inquiry has been recorded for review.' });
   } catch (err) {
     res.status(500).json({ success: false, message: 'Server error.' });
   }
@@ -37,7 +37,7 @@ router.post('/demo', [
 
   try {
     await DemoRequest.create(req.body);
-    res.status(201).json({ success: true, message: 'Demo request received! We\'ll schedule within 48 hours.' });
+    res.status(201).json({ success: true, message: 'Your demo request has been recorded for review.' });
   } catch (err) {
     res.status(500).json({ success: false, message: 'Server error.' });
   }

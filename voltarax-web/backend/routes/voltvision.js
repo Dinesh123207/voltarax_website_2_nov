@@ -46,19 +46,19 @@ router.get('/forecast', protect, async (req, res) => {
         forecast_6h_kwh: Number((kw * 6).toFixed(3)),
         forecast_24h_kwh: Number((kw * 8).toFixed(3)),
         forecast_7d_kwh: Number((kw * 8 * 7).toFixed(3)),
-        confidence: [0.5, 0.4, 0.3, 0.2],
-        dataQuality: 'estimated', confidence_type: 'fixed assumptions', horizon_note: 'Estimate from current conditions, not a weather-ahead forecast',
+        confidence: null,
+        dataQuality: 'estimated', confidence_type: 'Unavailable: no validated confidence interval', horizon_note: 'Estimate from current conditions, not a weather-ahead forecast',
         model_version: 'ai-engine:forecast_gbr',
         model_metadata: ai.model_metadata,
         generated_at: new Date(ai.updated_at * 1000).toISOString(),
-        recommendation: 'AI forecast active, trained on hardware history.',
+        recommendation: 'Current-condition estimator trained on hardware history.',
       });
     }
     const rows = await SolarTelemetry.find({ site_id: SITE_ID }).sort({ ts: -1 }).limit(60).lean();
-    const daylight = rows.filter(r => Number(r.light_lux) > 2000);
+    const daylight = rows.filter(r => Number(r.light_lux) > 2000 && r.power_mw != null && Number.isFinite(Number(r.power_mw)));
     if (!daylight.length) return res.json({ success: false, dataQuality: 'unavailable', message: 'Not enough daylight telemetry for an estimate.' });
     const avgKw = daylight.length ? daylight.reduce((s, r) => s + Number(r.power_mw || 0), 0) / daylight.length / 1e6 : 0;
-    res.json({ forecast_1h_kw: Number(avgKw.toFixed(3)), forecast_6h_kwh: Number((avgKw * 6).toFixed(3)), forecast_24h_kwh: Number((avgKw * 8).toFixed(3)), forecast_7d_kwh: Number((avgKw * 8 * 7).toFixed(3)), confidence: [0.35,0.3,0.25,0.2], dataQuality:'estimated', confidence_type:'fixed assumptions', horizon_note:'Estimate from current conditions, not a weather-ahead forecast', model_version: 'baseline-live-average', generated_at: new Date().toISOString(), recommendation: 'Baseline estimate based on recent daylight readings.' });
+    res.json({ forecast_1h_kw: Number(avgKw.toFixed(3)), forecast_6h_kwh: Number((avgKw * 6).toFixed(3)), forecast_24h_kwh: Number((avgKw * 8).toFixed(3)), forecast_7d_kwh: Number((avgKw * 8 * 7).toFixed(3)), confidence: null, dataQuality:'estimated', confidence_type:'Unavailable: no validated confidence interval', horizon_note:'Estimate from current conditions, not a weather-ahead forecast', model_version: 'baseline-live-average', generated_at: new Date().toISOString(), recommendation: 'Baseline estimate based on recent daylight readings.' });
   } catch (err) { res.status(500).json({ success: false, message: 'Forecast unavailable.' }); }
 });
 
@@ -83,7 +83,7 @@ router.get('/forecast/hourly', protect, async (req, res) => {
   try {
     const rows = await SolarTelemetry.find({ site_id: SITE_ID }).sort({ ts: -1 }).limit(120).lean();
     const byHour = {};
-    for (const r of rows) { const h = new Date(Number(r.ts) * 1000).getHours(); byHour[h] = byHour[h] || []; byHour[h].push(Number(r.power_mw || 0) / 1e6); }
+    for (const r of rows) { if (r.power_mw == null || !Number.isFinite(Number(r.power_mw))) continue; const h = Number(new Intl.DateTimeFormat('en-GB', { hour: '2-digit', hourCycle: 'h23', timeZone: 'Asia/Kolkata' }).format(new Date(Number(r.ts) * 1000))); byHour[h] = byHour[h] || []; byHour[h].push(Number(r.power_mw) / 1e6); }
     const hourly = Object.entries(byHour).sort((a,b) => Number(a[0])-Number(b[0])).map(([hour, vals]) => ({ hour: `${String(hour).padStart(2,'0')}:00`, kw: Number((vals.reduce((a,b)=>a+b,0)/vals.length).toFixed(3)) }));
     res.json(hourly);
   } catch (err) { res.status(500).json({ success: false, message: 'Forecast history unavailable.' }); }
@@ -92,7 +92,7 @@ router.get('/forecast/hourly', protect, async (req, res) => {
 router.get('/bfci', protect, async (req, res) => res.json([]));
 router.get('/bfci/shap/:id', protect, async (req, res) => res.json({ shap: {}, dataQuality: 'unavailable' }));
 router.get('/cv', protect, async (req, res) => res.json([]));
-router.get('/cv/summary', protect, async (req, res) => res.json({ total_panels: 0, counts: { clean: 0, dusty: 0, cracked: 0, bio_degraded: 0 }, note: 'Connect ESP32-CAM / CV pipeline to populate inspections.' }));
+router.get('/cv/summary', protect, async (req, res) => res.json({ total_panels: null, counts: { clean: null, dusty: null, cracked: null, bio_degraded: null }, dataQuality: 'Unavailable', note: 'Connect ESP32-CAM / CV pipeline to populate inspections.' }));
 router.post('/cv/scan', protect, requireOperator, async (req, res) => res.status(501).json({ success: false, message: 'Camera/CV pipeline is not connected yet.' }));
 
 router.get('/relay', protect, async (req, res) => res.json({ battery_on: null, load_on: null, grid_export: null, spare_on: null, reason: 'Relay hardware not connected', commanded_by: 'system', commanded_at: null, source: 'not-connected' }));
@@ -108,7 +108,9 @@ router.get('/carbon', protect, async (req, res) => {
     const todayKwh = integrateKwh(rows, starts.day, now);
     const monthKwh = integrateKwh(rows, starts.month, now);
     const yearKwh = integrateKwh(rows, starts.year, now);
-    res.json({ today_kwh:Number(todayKwh.toFixed(3)), month_kwh:Number(monthKwh.toFixed(3)), today_co2_kg:Number((todayKwh*factor).toFixed(3)), month_co2_kg:Number((monthKwh*factor).toFixed(3)), year_co2_kg:Number((yearKwh*factor).toFixed(3)), trees_equivalent:Number((yearKwh*factor/21).toFixed(2)), grid_saved_inr:Number((yearKwh*8).toFixed(0)), emission_factor:factor, dataQuality:'calculated' });
+    const treeFactor = Number(process.env.TREE_CO2_KG_PER_YEAR);
+    const tariff = Number(process.env.GRID_TARIFF_INR_PER_KWH);
+    res.json({ today_kwh:Number(todayKwh.toFixed(3)), month_kwh:Number(monthKwh.toFixed(3)), today_co2_kg:Number((todayKwh*factor).toFixed(3)), month_co2_kg:Number((monthKwh*factor).toFixed(3)), year_co2_kg:Number((yearKwh*factor).toFixed(3)), trees_equivalent:Number.isFinite(treeFactor) && treeFactor > 0 ? Number((yearKwh*factor/treeFactor).toFixed(2)) : null, grid_saved_inr:Number.isFinite(tariff) && tariff > 0 ? Number((yearKwh*tariff).toFixed(0)) : null, emission_factor:factor, emission_factor_source:process.env.GRID_EMISSION_FACTOR_SOURCE || 'Unverified configured assumption', tariff_inr_per_kwh:Number.isFinite(tariff) && tariff > 0 ? tariff : null, tree_co2_kg_per_year:Number.isFinite(treeFactor) && treeFactor > 0 ? treeFactor : null, dataQuality:'Estimated' });
   } catch (err) { res.status(500).json({ success:false,message:'Carbon analytics unavailable.'}); }
 });
 router.get('/carbon/monthly', protect, async (req,res)=>res.json({ months: [] }));

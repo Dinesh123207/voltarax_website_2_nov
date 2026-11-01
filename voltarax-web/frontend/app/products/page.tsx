@@ -6,12 +6,12 @@ import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
   title: 'Products',
-  description: 'VoltVision AI — the monitoring and optimisation platform for bio-coated solar panels.',
+  description: 'VoltVision site monitoring and energy estimates, with further capabilities under development.',
 };
 
 const PRODUCTS = [
   { icon: LayoutDashboard, title: 'VoltVision dashboard', desc: 'Site-level telemetry, calculated health and estimated generation, with planned work orders and energy flow.' },
-  { icon: Sun,             title: 'Bio-coating solution',  desc: 'A fruit-peel-waste fluorescent coating that turns UV light into usable visible light, with coating monitoring planned.' },
+  { icon: Sun,             title: 'Bio-coating solution',  desc: 'A fruit-peel-derived coating research project; field performance and coating monitoring require validation.' },
   { icon: Bell,            title: 'Alerts and maintenance', desc: 'Site-level warnings are available; persistent work orders are coming soon.' },
   { icon: Leaf,            title: 'Carbon reporting',      desc: 'Calculates an estimated CO₂ offset from available generation data; downloadable reports are coming soon.' },
 ];
@@ -27,7 +27,7 @@ export default function ProductsPage() {
             <h1 className="text-4xl sm:text-5xl font-black text-white mt-3 mb-4">
               The <span className="gradient-text">VoltVision</span> platform
             </h1>
-            <p className="text-slate-500 max-w-2xl mx-auto">Everything needed to run a bio-coated solar installation intelligently.</p>
+            <p className="text-slate-500 max-w-2xl mx-auto">Site monitoring and estimates, with planned capabilities identified below.</p>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
             {PRODUCTS.map(({ icon: Icon, title, desc }) => (

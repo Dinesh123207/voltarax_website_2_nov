@@ -39,7 +39,7 @@ export default function Footer() {
             </Link>
             <p className="text-slate-400 text-sm leading-relaxed max-w-xs mb-4">
               AI for bio-coated solar panels.
-              Monitoring, forecasting and smarter energy use.
+              Site telemetry and current-condition estimates.
             </p>
 
             {/* Contact info */}
@@ -102,11 +102,11 @@ export default function Footer() {
         {/* Bottom bar */}
         <div className="border-t border-green-900/20 pt-4 flex flex-col sm:flex-row items-center justify-between gap-3">
           <p className="text-slate-500 text-xs">
-            © {new Date().getFullYear()} Voltarax Private Limited. All rights reserved.
+            © {new Date().getFullYear()} Voltarax. All rights reserved.
           </p>
           <div className="flex items-center gap-4">
             <span className="text-xs text-green-600 font-mono">
-              Patent-pending technology
+              Solar monitoring under development
             </span>
             <span className="text-slate-600 text-xs">·</span>
           </div>

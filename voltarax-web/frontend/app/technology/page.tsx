@@ -5,7 +5,7 @@ import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
   title: 'Technology',
-  description: 'How VoltVision AI monitors, predicts and optimises bio-coated solar panels.',
+  description: 'Site monitoring, current-condition estimates and planned features for bio-coated solar panels.',
 };
 
 const MODULES = [
@@ -44,7 +44,7 @@ export default function TechnologyPage() {
             ))}
           </div>
           <p className="text-center text-slate-600 text-xs mt-10">
-            Technical detail is shared with partners on request. Aspects of the technology are patent-pending.
+            Technical detail is shared with partners on request. Public intellectual-property statements are under review.
           </p>
         </div>
       </main>

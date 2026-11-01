@@ -1,6 +1,6 @@
 # Autopilot progress
 
-RESUME HERE: Phase 1 — finish claims and data-quality coverage, then implement bounded site-aware telemetry queries
+RESUME HERE: Phase 2 — email verification, session security and request validation
 
 Status key: [ ] todo; [~] in progress; [x] done and verified as stated; [!] skipped with a reason. A phase is done only after its full gate passes.
 
@@ -9,16 +9,17 @@ Status key: [ ] todo; [~] in progress; [x] done and verified as stated; [!] skip
 - [x] Prior baseline, source inventory, initial auth/energy/data-honesty fixes and synthetic tests; see `DECISIONS.md` for scope and limitations.
 - [x] Adopt continuous in-place autopilot and create progress tracking.
 - [x] Extract and catalog 23 reference archives, inspect root licenses and record preliminary source provenance. Symlinks were omitted; nested licenses still need review before any reuse.
-- [~] Capability copy reviewed and several unverified affiliation, patent, sustainability and sample-savings claims removed. Full sentence-level claims inventory and final review remain.
-- [~] Shared data-quality type, overview/panel/forecast/carbon badges and dashboard/telemetry API quality metadata added; remaining sections and API responses still need labels and verification. Quality unit test passed.
-- [~] Route inventory recorded and operator authorization added to inactive command stubs; backend test passed for their unauthenticated/viewer/operator/admin statuses and for user-list access. Full protected-group tests and site isolation remain.
+- [x] Public/dashboard claims reviewed; unsupported operation, affiliation, patent, scientific fraction, deployment count, sample savings and environmental guarantees removed or qualified. Changes are recorded in CLAIMS_AUDIT.md, DECISIONS.md and Git history. Coming-soon features remain visible.
+- [x] Shared dashboard section/metric badges and API response quality metadata implemented, preserving domain maps and record redaction. Missing values display Unavailable; tests passed. API conventions are documented in API.md.
+- [x] Route inventory and role checks completed for current routes; route-group tests cover JWT/device authentication and viewer/operator/admin access. Tenant/site membership policy is deferred to Phase 2 and remains a launch risk.
 - [x] Correct subscriber creation/reactivation and ID-based Firebase update; focused tests passed without a live database.
 - [x] Paged site-partitioned telemetry repository, legacy compatibility, atomic bridge writes, site-scoped latest/analysis, offline-export migration tool and focused isolation/migration tests.
 - [x] NodeMCU dual-write paths and bounded Python reader updated; focused Python reader test passed. Live migration was not run.
 - [!] Firmware compilation, physical-device verification and real Firebase rule deployment require the hardware/toolchain/credentials; exact steps are in MANUAL_STEPS.md.
-- [~] Security advisories identify 14.x as affected by issues patched in 15.5.x or later. Next.js and its ESLint config are installed at 15.5.28; ESLint CLI, TypeScript and production build passed. Post-upgrade frontend audit: 23 findings (0 critical, 3 high, 20 moderate); backend initial audit: 13 (2 high, 11 moderate). See `DEPENDENCY_AUDIT.md` for each finding and raw reports. These are package matches, not verified exploitability; remediation is unfinished.
+- [x] Production audits and non-breaking fixes completed; Nodemailer upgraded to 10.3.1 and PostCSS overridden to patched 8.5.26. Frontend production audit: 0 findings; backend production: 8 moderate, 0 high/critical. Remaining SDK/development findings and remediation are in KNOWN_ISSUES.md and MANUAL_STEPS.md. No unsafe forced downgrades were applied.
 - [x] AI synthetic regression suite rerun: 8 passed; this does not verify hardware or real-data model accuracy.
-- [ ] Complete env descriptions, secret exclusions, gate and phase tag.
+- [x] Env examples cover every referenced app variable; firmware local secrets include site/device configuration. Secret scan passed.
+- [x] Phase 1 local gate passed: 15 backend tests, 9 Python tests, lint, production build (including final rerun), typecheck and secret scan. Evidence is under test-results/. Remaining moderate advisories are explicitly documented. Firmware/Firebase external checks are skipped with manual steps. Tag: phase-01-done.
 
 ## Phase 2 — security and accounts
 - [ ] Email OTP, verified viewer registration, privileged bootstrap and tests.

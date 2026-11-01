@@ -19,8 +19,8 @@ function Heading({ tag, title, accent, sub }: { tag: string; title: string; acce
 /* 1 ── Why it matters ─────────────────────────────────────────────────────── */
 export function WhySection() {
   const FIGS = [
-    { big: '~⅓',   text: 'of incoming sunlight is wasted by conventional silicon panels.' },
-    { big: 'UV',   text: 'is invisible to standard cells — a coating can convert it into usable light.' },
+    { big: 'Solar', text: 'Panel output depends on equipment, weather and site conditions.' },
+    { big: 'UV',   text: 'conversion is being investigated as a coating research objective.' },
     { big: 'Waste', text: 'Fruit-peel waste is abundant and cheap — a useful input, not a disposal problem.' },
   ];
   return (
@@ -50,7 +50,7 @@ export function CoatingSection() {
   return (
     <section id="coating" className="relative py-28 bg-[#111a14]/40">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-        <Heading tag="The coating" title="Waste becomes a" accent="UV-to-visible converter" sub="Natural compounds in fruit peels absorb ultraviolet light and re-emit it as visible light that silicon cells can use." />
+        <Heading tag="The coating" title="Waste becomes a" accent="UV-to-visible converter" sub="The research investigates fruit-peel-derived materials for UV-to-visible conversion. Field performance requires validation." />
         <div className="grid md:grid-cols-3 gap-6">
           {STEPS.map((s) => (
             <div key={s.n} className="stat-card relative overflow-hidden">
@@ -144,8 +144,8 @@ export function HowItWorksSection() {
 export function ApplicationsSection() {
   const APPS = [
     { icon: Tent,      title: 'Remote & off-grid', text: 'Fewer site visits and earlier fault warnings where access is difficult.' },
-    { icon: Sun,       title: 'Defence & disaster relief', text: 'Reliable, efficient generation where infrastructure is limited.' },
-    { icon: Building2, title: 'Building-integrated PV', text: 'Higher yield from limited roof and façade area.' },
+    { icon: Sun,       title: 'Defence & disaster relief', text: 'A proposed application where field reliability still requires validation.' },
+    { icon: Building2, title: 'Building-integrated PV', text: 'A proposed application for limited roof and façade area.' },
   ];
   return (
     <section id="applications" className="relative py-28 bg-[#0a0f0d]">

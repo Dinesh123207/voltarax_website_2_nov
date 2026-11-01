@@ -5,6 +5,7 @@ const helmet      = require('helmet');
 const morgan      = require('morgan');
 const rateLimit   = require('express-rate-limit');
 const connectDB   = require('./config/db');
+const { responseQuality } = require('./services/dataQuality');
 
 // Routes
 const authRoutes       = require('./routes/auth');
@@ -43,6 +44,7 @@ app.use('/api/auth/login', authLimiter);
 // ── Body parsing ──────────────────────────────────────────────────────────────
 app.use(express.json({ limit: '10kb' }));
 app.use(express.urlencoded({ extended: true, limit: '10kb' }));
+app.use(responseQuality);
 
 // ── Logging ───────────────────────────────────────────────────────────────────
 if (process.env.NODE_ENV === 'development') {

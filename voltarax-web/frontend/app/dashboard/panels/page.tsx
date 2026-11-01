@@ -188,26 +188,26 @@ export default function PanelsPage() {
                   </span>
                 </td>
                 <td className="py-3 px-3 font-mono text-sm text-slate-300">
-                  {p.efficiency_pct != null ? `${p.efficiency_pct.toFixed(1)}%` : '—'}
+                  {p.efficiency_pct != null ? `${p.efficiency_pct.toFixed(1)}%` : 'Unavailable'}
                 </td>
                 <td className="py-3 px-3 font-mono text-sm text-slate-300">
-                  {p.power_w != null ? p.power_w.toFixed(0) : '—'}
+                  {p.power_w != null ? p.power_w.toFixed(0) : 'Unavailable'}
                 </td>
                 <td className="py-3 px-3 font-mono text-sm text-slate-300">
-                  {p.voltage_v != null ? p.voltage_v.toFixed(1) : '—'}
+                  {p.voltage_v != null ? p.voltage_v.toFixed(1) : 'Unavailable'}
                 </td>
                 <td className={`py-3 px-3 font-mono text-sm ${p.temp_c && p.temp_c > 55 ? 'text-red-400' : 'text-slate-300'}`}>
-                  {p.temp_c != null ? `${p.temp_c.toFixed(1)}` : '—'}
+                  {p.temp_c != null ? `${p.temp_c.toFixed(1)}` : 'Unavailable'}
                 </td>
                 <td className={`py-3 px-3 font-mono text-sm ${
                   p.bfci_score == null ? 'text-slate-600' :
                   p.bfci_score < 65 ? 'text-red-400' :
                   p.bfci_score < 75 ? 'text-amber-400' : 'text-green-400'
                 }`}>
-                  {p.bfci_score != null ? `${p.bfci_score.toFixed(1)}%` : '—'}
+                  {p.bfci_score != null ? `${p.bfci_score.toFixed(1)}%` : 'Unavailable'}
                 </td>
                 <td className={`py-3 px-3 text-xs font-mono ${CV_BADGE[p.cv_class || 'pending'] || 'text-slate-500'}`}>
-                  {p.cv_class?.replace('_','-') || '—'}
+                  {p.cv_class?.replace('_','-') || 'Unavailable'}
                 </td>
               </tr>
             ))}

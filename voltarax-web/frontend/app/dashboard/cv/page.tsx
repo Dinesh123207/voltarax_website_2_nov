@@ -117,7 +117,7 @@ export default function CVPage() {
                   {d.eff_loss_pct?.toFixed(1)}%
                 </td>
                 <td className="py-2.5 px-3 text-xs text-slate-600 font-mono">{d.model_ver}</td>
-                <td className="py-2.5 px-3 text-xs text-slate-500">{new Date(d.scanned_at).toLocaleString('en-IN')}</td>
+                <td className="py-2.5 px-3 text-xs text-slate-500">{new Date(d.scanned_at).toLocaleString('en-IN', { timeZone: 'Asia/Kolkata' })}</td>
               </tr>
             ))}
           </tbody>

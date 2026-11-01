@@ -18,9 +18,6 @@
 #include <addons/TokenHelper.h>
 #include "secrets.h"
 
-#define DEVICE_ID "nodemcu-01"
-#define SITE_ID "solar_site"
-
 #define DHT_PIN D3
 #define DHT_TYPE DHT11
 #define DUST_LED_PIN D5

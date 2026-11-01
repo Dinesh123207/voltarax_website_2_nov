@@ -19,7 +19,7 @@ const SDGs = [
 
 const BIO_COATING = [
   'Made from fruit-peel waste — a natural UV absorber',
-  'Converts UV light into visible light the cells can use',
+  'UV-to-visible conversion is a research objective',
   'Material and environmental properties require independent verification',
   'Coating condition monitoring is planned',
 ];
@@ -137,7 +137,7 @@ export default function SustainabilityPage() {
             <div className="text-center mb-10">
               <div className="section-tag mx-auto w-fit"><Globe size={12} /> Global Goals</div>
               <h2 className="text-3xl font-bold text-white mt-2">UN Sustainable Development Goals</h2>
-              <p className="text-slate-500 mt-2">VoltVision AI contributes to 5 SDGs</p>
+              <p className="text-slate-500 mt-2">Project objectives relate to these sustainability goals</p>
             </div>
             <div className="grid sm:grid-cols-2 lg:grid-cols-5 gap-4">
               {SDGs.map(({ num, title, desc }) => (

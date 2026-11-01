@@ -27,10 +27,10 @@ export default function ForecastPage() {
   useEffect(() => { load(); }, []);
 
   const kpis = data ? [
-    { label:'Next 1h',  value: data.forecast_1h_kw,   unit:'kW',  conf: data.confidence?.[0] },
-    { label:'Next 6h',  value: data.forecast_6h_kwh,  unit:'kWh', conf: data.confidence?.[1] },
-    { label:'Today',    value: data.forecast_24h_kwh, unit:'kWh', conf: data.confidence?.[2] },
-    { label:'This Week',value: data.forecast_7d_kwh,  unit:'kWh', conf: data.confidence?.[3] },
+    { label:'Current estimate',  value: data.forecast_1h_kw,   unit:'kW',  conf: data.confidence?.[0] },
+    { label:'6-hour scenario',  value: data.forecast_6h_kwh,  unit:'kWh', conf: data.confidence?.[1] },
+    { label:'8-hour daylight scenario',    value: data.forecast_24h_kwh, unit:'kWh', conf: data.confidence?.[2] },
+    { label:'7-day scenario',value: data.forecast_7d_kwh,  unit:'kWh', conf: data.confidence?.[3] },
   ] : [];
 
   return (
@@ -42,7 +42,7 @@ export default function ForecastPage() {
           <button onClick={load} disabled={loading} className="btn-green py-2 px-3 text-xs disabled:opacity-60"><RefreshCw size={12} className={loading?'animate-spin':''}/> Refresh</button>
         </div>
       </div>
-      <p className="text-sm text-amber-300">Estimate from current conditions, not a weather-ahead forecast. Confidence values are fixed assumptions, not measured model confidence.</p>
+      <p className="text-sm text-amber-300">Estimate from current conditions, not a weather-ahead forecast. No validated confidence interval is available. Longer-period figures are scenarios that assume unchanged conditions and eight daylight hours per day.</p>
       <DataQualityBadge quality={data ? 'Estimated' : 'Unavailable'} />
 
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
@@ -60,7 +60,7 @@ export default function ForecastPage() {
         <div className="stat-card border border-green-500/20 bg-green-500/5">
           <div className="text-xs text-green-500 font-mono font-bold mb-2">AI RECOMMENDATION</div>
           <p className="text-slate-300 text-sm leading-relaxed">{data.recommendation}</p>
-          <div className="text-xs text-slate-600 mt-2 font-mono">Model: {data.model_version} · {data.generated_at && new Date(data.generated_at).toLocaleTimeString('en-IN')}</div>
+          <div className="text-xs text-slate-600 mt-2 font-mono">Model: {data.model_version} · {data.generated_at && new Date(data.generated_at).toLocaleTimeString('en-IN', { timeZone: 'Asia/Kolkata' })}</div>
         </div>
       )}
 
@@ -97,7 +97,7 @@ export default function ForecastPage() {
         <div className="ai-placeholder">
           <TrendingUp size={32} className="text-green-500/40"/>
           <div className="text-white font-semibold">Forecast unavailable</div>
-          <div className="text-slate-600 text-sm">Collect hardware telemetry to enable AI forecasting</div>
+          <div className="text-slate-600 text-sm">Collect hardware telemetry to enable a current-condition estimate</div>
           <a href={`/api/forecast`} target="_blank" rel="noopener noreferrer" className="btn-outline py-2 px-4 text-xs mt-2">Try API directly</a>
         </div>
       )}

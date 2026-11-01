@@ -54,10 +54,10 @@ export default function BFCIPage() {
       {/* Fleet KPIs */}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
         {[
-          { label:'Fleet Avg BFCI', value: fleet.length ? avg.toFixed(1) : "—", unit:'%', color:'text-green-400' },
-          { label:'Good (≥75%)',    value: fleet.length ? good : '—',    unit:'panels', color:'text-green-400' },
-          { label:'Warning (<75%)', value: fleet.length ? warning : '—', unit:'panels', color:'text-amber-400' },
-          { label:'Critical (<65%)',value: fleet.length ? critical : '—',unit:'panels', color:'text-red-400' },
+          { label:'Fleet Avg BFCI', value: fleet.length ? avg.toFixed(1) : "Unavailable", unit:'%', color:'text-green-400' },
+          { label:'Good (≥75%)',    value: fleet.length ? good : 'Unavailable',    unit:'panels', color:'text-green-400' },
+          { label:'Warning (<75%)', value: fleet.length ? warning : 'Unavailable', unit:'panels', color:'text-amber-400' },
+          { label:'Critical (<65%)',value: fleet.length ? critical : 'Unavailable',unit:'panels', color:'text-red-400' },
         ].map(k => (
           <div key={k.label} className="stat-card">
             <div className="text-xs text-slate-500 mb-1">{k.label}</div>
@@ -108,12 +108,12 @@ export default function BFCIPage() {
                     </span>
                   </td>
                   <td className="py-2.5 px-2 font-mono text-sm text-slate-400">
-                    {p.uv_absorption_pct?.toFixed(1) ?? '—'}%
+                    {p.uv_absorption_pct?.toFixed(1) ?? 'Unavailable'}%
                   </td>
                   <td className={`py-2.5 px-2 font-mono text-sm ${p.days_to_recoat<15?'text-red-400':p.days_to_recoat<30?'text-amber-400':'text-slate-400'}`}>
-                    {p.days_to_recoat ?? '—'}d
+                    {p.days_to_recoat ?? 'Unavailable'}d
                   </td>
-                  <td className="py-2.5 px-2 text-xs text-slate-600 font-mono">{p.batch_id || '—'}</td>
+                  <td className="py-2.5 px-2 text-xs text-slate-600 font-mono">{p.batch_id || 'Unavailable'}</td>
                 </tr>
               ))}
             </tbody>

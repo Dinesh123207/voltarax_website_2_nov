@@ -87,7 +87,7 @@ export default function RelayPage() {
                 <div>Reason: <span className="text-green-600">{state.reason}</span></div>
                 <div>Commanded by: <span className="text-slate-400">{state.commanded_by}</span></div>
                 {state.soc_pct && <div>SoC: <span className="text-blue-400">{state.soc_pct}%</span></div>}
-                <div>At: {state.commanded_at && new Date(state.commanded_at).toLocaleString('en-IN')}</div>
+                <div>At: {state.commanded_at && new Date(state.commanded_at).toLocaleString('en-IN', { timeZone: 'Asia/Kolkata' })}</div>
               </div>
             </>
           ) : (
@@ -112,7 +112,7 @@ export default function RelayPage() {
             ) : history.map((h, i) => (
               <div key={i} className="flex items-center justify-between py-2 border-b border-green-900/10 text-xs">
                 <div className="text-slate-600 font-mono text-[10px]">
-                  {new Date(h.commanded_at).toLocaleTimeString('en-IN')}
+                  {new Date(h.commanded_at).toLocaleTimeString('en-IN', { timeZone: 'Asia/Kolkata' })}
                 </div>
                 <div className="flex gap-1.5">
                   {[

@@ -12,14 +12,14 @@ export const metadata: Metadata = {
     template: '%s | Voltarax',
   },
   description:
-    'AI for bio-coated solar panels: monitoring, forecasting and smarter energy use.',
+    'Site telemetry, calculated health and current-condition energy estimates.',
   keywords: [
     'biosolar', 'AI energy', 'solar panel management',
     'VoltVision', 'Voltarax', 'sustainable energy India',
     'IoT solar', 'predictive maintenance solar',
   ],
-  authors:  [{ name: 'Voltarax Private Limited' }],
-  creator:  'Voltarax Private Limited',
+  authors:  [{ name: 'Voltarax' }],
+  creator:  'Voltarax',
   openGraph: {
     type:        'website',
     locale:      'en_IN',

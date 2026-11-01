@@ -7,6 +7,12 @@ No real credentials or infrastructure actions are performed automatically. This 
 3. Real sensor readings and calibration, camera, relay wiring and model performance require physical hardware and real data; they are not verified by synthetic tests.
 4. Real SMTP, payment credentials, deployment, DNS and legal review remain manual. Do not use live payment mode or send real email during development.
 
+## Remaining dependency advisories
+
+1. Run `npm audit --omit=dev` and `npm audit` in both frontend and backend and compare with `docs/test-results/*-after.log`. Production high/critical findings were cleared in this run; moderate SDK/tooling matches are documented individually in `KNOWN_ISSUES.md`.
+2. The Firebase Admin transitive fixes currently require a major SDK update: from `voltarax-web/backend`, use `npm install firebase-admin@14.5.0` in a separate branch, then run backend tests and emulator auth/database checks, and verify the real service-account initialization before deployment. This update has not been applied because isolated route tests cannot establish live SDK compatibility.
+3. For development-only ESLint/nodemon chains, review each advisory and upgrade the tooling coherently. Do not run `npm audit fix --force` blindly: the audit suggests incompatible older tooling for some chains. Keep production installs on `npm ci --omit=dev` and review CI inputs as untrusted.
+
 ## Site-history migration (never run automatically)
 
 1. In the Firebase Console, select the intended project, open Realtime Database, and export its JSON using the data menu. Keep the export private and outside Git.

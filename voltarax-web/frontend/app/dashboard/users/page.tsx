@@ -112,7 +112,7 @@ export default function UsersPage() {
                   </div>
                 </td>
                 <td className="py-2.5 px-3 text-xs text-slate-500">
-                  {u.lastLogin ? new Date(u.lastLogin).toLocaleString('en-IN') : 'Never'}
+                  {u.lastLogin ? new Date(u.lastLogin).toLocaleString('en-IN', { timeZone: 'Asia/Kolkata' }) : 'Never'}
                 </td>
               </tr>
             ))}

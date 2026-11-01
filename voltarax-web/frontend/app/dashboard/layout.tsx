@@ -2,6 +2,8 @@
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
+import DataQualityBadge from '@/components/ui/DataQualityBadge';
+import type { DataQuality } from '@/components/ui/DataQualityBadge';
 import {
   Zap, LayoutDashboard, Sun, Bell, Wrench,
   TestTube, Battery, Leaf, Users, Settings,
@@ -27,6 +29,8 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
   const router     = useRouter();
   const [sideOpen, setSideOpen] = useState(false);
   const [user,     setUser]     = useState<any>(null);
+  const sectionQuality: DataQuality = ['/dashboard/bfci', '/dashboard/cv', '/dashboard/relay', '/dashboard/work-orders'].includes(pathname)
+    ? 'Unavailable' : ['/dashboard/panels', '/dashboard/forecast', '/dashboard/carbon'].includes(pathname) ? 'Estimated' : 'Calculated';
 
   useEffect(() => {
     const token = localStorage.getItem('vv_token');
@@ -135,6 +139,10 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
 
         {/* Page content */}
         <main className="flex-1 p-4 sm:p-6 overflow-auto">
+          <div className="mb-4 flex flex-wrap items-center gap-2 text-xs text-slate-400">
+            <span>Section data:</span><DataQualityBadge quality={sectionQuality} />
+            <span>Individual readings are labelled where their quality differs. Missing data is unavailable.</span>
+          </div>
           {children}
         </main>
       </div>

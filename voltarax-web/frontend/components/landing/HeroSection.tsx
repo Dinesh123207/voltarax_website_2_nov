@@ -5,7 +5,7 @@ import { ChevronRight, ArrowDown, Zap, Leaf, Brain, Sun, Wind, Activity } from '
 import WindTurbineBackdrop from './WindTurbineBackdrop';
 
 const STATS = [
-  { value: '32', label: 'Pilot panels', icon: Zap },
+  { value: 'Pilot', label: 'Deployment planned', icon: Zap },
   { value: 'AI', label: 'Analysis under validation', icon: Brain },
   { value: 'IoT', label: 'Sensor telemetry', icon: Activity },
   { value: 'Bio', label: 'Waste-derived coating', icon: Leaf },

@@ -63,7 +63,7 @@ function ContactForm() {
             <p className="text-slate-400 max-w-lg mx-auto">
               {isDemo
                 ? 'Schedule a personalised demo of VoltVision AI for your solar installation.'
-                : 'We respond within 24 hours. For urgent matters, email us directly.'}
+                : 'Submit an inquiry for the team to review.'}
             </p>
           </div>
 
@@ -113,8 +113,8 @@ function ContactForm() {
                   <h3 className="text-white font-bold text-xl mb-2">Message Sent!</h3>
                   <p className="text-slate-400">
                     {isDemo
-                      ? "We'll schedule your demo within 48 hours."
-                      : "We'll respond within 24 hours."}
+                      ? "Your demo request has been recorded."
+                      : "Your inquiry has been recorded."}
                   </p>
                   <button onClick={() => setSuccess(false)}
                     className="btn-outline mt-6 px-6 py-2.5 text-sm">

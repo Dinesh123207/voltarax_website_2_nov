@@ -115,7 +115,7 @@ export default function WorkOrdersPage() {
             ) : orders.map(o => (
               <tr key={o.id} className="border-b border-green-900/10 hover:bg-green-500/3 transition-colors">
                 <td className="py-2.5 px-3 text-slate-600 text-xs font-mono">#{o.id}</td>
-                <td className="py-2.5 px-3 font-mono font-bold text-green-400 text-sm">{o.panel_label || '—'}</td>
+                <td className="py-2.5 px-3 font-mono font-bold text-green-400 text-sm">{o.panel_label || 'Unavailable'}</td>
                 <td className="py-2.5 px-3 text-slate-300 text-sm max-w-[180px] truncate" title={o.title}>{o.title}</td>
                 <td className={`py-2.5 px-3 text-xs font-bold uppercase font-mono ${PRI_COL[o.priority] || 'text-slate-400'}`}>
                   {o.priority}
@@ -126,7 +126,7 @@ export default function WorkOrdersPage() {
                   </span>
                 </td>
                 <td className="py-2.5 px-3 text-xs text-slate-500">
-                  {new Date(o.created_at).toLocaleDateString('en-IN')}
+                  {new Date(o.created_at).toLocaleDateString('en-IN', { timeZone: 'Asia/Kolkata' })}
                 </td>
                 <td className="py-2.5 px-3">
                   {o.status !== 'closed' && (
