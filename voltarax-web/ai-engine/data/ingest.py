@@ -66,8 +66,16 @@ def _default_reader() -> dict:
     from firebase_admin import db
 
     app = _get_firebase_app()
-    ref = db.reference(f"/{cfg.SITE_ID}/history", app=app)
-    return ref.get() or {}
+    current = db.reference(f"/readings/{cfg.SITE_ID}", app=app).order_by_child('ts').limit_to_last(cfg.MAX_HISTORY_ROWS).get() or {}
+    migrated = db.reference(f"/migrations/site_history/{cfg.SITE_ID}/complete", app=app).get() is True
+    legacy = {} if migrated else (db.reference('/solar_site/history', app=app).order_by_child('ts').limit_to_last(cfg.MAX_HISTORY_ROWS + 1).get() or {})
+    if len(legacy) > cfg.MAX_HISTORY_ROWS:
+        raise RuntimeError('Legacy history exceeds safe compatibility window; migrate and verify per-site history before training')
+    merged = {}
+    for key, row in {**legacy, **current}.items():
+        if isinstance(row, dict) and row.get('site_id', 'solar_site') == cfg.SITE_ID:
+            merged[(row.get('device_id', ''), row.get('ts'))] = (key, row)
+    return dict(merged.values())
 
 
 def raw_history_to_frame(raw: dict) -> pd.DataFrame:

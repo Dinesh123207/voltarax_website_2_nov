@@ -42,7 +42,7 @@ function startTelemetryWatcher() {
   const ref = db.ref('/solar_site/latest');
   ref.on('value', (snap) => {
     const reading = snap.val();
-    if (!reading) return;
+    if (!reading || (reading.site_id || 'solar_site') !== SITE_ID) return;
     saveAnalysis(reading, readConfig()).catch((err) => {
       console.error('telemetryWatcher: failed to update /solar_site/analysis:', err.message);
     });

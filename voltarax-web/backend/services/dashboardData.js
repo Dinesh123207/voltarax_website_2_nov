@@ -8,7 +8,7 @@ const n = (v, d = 0) => Number.isFinite(Number(v)) ? Number(v) : d;
 const isoFromTs = (ts) => ts ? new Date(Number(ts) * 1000).toISOString() : null;
 
 async function latest() {
-  const reading = await require('../services/firebaseModel').db.ref('/solar_site/latest').get().then(s => s.exists() ? s.val() : null);
+  const reading = await SolarTelemetry.latest(SITE_ID);
   const analysis = await SolarAnalysis.findOne({ site_id: SITE_ID }).lean();
   return { reading, analysis };
 }

@@ -1,5 +1,23 @@
 {
   "rules": {
+    "readings": {
+      "$site": {
+        ".indexOn": ["ts"], ".read": false,
+        "$reading": {
+          ".write": "auth != null && auth.uid === 'PASTE_FIREBASE_DEVICE_UID_HERE' && $site === 'solar_site'",
+          ".validate": "newData.hasChildren(['ts', 'site_id', 'device_id']) && newData.child('site_id').val() === $site && newData.child('ts').isNumber()"
+        }
+      }
+    },
+    "sites": {
+      "$site": {
+        "latest": {
+          ".read": false,
+          ".write": "auth != null && auth.uid === 'PASTE_FIREBASE_DEVICE_UID_HERE' && $site === 'solar_site'",
+          ".validate": "newData.child('site_id').val() === $site && newData.child('ts').isNumber()"
+        }
+      }
+    },
     "solar_site": {
       "latest": {
         ".read": false,

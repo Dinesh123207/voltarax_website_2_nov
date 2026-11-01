@@ -108,15 +108,22 @@ void buildJson(FirebaseJson &j) {
 }
 
 void upload(bool history) {
-  if (!Firebase.ready()) return;
+  if (!Firebase.ready() || time(nullptr) < 1700000000) return;
   FirebaseJson j;
   buildJson(j);
   if (!Firebase.RTDB.setJSON(&fbdo, "/solar_site/latest", &j)) {
     Serial.println(fbdo.errorReason());
     return;
   }
-  if (history && !Firebase.RTDB.pushJSON(&fbdo, "/solar_site/history", &j)) {
-    Serial.println(fbdo.errorReason());
+  String siteLatest = String("/sites/") + SITE_ID + "/latest";
+  if (!Firebase.RTDB.setJSON(&fbdo, siteLatest.c_str(), &j)) Serial.println(fbdo.errorReason());
+  if (history) {
+    // Same key on both paths makes retries and migration idempotent.
+    String key = String(DEVICE_ID) + "-" + String((uint32_t)time(nullptr));
+    String partition = String("/readings/") + SITE_ID + "/" + key;
+    String legacy = String("/solar_site/history/") + key;
+    if (!Firebase.RTDB.setJSON(&fbdo, partition.c_str(), &j)) Serial.println(fbdo.errorReason());
+    if (!Firebase.RTDB.setJSON(&fbdo, legacy.c_str(), &j)) Serial.println(fbdo.errorReason());
   }
 }
 

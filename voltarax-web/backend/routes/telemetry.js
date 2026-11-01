@@ -53,8 +53,6 @@ router.post('/ingest', deviceAuth, schema, async (req, res) => {
   try {
     const reading = await SolarTelemetry.create(cleanPayload(req.body));
     const readingData = reading.toObject ? reading.toObject() : reading;
-    const { db } = require('../services/firebaseModel');
-    await db.ref('/solar_site/latest').set(readingData);
     const analysis = await saveAnalysis(readingData, {
       siteId: SITE_ID,
       panelPmaxW: process.env.SOLAR_PANEL_PMAX_W,
@@ -74,7 +72,7 @@ router.post('/ingest', deviceAuth, schema, async (req, res) => {
 // Read endpoints are authenticated for the dashboard. Hardware never receives the JWT.
 router.get('/latest', protect, async (req, res) => {
   try {
-    const latest = await require('../services/firebaseModel').db.ref('/solar_site/latest').get().then(s => s.exists() ? s.val() : null);
+    const latest = await SolarTelemetry.latest(SITE_ID);
     const analysis = await SolarAnalysis.findOne({ site_id: SITE_ID }).lean();
     res.json({ success: true, latest: latest || null, analysis: analysis || null, site_id: SITE_ID,
       quality: { latest: qualityOf(latest, QUALITY.MEASURED), analysis: qualityOf(analysis, QUALITY.CALCULATED) } });

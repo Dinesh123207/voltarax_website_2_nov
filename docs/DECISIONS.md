@@ -2,6 +2,10 @@
 
 ## 2026-11-01: In-place mode change
 
+- [FOUND] Telemetry now uses `readings/{site}/{key}` and `sites/{site}/latest`, with paged timestamp-ordered compatibility reads from legacy history. Rows are deduplicated by device/timestamp, matching the sampling contract; partition values take precedence. The bridge dual-writes atomically; firmware writes the same deterministic device/time key on both paths. No live migration was run.
+- [ASSUMED] Unaggregated API history is limited to 50,000 rows in memory and fails explicitly above that limit. Large carbon periods require future aggregation, rather than silently publishing partial totals.
+- [FOUND] Nodemailer was not invoked by production code before Phase 2; its vulnerable package was nevertheless production-installed. It has been upgraded to 10.3.1. Patched PostCSS 8.5.26 is pinned through a compatible 8.x override for Next's nested copy; the phase gate must establish compatibility.
+
 - [FOUND] The 2026-11-01 autopilot request supersedes the prior instruction to wait between phases. Continue through the roadmap while recording gates, blocked external work, and `docs/PROGRESS.md`.
 - [FOUND] The official Next.js advisories list vulnerable ranges containing 14.x and patched releases in 15.5.x or newer; an in-place major-version upgrade is required for those fixes. Sources: https://github.com/vercel/next.js/security/advisories/GHSA-q4gf-8mx6-v5v3 and https://github.com/advisories/GHSA-2464-fhr4-w9xw (accessed 2026-11-01). Verify the upgrade and current audit, not just the version number.
 - [FOUND] Archive extraction deliberately omits symbolic links for safety. The first extraction pass stopped at such a link; a second pass skips them and retains existing extracted files without deleting anything.

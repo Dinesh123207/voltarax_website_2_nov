@@ -3,6 +3,7 @@ All tunables in one place, read from the environment (see ai-engine/.env.example
 Nothing here talks to Firebase yet — see data/ingest.py.
 """
 import os
+import re
 from pathlib import Path
 from dotenv import load_dotenv
 
@@ -13,6 +14,8 @@ ARTIFACTS_DIR = ROOT / "artifacts"
 ARTIFACTS_DIR.mkdir(exist_ok=True)
 
 SITE_ID = os.environ.get("SOLAR_SITE_ID", "solar_site")
+if not re.fullmatch(r'[A-Za-z0-9_-]{1,64}', SITE_ID):
+    raise ValueError('SOLAR_SITE_ID must be a valid site identifier')
 
 # ---- Firebase ---------------------------------------------------------------
 FIREBASE_DATABASE_URL = os.environ.get("FIREBASE_DATABASE_URL", "")
