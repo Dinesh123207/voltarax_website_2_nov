@@ -22,7 +22,10 @@ Status key: [ ] todo; [~] in progress; [x] done and verified as stated; [!] skip
 - [x] Phase 1 local gate passed: 15 backend tests, 9 Python tests, lint, production build (including final rerun), typecheck and secret scan. Evidence is under test-results/. Remaining moderate advisories are explicitly documented. Firmware/Firebase external checks are skipped with manual steps. Tag: phase-01-done.
 
 ## Phase 2 — security and accounts
-- [ ] Email OTP, verified viewer registration, privileged bootstrap and tests.
+- [~] Email OTP, verified viewer registration, privileged bootstrap and tests.
+- [x] Implement transactional hashed OTP challenges (six digits, ten minutes, five attempts, single use and resend cooldown) with a fake sender; three focused tests passed including concurrent replay rejection.
+- [ ] Wire registration/verification and sensitive-action verification, SMTP templates and frontend flows.
+- [ ] Enforce verified accounts, secure cookie sessions and one-time administrator bootstrap.
 - [ ] Rate limits, logging, headers, validation, Firebase rules and admin audit log.
 - [ ] Dependency automation, gate and phase tag.
 

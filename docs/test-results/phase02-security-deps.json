@@ -1,0 +1,15 @@
+{
+  "command": [
+    "npm.cmd",
+    "install",
+    "--save-exact",
+    "zod@4.6.7",
+    "pino@10.4.0",
+    "cookie-parser@1.4.7",
+    "--no-audit",
+    "--no-fund"
+  ],
+  "cwd": "voltarax-web/backend",
+  "exit_code": 0,
+  "seconds": 19.2
+}
