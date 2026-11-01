@@ -1,6 +1,6 @@
 # Autopilot progress
 
-RESUME HERE: Phase 6 — drift/retraining checks, then end-of-phase full gate and Phase 7
+RESUME HERE: Phase 6 — run full end-of-phase gate, tag only if passing, then branch into Phase 7
 
 Status key: [ ] todo; [~] in progress; [x] done and verified as stated; [!] skipped with a reason. A phase is done only after its full gate passes.
 
@@ -67,7 +67,8 @@ Status key: [ ] todo; [~] in progress; [x] done and verified as stated; [!] skip
 - [x] Reproducible isolated Python 3.13 environment with verified stable direct versions and freeze lock; install passed. The former requirements differed from actual earlier test runtime. No system environment changed. Failed relative executable startup is retained; absolute-path retry passed.
 - [x] Versioned SHA-bound artifacts with site/device/origin/parameter/runtime checks, atomic manifests, writer locks and prior-version retention; legacy unverified pickles never loaded. Nine focused artifact/publication tests passed. Input/model clocks, strict publication schemas, bounded prediction-only latest reads and eligible-timestamp retraining implemented. Official Python SDK local demo read/publication passed (45.20 s) after loading project rules with a bounded 60 s setup timeout; initial missing-index/10 s setup failures retained. No remote project or real credentials used. API/UI validation is next.
 - [x] Schema-validated publication and backend canonical-first consumer with separate source/model/publication clocks, identity/parameter/validation/origin checks. Actual Python model fixtures and official SDK readback pass six backend regressions, including RTDB-omitted empty/null normalization. Forecast UI displays version/training/source/held-out metrics and expires current power at valid_until. Narrow lint and typecheck passed; browser behavior remains for E2E.
-- [ ] Drift/retraining checks and documented offline/scheduled validation workflow.
+- [x] Training-only light/temperature quantile reference, finite smoothed PSI on 50–500 newer eligible samples, explicit initial 0.2 review policy and unavailable/insufficient states. Four focused drift tests, seven backend cross-contract regressions, offline CLI, lint/typecheck passed. Validated optional publication and separate minute inference/hour drift/training schedule documented; no schedule enabled. Initial drift test clock error retained and corrected without weakening guards.
+- [!] No reviewed real export, calibrated field labels, verified site/weather provider or validated confidence interval supplied/used. Current-condition fallback is implemented; exact real-data/provider review is manual. Synthetic metrics do not establish field accuracy.
 - [x] Current-condition estimate only: unsupported horizon/confidence keys null, current engineering fallback uses fresh valid primary daylight inputs with explicit assumptions. Hourly sample view stays within current IST day, keeps recorded zero/missing gaps and discloses 2,000-row limit. No weather provider/site accuracy verified.
 - [ ] Phase gate and tag; real-data accuracy remains unverified until a reviewed export exists.
 

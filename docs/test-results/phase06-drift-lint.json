@@ -1,0 +1,10 @@
+{
+  "command": [
+    "npx.cmd",
+    "eslint",
+    "app/dashboard/forecast/page.tsx"
+  ],
+  "cwd": "voltarax-web/frontend",
+  "exit_code": 0,
+  "seconds": 11.48
+}

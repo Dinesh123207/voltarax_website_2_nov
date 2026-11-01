@@ -6,6 +6,9 @@ const states = ['ok', 'not_enough_data', 'stale_input', 'invalid_input', 'model_
 const origin = z.enum(['synthetic-test-inputs', 'device-history-unverified-calibration']);
 const stamp = z.number().int().positive();
 const names = ['forecast_gbr', 'anomaly_isolation_forest', 'health_baseline'];
+const driftReference = z.object({ method: z.literal('psi-quantile-v1'), minimum_rows: z.literal(50), threshold: z.literal(0.2),
+  features: z.object({ light_lux: z.object({ cuts: z.array(z.number()).min(1).max(9), proportions: z.array(z.number().positive().max(1)).min(2).max(10), rows: z.number().int().min(50) }).strict().optional(),
+    temp_c: z.object({ cuts: z.array(z.number()).min(1).max(9), proportions: z.array(z.number().positive().max(1)).min(2).max(10), rows: z.number().int().min(50) }).strict().optional() }).strict().optional().default({}) }).strict();
 // RTDB removes null object members and empty arrays; normalize those explicitly.
 const metrics = z.object({ mae_mw: z.number().nonnegative(), rmse_mw: z.number().nonnegative(), r2: z.number().max(1).nullable().optional().default(null) }).strict();
 const metadata = z.object({
@@ -26,6 +29,7 @@ const metadata = z.object({
   }).strict(),
   val_mae_mw: z.number().nonnegative().optional(), horizon_note: z.string().max(1000).optional(),
   percentile: z.number().optional(), median_pr_observed: z.number().optional(),
+  drift_reference: driftReference.optional(),
 }).strict();
 const common = { schema_version: z.literal(2), site_id: z.string(), device_id: z.string(), updated_at: stamp,
   source_ts: stamp.nullable().optional(), data_origin: origin, dataQuality: z.enum(['Estimated', 'Unavailable']), status: z.enum(states),
@@ -42,6 +46,13 @@ schemas.status = z.object({ ...common, total_rows: z.number().int().nonnegative(
   trained_models: z.array(z.enum(names)).max(3).optional().default([]), skipped_models: z.array(z.enum(names)).max(3).optional().default([]),
   model_states: z.object({ forecast: z.enum(states), anomaly: z.enum(states), health: z.enum(states) }).strict(),
   model_info: z.object({ forecast: info, anomaly: info, health: info }).strict() }).strict();
+const driftRow = z.object({ status: z.enum(['unavailable', 'insufficient_new_data', 'stable', 'drift_detected']),
+  model_version: z.string().regex(/^[A-Za-z0-9_.-]{3,128}$/).nullable().optional().default(null),
+  trained_at: stamp.nullable().optional().default(null), source_window_end_ts: stamp.nullable().optional().default(null),
+  recent_rows: z.number().int().min(0).max(500).nullable().optional().default(null), max_psi: z.number().nonnegative().nullable().optional().default(null),
+  feature_psi: z.object({ light_lux: z.number().nonnegative().optional(), temp_c: z.number().nonnegative().optional() }).strict().optional().default({}) }).strict();
+schemas.drift = z.object({ ...common, method: z.literal('psi-quantile-v1'), minimum_rows: z.literal(50), threshold: z.literal(0.2), note: z.string().max(1000),
+  models: z.object({ forecast: driftRow, anomaly: driftRow, health: driftRow }).strict() }).strict();
 const bounded = (value, fallback, min, max) => Number.isFinite(Number(value)) && Number(value) >= min && Number(value) <= max ? Number(value) : fallback;
 function createAiReader({ db, env = process.env, now = () => Math.floor(Date.now() / 1000) }) {
   const site = env.SOLAR_SITE_ID || 'solar_site', device = env.SOLAR_DEVICE_ID || 'nodemcu-01';
@@ -62,17 +73,29 @@ function createAiReader({ db, env = process.env, now = () => Math.floor(Date.now
     if (value.data_origin === 'synthetic-test-inputs' && !simulatorAllowed(env)) return null;
     // Status is useful when explicitly unavailable, but cannot hide stale inputs.
     if (value.status === 'ok' && (!fresh(value.source_ts, maxInput, 300) || value.dataQuality !== 'Estimated')) return null;
+    if (section === 'drift') {
+      for (const row of Object.values(value.models)) {
+        if (row.status === 'unavailable') { if (row.max_psi != null || row.recent_rows != null || Object.keys(row.feature_psi).length) return null; continue; }
+        if (!row.model_version || !fresh(row.trained_at, maxModel, 300) || !row.source_window_end_ts || row.source_window_end_ts > value.source_ts || row.recent_rows == null) return null;
+        if (row.status === 'insufficient_new_data') { if (row.recent_rows >= 50 || row.max_psi != null || Object.keys(row.feature_psi).length) return null; }
+        else if (row.recent_rows < 50 || row.max_psi == null || row.feature_psi.light_lux == null || row.feature_psi.temp_c == null || Math.abs(row.max_psi - Math.max(...Object.values(row.feature_psi))) > 1e-9 || (row.status === 'drift_detected') !== (row.max_psi >= 0.2)) return null;
+      }
+      return { ...value, valid_until: Math.min(value.updated_at + maxPublication, (value.source_ts || 0) + maxInput,
+        ...Object.values(value.models).filter(row => row.status !== 'unavailable').map(row => row.trained_at + maxModel)) };
+    }
     if (section === 'status') {
       for (const [key, row] of Object.entries(value.model_info)) {
         if (row.data_origin && row.data_origin !== value.data_origin) return null;
         if (value.model_states[key] === 'ok' && (!row.model_version || !fresh(row.trained_at, maxModel, 300) || row.load_state !== 'ready')) return null;
       }
-      return value;
+      return { ...value, valid_until: Math.min(value.updated_at + maxPublication, value.status === 'ok' ? value.source_ts + maxInput : Infinity,
+        ...Object.entries(value.model_info).filter(([key]) => value.model_states[key] === 'ok').map(([, row]) => row.trained_at + maxModel)) };
     }
     if (value.status !== 'ok') return null;
     const m = value.model_metadata;
     if (!m || m.model !== { forecast: names[0], anomaly: names[1], health: names[2] }[section] || m.site_id !== site || m.device_id !== device || m.data_origin !== value.data_origin || !fresh(m.trained_at, maxModel, 300) || m.source_window_end_ts > value.source_ts || m.rows_used > m.total_rows_at_train) return null;
     if (Object.entries(parameters).some(([key, expected]) => m.training_parameters[key] !== expected)) return null;
+    if (m.drift_reference && Object.values(m.drift_reference.features).some(row => row.proportions.length !== row.cuts.length + 1 || row.rows > m.total_rows_at_train || Math.abs(row.proportions.reduce((a, b) => a + b, 0) - 1) > 1e-6 || row.cuts.some((cut, index) => index > 0 && cut <= row.cuts[index - 1]))) return null;
     if (section === 'forecast') {
       const v = m.validation, split = v.split;
       if (value.predicted_power_mw == null || v.status !== 'evaluated' || v.accepted !== true || !v.model || !v.baseline || !split || split.train_end_ts >= split.test_start_ts || split.test_start_ts > split.test_end_ts || split.test_end_ts > m.source_window_end_ts || v.model.rmse_mw > v.baseline.rmse_mw * 1.05 + 1e-9 || (v.model.r2 != null && v.model.r2 < 0)) return null;
@@ -91,4 +114,4 @@ function createAiReader({ db, env = process.env, now = () => Math.floor(Date.now
 }
 let reader;
 const read = section => (reader ||= createAiReader({ db: require('../config/firebase').db })).readSection(section);
-module.exports = { createAiReader, getAiForecast: () => read('forecast'), getAiAnomaly: () => read('anomaly'), getAiHealth: () => read('health'), getAiStatus: () => read('status') };
+module.exports = { createAiReader, getAiForecast: () => read('forecast'), getAiAnomaly: () => read('anomaly'), getAiHealth: () => read('health'), getAiStatus: () => read('status'), getAiDrift: () => read('drift') };

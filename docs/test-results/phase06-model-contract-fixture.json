@@ -27,6 +27,65 @@
           "daylight_lux_threshold": 2000.0,
           "feature_schema": "current-conditions-ist-v2"
         },
+        "drift_reference": {
+          "method": "psi-quantile-v1",
+          "minimum_rows": 50,
+          "threshold": 0.2,
+          "features": {
+            "light_lux": {
+              "cuts": [
+                16367.5,
+                29455.0,
+                41046.00000000001,
+                52585.0,
+                63422.0,
+                72019.0,
+                78422.5,
+                82498.0,
+                87013.5
+              ],
+              "proportions": [
+                0.10037002775208141,
+                0.09944495837187789,
+                0.10037002775208141,
+                0.09944495837187789,
+                0.10037002775208141,
+                0.09944495837187789,
+                0.10037002775208141,
+                0.09944495837187789,
+                0.10037002775208141,
+                0.10037002775208141
+              ],
+              "rows": 1076
+            },
+            "temp_c": {
+              "cuts": [
+                25.85,
+                27.3,
+                28.8,
+                30.1,
+                31.2,
+                32.1,
+                32.9,
+                33.5,
+                34.0
+              ],
+              "proportions": [
+                0.10037002775208141,
+                0.09944495837187789,
+                0.09111933395004625,
+                0.10777058279370953,
+                0.09944495837187789,
+                0.08926919518963922,
+                0.10222016651248844,
+                0.10407030527289547,
+                0.09481961147086032,
+                0.11147086031452359
+              ],
+              "rows": 1076
+            }
+          }
+        },
         "model_version": "current-gbr-v2-0636ae9648d88f24",
         "validation": {
           "method_version": "power-evaluation-v2",
@@ -126,6 +185,65 @@
           "temp_c",
           "dust_ugm3"
         ],
+        "drift_reference": {
+          "method": "psi-quantile-v1",
+          "minimum_rows": 50,
+          "threshold": 0.2,
+          "features": {
+            "light_lux": {
+              "cuts": [
+                16165.2,
+                28982.4,
+                40888.8,
+                52359.4,
+                63068.0,
+                71144.8,
+                77911.40000000001,
+                82363.4,
+                87072.20000000001
+              ],
+              "proportions": [
+                0.10037037037037037,
+                0.09962962962962962,
+                0.10037037037037037,
+                0.09962962962962962,
+                0.09962962962962962,
+                0.10037037037037037,
+                0.09962962962962962,
+                0.10037037037037037,
+                0.09962962962962962,
+                0.10037037037037037
+              ],
+              "rows": 1345
+            },
+            "temp_c": {
+              "cuts": [
+                25.8,
+                27.2,
+                28.8,
+                30.0,
+                31.1,
+                32.1,
+                32.8,
+                33.4,
+                34.0
+              ],
+              "proportions": [
+                0.09518518518518519,
+                0.10185185185185185,
+                0.09666666666666666,
+                0.09814814814814815,
+                0.10037037037037037,
+                0.10555555555555556,
+                0.08703703703703704,
+                0.10555555555555556,
+                0.10333333333333333,
+                0.10629629629629629
+              ],
+              "rows": 1345
+            }
+          }
+        },
         "total_rows_at_train": 2737,
         "source_window_end_ts": 1736510400,
         "data_origin": "synthetic-test-inputs",
@@ -135,7 +253,7 @@
           "recall": null,
           "note": "No verified fault labels; an unusual pattern is not a confirmed fault."
         },
-        "model_version": "anomaly_isolation_forest-v2-2ac1b4082748a3a1",
+        "model_version": "anomaly_isolation_forest-v2-a169d531294f03bf",
         "artifact_sha256": "3b046a09d41aab48217a22f995b249072e27b117b35ea9fa246b22d7677c1b6d"
       },
       "schema_version": 2,
@@ -171,6 +289,65 @@
           "daylight_lux_threshold": 2000.0,
           "feature_schema": "current-conditions-ist-v2"
         },
+        "drift_reference": {
+          "method": "psi-quantile-v1",
+          "minimum_rows": 50,
+          "threshold": 0.2,
+          "features": {
+            "light_lux": {
+              "cuts": [
+                35110.8,
+                44605.4,
+                53624.8,
+                62721.6,
+                69617.0,
+                76127.0,
+                80110.6,
+                84139.0,
+                87976.0
+              ],
+              "proportions": [
+                0.10026501766784453,
+                0.10026501766784453,
+                0.09938162544169611,
+                0.10026501766784453,
+                0.09938162544169611,
+                0.10026501766784453,
+                0.10026501766784453,
+                0.09938162544169611,
+                0.10026501766784453,
+                0.10026501766784453
+              ],
+              "rows": 1127
+            },
+            "temp_c": {
+              "cuts": [
+                28.0,
+                29.12,
+                30.180000000000007,
+                31.1,
+                31.9,
+                32.6,
+                33.1,
+                33.6,
+                34.1
+              ],
+              "proportions": [
+                0.09673144876325088,
+                0.10379858657243816,
+                0.09938162544169611,
+                0.09408127208480566,
+                0.10026501766784453,
+                0.09584805653710247,
+                0.0896643109540636,
+                0.11439929328621908,
+                0.09496466431095406,
+                0.11086572438162544
+              ],
+              "rows": 1127
+            }
+          }
+        },
         "rows_used": 1127,
         "total_rows_at_train": 2737,
         "source_window_end_ts": 1736510400,
@@ -182,7 +359,7 @@
         },
         "percentile": 90,
         "median_pr_observed": 0.964,
-        "model_version": "health_baseline-v2-77911f638de10700",
+        "model_version": "health_baseline-v2-b4feb276cb77d4c6",
         "artifact_sha256": "638e9c609e6319c773786ccc92ac648100d07946d307c61474cfd61ee2f3058f"
       },
       "schema_version": 2,
@@ -216,14 +393,14 @@
           "data_origin": "synthetic-test-inputs"
         },
         "anomaly": {
-          "model_version": "anomaly_isolation_forest-v2-2ac1b4082748a3a1",
+          "model_version": "anomaly_isolation_forest-v2-a169d531294f03bf",
           "trained_at": 1736510401,
           "load_state": "ready",
           "validation_status": "unsupervised",
           "data_origin": "synthetic-test-inputs"
         },
         "health": {
-          "model_version": "health_baseline-v2-77911f638de10700",
+          "model_version": "health_baseline-v2-b4feb276cb77d4c6",
           "trained_at": 1736510401,
           "load_state": "ready",
           "validation_status": "engineering_reference",
@@ -236,6 +413,59 @@
       "dataQuality": "Estimated",
       "updated_at": 1736510401
     }
+  },
+  "drift_now": 1736596801,
+  "drift": {
+    "source_ts": 1736596800,
+    "data_origin": "synthetic-test-inputs",
+    "status": "ok",
+    "method": "psi-quantile-v1",
+    "threshold": 0.2,
+    "minimum_rows": 50,
+    "models": {
+      "forecast": {
+        "status": "stable",
+        "model_version": "current-gbr-v2-0636ae9648d88f24",
+        "trained_at": 1736510401,
+        "source_window_end_ts": 1736510400,
+        "recent_rows": 71,
+        "max_psi": 0.11768323815447429,
+        "feature_psi": {
+          "light_lux": 0.11768323815447429,
+          "temp_c": 0.06706924601408819
+        }
+      },
+      "anomaly": {
+        "status": "stable",
+        "model_version": "anomaly_isolation_forest-v2-a169d531294f03bf",
+        "trained_at": 1736510401,
+        "source_window_end_ts": 1736510400,
+        "recent_rows": 71,
+        "max_psi": 0.1356312154521636,
+        "feature_psi": {
+          "light_lux": 0.1356312154521636,
+          "temp_c": 0.03601169996393113
+        }
+      },
+      "health": {
+        "status": "stable",
+        "model_version": "health_baseline-v2-b4feb276cb77d4c6",
+        "trained_at": 1736510401,
+        "source_window_end_ts": 1736510400,
+        "recent_rows": 60,
+        "max_psi": 0.11176172904885978,
+        "feature_psi": {
+          "light_lux": 0.11176172904885978,
+          "temp_c": 0.07240052339292652
+        }
+      }
+    },
+    "note": "Feature-distribution shift is a review heuristic, not accuracy or a confirmed fault. Retraining still needs eligible new rows and candidate validation. Missing references/new rows remain unavailable.",
+    "schema_version": 2,
+    "site_id": "solar_site",
+    "device_id": "nodemcu-01",
+    "dataQuality": "Estimated",
+    "updated_at": 1736596801
   },
   "notice": "Synthetic generated inputs only; no field accuracy"
 }

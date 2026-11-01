@@ -9,7 +9,7 @@ MODEL_NAMES = {'forecast_gbr', 'anomaly_isolation_forest', 'health_baseline'}
 STATUSES = {'ok', 'not_enough_data', 'stale_input', 'invalid_input', 'model_expired', 'validation_failed', 'not_enough_daylight', 'model_unavailable'}
 META_FIELDS = {'schema_version', 'model', 'site_id', 'device_id', 'model_version', 'trained_at', 'library_versions', 'training_parameters',
                'data_origin', 'source_window_end_ts', 'rows_used', 'total_rows_at_train', 'feature_columns', 'validation',
-               'val_mae_mw', 'horizon_note', 'artifact_sha256', 'percentile', 'median_pr_observed'}
+               'val_mae_mw', 'horizon_note', 'artifact_sha256', 'percentile', 'median_pr_observed', 'drift_reference'}
 
 
 def training_parameters():
@@ -31,6 +31,9 @@ def valid_metadata(meta, name, now=None, check_age=True):
     if not isinstance(meta, dict) or meta.get('schema_version') != 2 or meta.get('model') != name or name not in MODEL_NAMES:
         return False
     if set(meta) - META_FIELDS:
+        return False
+    from pipeline.drift import valid_reference
+    if 'drift_reference' in meta and not valid_reference(meta['drift_reference']):
         return False
     if meta.get('site_id') != cfg.SITE_ID or meta.get('device_id') != cfg.DEVICE_ID or meta.get('training_parameters') != training_parameters():
         return False
@@ -85,7 +88,7 @@ def valid_metadata(meta, name, now=None, check_age=True):
 
 
 def validate_payload(section, payload):
-    if section not in {'forecast', 'anomaly', 'health', 'status'} or not isinstance(payload, dict):
+    if section not in {'forecast', 'anomaly', 'health', 'status', 'drift'} or not isinstance(payload, dict):
         raise ValueError('Invalid AI publication section')
     if payload.get('schema_version') != 2 or payload.get('site_id') != cfg.SITE_ID or payload.get('device_id') != cfg.DEVICE_ID:
         raise ValueError('Invalid AI publication identity/schema')
@@ -95,10 +98,13 @@ def validate_payload(section, payload):
         raise ValueError('Invalid AI publication status/origin')
     fields = {'schema_version', 'site_id', 'device_id', 'updated_at', 'source_ts', 'data_origin', 'dataQuality', 'status', 'reason', 'total_rows', 'daylight_rows'}
     extras = {'forecast': {'predicted_power_mw', 'model_metadata'}, 'anomaly': {'is_anomaly', 'score', 'model_metadata'},
-              'health': {'baseline_pr', 'physical_health', 'model_metadata'}, 'status': {'trained_models', 'skipped_models', 'model_states', 'model_info'}}
+              'health': {'baseline_pr', 'physical_health', 'model_metadata'}, 'status': {'trained_models', 'skipped_models', 'model_states', 'model_info'},
+              'drift': {'models', 'method', 'threshold', 'minimum_rows', 'note'}}
     if set(payload) - fields - extras[section] or payload.get('dataQuality') not in {'Estimated', 'Unavailable'}:
         raise ValueError('Unexpected AI publication fields/quality')
-    if section == 'status':
+    if section == 'drift':
+        validate_drift(payload)
+    elif section == 'status':
         if not integer(payload.get('total_rows')) or not 0 <= payload['total_rows'] <= cfg.MAX_HISTORY_ROWS:
             raise ValueError('Invalid AI pipeline count')
         for key in ['trained_models', 'skipped_models']:
@@ -139,3 +145,36 @@ def validate_payload(section, payload):
             raise ValueError('Invalid performance reference')
     json.dumps(payload, allow_nan=False)
     return payload
+
+
+def validate_drift(payload):
+    from pipeline.drift import METHOD, THRESHOLD, MINIMUM_ROWS, FIELDS
+    if payload.get('method') != METHOD or payload.get('threshold') != THRESHOLD or payload.get('minimum_rows') != MINIMUM_ROWS or not isinstance(payload.get('note'), str) or len(payload['note']) > 1000:
+        raise ValueError('Invalid drift policy')
+    models = payload.get('models')
+    if not isinstance(models, dict) or set(models) != {'forecast', 'anomaly', 'health'}:
+        raise ValueError('Invalid drift models')
+    if payload['status'] == 'ok' and (not integer(payload.get('source_ts')) or not -300 <= int(time.time()) - payload['source_ts'] <= cfg.MAX_INPUT_AGE_SECONDS):
+        raise ValueError('Stale drift source')
+    for row in models.values():
+        if not isinstance(row, dict) or set(row) != {'status', 'model_version', 'trained_at', 'source_window_end_ts', 'recent_rows', 'max_psi', 'feature_psi'}:
+            raise ValueError('Invalid drift fields')
+        if row['status'] not in {'unavailable', 'insufficient_new_data', 'stable', 'drift_detected'}:
+            raise ValueError('Invalid drift state')
+        if row['model_version'] is not None and not re.fullmatch('[A-Za-z0-9_.-]{3,128}', str(row['model_version'])):
+            raise ValueError('Invalid drift model version')
+        if not isinstance(row['feature_psi'], dict) or set(row['feature_psi']) - set(FIELDS) or any(not finite(value) or value < 0 for value in row['feature_psi'].values()):
+            raise ValueError('Invalid drift metric')
+        if row['status'] == 'unavailable':
+            if row['max_psi'] is not None or row['recent_rows'] is not None or row['feature_psi']:
+                raise ValueError('Unavailable drift cannot contain metrics')
+            continue
+        if not row['model_version'] or not integer(row['trained_at']) or not -300 <= int(time.time()) - row['trained_at'] <= cfg.MAX_MODEL_AGE_SECONDS or not integer(row['source_window_end_ts']) or row['source_window_end_ts'] > (payload.get('source_ts') or 0):
+            raise ValueError('Invalid drift model clocks')
+        if not integer(row['recent_rows']) or not 0 <= row['recent_rows'] <= 500:
+            raise ValueError('Invalid drift sample size')
+        if row['status'] == 'insufficient_new_data':
+            if row['recent_rows'] >= MINIMUM_ROWS or row['max_psi'] is not None or row['feature_psi']:
+                raise ValueError('Insufficient drift cannot contain metrics')
+        elif row['recent_rows'] < MINIMUM_ROWS or set(row['feature_psi']) != set(FIELDS) or not finite(row['max_psi']) or abs(row['max_psi'] - max(row['feature_psi'].values())) > 1e-9 or (row['status'] == 'drift_detected') != (row['max_psi'] >= THRESHOLD):
+            raise ValueError('Inconsistent drift result')

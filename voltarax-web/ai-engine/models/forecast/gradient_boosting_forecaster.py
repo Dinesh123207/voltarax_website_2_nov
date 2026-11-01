@@ -9,8 +9,9 @@ import numpy as np
 import hashlib
 import json
 from evaluation import fit_power
-from data.features import BASE_FEATURE_COLUMNS
+from data.features import BASE_FEATURE_COLUMNS, build_forecast_dataset
 from models.base import BaseModel
+from pipeline.drift import reference
 
 
 class ForecastModel(BaseModel):
@@ -22,7 +23,9 @@ class ForecastModel(BaseModel):
             raise ValueError('Current-condition candidate did not pass the chronological baseline comparison')
         self.estimator = model
         identity = hashlib.sha256(json.dumps(validation, sort_keys=True).encode()).hexdigest()[:16]
+        training_features, _ = build_forecast_dataset(df.sort_values('ts').drop_duplicates('ts'))
         self._stamp_metadata(
+            drift_reference=reference(training_features.iloc[:validation['split']['train_rows']]),
             schema_version=2, model_version=f'current-gbr-v2-{identity}', validation=validation,
             data_origin='synthetic-test-inputs' if 'simulated' in df and bool(df['simulated'].fillna(False).any()) else 'device-history-unverified-calibration',
             source_window_end_ts=int(df['ts'].max()),

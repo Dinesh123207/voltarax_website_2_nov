@@ -57,6 +57,16 @@ test('official SDK RTDB readback normalizes absent empty/null members without fa
   assert.equal(reader.validated('forecast', data.payloads.forecast), null);
 });
 
+test('actual Python drift publication is accepted and inconsistent/stale checks are refused', () => {
+  const data = fixture('phase06-model-contract');
+  const reader = createAiReader({ db: {}, env: demo, now: () => data.drift_now });
+  assert.ok(reader.validated('drift', data.drift));
+  const invalid = clone(data.drift); invalid.models.forecast.max_psi = 500;
+  assert.equal(reader.validated('drift', invalid), null);
+  const stale = clone(data.drift); stale.source_ts = data.drift_now - 121;
+  assert.equal(reader.validated('drift', stale), null);
+});
+
 test('engineering estimate requires fresh valid primary daylight input and no future extrapolation', () => {
   const now = 2000000000, reading = { ts: now, site_id: 'solar_site', device_id: 'nodemcu-01', power_mw: 4000, light_lux: 50000, temp_c: 30 };
   assert.ok(currentEstimate(null, reading, { env: {}, now }).estimated_current_power_kw > 0);

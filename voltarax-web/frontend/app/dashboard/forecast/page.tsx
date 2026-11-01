@@ -9,7 +9,8 @@ type Estimate = { estimated_current_power_kw: number | null; dataQuality: 'Estim
   source_as_of: number | null; generated_at: number | null; valid_until: number | null; model_version: string | null; data_origin: string | null; model_metadata: Metadata | null; horizon_note: string };
 type Hour = { hour: string; date_ist: string; kw: number; samples: number; dataQuality: string };
 type ModelInfo = { model_version: string | null; trained_at: number | null; load_state: string; validation_status: string | null };
-type Pipeline = { model_states: Record<string, string>; model_info: Record<string, ModelInfo> };
+type Pipeline = { valid_until: number; model_states: Record<string, string>; model_info: Record<string, ModelInfo> };
+type Drift = { status: string; valid_until?: number; models?: Record<string, { status: string; recent_rows?: number | null; max_psi?: number | null }> };
 const ist = (stamp?: number | null) => stamp ? new Date(stamp * 1000).toLocaleString('en-IN', { timeZone: 'Asia/Kolkata', hour12: false }) + ' IST' : 'Unavailable';
 const number = (value?: number | null, digits = 3) => typeof value === 'number' && Number.isFinite(value) ? value.toFixed(digits) : 'Unavailable';
 
@@ -17,15 +18,16 @@ export default function ForecastPage() {
   const [data, setData] = useState<Estimate | null>(null);
   const [hourly, setHourly] = useState<Hour[]>([]);
   const [pipeline, setPipeline] = useState<Pipeline | null>(null);
+  const [drift, setDrift] = useState<Drift | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
   const load = async () => {
-    setLoading(true); setError(''); setData(null); setPipeline(null); setHourly([]);
+    setLoading(true); setError(''); setData(null); setPipeline(null); setDrift(null); setHourly([]);
     try {
       const responses = await Promise.all(['/api/forecast', '/api/forecast/hourly', '/api/ai/status'].map(path => fetch(path, { cache: 'no-store' })));
       if (responses.some(response => !response.ok)) throw Error('Current estimates could not be loaded. Check your connection and site access.');
       const [estimate, hours, status] = await Promise.all(responses.map(response => response.json()));
-      setData(estimate); setHourly(Array.isArray(hours) ? hours : []); setPipeline(status.pipeline || null);
+      setData(estimate); setHourly(Array.isArray(hours) ? hours : []); setPipeline(status.pipeline || null); setDrift(status.drift || null);
     } catch (failure) { setError(failure instanceof Error ? failure.message : 'Estimates unavailable.'); }
     finally { setLoading(false); }
   };
@@ -35,6 +37,16 @@ export default function ForecastPage() {
     const timer = setTimeout(() => setData(previous => previous ? { ...previous, estimated_current_power_kw: null, dataQuality: 'Unavailable', valid_until: null, reason: 'Input or model expired. Refresh to check for a new estimate.' } : null), Math.max(0, data.valid_until * 1000 - Date.now()));
     return () => clearTimeout(timer);
   }, [data?.valid_until]);
+  useEffect(() => {
+    if (!pipeline?.valid_until) return;
+    const timer = setTimeout(() => setPipeline(null), Math.max(0, pipeline.valid_until * 1000 - Date.now()));
+    return () => clearTimeout(timer);
+  }, [pipeline?.valid_until]);
+  useEffect(() => {
+    if (!drift?.valid_until) return;
+    const timer = setTimeout(() => setDrift(null), Math.max(0, drift.valid_until * 1000 - Date.now()));
+    return () => clearTimeout(timer);
+  }, [drift?.valid_until]);
   const validation = data?.model_metadata?.validation;
   return (
     <div className="space-y-6">
@@ -93,6 +105,13 @@ export default function ForecastPage() {
           <thead className="text-slate-300"><tr><th scope="col">Date / hour IST</th><th scope="col">Average kW</th><th scope="col">Samples</th><th scope="col">Quality</th></tr></thead>
           <tbody className="text-slate-400">{hourly.map(row => <tr key={row.hour}><th scope="row" className="py-2">{row.date_ist} {row.hour}</th><td>{number(row.kw, 6)}</td><td>{row.samples}</td><td>{row.dataQuality}</td></tr>)}</tbody>
         </table></div> : <p className="text-sm text-slate-400">{loading ? 'Loading…' : 'No valid readings available for today.'}</p>}
+      </section>
+      <section className="stat-card space-y-3">
+        <h2 className="text-lg text-white font-semibold">Input distribution check</h2>
+        <p className="text-sm text-slate-400">Training-reference PSI compares light and temperature with up to 500 new daylight samples. At least 50 are required. The initial 0.2 review threshold is an assumption, not validated site accuracy or a fault diagnosis.</p>
+        {drift?.status === 'ok' && drift.models ? <ul className="space-y-2 text-sm text-slate-300">{Object.entries(drift.models).map(([name, row]) => <li key={name}>
+          <span className="capitalize">{name}</span>: {row.status.replaceAll('_', ' ')} · New samples {row.recent_rows ?? 'Unavailable'} · PSI {number(row.max_psi)}
+        </li>)}</ul> : <p className="text-sm text-slate-400">No fresh validated distribution check available.</p>}
       </section>
     </div>
   );

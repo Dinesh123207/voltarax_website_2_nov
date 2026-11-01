@@ -9,6 +9,7 @@ import numpy as np
 import config as cfg
 from data.features import daylight_only
 from models.base import BaseModel
+from pipeline.drift import reference
 
 PERCENTILE = 90  # "how the panel performs on its better days", not its best-ever spike
 
@@ -42,6 +43,7 @@ class HealthBaselineModel(BaseModel):
 
         self.estimator = {"baseline_pr": baseline}
         self._stamp_metadata(
+            drift_reference=reference(df.loc[pr.index]),
             rows_used=int(len(pr)),
             total_rows_at_train=total_rows,
             source_window_end_ts=source_end, data_origin=origin,

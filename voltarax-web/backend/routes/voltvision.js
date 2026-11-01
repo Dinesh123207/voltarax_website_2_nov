@@ -2,7 +2,7 @@ const express = require('express');
 const { protect, requireAdmin, requireOperator, requireSite } = require('../middleware/auth');
 const { periodStartsIST, energyStats } = require('../services/energy');
 const { dashboard, panels, latest } = require('../services/dashboardData');
-const { getAiForecast, getAiAnomaly, getAiHealth, getAiStatus } = require('../services/aiPredictions');
+const { getAiForecast, getAiAnomaly, getAiHealth, getAiStatus, getAiDrift } = require('../services/aiPredictions');
 const SolarTelemetry = require('../models/SolarTelemetry');
 const SolarAnalysis = require('../models/SolarAnalysis');
 const { validate, z } = require('../middleware/validate');
@@ -41,14 +41,15 @@ router.get('/forecast', protect, requireSite, dashboardValidation('get', '/forec
 // 'not_enough_data' until its own threshold is met, see ai-engine/config.py).
 router.get('/ai/status', protect, requireSite, dashboardValidation('get', '/ai/status'), async (req, res) => {
   try {
-    const [forecast, anomaly, health, status] = await Promise.all([
-      getAiForecast(), getAiAnomaly(), getAiHealth(), getAiStatus(),
+    const [forecast, anomaly, health, status, drift] = await Promise.all([
+      getAiForecast(), getAiAnomaly(), getAiHealth(), getAiStatus(), getAiDrift(),
     ]);
     res.json({
       forecast: forecast || { status: 'model_unavailable', dataQuality: 'Unavailable' },
       anomaly: anomaly || { status: 'model_unavailable', dataQuality: 'Unavailable' },
       health: health || { status: 'model_unavailable', dataQuality: 'Unavailable' },
       pipeline: status,
+      drift: drift || { status: 'model_unavailable', dataQuality: 'Unavailable' },
     });
   } catch (err) { res.status(500).json({ success: false, message: 'AI engine status unavailable.' }); }
 });

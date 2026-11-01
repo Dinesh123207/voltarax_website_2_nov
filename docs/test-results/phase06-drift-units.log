@@ -1,0 +1,29 @@
+...F                                                                     [100%]
+================================== FAILURES ===================================
+____________ test_drift_publication_is_validated_before_transport _____________
+
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x0000020604383A80>
+
+    def test_drift_publication_is_validated_before_transport(monkeypatch):
+        import time
+        from scripts.check_drift import build_report
+        from pipeline.publish import publish
+        from models.health.performance_ratio_model import HealthBaselineModel
+        frame = sample_frame(); frame['simulated'] = True
+        model = HealthBaselineModel().fit(frame)
+        current = frame.copy(); current['ts'] += 864000; current['light_lux'] *= 2
+        monkeypatch.setattr(time, 'time', lambda: int(current['ts'].max()) + 1)
+        report = build_report(current, models={'forecast': model, 'anomaly': model, 'health': model})
+        sent = []
+        value = publish('drift', report, writer=lambda *args: sent.append(args))
+>       assert len(sent) == 1 and value['models']['health']['status'] == 'drift_detected'
+E       AssertionError: assert (1 == 1 and 'unavailable' == 'drift_detected'
+E        +  where 1 = len([('/sites/solar_site/ai/drift', {'source_ts': 1736673300, 'data_origin': 'synthetic-test-inputs', 'status': 'ok', 'method': 'psi-quantile-v1', ...})])
+E         
+E         - drift_detected
+E         + unavailable)
+
+tests\test_drift.py:59: AssertionError
+=========================== short test summary info ===========================
+FAILED tests/test_drift.py::test_drift_publication_is_validated_before_transport
+1 failed, 3 passed in 6.73s

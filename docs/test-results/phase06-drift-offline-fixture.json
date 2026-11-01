@@ -1,0 +1,43 @@
+{
+  "source_ts": 1736553300,
+  "data_origin": "synthetic-test-inputs",
+  "status": "stale_input",
+  "method": "psi-quantile-v1",
+  "threshold": 0.2,
+  "minimum_rows": 50,
+  "models": {
+    "forecast": {
+      "status": "unavailable",
+      "model_version": null,
+      "trained_at": null,
+      "source_window_end_ts": null,
+      "recent_rows": null,
+      "max_psi": null,
+      "feature_psi": {}
+    },
+    "anomaly": {
+      "status": "unavailable",
+      "model_version": null,
+      "trained_at": null,
+      "source_window_end_ts": null,
+      "recent_rows": null,
+      "max_psi": null,
+      "feature_psi": {}
+    },
+    "health": {
+      "status": "unavailable",
+      "model_version": null,
+      "trained_at": null,
+      "source_window_end_ts": null,
+      "recent_rows": null,
+      "max_psi": null,
+      "feature_psi": {}
+    }
+  },
+  "note": "Feature-distribution shift is a review heuristic, not accuracy or a confirmed fault. Retraining still needs eligible new rows and candidate validation. Missing references/new rows remain unavailable.",
+  "schema_version": 2,
+  "site_id": "solar_site",
+  "device_id": "nodemcu-01",
+  "dataQuality": "Unavailable",
+  "updated_at": 1793549681
+}

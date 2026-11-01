@@ -18,6 +18,13 @@ with tempfile.TemporaryDirectory(prefix='contract-', dir=cfg.ROOT.parents[1] / '
     result = run(reader=lambda: raw, writer=writer)
     assert not result.errors and all(row['status'] == 'ok' for row in result.published.values())
     payloads = {key.rsplit('/', 1)[-1]: value for key, value in writer.store.items()}
+    from data.ingest import fetch_history
+    from scripts.check_drift import build_report
+    from pipeline.publish import publish
+    new_raw = fixtures.make_synthetic_history(days=1, start_day=10)
+    drift_stamp = max(row['ts'] for row in new_raw.values()) + 1
+    time.time = lambda: drift_stamp
+    drift = publish('drift', build_report(fetch_history(reader=lambda: new_raw)), writer=lambda *_: None)
     output = cfg.ROOT.parents[1] / 'docs/test-results/phase06-model-contract-fixture.json'
-    output.write_text(json.dumps({'now': stamp, 'payloads': payloads, 'notice': 'Synthetic generated inputs only; no field accuracy'}, indent=2, allow_nan=False) + '\n', encoding='utf-8')
+    output.write_text(json.dumps({'now': stamp, 'payloads': payloads, 'drift_now': drift_stamp, 'drift': drift, 'notice': 'Synthetic generated inputs only; no field accuracy'}, indent=2, allow_nan=False) + '\n', encoding='utf-8')
     print('Offline synthetic model publication contract generated; no database access.')

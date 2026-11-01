@@ -82,3 +82,20 @@ AI_REMOTE_ACCESS_ENABLED and AI_PUBLISH_ENABLED default false. Synthetic
 publication requires an explicitly identified loopback demo emulator.
 See scripts/schedule_cron.md and ../../docs/MANUAL_STEPS.md before operator
 setup. Real credentials/data/weather validation remain manual checks.
+
+## Distribution shift and retraining
+
+scripts/check_drift.py --input PRIVATE_EXPORT.json --output artifacts/drift/REVIEW.json
+is offline and never writes to Firebase. Without --input it requires explicitly
+configured reads. --publish separately enables schema-validated /sites/{site}/ai/drift
+publication, and cannot be combined with an offline input. Missing models or
+references remain unavailable; outputs refuse overwrites.
+
+Reference light/temperature quantile histograms come only from actual training
+inputs (forecast holdout excluded). PSI compares at most 500 eligible rows newer
+than the previous source-window watermark, requiring 50 rows. Half-count
+smoothing handles constant/empty bins without infinity. The 0.2 review threshold
+is an initial assumption, not a validated site threshold or accuracy/fault test.
+Drift requests review; it does not bypass minimum new rows or the chronological
+candidate acceptance gate. Reports identify the evaluated model version and
+training/source window. No drift result was verified on real-site data.

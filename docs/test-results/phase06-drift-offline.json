@@ -1,0 +1,13 @@
+{
+  "command": [
+    "C:/Users/JARVIS/Desktop/VOLTARAX/.local-tools/ai-python/Scripts/python.exe",
+    "scripts/check_drift.py",
+    "--input",
+    "C:/Users/JARVIS/Desktop/VOLTARAX/.local-tools/phase06/synthetic-export.json",
+    "--output",
+    "C:/Users/JARVIS/Desktop/VOLTARAX/docs/test-results/phase06-drift-offline-fixture.json"
+  ],
+  "cwd": "voltarax-web/ai-engine",
+  "exit_code": 0,
+  "seconds": 7.92
+}
