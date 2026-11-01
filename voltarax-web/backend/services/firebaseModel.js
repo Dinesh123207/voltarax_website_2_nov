@@ -23,7 +23,7 @@ class FirebaseQuery {
   populate() { return this; }
   lean() { return this; }
   async exec() {
-    let rows = await this.loader();
+    let rows = await this.loader(this.ops);
     for (const op of this.ops) {
       if (op.type === 'sort') {
         const entries = Object.entries(op.spec);
@@ -57,9 +57,33 @@ class FirebaseModel {
     const value = snap.val() || {};
     return Object.entries(value).map(([id, row]) => ({ [this.idField]: id, ...row }));
   }
+  async _filtered(filter = {}, ops = []) {
+    const entries = Object.entries(filter);
+    const range = entries.find(([, v]) => v && typeof v === 'object' && !Array.isArray(v));
+    const equality = entries.find(([, v]) => v == null || typeof v !== 'object');
+    const chosen = range || equality;
+    if (!chosen) return this._all();
+    const [field, value] = chosen;
+    let query = db.ref(this.collectionPath).orderByChild(field);
+    if (value && typeof value === 'object') {
+      if (value.$gte != null) query = query.startAt(value.$gte);
+      if (value.$lte != null) query = query.endAt(value.$lte);
+    } else query = query.equalTo(value);
+    // A Firebase query can order by only one field. Only push a limit down
+    // when it cannot discard rows needed by a second filter or local sort.
+    const sort = ops.find(op => op.type === 'sort');
+    const limit = ops.find(op => op.type === 'limit');
+    const skip = ops.find(op => op.type === 'skip');
+    const sortEntries = Object.entries(sort?.spec || {});
+    if (entries.length === 1 && limit && !skip && !(value && typeof value === 'object' && ('$gt' in value || '$lt' in value)) && sortEntries.length === 1 && sortEntries[0][0] === field && limit.n > 0) {
+      query = sortEntries[0][1] < 0 ? query.limitToLast(limit.n) : query.limitToFirst(limit.n);
+    }
+    const snap = await query.get();
+    return Object.entries(snap.val() || {}).map(([id, row]) => ({ [this.idField]: id, ...row }));
+  }
   find(filter = {}, projection) {
-    return new FirebaseQuery(async () => {
-      const rows = (await this._all()).filter(row => matches(row, filter));
+    return new FirebaseQuery(async ops => {
+      const rows = (await this._filtered(filter, ops)).filter(row => matches(row, filter));
       if (!projection) return rows;
       return rows.map(row => {
         const out = { ...row };
@@ -70,7 +94,7 @@ class FirebaseModel {
   }
   findOne(filter = {}) {
     const q = new FirebaseQuery(async () => {
-      const rows = (await this._all()).filter(row => matches(row, filter));
+      const rows = (await this._filtered(filter)).filter(row => matches(row, filter));
       return rows.slice(0, 1);
     });
     q.execOne = async () => {
@@ -93,9 +117,9 @@ class FirebaseModel {
     await this.ref(id).set(value);
     return this._decorate({ [this.idField]: id, ...value });
   }
-  async countDocuments(filter = {}) { return (await this._all()).filter(row => matches(row, filter)).length; }
+  async countDocuments(filter = {}) { return (await this._filtered(filter)).filter(row => matches(row, filter)).length; }
   async findOneAndUpdate(filter, update, options = {}) {
-    const found = (await this._all()).find(row => matches(row, filter));
+    const found = (await this._filtered(filter)).find(row => matches(row, filter));
     let id = found?.[this.idField];
     let current = found ? { ...found } : null;
     if (!id && options.upsert) id = db.ref(this.collectionPath).push().key;

@@ -6,6 +6,7 @@
         ".write": "auth != null && auth.uid === 'PASTE_FIREBASE_DEVICE_UID_HERE'"
       },
       "history": {
+        ".indexOn": ["ts", "site_id"],
         ".read": false,
         ".write": "auth != null && auth.uid === 'PASTE_FIREBASE_DEVICE_UID_HERE'"
       },
@@ -23,6 +24,9 @@
       }
     },
     "users": { ".read": false, ".write": false },
-    "content": { ".read": false, ".write": false }
+    "content": { ".read": false, ".write": false,
+      "subscribers": { ".indexOn": ["email", "isActive"] },
+      "posts": { ".indexOn": ["published", "slug", "category", "publishedAt"] }
+    }
   }
 }

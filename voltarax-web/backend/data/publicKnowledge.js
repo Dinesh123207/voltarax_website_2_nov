@@ -7,11 +7,11 @@
  */
 const ENTRIES = [
   { id: 'what', kws: ['what', 'voltvision', 'platform', 'product', 'voltarax'],
-    a: "VoltVision AI is Voltarax's renewable-energy intelligence platform for bio-coated solar panels. It monitors panel health, forecasts generation and helps optimise how clean energy is used." },
+    a: "VoltVision AI is Voltarax's renewable-energy intelligence platform for bio-coated solar panels. It displays site readings and calculated health when telemetry is available." },
   { id: 'coating', kws: ['coating', 'bio', 'fluorescent', 'peel', 'organic', 'waste'],
     a: 'The bio-fluorescent coating is made from fruit-peel waste. It converts UV light into visible light that solar cells can use, while the platform tracks panel and coating health.' },
   { id: 'ai', kws: ['ai', 'can do', 'capability', 'capabilities', 'feature'],
-    a: 'VoltVision combines forecasting, computer-vision inspection, anomaly detection, maintenance alerts, energy optimisation and carbon analytics for solar assets.' },
+    a: 'VoltVision supports site telemetry and rule-based analysis, with data-driven estimates when sufficient history is available. Camera inspection and automated controls are planned.' },
 ];
 
 const STOP = new Set('a an the is are was were be been being of to in on for with and or how what who when where why does do can could would should i you it this that my our your please tell me about show give'.split(' '));
