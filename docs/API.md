@@ -1,5 +1,17 @@
 # API conventions
 
+## Phase 7 commerce
+
+All routes below live at /api/commerce. Plans are not seeded; pricePaise null blocks checkout. Prices are integer paise, INR, one-time only; test configuration defaults disabled. Public GET /plans returns at most 200 active plans, checkout_enabled, mode:test and a reason. Admin GET/POST /admin/plans and PATCH /admin/plans/:id manage plans with optimistic version checks.
+
+Verified account GET /orders returns its latest 100; POST /orders accepts only planId, planVersion and UUID requestKey, never an amount. Duplicate keys reuse a reservation; creating/creation_unknown never reissues the remote request automatically. GET /orders/:id returns owner data (administrators may review). POST /orders/:id/verify verifies Razorpay fields against the server-stored gateway order; verified is only a callback hint, confirmed remains false until a captured webhook. GET /orders/:id/invoice and /invoice.pdf require owner/admin and a confirmed capture.
+
+POST /webhook is bounded raw application/json before the JSON parser; exact-byte HMAC is required before SQL. Optional event ID/digest and unique payment/order/invoice/refund constraints prevent repeated effects. payment.captured and refund.processed validate identifiers, amount/currency/state; other signed events are ignored and recorded. No raw financial payload/signature is stored. Unknown orders/captures return retryable 503 without consuming the event. Mismatch records review_required without issuing an invoice. Browser callback or fetched order status never substitutes for the capture event.
+
+Admin GET /admin/orders shows latest 100. POST /admin/orders/:id/reconcile takes gatewayOrderId/confirm:true and validates the test gateway receipt, amount and currency; uncertain creation only, no invented paid state. POST /admin/orders/:id/refunds takes UUID requestId, integer amountPaise, note and confirm:true; duplicate IDs reuse the request. PATCH /admin/orders/:id/refunds/:refundId accepts submitted/rejected and optional gatewayRefundId, plus confirm:true; it cannot claim processed or move money. Actual test-dashboard refund remains manual, then a signed processed event confirms totals. Routes enforce server roles/ownership and strict Zod input; cookie writes need X-Voltarax-Request:1. Checkout/verify are additionally limited to ten requests/minute per account per process.
+
+Invoices are immutable test receipts with hash/evidence, Calculated amount and IST server confirmation; GST is null, not a zero-tax assertion. GST_ENABLED=true currently blocks checkout pending reviewed tax implementation. No real payment, seller tax facts, fulfilment or entitlement is inferred.
+
 The existing Express API is proxied by Next.js at `/api`. Dashboard endpoints are also available under `/api/voltvision`. See `SECURITY_CHECKLIST.md` for the complete access inventory.
 
 ## Data quality

@@ -4,6 +4,8 @@
 
 ## Active roadmap
 
+Phase 7 lifecycle/API task verified: four SQL lifecycle tests, raw-body HTTP integration and synthetic receipt PDF text/page/visual review passed. Buyer/admin UI and final full gate are next; actual gateway/PostgreSQL/tax remain manual. No phase tag yet.
+
 Phase 7 foundation: six commerce tables/migration, unpriced/versioned plans, buyer-scoped one-time order snapshots, request-key deduplication and preserved ambiguous creation are implemented. Two actual SQL tests and five policy/quality tests passed. Continue signed capture/refund/invoice lifecycle and HTTP/UI; no phase tag yet.
 
 Phase 6 is locally gated/tagged: 55 backend/28 AI tests, lint/typecheck/build, audits, scan and diff passed. Continue on phase-07-commerce from this phase branch. Real-data/weather/manual-service limitations remain explicit; no live deployment or main/push changes.

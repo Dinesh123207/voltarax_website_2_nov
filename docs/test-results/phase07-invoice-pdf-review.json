@@ -1,0 +1,7 @@
+{
+  "file": "docs\\test-results\\phase07-invoice-layout-fixture.pdf",
+  "pages": 1,
+  "required_text_present": true,
+  "fixture": "Synthetic signed webhook; no real transaction",
+  "visual_review": "passed: rendered one-page PNG inspected; long plan name, identifiers, amount, IST and test/non-tax notices fit without clipping"
+}

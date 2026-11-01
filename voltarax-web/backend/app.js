@@ -9,6 +9,8 @@ function createApp({ logger, limiters, routes, env = process.env }) {
   security(app, { env, logger });
   app.use('/api', (req, res, next) => { res.set('Cache-Control', 'no-store'); next(); });
   app.use('/api', limiters.api);
+  // Signature verification needs the exact bytes, before any JSON parser.
+  if (routes.commerceWebhook) app.use('/api', routes.commerceWebhook);
   app.use(express.json({ limit: '10kb' }), cookieParser());
   const authPaths = ['/api/auth/login', '/api/auth/register', '/api/auth/otp', '/api/auth/sensitive', '/api/auth/password'];
   app.use(authPaths, limiters.authIp, limiters.authEmail);
@@ -16,6 +18,7 @@ function createApp({ logger, limiters, routes, env = process.env }) {
   app.use('/api/telemetry/ingest', limiters.ingest);
   app.get('/health', validate(), (req, res) => res.json({ status: 'ok', app: 'Voltarax API', testMode: require('./config/testMode').demoEmulator(env), simulatorAllowed: require('./config/testMode').simulatorAllowed(env) }));
   app.use('/api/auth', routes.auth);
+  if (routes.commerce) app.use('/api', routes.commerce);
   if (routes.devices) app.use('/api/devices', routes.devices);
   app.use('/api', routes.content);
   if (routes.inspections) {

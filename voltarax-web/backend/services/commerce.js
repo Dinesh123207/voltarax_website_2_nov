@@ -6,7 +6,7 @@ class CommerceError extends Error { constructor(status, message) { super(message
 const fail = (status, message) => { throw new CommerceError(status, message); };
 const one = rows => rows[0];
 const price = value => value === null || (Number.isSafeInteger(value) && value >= 100 && value <= 1000000000);
-function createCommerce(db, { env = process.env, createRemoteOrder = input => gateway(env).orders.create(input) } = {}) {
+function createCommerce(db, { env = process.env, createRemoteOrder = input => gateway(env).orders.create(input), fetchRemoteOrder = id => gateway(env).orders.fetch(id), renderInvoice = require('./invoices').renderInvoice } = {}) {
   const policy = () => paymentPolicy(env);
   const audit = async (tx, action, targetId, actorId) => tx.insert(s.auditEvents).values({ id: randomUUID(), actorId, action, targetId, at: new Date() });
   async function plans(admin = false) {
@@ -74,7 +74,8 @@ function createCommerce(db, { env = process.env, createRemoteOrder = input => ga
       fail(503, 'Gateway order creation is uncertain. Check your orders; do not retry with a new request key. An administrator must reconcile the receipt.');
     }
   }
-  return { policy, plans, savePlan, createOrder, order, orders };
+  return { policy, plans, savePlan, createOrder, order, orders,
+    ...require('./paymentLifecycle').createLifecycle({ db, env, policy, audit, order, fail, fetchRemoteOrder, renderInvoice }) };
 }
 let instance;
 async function getCommerce() {

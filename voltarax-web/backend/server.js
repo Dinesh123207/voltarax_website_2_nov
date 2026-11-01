@@ -10,6 +10,8 @@ async function main() {
   routes.operations = require('./routes/operations').createOperationsRouter();
   routes.reports = require('./routes/reports').createReportsRouter();
   routes.inspections = require('./routes/inspections').createInspectionRouter();
+  routes.commerce = require('./routes/commerce').createCommerceRouter();
+  routes.commerceWebhook = require('./routes/commerce').createCommerceWebhook();
   const app = createApp({ logger, limiters, routes });
   await require('./config/db')();
   require('./services/telemetryWatcher').startTelemetryWatcher();

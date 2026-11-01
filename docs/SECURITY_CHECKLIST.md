@@ -1,5 +1,22 @@
 # Security checklist
 
+## Phase 7 commerce routes
+
+All parameters/query/body use strict Zod schemas (provider webhook envelopes permit ignored provider fields only after raw HMAC). Cookie writes require the request header; server role/owner checks are independent of UI. Actual HTTP/PGlite tests cover public/401/403/owner-vs-other/admin, rejected client amount, invalid raw signature before SQL, replay and protected invoice downloads.
+
+| Route under /api/commerce | Method | Authorization |
+| --- | --- | --- |
+| /plans | GET | Public active plans only |
+| /orders | GET, POST | Verified active account; own records, server prices |
+| /orders/:id | GET | Owner or admin |
+| /orders/:id/verify | POST | Owner; server-stored order HMAC, no paid transition |
+| /orders/:id/invoice, /orders/:id/invoice.pdf | GET | Owner/admin; confirmed captured payment |
+| /admin/plans, /admin/plans/:id | GET/POST, PATCH | Admin; plan version check |
+| /admin/orders | GET | Admin |
+| /admin/orders/:id/reconcile | POST | Admin and explicit confirmation; matching test receipt |
+| /admin/orders/:id/refunds, /:refundId | POST, PATCH | Admin and explicit confirmation; no gateway refund API |
+| /webhook | POST | Raw HMAC before SQL; digest/event dedup, financial checks |
+
 ## Baseline scan
 
 - A local filename and text-pattern scan found no `.env` secret files, firmware `secrets.h`, service-account key files, PEM/key/PKCS files, or common cloud/API token patterns outside examples. The backend example contains a private-key placeholder, not a real key. This limited scan is not proof that all secrets are absent.

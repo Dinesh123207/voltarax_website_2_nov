@@ -76,6 +76,8 @@ PostHog is not enabled; TimescaleDB is a design reference only. Boundary GeoJSON
 
 ## Phase 7 commerce references (2026-11-01)
 
+- Verified raw-byte HMAC, duplicate event IDs and unordered delivery against https://razorpay.com/docs/webhooks/validate-test/ and payment entity docs at https://razorpay.com/docs/webhooks/payments/ . Original lifecycle code validates payment.captured/refund.processed and never treats Checkout callback/order fetch as captured confirmation. PDFKit is the already licensed MIT dependency; invoice layout/evidence are original and only synthetic English fixtures were reviewed.
+
 - Read reference/razorpay-node-master/razorpay-node-master/LICENCE.txt (MIT, Copyright 2019 Razorpay) and documents/order.md/paymentVerfication.md, plus SaaSify's root LICENSE (MIT, Copyright 2025 Ahmad JX) and frontend/src/app/dashboard/billing/page.tsx. Sample card/subscription rows were not copied. Only general plan/order layout patterns inform original implementation.
 - Current official registry verified razorpay 2.9.8/MIT/integrity before normal exact dependency installation. SDK retains upstream notice in node_modules. Original HMAC/persistence code follows https://razorpay.com/docs/payments/payment-gateway/web-integration/standard/integration-steps , https://razorpay.com/docs/api/orders/create/ and https://razorpay.com/docs/webhooks/validate-test/ . Private adapter timeout shape was inspected in the installed pinned dist/razorpay.js and dist/api.js; no vendor code copied or edited. No actual payment service call made.
 

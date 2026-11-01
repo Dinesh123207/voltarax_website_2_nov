@@ -1,0 +1,12 @@
+✔ valid browser signature is only a hint; verified capture atomically creates one payment/invoice under replay (5048.4286ms)
+✔ signed mismatched amounts and unconfirmed events cannot mark an order paid (2326.8299ms)
+✔ out-of-order refunds retry, manual requests do not move funds and signed refunds have no second effect (2374.8172ms)
+✔ receipt-based test reconciliation binds an uncertain order but never invents payment confirmation (2145.894ms)
+ℹ tests 4
+ℹ suites 0
+ℹ pass 4
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 13083.2647
