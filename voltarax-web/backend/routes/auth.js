@@ -61,8 +61,8 @@ function createAuthRouter(deps = {}) {
     res.clearCookie('token', options());
     res.json({ success: true, message: 'Signed out on all devices.' });
   }));
-  router.post('/sensitive/request', protect, emailLimiter, validate({ body: z.object({ action: z.enum(['password', 'user-access']), target: id }).strict() }), ready, safe(async (req, res) => {
-    if (req.body.action === 'user-access' ? req.user.role !== 'admin' : req.body.target !== req.user._id) return res.status(403).json({ success: false, message: 'Access denied.' });
+  router.post('/sensitive/request', protect, emailLimiter, validate({ body: z.object({ action: z.enum(['password', 'user-access', 'device-register', 'device-key-rotate', 'device-configure', 'relay-command']), target: id }).strict() }), ready, safe(async (req, res) => {
+    if (req.body.action === 'password' ? req.body.target !== req.user._id : req.user.role !== 'admin') return res.status(403).json({ success: false, message: 'Access denied.' });
     const result = await otp.issue(req.user.email, purpose(req.user, req.body.action, req.body.target));
     res.status(result.issued ? 202 : 429).json({ success: result.issued, message: result.issued ? 'Verification code requested.' : 'Please wait before requesting another code.' });
   }));

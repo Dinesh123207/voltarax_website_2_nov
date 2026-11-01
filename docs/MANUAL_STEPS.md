@@ -56,3 +56,6 @@ Firebase CLI reported shutdown while its demo JVM kept port 9000 open on Windows
 python tools/run-check.py --cwd voltarax-web/backend --name local-rules -- npm run test:rules
 
 Do not kill an unknown process occupying the configured port. Review it or use a separate documented test port. No database records were deleted by cleanup.
+
+## Phase 3 device registration — pending hardware integration
+After configuring email verification, an administrator opens Dashboard > Devices, enters the configured site/device ID and a name, requests a registration code and confirms. Copy the displayed one-time key into the device's ignored secret configuration, then hide it. It cannot be retrieved later. Rotate if delivery is lost or exposure is suspected; the previous key immediately becomes invalid. Disable a device to reject its credential. Do not put keys in screenshots, logs, source, localStorage or URLs. No real device was registered by this run. Ingest/relay firmware integration is still tracked in PROGRESS.md until its tasks pass.

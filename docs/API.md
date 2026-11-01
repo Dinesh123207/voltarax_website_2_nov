@@ -27,3 +27,10 @@ Persistent alert resolution, CV scans, work-order updates and ESG report generat
 - Browser mutations include X-Voltarax-Request:1 and use the same-origin API proxy. All endpoints reject unknown body/query fields. Request errors include field paths, never input values or stack traces.
 - New verified viewers receive 403 for site data until assigned. Administrators can access the configured site. The backend currently serves only SOLAR_SITE_ID; requested site overrides are rejected.
 - Rate limits default to one-process memory. REDIS_URL switches to shared counters and fails closed when unavailable. Limits: API 1000/15min, auth IP 30/15min, normalized email 10/15min, public forms/FAQ 10/15min, ingest 1200/15min. OTP resend cooldown is independently transactional.
+
+## Device registry API (Phase 3)
+- GET /api/devices: administrator; most recent 200 public device records. No hashes/keys are returned.
+- POST /api/devices: administrator, body {device_id,site_id,name,code}. The site must equal SOLAR_SITE_ID. Request an OTP first with action:'device-register', target:device_id. Response returns a one-time key; store it only in local device secrets.
+- POST /api/devices/:id/rotate-key: administrator, body {code}, sensitive action:'device-key-rotate'. Previous key stops authenticating immediately.
+- PATCH /api/devices/:id: administrator, body {enabled,relayEnabled,code}, sensitive action:'device-configure'. No self-service device enrollment or public credential recovery.
+- Device list metadata includes last_seen and firmware_version; these remain null/Unavailable until accepted device traffic is wired. Relay permission defaults false and does not itself issue a command.

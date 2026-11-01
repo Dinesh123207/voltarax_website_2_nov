@@ -1,0 +1,11 @@
+✔ account lifecycle verifies email, scopes sites, rejects elevation and revokes cookie/native sessions (438.4772ms)
+✔ admin-only endpoint rejects unauthenticated and viewer requests (1546.8158ms)
+✔ device registry hashes one-time keys, rejects duplicate registration, rotates and disables credentials (16.4174ms)
+ℹ tests 3
+ℹ suites 0
+ℹ pass 3
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 3203.5176

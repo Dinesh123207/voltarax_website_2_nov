@@ -6,7 +6,7 @@ async function main() {
   if (!require('./services/session').validSecret(process.env.JWT_SECRET)) throw new Error('Configure a strong session secret');
   const client = await connectRateStore(process.env, logger);
   const limiters = createLimiters({ client });
-  const routes = { auth: require('./routes/auth').createAuthRouter({ emailLimiter: limiters.authEmail }), content: require('./routes/content'), dashboard: require('./routes/voltvision'), telemetry: require('./routes/telemetry'), chat: require('./routes/chat') };
+  const routes = { devices: require('./routes/devices').createDeviceRouter(), auth: require('./routes/auth').createAuthRouter({ emailLimiter: limiters.authEmail }), content: require('./routes/content'), dashboard: require('./routes/voltvision'), telemetry: require('./routes/telemetry'), chat: require('./routes/chat') };
   const app = createApp({ logger, limiters, routes });
   await require('./config/db')();
   require('./services/telemetryWatcher').startTelemetryWatcher();

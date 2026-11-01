@@ -15,6 +15,7 @@ function createApp({ logger, limiters, routes, env = process.env }) {
   app.use('/api/telemetry/ingest', limiters.ingest);
   app.get('/health', validate(), (req, res) => res.json({ status: 'ok', app: 'Voltarax API' }));
   app.use('/api/auth', routes.auth);
+  if (routes.devices) app.use('/api/devices', routes.devices);
   app.use('/api', routes.content);
   app.use('/api/voltvision', routes.dashboard);
   app.use('/api', routes.dashboard);

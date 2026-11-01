@@ -1,6 +1,6 @@
 # Autopilot progress
 
-RESUME HERE: Phase 3 — device registry, reliable ingest and firmware
+RESUME HERE: Phase 3 — device-bound ingest, replay handling and firmware reliability
 
 Status key: [ ] todo; [~] in progress; [x] done and verified as stated; [!] skipped with a reason. A phase is done only after its full gate passes.
 
@@ -34,9 +34,11 @@ Status key: [ ] todo; [~] in progress; [x] done and verified as stated; [!] skip
 - [!] Actual SMTP delivery, shared Redis and target-host TLS/proxy behavior require operator configuration; MANUAL_STEPS.md records exact follow-up. No real emails, live database changes or external deployment performed.
 
 ## Phase 3 — hardware
-- [ ] Reconnect, time, sensor-fault handling, bounded buffer and firmware tests.
-- [ ] Per-device keys, registration, simulator and validated ingestion.
-- [ ] Relay commands, acknowledgement, timeout, authorization and audit; hardware verification manual.
+- [x] Device registry with one-time hashed keys, rotation/disable, admin screen and target-bound OTP. Three focused backend tests, device/layout lint and frontend typecheck passed. No live device registration performed.
+- [ ] Device-bound ingest schemas, timestamp sanity, duplicate/out-of-order handling and integration tests.
+- [ ] Reconnect/backoff, NTP, sensor faults, watchdog, bounded firmware buffer, version and native logic tests.
+- [ ] Relay commands/acks with pending/applied/failed/timeout states, confirmation, admin-only server checks and audit.
+- [ ] Synthetic-only simulator and hardware/operator instructions.
 - [ ] Gate and phase tag.
 
 ## Phase 4 — alerts, work orders and reports

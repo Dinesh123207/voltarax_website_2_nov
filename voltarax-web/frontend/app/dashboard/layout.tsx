@@ -21,6 +21,7 @@ const NAV = [
   { label: 'Energy Relay',   href: '/dashboard/relay',        icon: Battery },
   { label: 'Carbon Impact',  href: '/dashboard/carbon',       icon: Leaf },
   { label: 'Users',          href: '/dashboard/users',        icon: Users },
+  { label: 'Devices',        href: '/dashboard/devices',      icon: Settings },
   { label: 'Settings',       href: '/dashboard/settings',     icon: Settings },
 ];
 

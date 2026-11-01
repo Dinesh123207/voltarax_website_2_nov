@@ -7,7 +7,7 @@ process.env.JWT_SECRET = 'test-only-session-secret-with-32-characters';
 process.env.HARDWARE_API_KEY = 'test-device-key';
 const userPath = require.resolve('../models/User');
 require.cache[userPath] = { id: userPath, filename: userPath, loaded: true, exports: {
-  findById: id => ({ select: async () => ({ _id: id, role: id, isActive: true, emailVerified: true, siteIds: id === 'unassigned' ? [] : ['solar_site'] }) }),
+  findById: id => ({ select: async () => ({ _id: id, email: `${id}@example.test`, role: id, isActive: true, emailVerified: true, siteIds: id === 'unassigned' ? [] : ['solar_site'] }) }),
 } };
 function mock(path, exports) {
   const id = require.resolve(path);
@@ -30,12 +30,25 @@ test('admin-only endpoint rejects unauthenticated and viewer requests', async t 
   app.use('/api', require('../routes/content'));
   app.use('/telemetry', require('../routes/telemetry'));
   app.use('/auth', require('../routes/auth'));
+  app.use('/devices', require('../routes/devices').createDeviceRouter({ registry: () => ({ list: async () => [], create: async input => ({ device: { device_id: input.device_id }, key: 'synthetic-one-time-key' }), rotate: async () => ({ key: 'synthetic-rotated-key' }), update: async (id, data) => ({ device_id: id, ...data }) }), otp: { configured: () => true, verify: async (email, code) => code === '001234' } }));
   app.use(router);
   const server = app.listen(0, '127.0.0.1');
   await new Promise(resolve => server.once('listening', resolve));
   t.after(() => server.close());
   const url = `http://127.0.0.1:${server.address().port}/users`;
   assert.equal((await fetch(url)).status, 401);
+  assert.equal((await fetch(url.replace('/users', '/devices'))).status, 401);
+  for (const [role, expected] of [['viewer', 403], ['admin', 200]]) {
+    const token = jwt.sign({ id: role, ver: 0 }, process.env.JWT_SECRET, { audience: 'voltarax-api', issuer: 'voltarax' });
+    assert.equal((await fetch(url.replace('/users', '/devices'), { headers: { Authorization: `Bearer ${token}` } })).status, expected);
+    const deviceBody = { device_id: 'test-device', site_id: 'solar_site', name: 'Test device', code: '001234' };
+    const response = await fetch(url.replace('/users', '/devices'), { method: 'POST', headers: { Authorization: `Bearer ${token}`, 'Content-Type': 'application/json' }, body: JSON.stringify(deviceBody) });
+    assert.equal(response.status, role === 'admin' ? 201 : 403);
+    if (role === 'admin') {
+      assert.equal(response.headers.get('cache-control'), 'no-store');
+      assert.equal((await fetch(url.replace('/users', '/devices/test-device/rotate-key'), { method: 'POST', headers: { Authorization: `Bearer ${token}`, 'Content-Type': 'application/json' }, body: JSON.stringify({ code: '999999' }) })).status, 401);
+    }
+  }
   for (const [role, expected] of [['viewer', 403], ['admin', 200]]) {
     const token = jwt.sign({ id: role, ver: 0 }, process.env.JWT_SECRET, { audience: 'voltarax-api', issuer: 'voltarax' });
     assert.equal((await fetch(url, { headers: { Authorization: `Bearer ${token}` } })).status, expected);

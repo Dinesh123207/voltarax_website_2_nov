@@ -11,4 +11,5 @@ function getService() {
   return service;
 }
 function configured() { return mailConfigured() && require('./session').validSecret(process.env.OTP_SECRET); }
-module.exports = { configured, issue: (...args) => getService().issue(...args), verify: (...args) => getService().verify(...args) };
+const sensitivePurpose = (user, action, target) => `sensitive:${user._id}:${action}:${target}`;
+module.exports = { configured, sensitivePurpose, issue: (...args) => getService().issue(...args), verify: (...args) => getService().verify(...args) };
