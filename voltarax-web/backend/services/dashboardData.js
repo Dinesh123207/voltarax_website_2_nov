@@ -5,23 +5,26 @@ const { QUALITY, qualityOf } = require('./dataQuality');
 
 const SITE_ID = process.env.SOLAR_SITE_ID || 'solar_site';
 const n = (v, d = 0) => Number.isFinite(Number(v)) ? Number(v) : d;
-const isoFromTs = (ts) => ts ? new Date(Number(ts) * 1000).toISOString() : null;
+const isoFromTs = ts => { const date = new Date(Number(ts) * 1000); return ts && Number.isFinite(date.getTime()) ? date.toISOString() : null; };
 
 async function latest() {
-  const reading = await SolarTelemetry.latest(SITE_ID);
-  const analysis = await SolarAnalysis.findOne({ site_id: SITE_ID }).lean();
-  return { reading, analysis };
+  const [raw, result] = await Promise.all([SolarTelemetry.latest(SITE_ID), SolarAnalysis.findOne({ site_id: SITE_ID }).lean()]);
+  const maximumAge = Number(process.env.MAX_TELEMETRY_AGE_SECONDS || 120);
+  if (!Number.isFinite(maximumAge) || maximumAge < 5 || maximumAge > 86400) throw new Error('Invalid telemetry freshness policy');
+  const age = raw ? Date.now() / 1000 - Number(raw.ts) : Infinity;
+  const fresh = Number.isFinite(age) && age >= -300 && age <= maximumAge;
+  return { reading: fresh ? raw : null, analysis: fresh && Number(result?.ts) === Number(raw.ts) ? result : null, lastSeen: isoFromTs(raw?.ts), stale: !fresh };
 }
 
 async function dashboard() {
-  const { reading, analysis } = await latest();
+  const { reading, analysis, lastSeen } = await latest();
   const now = Date.now() / 1000;
   const start = periodStartsIST(new Date(now * 1000)).day;
   const today = await SolarTelemetry.find({ site_id: SITE_ID, ts: { $gte: start - 900 } }).sort({ ts: 1 }).lean();
   const dailyKwh = integrateKwh(today, start, now);
-  const stale = !reading || (Date.now() - Number(reading.ts || 0) * 1000) > 60000;
-  const currentPower = reading?.power_mw != null ? n(reading.power_mw) / 1000000 : null;
-  const status = stale ? 'OFFLINE' : (analysis?.status || 'UNAVAILABLE');
+  const stale = !reading;
+  const currentPower = reading?.power_mw != null && Number.isFinite(Number(reading.power_mw)) ? Number(reading.power_mw) / 1000000 : null;
+  const status = stale ? 'UNAVAILABLE' : (analysis?.status || 'UNAVAILABLE');
   const panelCount = Number(process.env.SOLAR_PANEL_COUNT || 32);
   const hasHealth = analysis?.health_score != null && Number.isFinite(Number(analysis.health_score));
   const health = n(analysis?.health_score, 0);
@@ -38,12 +41,12 @@ async function dashboard() {
     panel_temp_avg_c: reading?.temp_c ?? null,
     co2_offset_today_kg: today.length < 2 ? null : Number((dailyKwh * n(process.env.GRID_EMISSION_FACTOR, 0.82)).toFixed(3)),
     active_alerts: analysis ? (analysis.alerts?.length || 0) : null,
-    panels_optimal: !stale && !hasHealth ? null : Math.max(0, optimal),
-    panels_warning: !stale && !hasHealth ? null : Math.max(0, warning),
-    panels_critical: !stale && !hasHealth ? null : Math.max(0, critical),
-    panels_offline: stale ? panelCount : 0,
+    panels_optimal: stale || !hasHealth ? null : Math.max(0, optimal),
+    panels_warning: stale || !hasHealth ? null : Math.max(0, warning),
+    panels_critical: stale || !hasHealth ? null : Math.max(0, critical),
+    panels_offline: null,
     status,
-    last_seen: isoFromTs(reading?.ts),
+    last_seen: lastSeen,
     source: 'firebase-realtime-database',
   };
   result.quality = {
@@ -66,8 +69,7 @@ async function dashboard() {
 async function panels() {
   const { reading, analysis } = await latest();
   const count = Number(process.env.SOLAR_PANEL_COUNT || 32);
-  const age = reading ? (Date.now() - Number(reading.ts || 0) * 1000) / 1000 : Infinity;
-  const status = age > 60 ? 'offline' : !analysis || analysis.status === 'UNAVAILABLE' ? 'unknown' : analysis.status === 'FAULT' ? 'critical' : analysis.status === 'WARNING' ? 'warning' : 'optimal';
+  const status = !reading || !analysis || analysis.status === 'UNAVAILABLE' ? 'unknown' : analysis.status === 'FAULT' ? 'critical' : analysis.status === 'WARNING' ? 'warning' : 'optimal';
   const perPanelPower = reading?.power_mw != null ? n(reading.power_mw) / 1000 / count : null;
   return Array.from({ length: count }, (_, i) => {
     const row = String.fromCharCode(65 + Math.floor(i / 8));

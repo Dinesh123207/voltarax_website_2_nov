@@ -1,0 +1,2 @@
+Tool Manager: Installing platformio/toolchain-gccmingw32 @ 1.40900.0
+UnknownPackageError: Could not find the package with 'platformio/toolchain-gccmingw32 @ 1.40900.0' requirements

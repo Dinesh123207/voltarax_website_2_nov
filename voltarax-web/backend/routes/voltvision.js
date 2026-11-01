@@ -124,7 +124,7 @@ router.get('/users', protect, requireAdmin, requireSite, dashboardValidation('ge
   try { const User=require('../models/User'); const users=await User.find({}, {password:0,resetToken:0,resetTokenExpiry:0}).lean(); res.json({data:users}); }
   catch(err){res.status(500).json({success:false,message:'Users unavailable.'});}
 });
-router.get('/system', protect, requireSite, dashboardValidation('get', '/system'), async (req,res)=>{ const {reading}=await latest(); res.json({success:true,status:reading?'online':'waiting_for_hardware', last_seen:reading?.ts||null, ingestion:'/api/telemetry/ingest', source:'local'}); });
+router.get('/system', protect, requireSite, dashboardValidation('get', '/system'), async (req,res)=>{ const {reading,lastSeen}=await latest(); res.json({success:true,status:reading?'online':lastSeen?'stale_data':'waiting_for_hardware', last_seen:lastSeen||null, ingestion:'/api/telemetry/ingest', source:'local'}); });
 router.get('/health', protect, requireSite, dashboardValidation('get', '/health'), async (req,res)=>res.json({success:true,status:'ok',source:'local'}));
 
 module.exports = router;

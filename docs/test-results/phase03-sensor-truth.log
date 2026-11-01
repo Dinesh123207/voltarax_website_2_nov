@@ -1,0 +1,13 @@
+✔ admin-only endpoint rejects unauthenticated and viewer requests (6309.8236ms)
+✔ stale or missing telemetry never becomes current zero power or offline panel counts (19.0606ms)
+✔ missing values are unavailable and valid zero values retain their quality (2.5476ms)
+✔ nested API values receive quality without treating missing readings as zero (5.1989ms)
+✔ response annotation honors record redaction and labels empty array responses (4.2634ms)
+ℹ tests 5
+ℹ suites 0
+ℹ pass 5
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 9432.6817

@@ -57,12 +57,12 @@ export default function CVPage() {
 
       <div className="grid grid-cols-3 sm:grid-cols-6 gap-3">
         {summary ? [
-          { label:'Total',       value: summary.total_panels,           color:'text-white'    },
-          { label:'Clean',       value: summary.counts?.clean        ||0, color:'text-green-400'},
-          { label:'Dusty',       value: summary.counts?.dusty        ||0, color:'text-amber-400'},
-          { label:'Cracked',     value: summary.counts?.cracked      ||0, color:'text-red-400'  },
-          { label:'Bio-Degraded',value: summary.counts?.bio_degraded ||0, color:'text-orange-400'},
-          { label:'Total Loss',  value: `${totalLoss.toFixed(1)}%`,      color:'text-red-400'  },
+          { label:'Total',       value: summary.total_panels ?? 'Unavailable',           color:'text-white'    },
+          { label:'Clean',       value: summary.counts?.clean ?? 'Unavailable', color:'text-green-400'},
+          { label:'Dusty',       value: summary.counts?.dusty ?? 'Unavailable', color:'text-amber-400'},
+          { label:'Cracked',     value: summary.counts?.cracked ?? 'Unavailable', color:'text-red-400'  },
+          { label:'Bio-Degraded',value: summary.counts?.bio_degraded ?? 'Unavailable', color:'text-orange-400'},
+          { label:'Total Loss',  value: detections.length ? `${totalLoss.toFixed(1)}%` : 'Unavailable',      color:'text-red-400'  },
         ].map(k => (
           <div key={k.label} className="stat-card text-center">
             <div className="text-xs text-slate-500 mb-1">{k.label}</div>
@@ -76,7 +76,7 @@ export default function CVPage() {
           <button key={cls} onClick={() => setClsFilter(cls)}
             className={`px-3 py-1.5 rounded-lg text-xs font-semibold border transition-all capitalize ${clsFilter===cls?'border-green-500 text-green-400 bg-green-500/10':'border-green-900/30 text-slate-500 hover:text-white'}`}>
             {cls.replace('_','-')}
-            {cls!=='all' && <span className="ml-1 opacity-50">{detections.filter(d=>d.cv_class===cls).length}</span>}
+            {cls!=='all' && <span className="ml-1 opacity-50">{detections.length ? detections.filter(d=>d.cv_class===cls).length : 'Unavailable'}</span>}
           </button>
         ))}
       </div>

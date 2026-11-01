@@ -4,8 +4,8 @@ function qualityOf(value, availableQuality) {
   return value == null || (typeof value === 'number' && !Number.isFinite(value)) ? QUALITY.UNAVAILABLE : availableQuality;
 }
 
-const MEASURED_FIELDS = new Set(['voltage_v', 'current_ma', 'power_mw', 'light_lux', 'temp_c', 'humidity_pct', 'dust_ugm3', 'rssi', 'uptime_s']);
-const ESTIMATED_FIELDS = new Set(['power_w', 'efficiency_pct', 'performance_ratio', 'irradiance_wm2', 'cell_temp_c', 'trees_equivalent', 'grid_saved_inr', 'emission_factor', 'confidence']);
+const MEASURED_FIELDS = new Set(['voltage_v', 'current_ma', 'power_mw', 'light_lux', 'temp_c', 'humidity_pct', 'rssi', 'uptime_s']);
+const ESTIMATED_FIELDS = new Set(['dust_ugm3', 'power_w', 'efficiency_pct', 'performance_ratio', 'irradiance_wm2', 'cell_temp_c', 'trees_equivalent', 'grid_saved_inr', 'emission_factor', 'confidence']);
 function normalizeQuality(value, fallback) {
   return Object.values(QUALITY).find(q => q.toLowerCase() === String(value).toLowerCase()) || fallback;
 }

@@ -1,0 +1,12 @@
+{
+  "command": [
+    ".local-tools/platformio/Scripts/python.exe",
+    "-m",
+    "pip",
+    "install",
+    "platformio==6.2.0"
+  ],
+  "cwd": ".",
+  "exit_code": 0,
+  "seconds": 26.47
+}

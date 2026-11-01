@@ -1,13 +1,4 @@
-/*
- * Voltarax Solar Monitor — ESP8266 / NodeMCU
- * Firebase RTDB mode, aligned with the supplied Solar Panel Monitoring System guide.
- *
- * Data path:
- * Sensors -> NodeMCU -> WiFi -> Firebase RTDB -> Voltarax GoDaddy API -> Dashboard
- *
- * Option A is used: INA219 supplies panel voltage/current/power and GP2Y1010AU0F owns A0.
- * Hardware map: SDA D2/GPIO4, SCL D1/GPIO5, DHT11 D3/GPIO0, dust LED D5/GPIO14, dust OUT A0.
- */
+/* Voltarax ESP8266 monitor. Existing Firebase/INA219/BH1750/DHT11/dust wiring is preserved. */
 #include <ESP8266WiFi.h>
 #include <Wire.h>
 #include <time.h>
@@ -15,150 +6,134 @@
 #include <Adafruit_INA219.h>
 #include <DHT.h>
 #include <Firebase_ESP_Client.h>
-#include <addons/TokenHelper.h>
+#include "include/reliability.h"
+#if defined(VOLTARAX_COMPILE_CHECK)
+#include "secrets.example.h"
+#elif __has_include("secrets.h")
 #include "secrets.h"
+#else
+#error "Copy secrets.example.h to local secrets.h before a device build"
+#endif
 
 #define DHT_PIN D3
-#define DHT_TYPE DHT11
 #define DUST_LED_PIN D5
-
-const unsigned long LATEST_MS = 5000;
-const unsigned long HISTORY_MS = 60000;
-const float ADC_FULL_SCALE_V = 3.3;
-const float DUST_DIVIDER = 1.0;
-float DUST_CLEAN_V = 0.9;
-
+const char *FIRMWARE_VERSION = "3.0.0";
+const uint32_t LATEST_MS = 5000, HISTORY_MS = 60000;
+const float ADC_FULL_SCALE_V = 3.3, DUST_DIVIDER = 1.0, DUST_CLEAN_V = 0.9;
 BH1750 lightMeter;
 Adafruit_INA219 ina219;
-DHT dht(DHT_PIN, DHT_TYPE);
+DHT dht(DHT_PIN, DHT11);
 FirebaseData fbdo;
 FirebaseAuth auth;
 FirebaseConfig config;
+voltarax::Backoff wifiRetry, uploadRetry;
+struct Sample {
+  uint32_t ts = 0, uptime = 0;
+  int rssi = 0;
+  float voltage = NAN, current = NAN, power = NAN, light = NAN, temp = NAN, humidity = NAN, dust = NAN;
+  bool inaOk = false, lightOk = false, dhtOk = false, dustOk = false, wifiConnected = false;
+};
+Sample latestSample;
+Sample readSensors();
+void buildJson(FirebaseJson &j, const Sample &s);
+bool uploadLatest(const Sample &s);
+bool uploadHistory(const Sample &s);
+voltarax::Ring<Sample, 12> historyBuffer;
+bool inaStarted = false, lightStarted = false;
+uint32_t lastSample = 0, lastHistory = 0, lastLatest = 0;
 
-bool okIna = false, okBh = false;
-float voltage_v = 0, current_ma = 0, power_mw = 0, lux = 0, dust_ugm3 = 0;
-float temp_c = NAN, hum = NAN;
-unsigned long tLatest = 0, tHistory = 0;
-
-float readDustUgm3() {
-  const int N = 10;
-  float sum = 0;
-  for (int i = 0; i < N; i++) {
-    digitalWrite(DUST_LED_PIN, LOW);
-    delayMicroseconds(280);
-    sum += analogRead(A0);
-    delayMicroseconds(40);
-    digitalWrite(DUST_LED_PIN, HIGH);
-    delayMicroseconds(9680);
-  }
-  float dust_v = (sum / N) / 1023.0 * ADC_FULL_SCALE_V * DUST_DIVIDER;
-  float ugm3 = (dust_v - DUST_CLEAN_V) * 200.0;
-  return ugm3 < 0 ? 0 : ugm3;
+bool present(uint8_t address) {
+  Wire.beginTransmission(address);
+  return Wire.endTransmission() == 0;
 }
-
 void connectWifi() {
-  if (WiFi.status() == WL_CONNECTED) return;
-  WiFi.mode(WIFI_STA);
+  if (WiFi.status() == WL_CONNECTED) { wifiRetry.reset(); return; }
+  if (!wifiRetry.due(millis())) return;
   WiFi.begin(WIFI_SSID, WIFI_PASSWORD);
-  unsigned long started = millis();
-  while (WiFi.status() != WL_CONNECTED && millis() - started < 20000) delay(300);
+  wifiRetry.fail(millis());
+  if (wifiRetry.wait < 10000) wifiRetry.wait = 10000;
 }
-
-void readSensors() {
-  if (okIna) {
-    float busV = ina219.getBusVoltage_V();
-    float shuntV = ina219.getShuntVoltage_mV() / 1000.0;
-    voltage_v = busV + shuntV;
-    current_ma = ina219.getCurrent_mA();
-    power_mw = ina219.getPower_mW();
-    if (current_ma < 0) current_ma = 0;
-    if (power_mw < 0) power_mw = 0;
+Sample readSensors() {
+  Sample s; // Every read starts unavailable; stale successful values are never retained.
+  s.ts = uint32_t(time(nullptr)); s.uptime = millis() / 1000; s.wifiConnected = WiFi.status() == WL_CONNECTED; if (s.wifiConnected) s.rssi = WiFi.RSSI();
+  if (present(0x40)) {
+    if (!inaStarted) { inaStarted = ina219.begin(); if (inaStarted) ina219.setCalibration_32V_1A(); }
+    if (inaStarted) {
+      float v = ina219.getBusVoltage_V() + ina219.getShuntVoltage_mV() / 1000.0;
+      float i = ina219.getCurrent_mA(), p = ina219.getPower_mW();
+      s.inaOk = voltarax::validReading(v, 0, 32) && voltarax::validReading(i, 0, 3200) && voltarax::validReading(p, 0, 102400);
+      if (s.inaOk) { s.voltage = v; s.current = i; s.power = p; }
+    }
+  } else inaStarted = false;
+  if (present(0x23)) {
+    if (!lightStarted) { lightStarted = lightMeter.begin(BH1750::CONTINUOUS_HIGH_RES_MODE); if (lightStarted) lightMeter.setMTreg(32); }
+    if (lightStarted) { float light = lightMeter.readLightLevel(); s.lightOk = voltarax::validReading(light, 0, 200000); if (s.lightOk) s.light = light; }
+  } else lightStarted = false;
+  float t = dht.readTemperature(), h = dht.readHumidity();
+  s.dhtOk = voltarax::validReading(t, 0, 50) && voltarax::validReading(h, 0, 100);
+  if (s.dhtOk) { s.temp = t; s.humidity = h; }
+  float sum = 0; bool rail = false;
+  for (int n = 0; n < 10; n++) {
+    digitalWrite(DUST_LED_PIN, LOW); delayMicroseconds(280);
+    int value = analogRead(A0); sum += value; rail |= value <= 1 || value >= 1022;
+    delayMicroseconds(40); digitalWrite(DUST_LED_PIN, HIGH); delayMicroseconds(9680); yield();
   }
-  if (okBh) {
-    float l = lightMeter.readLightLevel();
-    if (l >= 0) lux = l;
-  }
-  float t = dht.readTemperature();
-  float h = dht.readHumidity();
-  if (!isnan(t)) temp_c = t;
-  if (!isnan(h)) hum = h;
-  dust_ugm3 = readDustUgm3();
+  float estimate = ((sum / 10) / 1023.0 * ADC_FULL_SCALE_V * DUST_DIVIDER - DUST_CLEAN_V) * 200.0;
+  s.dustOk = !rail && isfinite(estimate); if (s.dustOk) s.dust = estimate < 0 ? 0 : estimate;
+  return s;
 }
-
-void buildJson(FirebaseJson &j) {
-  j.set("ts", (int)time(nullptr));
-  j.set("device_id", DEVICE_ID);
-  j.set("site_id", SITE_ID);
-  j.set("voltage_v", voltage_v);
-  j.set("current_ma", current_ma);
-  j.set("power_mw", power_mw);
-  j.set("light_lux", lux);
-  if (!isnan(temp_c)) j.set("temp_c", temp_c);
-  if (!isnan(hum)) j.set("humidity_pct", hum);
-  j.set("dust_ugm3", dust_ugm3);
-  j.set("rssi", (int)WiFi.RSSI());
-  j.set("uptime_s", (int)(millis() / 1000));
-  j.set("sensors_ok/ina219", okIna);
-  j.set("sensors_ok/bh1750", okBh);
-  j.set("sensors_ok/dht11", !isnan(temp_c) && !isnan(hum));
-  j.set("sensors_ok/dust", true);
+void buildJson(FirebaseJson &j, const Sample &s) {
+  j.set("ts", s.ts); j.set("device_id", DEVICE_ID); j.set("site_id", SITE_ID); j.set("firmware_version", FIRMWARE_VERSION);
+  if (s.inaOk) { j.set("voltage_v", s.voltage); j.set("current_ma", s.current); j.set("power_mw", s.power); }
+  if (s.lightOk) j.set("light_lux", s.light);
+  if (s.dhtOk) { j.set("temp_c", s.temp); j.set("humidity_pct", s.humidity); }
+  if (s.dustOk) j.set("dust_ugm3", s.dust);
+  if (s.wifiConnected) j.set("rssi", s.rssi);
+  j.set("uptime_s", s.uptime);
+  j.set("sensors_ok/ina219", s.inaOk); j.set("sensors_ok/bh1750", s.lightOk); j.set("sensors_ok/dht11", s.dhtOk); j.set("sensors_ok/dust", s.dustOk);
 }
-
-void upload(bool history) {
-  if (!Firebase.ready() || time(nullptr) < 1700000000) return;
-  FirebaseJson j;
-  buildJson(j);
-  if (!Firebase.RTDB.setJSON(&fbdo, "/solar_site/latest", &j)) {
-    Serial.println(fbdo.errorReason());
-    return;
-  }
-  String siteLatest = String("/sites/") + SITE_ID + "/latest";
-  if (!Firebase.RTDB.setJSON(&fbdo, siteLatest.c_str(), &j)) Serial.println(fbdo.errorReason());
-  if (history) {
-    // Same key on both paths makes retries and migration idempotent.
-    String key = String(DEVICE_ID) + "-" + String((uint32_t)time(nullptr));
-    String partition = String("/readings/") + SITE_ID + "/" + key;
-    String legacy = String("/solar_site/history/") + key;
-    if (!Firebase.RTDB.setJSON(&fbdo, partition.c_str(), &j)) Serial.println(fbdo.errorReason());
-    if (!Firebase.RTDB.setJSON(&fbdo, legacy.c_str(), &j)) Serial.println(fbdo.errorReason());
-  }
+bool uploadLatest(const Sample &s) {
+  FirebaseJson j; buildJson(j, s);
+  String target = String("/sites/") + SITE_ID + "/latest";
+  bool ok = Firebase.RTDB.setJSON(&fbdo, target.c_str(), &j); yield();
+  if (ok && String(SITE_ID) == "solar_site") ok = Firebase.RTDB.setJSON(&fbdo, "/solar_site/latest", &j);
+  return ok;
 }
-
+bool uploadHistory(const Sample &s) {
+  FirebaseJson j; buildJson(j, s);
+  String key = String(DEVICE_ID) + "-" + String(s.ts);
+  String target = String("/readings/") + SITE_ID + "/" + key;
+  String legacy = String("/solar_site/history/") + key;
+  bool ok = Firebase.RTDB.setJSON(&fbdo, target.c_str(), &j); yield();
+  if (ok) ok = Firebase.RTDB.setJSON(&fbdo, legacy.c_str(), &j);
+  return ok; // Keep the sample until both compatibility writes succeed.
+}
 void setup() {
-  Serial.begin(115200);
-  pinMode(DUST_LED_PIN, OUTPUT);
-  digitalWrite(DUST_LED_PIN, HIGH);
-  Wire.begin(D2, D1);
-
-  okBh = lightMeter.begin(BH1750::CONTINUOUS_HIGH_RES_MODE);
-  if (okBh) lightMeter.setMTreg(32);
-  okIna = ina219.begin();
-  if (okIna) ina219.setCalibration_32V_1A();
-  dht.begin();
-
-  connectWifi();
+  Serial.begin(115200); pinMode(DUST_LED_PIN, OUTPUT); digitalWrite(DUST_LED_PIN, HIGH);
+  Wire.begin(D2, D1); dht.begin();
+  WiFi.persistent(false); WiFi.mode(WIFI_STA); connectWifi();
   configTime(0, 0, "pool.ntp.org", "time.nist.gov");
-  unsigned long started = millis();
-  while (time(nullptr) < 1700000000 && millis() - started < 15000) delay(200);
-
-  config.api_key = API_KEY;
-  config.database_url = DATABASE_URL;
-  auth.user.email = USER_EMAIL;
-  auth.user.password = USER_PASSWORD;
-  config.token_status_callback = tokenStatusCallback;
-  fbdo.setBSSLBufferSize(4096, 1024);
-  Firebase.reconnectNetwork(true);
-  Firebase.begin(&config, &auth);
+  config.api_key = API_KEY; config.database_url = DATABASE_URL;
+  auth.user.email = USER_EMAIL; auth.user.password = USER_PASSWORD;
+  config.timeout.socketConnection = 10000; config.timeout.serverResponse = 10000;
+  fbdo.setBSSLBufferSize(4096, 1024); fbdo.setResponseSize(2048);
+  Firebase.reconnectNetwork(false); Firebase.begin(&config, &auth);
 }
-
 void loop() {
-  connectWifi();
-  if (millis() - tLatest >= LATEST_MS) {
-    tLatest = millis();
-    readSensors();
-    bool history = millis() - tHistory >= HISTORY_MS;
-    if (history) tHistory = millis();
-    upload(history);
-    Serial.printf("V=%.2f I=%.0fmA P=%.0fmW lux=%.0f T=%.1f H=%.0f dust=%.0f\n", voltage_v, current_ma, power_mw, lux, temp_c, hum, dust_ugm3);
+  connectWifi(); bool firebaseReady = Firebase.ready();
+  uint32_t now = millis();
+  if (uint32_t(now - lastSample) >= LATEST_MS) {
+    lastSample = now; latestSample = readSensors();
+    if (voltarax::clockReady(latestSample.ts) && uint32_t(now - lastHistory) >= HISTORY_MS) {
+      lastHistory = now; uint32_t dropped = historyBuffer.dropped; historyBuffer.push(latestSample);
+      if (historyBuffer.dropped != dropped) Serial.println("History buffer full; oldest sample discarded");
+    }
   }
+  if (WiFi.status() == WL_CONNECTED && firebaseReady && voltarax::clockReady(latestSample.ts) && uploadRetry.due(now)) {
+    bool ok = true;
+    if (uint32_t(now - lastLatest) >= LATEST_MS) { ok = uploadLatest(latestSample); if (ok) lastLatest = now; }
+    if (ok && !historyBuffer.empty()) { ok = uploadHistory(historyBuffer.front()); if (ok) historyBuffer.pop(); }
+    if (ok) uploadRetry.reset(); else { uploadRetry.fail(millis()); Serial.println("Upload deferred; bounded history retained"); }
+  }
+  ESP.wdtFeed(); yield(); delay(1);
 }

@@ -74,3 +74,5 @@ Production remains frontend 0 and backend 8 moderate; neither has high/critical 
 | `zip-stream` | moderate | Development/emulator tooling only | npm audit fix |  |
 
 Do not apply the suggested Firebase/test-tooling/CLI downgrades blindly. Production uses npm ci --omit=dev. Review major SDK upgrades against the emulator and actual configured project before deployment. Frontend CSP permits inline scripts/styles for current Next.js rendering; tightening it needs a nonce/rendering change. SMTP delivery, shared Redis, hardware and target-host cookies remain unverified.
+
+Firmware tooling note: ESP8266 SDK 3.30102.0 helper elf2bin.py emits SyntaxWarnings for legacy Python escape sequences under this machine's Python. The compile completed successfully. No vendored SDK source was modified; revisit with an upstream toolchain update. Static build RAM/flash figures do not establish runtime memory safety; physical-device heap/reconnect/load testing remains manual.

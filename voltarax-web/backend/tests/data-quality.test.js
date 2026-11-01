@@ -15,6 +15,7 @@ test('nested API values receive quality without treating missing readings as zer
   assert.equal(result.quality.power_mw, 'Measured');
   assert.equal(result.quality.temp_c, 'Unavailable');
   assert.equal(result.quality.forecast_1h_kw, 'Estimated');
+  assert.equal(annotate({ dust_ugm3: 0 }).quality.dust_ugm3, 'Estimated');
   assert.equal(result.quality.counts, 'Unavailable');
   const nested = annotate({ sensors_ok: { ina219: true }, reading: { temp_c: null } });
   assert.deepEqual(nested.sensors_ok, { ina219: true });

@@ -1,0 +1,15 @@
+{
+  "command": [
+    "C:/Users/JARVIS/Desktop/VOLTARAX/.local-tools/platformio/Scripts/python.exe",
+    "-m",
+    "platformio",
+    "pkg",
+    "install",
+    "--global",
+    "--tool",
+    "platformio/toolchain-gccmingw32@1.40900.0"
+  ],
+  "cwd": ".",
+  "exit_code": 1,
+  "seconds": 44.83
+}
