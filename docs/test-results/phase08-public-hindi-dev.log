@@ -1,0 +1,28 @@
+   ▲ Next.js 15.5.28
+   - Local:        http://localhost:38473
+   - Network:      http://localhost:38473
+   - Experiments (use with caution):
+     · cpus: 1
+
+ ✓ Starting...
+ ✓ Ready in 3.9s
+ ✓ Compiled /middleware in 352ms (136 modules)
+ ○ Compiling /[locale] ...
+ ✓ Compiled /[locale] in 6.2s (839 modules)
+ GET / 200 in 10735ms
+ GET /hi 200 in 417ms
+ ○ Compiling /[locale]/products ...
+ ✓ Compiled /[locale]/products in 2.3s (846 modules)
+ GET /hi/products 200 in 6062ms
+ ○ Compiling /[locale]/technology ...
+ ✓ Compiled /[locale]/technology in 1446ms (836 modules)
+ GET /hi/technology 200 in 4509ms
+ ○ Compiling /[locale]/sustainability ...
+ ✓ Compiled /[locale]/sustainability in 5.4s (840 modules)
+ GET /hi/sustainability 200 in 15049ms
+ ✓ Compiled /[locale]/about in 10.1s (840 modules)
+ ✓ Compiled in 1085ms (285 modules)
+ GET /hi/about 200 in 9411ms
+ ○ Compiling /[locale]/account/orders/[id] ...
+ ✓ Compiled /[locale]/account/orders/[id] in 21.1s (861 modules)
+ GET /hi/account/orders/synthetic-routing-probe 200 in 24731ms

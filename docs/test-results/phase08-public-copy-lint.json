@@ -1,0 +1,15 @@
+{
+  "command": [
+    "npx.cmd",
+    "eslint",
+    "components/landing/HeroSection.tsx",
+    "components/landing/LandingSections.tsx",
+    "components/chat/ChatWidget.tsx",
+    "app/[locale]/products/page.tsx",
+    "app/[locale]/technology/page.tsx",
+    "app/[locale]/sustainability/page.tsx"
+  ],
+  "cwd": "voltarax-web/frontend",
+  "exit_code": 0,
+  "seconds": 10.3
+}

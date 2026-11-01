@@ -29,7 +29,7 @@ export default function TechnologyPage() {
           <div className="text-center mb-14">
             <div className="section-tag mx-auto w-fit"><Cpu size={12} /> {copyText(" Technology")}</div>
             <h1 className="text-4xl sm:text-5xl font-black text-white mt-3 mb-4">
-              {copyText("Software for")}<span className="gradient-text">{copyText("equipment review")}</span>
+              <span className="gradient-text">{copyText("Software for equipment review")}</span>
             </h1>
             <p className="text-slate-500 max-w-2xl mx-auto">
               {copyText("Site readings and manual records support review when hardware and services are configured. Individual-panel sensing and autonomous energy dispatch remain planned. Field performance is unverified.")}</p>

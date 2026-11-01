@@ -6,13 +6,13 @@ import {
 import { useCopy } from '@/i18n/copy';
 
 
-function Heading({ tag, title, accent, sub }: { tag: string; title: string; accent?: string; sub?: string }) {
+function Heading({ tag, title, sub }: { tag: string; title: string; sub?: string }) {
   const copyText = useCopy();
   return (
     <div className="text-center mb-14 max-w-2xl mx-auto">
       <div className="section-tag mx-auto w-fit">{copyText(tag)}</div>
       <h2 className="text-3xl sm:text-4xl font-bold text-white mt-3 mb-3">
-        {copyText(title)} {copyText(accent && <span className="gradient-text">{copyText(accent)}</span>)}
+        <span className="gradient-text">{copyText(title)}</span>
       </h2>
       {copyText(sub && <p className="text-slate-500">{copyText(sub)}</p>)}
     </div>
@@ -30,7 +30,7 @@ export function WhySection() {
   return (
     <section id="why" className="relative py-28 bg-[#0a0f0d]">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-        <Heading tag="Why monitoring matters" title={copyText("Understand recorded")} accent="equipment behavior." sub="Measurements, estimates and missing inputs are distinguished so operators can review their basis." />
+        <Heading tag="Why monitoring matters" title="Understand recorded equipment behavior." sub="Measurements, estimates and missing inputs are distinguished so operators can review their basis." />
         <div className="grid md:grid-cols-3 gap-6">
           {FIGS.map((f) => (
             <div key={f.big} className="stat-card text-center py-10">
@@ -55,7 +55,7 @@ export function CoatingSection() {
   return (
     <section id="coating" className="relative py-28 bg-[#111a14]/40">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-        <Heading tag="Coating records" title={copyText("Document actual")} accent="observations" sub="Manual inspection records do not establish optical conversion, material performance or coating lifetime. Those research claims remain unverified." />
+        <Heading tag="Coating records" title="Document actual observations" sub="Manual inspection records do not establish optical conversion, material performance or coating lifetime. Those research claims remain unverified." />
         <div className="grid md:grid-cols-3 gap-6">
           {STEPS.map((s) => (
             <div key={s.n} className="stat-card relative overflow-hidden">
@@ -89,7 +89,7 @@ export function CapabilitiesSection() {
   return (
     <section id="ai" className="relative py-28 bg-[#0a0f0d]">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <Heading tag="Software capabilities" title={copyText("Monitoring and")} accent="planned capabilities" sub="Availability depends on authorized hardware, storage and service configuration. Field performance is not established by the software alone." />
+        <Heading tag="Software capabilities" title="Monitoring and planned capabilities" sub="Availability depends on authorized hardware, storage and service configuration. Field performance is not established by the software alone." />
         <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
           {CAPS.map(({ icon: Icon, title, text }, i) => (
             <div key={title} className="stat-card group relative overflow-hidden">
@@ -124,7 +124,7 @@ export function HowItWorksSection() {
   return (
     <section id="how" className="relative py-28 bg-[#111a14]/40">
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-        <Heading tag="How it works" title={copyText("From sensor")} accent="to screen" />
+        <Heading tag="How it works" title="From sensor to screen" />
         <div className="relative">
           <div className="absolute left-5 top-2 bottom-2 w-px bg-green-900/50" />
           <div className="space-y-8">
@@ -158,7 +158,7 @@ export function ApplicationsSection() {
   return (
     <section id="applications" className="relative py-28 bg-[#0a0f0d]">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-        <Heading tag="Applications" title={copyText("Where it")} accent="fits" sub="Places where every watt and every maintenance visit counts." />
+        <Heading tag="Applications" title="Proposed applications" sub="Places where every watt and every maintenance visit counts." />
         <div className="grid md:grid-cols-3 gap-6">
           {APPS.map(({ icon: Icon, title, text }) => (
             <div key={title} className="stat-card">
@@ -181,7 +181,7 @@ export function TeamSection() {
     <section id="team" className="relative py-24 bg-[#07110b] overflow-hidden">
       <div className="absolute inset-0 opacity-40 bg-grid" />
       <div className="relative max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-        <Heading tag="People" title={copyText("The team behind")} accent="Voltarax" />
+        <Heading tag="People" title="Team details" />
         <p className="text-slate-400 max-w-2xl mb-10">{copyText("Team and affiliation details are coming soon, pending publication review. No unverified founder, advisor or institutional claim is made here.")}</p>
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
           {TEAM.map((m, i) => (
@@ -210,7 +210,7 @@ export function CtaSection() {
     <section className="relative py-28 overflow-hidden bg-[#0a0f0d]">
       <div className="absolute inset-0 bg-gradient-to-r from-green-950/40 via-green-900/20 to-green-950/40" />
       <div className="relative max-w-2xl mx-auto px-4 text-center">
-        <h2 className="text-4xl font-bold text-white mb-4">{copyText("Ready to go ")}<span className="gradient-text">{copyText("sustainable")}</span>?</h2>
+        <h2 className="text-4xl font-bold gradient-text mb-4">{copyText("Discuss a monitoring pilot")}</h2>
         <p className="text-slate-500 mb-8">{copyText("Talk to the team about a pilot, a partnership or a demo.")}</p>
         <div className="flex flex-col sm:flex-row gap-4 justify-center">
           <Link href="/contact?type=demo" className="btn-green px-10 py-4 text-base">{copyText("Schedule a demo ")}<ChevronRight size={18} /></Link>

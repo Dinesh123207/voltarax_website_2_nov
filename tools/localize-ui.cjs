@@ -4,10 +4,11 @@ const fs = require('node:fs'), path = require('node:path');
 const root = path.resolve(__dirname, '..'), frontend = path.join(root, 'voltarax-web/frontend');
 const ts = require(path.join(frontend, 'node_modules/typescript'));
 const apply = process.argv.includes('--apply');
+const catalog = process.argv.includes('--catalog');
 const phraseId = text => { let h = 2166136261; for (let i = 0; i < text.length; i++) h = Math.imul(h ^ text.charCodeAt(i), 16777619); return 'p_' + (h >>> 0).toString(16).padStart(8, '0'); };
 const enPath = path.join(frontend, 'messages/en.json'), hiPath = path.join(frontend, 'messages/hi.json');
 const en = JSON.parse(fs.readFileSync(enPath, 'utf8')), hi = JSON.parse(fs.readFileSync(hiPath, 'utf8'));
-const obsolete = text => ['use client', 'use server', 'use strict'].includes(text) || /&(?:apos|amp|quot|lt|gt);/.test(text);
+const obsolete = text => ['use client', 'use server', 'use strict', 'Enter', 'Escape', 'noopener noreferrer', 'GitHub', 'LinkedIn', 'what is voltvision?', 'how does the coating work?', 'what can the ai do?', 'order_…', 'rfnd_…'].includes(text) || /&(?:apos|amp|quot|lt|gt);/.test(text) || /^\(prefers-/.test(text) || /^translate\(/.test(text) || /^a, button, \[role=/.test(text) || /^\d+px solid #/.test(text) || /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(text);
 const phrases = new Map(Object.values(en.Phrases).filter(text => !obsolete(text)).map(text => [phraseId(text), text]));
 const locations = new Map(), changed = [], unsupported = [], rewritten = [];
 const technical = new Set('Voltarax VoltVision Razorpay INR IST PDF CSV JSON HTML HTTP HTTPS JWT OTP SMTP TLS GET POST PUT PATCH DELETE INA219 BH1750 DHT11 ESP32 NodeMCU R2 API'.split(' '));
@@ -153,13 +154,19 @@ for (const directory of ['services', 'routes', 'middleware', 'data']) walk(path.
   const visit = node => { if (ts.isStringLiteral(node) && visible(node)) add(node.text, path.relative(root, file).replaceAll('\\', '/')); ts.forEachChild(node, visit); }; visit(source);
 });
 for (const state of states) add(state.replaceAll('_', ' '), 'platform-status-enums', true);
+// Retire only messages no longer present in the scanned UI/error/status sources.
+// Explicit flag keeps ordinary coverage reports read-only.
+const retired = [...phrases.keys()].filter(id => !locations.has(id));
+if (process.argv.includes('--prune')) for (const id of retired) phrases.delete(id);
 const pending = [...phrases].filter(([id]) => !hi.Phrases[id]).map(([id, text]) => ({ id, text, files: [...(locations.get(id) || [])] }));
-const report = { total_phrases: phrases.size, missing_hindi: pending.length, changed_files: changed, unsupported_expression_components: [...new Set(unsupported)] };
+const report = { total_phrases: phrases.size, missing_hindi: pending.length, retired_unreferenced: process.argv.includes('--prune') ? retired.length : 0, changed_files: changed, unsupported_expression_components: [...new Set(unsupported)] };
 const output = path.join(root, '.local-tools/localization'); fs.mkdirSync(output, { recursive: true });
 fs.writeFileSync(path.join(output, 'pending.json'), JSON.stringify(pending, null, 2) + '\n');
 fs.writeFileSync(path.join(output, 'coverage.json'), JSON.stringify(report, null, 2) + '\n');
 if (apply) {
   for (const { file, next } of rewritten) fs.writeFileSync(file, next);
+}
+if (apply || catalog) {
   en.Phrases = Object.fromEntries([...phrases].sort(([a], [b]) => a.localeCompare(b))); fs.writeFileSync(enPath, JSON.stringify(en, null, 2) + '\n');
 }
 console.log(JSON.stringify({ ...report, changed_files: changed.length, applied: apply, pending_file: '.local-tools/localization/pending.json' }));

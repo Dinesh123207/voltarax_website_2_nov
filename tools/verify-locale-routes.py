@@ -76,6 +76,12 @@ with log_path.open('w', encoding='utf-8') as log:
         _, hindi, _ = request('/hi')
         assert '<html lang="en"' in english and '<html lang="hi"' in hindi, 'Locale document language missing'
         assert 'मुख्य पृष्ठ' in hindi and 'उत्पाद' in hindi, 'Hindi navigation not rendered'
+        assert 'स्वच्छ ऊर्जा के लिए बुद्धिमान तकनीक।' in hindi and 'उपकरण के दर्ज व्यवहार को समझें।' in hindi, 'Hindi home headings missing'
+        _, products, _ = request('/hi/products')
+        _, technology, _ = request('/hi/technology')
+        _, sustainability, _ = request('/hi/sustainability')
+        assert 'VoltVision प्लेटफ़ॉर्म' in products and 'उपकरणों की समीक्षा के लिए सॉफ़्टवेयर' in technology
+        assert 'लेप संबंधी प्रमाण की सीमाएँ' in sustainability
         url, about, _ = request('/about', 'VOLTARAX_LOCALE=hi')
         assert '/hi/about' in url, 'Language preference was not preserved'
         assert 'Voltarax के बारे में' in about and 'बौद्धिक संपदा' in about, 'Hindi page copy was not rendered'
@@ -85,7 +91,7 @@ with log_path.open('w', encoding='utf-8') as log:
         assert json.loads(api) == {'synthetic': True, 'path': '/api/local-routing-probe'}
         _, _, headers = request('/hi/account/orders/synthetic-routing-probe')
         assert 'checkout.razorpay.com' in headers.get('Content-Security-Policy', ''), 'Localized payment-page CSP missing'
-        result = {'english_and_hindi_document_languages': True, 'hindi_navigation': True, 'hindi_about_content': True, 'locale_preference_redirect': True,
+        result = {'english_and_hindi_document_languages': True, 'hindi_navigation': True, 'hindi_about_content': True, 'hindi_home_products_technology_sustainability': True, 'locale_preference_redirect': True,
                   'api_and_health_proxy_unprefixed': True, 'localized_checkout_header': True,
                   'backend': 'Owned loopback synthetic fixture only', 'browser_workflow': 'Not run by this HTTP smoke test'}
         (root / f'docs/test-results/{label}-fixture.json').write_text(json.dumps(result, indent=2) + '\n', encoding='utf-8')

@@ -137,3 +137,6 @@ Current in-place implementation and verification are tracked in PROGRESS.md. The
 
 ### Phase 2 verification scope
 The local account tests use fake Firebase repositories and a fake email sender. They cover default viewer registration, mandatory verification, cookie flags, replay, site access, privileged access changes and revocation. HTTP boundary tests cover CORS, headers, limits, safe errors, malformed JSON and sensitive-log omission. Repository tests cover concurrent email reservation and atomic sensitive changes. Production SMTP, email ownership in the real domain, reverse-proxy trust, TLS cookies, Firebase deployment and shared Redis counters remain separate operator checks.
+
+### Phase 8 public language task
+Complete translatable headlines, public Hindi copy and source-preserving prepared assistant are implemented. Narrow lint/typecheck and actual HTTP public Hindi render passed; dynamic templates, remaining workflow copy, SEO/legal/accessibility and the full phase gate remain pending. Voice input is labelled coming soon pending an explicit privacy/provider review.

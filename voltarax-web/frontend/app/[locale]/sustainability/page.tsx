@@ -39,7 +39,7 @@ export default function SustainabilityPage() {
           <div className="max-w-4xl mx-auto px-4 text-center relative">
             <div className="section-tag mx-auto w-fit"><Leaf size={12} /> {copyText(" Sustainability")}</div>
             <h1 className="text-5xl font-black text-white mt-3 mb-5">
-              {copyText("Powering a")}<span className="gradient-text">{copyText("Greener India")}</span>
+              <span className="gradient-text">{copyText("Review energy and carbon evidence")}</span>
             </h1>
             <p className="text-slate-400 text-lg max-w-2xl mx-auto">
               {copyText("VoltVision is designed to monitor site telemetry and estimate carbon impact when real readings are available.")}</p>
@@ -93,7 +93,7 @@ export default function SustainabilityPage() {
                 <div className="w-9 h-9 rounded-xl bg-green-500/20 flex items-center justify-center">
                   <Leaf size={18} className="text-green-400" />
                 </div>
-                <div className="text-white font-bold">{copyText("Bio-Coating Composition")}</div>
+                <div className="text-white font-bold">{copyText("Coating evidence limits")}</div>
               </div>
               <ul className="space-y-3">
                 {BIO_COATING.map((item, i) => (

@@ -28,7 +28,7 @@ export default function ProductsPage() {
           <div className="text-center mb-14">
             <div className="section-tag mx-auto w-fit">{copyText("Products")}</div>
             <h1 className="text-4xl sm:text-5xl font-black text-white mt-3 mb-4">
-              {copyText("The")}<span className="gradient-text">{copyText("VoltVision")}</span> {copyText("platform")}</h1>
+              <span className="gradient-text">{copyText("The VoltVision platform")}</span></h1>
             <p className="text-slate-500 max-w-2xl mx-auto">{copyText("Site monitoring and estimates, with planned capabilities identified below.")}</p>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
