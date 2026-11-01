@@ -1,0 +1,17 @@
+
+> voltarax-frontend@1.0.0 test:e2e:public
+> playwright test --grep @public
+
+
+Running 5 tests using 1 worker
+
+(node:16964) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ok 1 tests\e2e\public.spec.ts:23:5 › @public 360px language switch, native cursor, keyboard skip and navigation (4.1s)
+  ok 2 tests\e2e\public.spec.ts:44:5 › @public clock crosses IST midnight, pauses on visibility event and has stable reduced-motion text (2.3s)
+  ok 3 tests\e2e\public.spec.ts:58:5 › @public prepared assistant preserves entered Hindi text and returns keyboard focus (3.3s)
+  ok 4 tests\e2e\public.spec.ts:68:5 › @public Hindi draft metadata, form labels and synthetic submission only (8.7s)
+  ok 5 tests\e2e\public.spec.ts:92:5 › @public Hindi role labels retain API values and closed mobile sidebar stays hidden (5.0s)
+
+  5 passed (28.3s)
+{"english_and_hindi_document_languages": true, "hindi_navigation": true, "hindi_about_content": true, "hindi_home_products_technology_sustainability": true, "locale_preference_redirect": true, "api_and_health_proxy_unprefixed": true, "localized_checkout_header": true, "review_gated_metadata_robots_sitemap": true, "localized_page_metadata": true, "private_noindex_header": true, "original_1200x630_png": true, "hindi_legal_draft_noindex": true, "backend": "Owned loopback synthetic fixture only", "browser_workflow": "Five local synthetic UI checks passed; no real services or backend authentication verification"}

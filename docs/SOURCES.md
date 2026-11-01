@@ -111,3 +111,6 @@ PostHog is not enabled; TimescaleDB is a design reference only. Boundary GeoJSON
 ### Phase 8 browser/PDF references
 - [Playwright official browser configuration](https://playwright.dev/docs/browsers#google-chrome--microsoft-edge): isolated installed Edge channel, not a user's normal profile. Registry confirmed @playwright/test 1.64.1, Apache-2.0, Node >=20. Downloaded reference LICENSE read in full; exact dev dependency installed with its notices, no source copied. Actual browser checks are pending the Phase 8 gate.
 - [PDFKit official text/font documentation](https://pdfkit.org/docs/text.html): reviewed for base-font and embedding limits. Current original receipt renderer uses explicit ASCII availability; no font asset or upstream implementation copied.
+
+### Phase 8 final verification update
+The five original Edge checks passed against the current owned production build; results are in phase08-gate-web-reviewed-browser.json (no skipped/unexpected/flaky cases). These prove the stated local UI behaviors with intercepted synthetic API calls, not actual backend authentication, mail, provider or hardware behavior. Existing installed Edge was used with an isolated profile; no browser or copyleft audit library was vendored. Current full Hindi PDF/email support and independent AT/full-contrast/performance/legal review remain partial/manual.

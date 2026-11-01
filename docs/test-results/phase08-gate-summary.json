@@ -1,0 +1,111 @@
+{
+  "scope": "Local Phase 8 gate, not production/field/legal certification",
+  "verified_code_commit": "50e22b7b1e9f4c23b37e2de32e7776716402acf4",
+  "backend_tests": 74,
+  "ai_tests": 28,
+  "browser": {
+    "startTime": "2026-11-01T23:48:03.390Z",
+    "duration": 28315.456,
+    "expected": 5,
+    "skipped": 0,
+    "unexpected": 0,
+    "flaky": 0
+  },
+  "checks": {
+    "phase08-gate-backend": {
+      "command": [
+        "npm.cmd",
+        "test"
+      ],
+      "cwd": "voltarax-web/backend",
+      "exit_code": 0,
+      "seconds": 116.12
+    },
+    "phase08-gate-ai": {
+      "command": [
+        "C:/Users/JARVIS/Desktop/VOLTARAX/.local-tools/ai-python/Scripts/python.exe",
+        "-m",
+        "pytest",
+        "tests",
+        "-q",
+        "-p",
+        "no:cacheprovider"
+      ],
+      "cwd": "voltarax-web/ai-engine",
+      "exit_code": 0,
+      "seconds": 20.56
+    },
+    "phase08-gate-build-reviewed": {
+      "command": [
+        "python",
+        "tools/verify-locale-routes.py",
+        "--build"
+      ],
+      "cwd": ".",
+      "exit_code": 0,
+      "seconds": 72.6
+    },
+    "phase08-gate-generated-types-reviewed": {
+      "command": [
+        "npx.cmd",
+        "tsc",
+        "--noEmit"
+      ],
+      "cwd": "voltarax-web/frontend",
+      "exit_code": 0,
+      "seconds": 7.02
+    },
+    "phase08-gate-web-reviewed": {
+      "command": [
+        "python",
+        "tools/verify-locale-routes.py"
+      ],
+      "cwd": ".",
+      "exit_code": 0,
+      "seconds": 33.1
+    },
+    "phase08-gate-audit": {
+      "command": [
+        "python",
+        "tools/audit-dependencies.py"
+      ],
+      "cwd": ".",
+      "exit_code": 0,
+      "seconds": 16.53
+    },
+    "phase08-gate-frontend-full-audit": {
+      "command": [
+        "npm.cmd",
+        "audit",
+        "--audit-level=high",
+        "--json"
+      ],
+      "cwd": "voltarax-web/frontend",
+      "exit_code": 0,
+      "seconds": 66.76
+    },
+    "phase08-gate-secrets-reviewed": {
+      "command": [
+        "python",
+        "tools/scan-secrets.py"
+      ],
+      "cwd": ".",
+      "exit_code": 0,
+      "seconds": 0.88
+    }
+  },
+  "secret_scan": {
+    "files_checked": 917,
+    "findings": [],
+    "limit": "Pattern scan is not proof that every credential format is absent."
+  },
+  "hindi_catalog": {
+    "source": 1015,
+    "translated": 1015
+  },
+  "manual_limits": [
+    "Hindi PDF font embedding/shaping and localized email",
+    "Counsel/fluent/independent AT and full contrast/performance review",
+    "Real authentication/provider/SMTP/PostgreSQL/field operation; Phase 10 E2E pending"
+  ]
+}

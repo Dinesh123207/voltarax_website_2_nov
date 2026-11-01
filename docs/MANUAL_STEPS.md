@@ -2,7 +2,7 @@
 
 ## Phase 8 public facts and publication review
 
-English/Hindi routing is integrated with English URLs unchanged and Hindi /hi. Full page/workflow translation is still in progress; do not publish it as complete yet. Operator-entered names/notes/data must remain faithful to their input, not be translated as business facts. After completion, review Hindi wording with a fluent reviewer, legal copy with counsel and real browser/locale/account flows before publication.
+English/Hindi routing, current UI catalog and selected browser workflows pass the Phase 8 local gate, with English URLs unchanged and Hindi /hi. Operator-entered names/notes/data remain faithful to their input. Full Hindi PDF rendering and localized email templates are not implemented; receipts have an explicit English/ASCII policy. Review Hindi wording with a fluent reviewer, legal copy with counsel and actual service/account/target-device flows before publication. Local tests do not establish complete multilingual production operation.
 
 Local Next tests use hostname localhost and http://localhost consistently; binding Next to 127.0.0.1 exposed a framework loopback-origin rewrite loop. Keep API fixtures loopback-only and test actual proxy/hostname/TLS behavior on the intended non-production host. No arbitrary forwarded-host trust workaround was added. The owned fake backend verified unchanged /api and /health paths without live credentials.
 

@@ -152,3 +152,6 @@ Bilingual noindex privacy, terms and refund/cancellation drafts are implemented,
 
 ### Phase 8 accessibility and PDF coverage
 Interaction, contact-label/validation, reduced-motion/performance and receipt glyph safeguards are implemented and narrow tests pass. English/ASCII fallback receipt passes text/page/render inspection while original Unicode data remains preserved. Five loopback browser checks are prepared; execute with the final owned production build and record real outcomes before tagging. Full Hindi PDF font output and independent AT/legal/field reviews remain manual/partial.
+
+### Phase 8 local gate complete
+Final evidence is phase08-gate-build-reviewed, phase08-gate-generated-types-reviewed and phase08-gate-web-reviewed, plus the full backend/AI and audit/scan files. 74 backend + 28 AI + five actual browser cases pass; public claims/language/indexing/legal drafts/interaction/font limits are implemented and scoped. Partial Hindi PDF/email, legal/fluent/AT/field/service reviews remain manual. Proceed to Phase 9; preserve the archive pointer and verify actual boundary data/property names before use.
