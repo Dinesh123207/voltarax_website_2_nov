@@ -14,3 +14,5 @@ Recommended settings from the guide:
 The stream is intentionally LAN-only. The public Voltarax website should display analysis/results rather than exposing the camera directly.
 
 Use the Arduino ESP32 CameraWebServer example and apply the settings above. The Raspberry Pi integration is in `hardware/raspberry-pi`.
+
+The web API now supports fixed server-side capture/stream proxies, disabled until CAMERA_ENABLED=true with private backend-only URLs. Browser users never receive the camera address/credentials. Configure the intended test camera using docs/MANUAL_STEPS.md and verify its actual focus, connectivity and authorization yourself. Automated tests used only a localhost fixture camera. Capture saves a sanitized photo at server receipt time; actual device capture time and automatic image classification remain unavailable. Manual inspection records are separate from any Raspberry Pi model output.

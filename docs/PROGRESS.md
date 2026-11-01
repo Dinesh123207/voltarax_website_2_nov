@@ -1,6 +1,6 @@
 # Autopilot progress
 
-RESUME HERE: Phase 5 — secured camera proxy and actual inspection/coating records
+RESUME HERE: Phase 5 — inspection/coating dashboard screens, documentation and phase gate
 
 Status key: [ ] todo; [~] in progress; [x] done and verified as stated; [!] skipped with a reason. A phase is done only after its full gate passes.
 
@@ -56,9 +56,9 @@ Status key: [ ] todo; [~] in progress; [x] done and verified as stated; [!] skip
 - [!] Actual PostgreSQL/Redis/SMTP, multi-process locking, real-data report issuance and backup restoration require configured services/data; exact operator checks in MANUAL_STEPS.md. No live services or real mail used.
 
 ## Phase 5 — camera and coating
-- [~] Fixed configured camera URL proxy, authorized snapshots, strict image handling and offline state with local-only tests.
-- [ ] Persistent manual inspection/coating records with actual observation time/area/condition/photo/notes.
-- [ ] Transparent categorical rule/trends and authenticated dashboard views; no fabricated score or ML claim.
+- [x] Backend fixed-URL camera proxy and authorized saved snapshots, disabled default, bounded stream/capture/image decoding, metadata removal and explicit offline state. Three camera/metadata tests and two focused API/authorization tests passed, using only localhost fixture cameras. Hardware remains unverified.
+- [x] Persistent photo/manual inspection schema/migration and actual observation time/area/condition/photo/notes, site checks and audit. One actual-PGlite test passed for photo isolation, time validation, latest dated area observations, stale categories and IST trends.
+- [~] Backend categorical rules/trends are tested; implement authenticated camera/coating screens next. No numerical coating score or automatic ML classification exists.
 - [ ] Operator instructions, phase gate and tag.
 
 ## Phase 6 — AI validation

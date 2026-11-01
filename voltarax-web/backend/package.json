@@ -1,7 +1,7 @@
 {
   "name": "voltarax-backend",
   "version": "2.0.0",
-  "description": "Voltarax Private Limited \u2014 Firebase-backed corporate and solar monitoring API",
+  "description": "Voltarax Private Limited — Firebase-backed corporate and solar monitoring API",
   "main": "server.js",
   "scripts": {
     "start": "node server.js",
@@ -25,11 +25,13 @@
     "express-rate-limit": "8.7.2",
     "firebase-admin": "^13.5.0",
     "helmet": "^7.1.0",
+    "jpeg-js": "0.4.4",
     "jsonwebtoken": "^9.0.2",
     "nodemailer": "10.3.1",
     "pdfkit": "0.20.2",
     "pg": "8.23.1",
     "pino": "10.4.0",
+    "pngjs": "7.0.0",
     "rate-limit-redis": "6.0.2",
     "react": "18.3.1",
     "react-dom": "18.3.1",

@@ -57,3 +57,19 @@ export const reports = pgTable('esg_reports', {
   createdBy: text('created_by').notNull(), createdAt: date('created_at').notNull(),
   evidence: jsonb('evidence').notNull(), sha256: text('sha256').notNull(), pdfBase64: text('pdf_base64').notNull(),
 }, t => [index('esg_reports_site_created').on(t.siteId, t.createdAt)]);
+
+export const inspectionPhotos = pgTable('inspection_photos', {
+  id: text('id').primaryKey(), siteId: text('site_id').notNull(), source: text('source').notNull(),
+  mime: text('mime').notNull(), width: integer('width').notNull(), height: integer('height').notNull(),
+  sha256: text('sha256').notNull(), dataBase64: text('data_base64').notNull(),
+  savedAt: date('saved_at').notNull(), savedBy: text('saved_by').notNull(),
+}, t => [index('inspection_photos_site_saved').on(t.siteId, t.savedAt),
+  check('photo_source', sql`${t.source} in ('camera','upload')`), check('photo_mime', sql`${t.mime} in ('image/jpeg','image/png')`)]);
+export const inspections = pgTable('inspections', {
+  id: text('id').primaryKey(), siteId: text('site_id').notNull(), kind: text('kind').notNull(), area: text('area').notNull(), areaKey: text('area_key').notNull(),
+  condition: text('condition').notNull(), notes: text('notes').notNull(), observedAt: date('observed_at').notNull(),
+  photoId: text('photo_id').notNull().references(() => inspectionPhotos.id),
+  createdAt: date('created_at').notNull(), createdBy: text('created_by').notNull(),
+}, t => [index('inspections_site_observed').on(t.siteId, t.kind, t.observedAt),
+  check('inspection_kind', sql`${t.kind} in ('camera','coating')`),
+  check('inspection_condition', sql`${t.condition} in ('clean','dusty','cracked','peeling','other','unknown')`)]);

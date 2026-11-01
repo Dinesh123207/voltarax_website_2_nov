@@ -38,6 +38,7 @@ test('admin-only endpoint rejects unauthenticated and viewer requests', async t 
   app.use('/devices', require('../routes/devices').createDeviceRouter({ registry: () => ({ list: async () => [], get: async () => ({ site_id: 'solar_site' }), authenticate: async (id, key) => id === 'registered-device' && key === 'synthetic-registered-key' ? { device_id: id, site_id: 'solar_site' } : null, create: async input => ({ device: { device_id: input.device_id }, key: 'synthetic-one-time-key' }), rotate: async () => ({ key: 'synthetic-rotated-key' }), update: async (id, data) => ({ device_id: id, ...data }) }), otp: { configured: () => true, verify: async (email, code) => code === '001234' } }));
   app.use(require('../routes/operations').createOperationsRouter({ operations: async () => ({ listAlerts: async () => [], listWorkOrders: async () => [] }) }));
   app.use(require('../routes/reports').createReportsRouter({ reports: async () => ({}) }));
+  app.use(require('../routes/inspections').createInspectionRouter({ inspections: async () => ({}), camera: require('../services/camera').createCamera({ env: {} }) }));
   app.use(router);
   const server = app.listen(0, '127.0.0.1');
   await new Promise(resolve => server.once('listening', resolve));
@@ -62,7 +63,7 @@ test('admin-only endpoint rejects unauthenticated and viewer requests', async t 
   }
   for (const [method, path] of [['PUT', '/alerts/1/resolve'], ['POST', '/cv/scan'], ['POST', '/carbon/report'], ['PUT', '/work-orders/1'], ['PATCH', '/work-orders/1']]) {
     assert.equal((await fetch(url.replace('/users', path), { method })).status, 401);
-    for (const [role, expected] of [['viewer', 403], ['operator', path.startsWith('/alerts') || path.startsWith('/work-orders') || path === '/carbon/report' ? 422 : 501], ['admin', path.startsWith('/alerts') || path.startsWith('/work-orders') || path === '/carbon/report' ? 422 : 501]]) {
+    for (const [role, expected] of [['viewer', 403], ['operator', path === '/cv/scan' ? 503 : 422], ['admin', path === '/cv/scan' ? 503 : 422]]) {
       const token = jwt.sign({ id: role, ver: 0 }, process.env.JWT_SECRET, { audience: 'voltarax-api', issuer: 'voltarax' });
       assert.equal((await fetch(url.replace('/users', path), { method, headers: { Authorization: `Bearer ${token}` } })).status, expected);
     }

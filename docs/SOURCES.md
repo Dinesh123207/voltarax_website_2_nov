@@ -67,3 +67,7 @@ PostHog is not enabled; TimescaleDB is a design reference only. Boundary GeoJSON
 - pgBackRest backup/runbook reference: downloaded doc/xml/user-guide.xml (MIT repository license read) and official https://pgbackrest.org/user-guide.html. No live backup/restore or server installation performed.
 - esbuild development-server advisory verified at https://github.com/advisories/GHSA-67mh-4wv8-2f99. Installed esbuild MIT license read; scoped loader override uses patched 0.28.2 and actual schema generation was retested. No server mode is used.
 - PDF QA used bundled Poppler and pypdf. The generated layout fixture is original, explicitly synthetic test content, not a real site report or copied third-party document.
+
+## Phase 5 camera/image references (2026-11-01)
+- Existing hardware/esp32-cam/README.md supplies the fixed ESP32 capture/stream endpoint pattern. No live camera was contacted. Original proxy code uses Node fetch/AbortController/stream backpressure following https://nodejs.org/api/globals.html#fetch; only localhost fixture servers were exercised.
+- Registry versions verified before installation: jpeg-js 0.4.4 (BSD-3-Clause) and pngjs 7.0.0 (MIT). Their installed LICENSE files were read, as were official repository APIs at https://github.com/jpeg-js/jpeg-js and https://github.com/pngjs/pngjs. Normal dependencies, no vendored source or archive code copied. Original worker-thread validation/re-encoding strips metadata and bounds image size/pixels/time.

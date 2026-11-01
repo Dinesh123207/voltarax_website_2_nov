@@ -18,6 +18,10 @@ function createApp({ logger, limiters, routes, env = process.env }) {
   app.use('/api/auth', routes.auth);
   if (routes.devices) app.use('/api/devices', routes.devices);
   app.use('/api', routes.content);
+  if (routes.inspections) {
+    app.use('/api/voltvision', routes.inspections);
+    app.use('/api', routes.inspections);
+  }
   if (routes.reports) {
     app.use('/api/voltvision', routes.reports);
     app.use('/api', routes.reports);

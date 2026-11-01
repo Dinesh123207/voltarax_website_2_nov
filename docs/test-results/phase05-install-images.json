@@ -1,0 +1,12 @@
+{
+  "command": [
+    "npm.cmd",
+    "install",
+    "--save-exact",
+    "jpeg-js@0.4.4",
+    "pngjs@7.0.0"
+  ],
+  "cwd": "voltarax-web/backend",
+  "exit_code": 0,
+  "seconds": 56.15
+}

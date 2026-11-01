@@ -1,0 +1,24 @@
+const test = require('node:test');
+const assert = require('node:assert/strict');
+test('inspection records preserve actual inputs, sanitize photos, isolate sites and group latest dated observations per area', async t => {
+  const c = await require('../db/client').open({ pglite: true, migrate: true }); t.after(() => c.close());
+  const now = Date.parse('2026-11-01T00:00:00Z');
+  const service = require('../services/inspections').createInspections(c.db, { now: () => now });
+  const { PNG } = require('pngjs'); const input = PNG.sync.write({ width: 2, height: 2, data: Buffer.alloc(16, 128) });
+  const image = await require('../services/images').sanitizeImage(input);
+  const photo = await service.savePhoto('site-a', image, 'upload', 'operator');
+  assert.equal('dataBase64' in photo, false); assert.equal(photo.captureTime, null); assert.equal(photo.width, 2);
+  await assert.rejects(service.getPhoto('site-b', photo.id), e => e.status === 404);
+  const data = { kind: 'coating', area: 'Area-A', condition: 'clean', notes: 'Synthetic unit-test operator observation', observedAt: '2026-10-31T19:00:00Z', photoId: photo.id };
+  await assert.rejects(service.create('site-b', data, 'operator'), e => e.status === 404);
+  await assert.rejects(service.create('site-a', { ...data, observedAt: '2026-11-02T00:00:00Z' }, 'operator'), e => e.status === 422);
+  const latest = await service.create('site-a', data, 'operator');
+  await service.create('site-a', { ...data, area: 'area-a', observedAt: '2026-08-01T00:00:00Z', condition: 'cracked' }, 'operator');
+  await service.create('site-a', { ...data, area: 'Area-B', observedAt: '2026-08-01T00:00:00Z', condition: 'peeling' }, 'operator');
+  const result = await service.coating('site-a');
+  assert.equal(result.areas.length, 2); assert.equal(result.areas[0].id, latest.id);
+  assert.equal(result.areas[0].indicator.category, 'no_issue_reported');
+  assert.equal(result.areas[1].indicator.dataQuality, 'Unavailable'); assert.equal(result.score, null);
+  assert.equal(result.trends[0].day, '2026-11-01'); assert.equal(result.trends[0].count, 1);
+  assert.equal((await service.list('site-b')).length, 0); assert.equal((await service.listPhotos('site-b')).length, 0);
+});

@@ -1,0 +1,10 @@
+✔ camera defaults unavailable and image sanitation rejects active/malformed/oversized input (279.3816ms)
+✔ camera uses only a fixed URL, refuses redirects/offline/HTML and sanitizes an actual local test frame (824.688ms)
+ℹ tests 2
+ℹ suites 0
+ℹ pass 2
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 7067.7014

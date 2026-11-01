@@ -85,7 +85,6 @@ router.get('/bfci', protect, requireSite, dashboardValidation('get', '/bfci'), a
 router.get('/bfci/shap/:id', protect, requireSite, dashboardValidation('get', '/bfci/shap/:id'), async (req, res) => res.json({ shap: {}, dataQuality: 'unavailable' }));
 router.get('/cv', protect, requireSite, dashboardValidation('get', '/cv'), async (req, res) => res.json([]));
 router.get('/cv/summary', protect, requireSite, dashboardValidation('get', '/cv/summary'), async (req, res) => res.json({ total_panels: null, counts: { clean: null, dusty: null, cracked: null, bio_degraded: null }, dataQuality: 'Unavailable', note: 'Connect ESP32-CAM / CV pipeline to populate inspections.' }));
-router.post('/cv/scan', protect, requireOperator, requireSite, dashboardValidation('post', '/cv/scan'), async (req, res) => res.status(501).json({ success: false, message: 'Camera/CV pipeline is not connected yet.' }));
 
 router.get('/relay', protect, requireSite, dashboardValidation('get', '/relay'), async (req, res) => {
   try {

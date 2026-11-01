@@ -1,0 +1,9 @@
+✔ raster re-encoding removes JPEG metadata while preserving pixel dimensions (320.5421ms)
+ℹ tests 1
+ℹ suites 0
+ℹ pass 1
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 3059.5546

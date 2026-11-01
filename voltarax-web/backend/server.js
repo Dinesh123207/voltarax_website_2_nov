@@ -9,6 +9,7 @@ async function main() {
   const routes = { devices: require('./routes/devices').createDeviceRouter(), auth: require('./routes/auth').createAuthRouter({ emailLimiter: limiters.authEmail }), content: require('./routes/content'), dashboard: require('./routes/voltvision'), telemetry: require('./routes/telemetry'), chat: require('./routes/chat') };
   routes.operations = require('./routes/operations').createOperationsRouter();
   routes.reports = require('./routes/reports').createReportsRouter();
+  routes.inspections = require('./routes/inspections').createInspectionRouter();
   const app = createApp({ logger, limiters, routes });
   await require('./config/db')();
   require('./services/telemetryWatcher').startTelemetryWatcher();
