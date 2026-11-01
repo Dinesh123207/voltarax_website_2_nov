@@ -1,0 +1,30 @@
+{
+  "firebase-admin": {
+    "version": "7.7.0",
+    "license": "Apache License 2.0"
+  },
+  "pandas": {
+    "version": "3.1.0",
+    "license": "BSD-3-Clause"
+  },
+  "numpy": {
+    "version": "2.5.4",
+    "license": "BSD-3-Clause AND 0BSD AND MIT AND Zlib AND CC0-1.0"
+  },
+  "scikit-learn": {
+    "version": "1.9.1",
+    "license": "BSD-3-Clause"
+  },
+  "joblib": {
+    "version": "1.6.0",
+    "license": "BSD-3-Clause"
+  },
+  "python-dotenv": {
+    "version": "1.2.4",
+    "license": "BSD-3-Clause"
+  },
+  "pytest": {
+    "version": "9.2.0",
+    "license": "MIT"
+  }
+}

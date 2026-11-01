@@ -1,0 +1,16 @@
+{
+  "command": [
+    "C:/Users/JARVIS/Desktop/VOLTARAX/.local-tools/ai-python/Scripts/python.exe",
+    "-m",
+    "pytest",
+    "tests/test_pipeline_synthetic.py",
+    "-q",
+    "-p",
+    "no:cacheprovider",
+    "-k",
+    "trains_and_publishes or forecast_tracks_daylight"
+  ],
+  "cwd": "voltarax-web/ai-engine",
+  "exit_code": 0,
+  "seconds": 7.34
+}

@@ -16,6 +16,7 @@ import logging
 from typing import Callable, Optional
 
 import pandas as pd
+import numpy as np
 
 import config as cfg
 from data.schema import TELEMETRY_COLUMNS
@@ -23,6 +24,14 @@ from data.schema import TELEMETRY_COLUMNS
 log = logging.getLogger("ai_engine.ingest")
 
 _app = None
+
+
+def _binary_label(value):
+    if isinstance(value, (bool, np.bool_)):
+        return bool(value)
+    if isinstance(value, (int, float, np.integer, np.floating)) and np.isfinite(value) and value in (0, 1):
+        return bool(value)
+    return None
 
 
 def _get_firebase_app():
@@ -88,9 +97,13 @@ def raw_history_to_frame(raw: dict) -> pd.DataFrame:
     rows = []
     for push_id, row in raw.items():
         if not isinstance(row, dict) or "ts" not in row:
-            log.warning("Skipping malformed history row %s", push_id)
+            log.warning("Skipping malformed history row")
             continue
-        sensors_ok = row.get("sensors_ok") or {}
+        if isinstance(row.get('ts'), (bool, np.bool_)):
+            continue
+        if row.get('site_id', cfg.SITE_ID) != cfg.SITE_ID or row.get('device_id', cfg.DEVICE_ID) != cfg.DEVICE_ID:
+            continue
+        sensors_ok = row.get("sensors_ok") if isinstance(row.get('sensors_ok'), dict) else {}
         rows.append({
             "ts": row.get("ts"),
             "device_id": row.get("device_id"),
@@ -104,10 +117,12 @@ def raw_history_to_frame(raw: dict) -> pd.DataFrame:
             "dust_ugm3": row.get("dust_ugm3"),
             "rssi": row.get("rssi"),
             "uptime_s": row.get("uptime_s"),
-            "sensors_ok_ina219": sensors_ok.get("ina219"),
-            "sensors_ok_bh1750": sensors_ok.get("bh1750"),
-            "sensors_ok_dht11": sensors_ok.get("dht11"),
-            "sensors_ok_dust": sensors_ok.get("dust"),
+            "sensors_ok_ina219": sensors_ok.get("ina219", row.get('sensors_ok_ina219')),
+            "sensors_ok_bh1750": sensors_ok.get("bh1750", row.get('sensors_ok_bh1750')),
+            "sensors_ok_dht11": sensors_ok.get("dht11", row.get('sensors_ok_dht11')),
+            "sensors_ok_dust": sensors_ok.get("dust", row.get('sensors_ok_dust')),
+            'simulated': row.get('simulated') is True,
+            'anomaly_label': _binary_label(row.get('anomaly_label')),
         })
 
     df = pd.DataFrame(rows)
@@ -115,11 +130,21 @@ def raw_history_to_frame(raw: dict) -> pd.DataFrame:
         return pd.DataFrame(columns=list(TELEMETRY_COLUMNS.keys()))
 
     df["ts"] = pd.to_numeric(df["ts"], errors="coerce")
-    df = df.dropna(subset=["ts"]).copy()
+    df = df[np.isfinite(df['ts']) & (df['ts'] > 0) & (df['ts'] < 4102444800) & (df['ts'] % 1 == 0)].copy()
     df["ts"] = df["ts"].astype("int64")
     for col in ["voltage_v", "current_ma", "power_mw", "light_lux", "temp_c",
                 "humidity_pct", "dust_ugm3", "rssi", "uptime_s"]:
-        df[col] = pd.to_numeric(df[col], errors="coerce")
+        df[col] = pd.to_numeric(df[col].map(lambda value: np.nan if isinstance(value, (bool, np.bool_)) else value), errors="coerce").replace([np.inf, -np.inf], np.nan)
+    bounds = {'voltage_v': (0, 1000), 'current_ma': (0, 1e9), 'power_mw': (0, 1e12), 'light_lux': (0, 200000),
+              'temp_c': (-50, 150), 'humidity_pct': (0, 100), 'dust_ugm3': (0, 1e6), 'rssi': (-150, 0), 'uptime_s': (0, float('inf'))}
+    for column, (low, high) in bounds.items():
+        df[column] = df[column].where(df[column].between(low, high))
+    sensor_fields = {'ina219': ['power_mw', 'current_ma', 'voltage_v'], 'bh1750': ['light_lux'], 'dht11': ['temp_c', 'humidity_pct'], 'dust': ['dust_ugm3']}
+    for sensor, columns in sensor_fields.items():
+        flag = 'sensors_ok_' + sensor
+        df[flag] = df[flag].map(lambda value: bool(value) if isinstance(value, (bool, np.bool_)) else None).astype('boolean')
+        df.loc[df[flag].eq(False).fillna(False), columns] = np.nan
+    df['anomaly_label'] = df['anomaly_label'].astype('boolean')
     df = df.sort_values("ts").drop_duplicates(subset=["ts"]).reset_index(drop=True)
     return df
 
@@ -133,6 +158,7 @@ def fetch_history(reader: Optional[Callable[[], dict]] = None,
     """
     raw = (reader or _default_reader)()
     df = raw_history_to_frame(raw)
+    df = df[(df['site_id'] == cfg.SITE_ID) & (df['device_id'] == cfg.DEVICE_ID)].copy()
     if len(df) > max_rows:
         df = df.tail(max_rows).reset_index(drop=True)
     return df

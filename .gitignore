@@ -29,4 +29,6 @@ firebase.local.rules.json
 *-debug.*.log
 .firebase/
 .local-tools/
+.venv/
+venv/
 .pio/

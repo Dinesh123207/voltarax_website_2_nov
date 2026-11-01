@@ -79,65 +79,73 @@ anomaly detector that actually catches a simulated wiring fault, and that
 an hourly cron doesn't retrain on every tick once a model is already
 trained on recent data.
 
-## Model choices, and why
+## Model scope and validation
 
-- **Forecast — Gradient Boosting Regressor** over light/temperature/
-  humidity/dust/time-of-day. Tree ensembles (Random Forest, Gradient
-  Boosting, XGBoost) are repeatedly reported as strong, fast-to-train
-  baselines for short-term PV power regression from environmental sensor
-  features, ahead of KNN and comparable to deep models at this data scale:
-  a 2026 tilt-angle PV study found Gradient Boosting ahead of Random Forest
-  and KNN; a 2024 Australian rooftop-PV study found Random Forest the top
-  regressor among several tested; a broader RF/XGBoost/LSTM comparison
-  (arXiv:2509.24059) reports irradiance as the dominant feature across
-  methods, which is exactly why `light_lux` carries most of the weight
-  here. GBR was picked over Random Forest specifically because more than
-  one of these found it slightly ahead — swap it in `models/forecast/` if
-  your own validation MAE (recorded in every model's metadata) says
-  otherwise for your panel.
-  **Caveat stated plainly, not glossed over**: without a weather forecast
-  feed, this predicts power from *current* conditions, not a true N-hours-
-  ahead forecast. "1h/6h/24h/7d" in the dashboard today are that same
-  estimate scaled up — real ahead-of-time forecasting needs either a
-  weather API integration or a proper time-series model (LSTM/temporal
-  transformer) once there's enough history to train one; that's a
-  documented next step, not a claim this version already makes.
-- **Anomaly detection — Isolation Forest**, unchanged in technique from
-  `hardware/raspberry-pi/train_model.py`, just formalized into the shared
-  pipeline and published to Firebase so the *web* dashboard sees it too
-  (previously only the local Pi touchscreen did). Isolation Forest needs no
-  labelled fault examples — appropriate here since nobody has any yet — and
-  isolates outliers by how few random splits it takes to separate a point,
-  which is a good match for "flag anything unusual" with no fault taxonomy
-  defined up front.
-- **Health baseline — an adaptive percentile, deliberately not a trained
-  model.** `hardware/raspberry-pi/analysis.py` asks you to eyeball a few
-  clear days and hand-set `BASELINE_PR`. This computes the 90th-percentile
-  performance ratio from the panel's own recent daylight readings instead —
-  self-correcting for local shading, tilt and wiring losses. It's kept
-  unsupervised on purpose: nobody has "this reading was truly healthy"
-  ground truth to train a classifier or regressor against, so pretending to
-  fit one would be manufacturing rigour the data doesn't support. A robust
-  statistic of the panel's own good days is the honest amount of "learning"
-  available data can carry — replacing a manually-typed guess with a
-  number computed from data, not adding a second guess dressed up as ML.
+The gradient-boosting regressor estimates power at the **current timestamp**
+from environmental/time features. It is not a weather-ahead forecast.
+Isolation Forest flags unusual patterns without a verified fault taxonomy.
+The performance-ratio reference is a clipped training-history percentile,
+not proof of a healthy panel or measured coating condition. No validated
+confidence interval or real-site accuracy is established.
+
+Power evaluation uses an oldest-80% / newest-20% chronological holdout,
+with at least 100 complete daylight rows and 20 validation rows. Optional
+feature medians are fitted on the training rows only; entirely missing
+training features are excluded. Required power/light/temperature, failed
+sensor flags, nonfinite/out-of-range inputs and source identities are checked.
+Time-of-day features use IST. MAE/RMSE use milliwatts; R2 is unavailable for
+a constant target. A training-only engineering performance-ratio baseline
+uses the configured panel/lux/temperature assumptions, which need physical
+review. A candidate must have finite errors, nonnegative R2 when defined and
+RMSE at most 5% above that baseline. This is an explicit acceptance policy,
+not an accuracy guarantee. The held-out rows are never refitted into the
+candidate, so the reported metrics describe the actual saved model.
+
+Optional `anomaly_label` is a recorded boolean (or 0/1), never a label inferred
+from the detector. Precision/recall proxies use only labelled held-out rows;
+missing/undefined metrics remain Unavailable. Labels themselves still require
+operator verification. Synthetic test results must not become site claims.
+
+## Offline export evaluation
+
+No Firebase account or network request is needed by this command:
+
+```powershell
+python scripts/evaluate_export.py --input PATH_TO_PRIVATE_EXPORT.json --output artifacts/evaluations/REVIEWED_PERIOD.json
+```
+
+It accepts a bounded local JSON map/list, per-site readings export, legacy
+solar_site/history export or CSV with explicit matching site/device IDs. Input
+is capped at 20 MB / AI_MAX_HISTORY_ROWS. Use a private export outside Git.
+Output is limited to artifacts or workspace docs/test-results and refuses to
+overwrite an existing file. It contains metrics/counts/input hash, not raw rows.
+Use --synthetic for generated inputs; marked simulated readings are detected
+automatically. No real exported dataset was supplied or evaluated in this run.
+
+The active Phase 6 publication/freshness/drift work is tracked in
+../../docs/PROGRESS.md. Do not schedule the existing Firebase-writing entrypoint
+until that gate and the separate non-production service checks are complete.
 
 ## Setup
 
-```bash
-cd ai-engine
-python3 -m venv .venv && source .venv/bin/activate
-pip install -r requirements.txt
-cp .env.example .env      # same Firebase project as backend/.env
-python scripts/run_once.py
+Use Python 3.13 (3.13.15 was tested). From this directory on Windows:
+
+```powershell
+python -m venv ../../.local-tools/ai-python
+& ../../.local-tools/ai-python/Scripts/python.exe -m pip install --only-binary=:all: -r requirements.lock.txt
+if (-not (Test-Path .env)) { Copy-Item .env.example .env }
 ```
 
-Then schedule it — see `scripts/schedule_cron.md`.
+On Linux use python3.13 to create the same isolated environment and its
+bin/python executable for installation/tests. The lock file records the actual
+verified environment; no system Python changes are required. Real Firebase
+configuration and scheduling are separate operator steps after Phase 6's gate.
+Do not run scripts/run_once.py against a live project during this test-only run.
 
 ## Running the tests
 
-```bash
-cd ai-engine && source .venv/bin/activate && pytest tests/ -v
+```powershell
+& ../../.local-tools/ai-python/Scripts/python.exe -m pytest tests -q -p no:cacheprovider
 ```
 
 No Firebase project or hardware required — every test generates its own

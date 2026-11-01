@@ -30,7 +30,7 @@ def make_synthetic_history(days=10, seed=7, start_day=0):
     t0 = 1_735_689_600  # 2025-01-01T00:00:00Z
     i = 0
     for day in range(start_day, start_day + days):
-        for minute in range(0, 24 * 60, 5):  # every 5 min, like the firmware's LATEST_MS
+        for minute in range(0, 24 * 60, 5):  # deliberately downsampled five-minute test history
             ts = t0 + day * 86400 + minute * 60
             hour = (minute / 60) % 24
             daylight = max(0.0, math.sin(math.pi * (hour - 6) / 12)) if 6 <= hour <= 18 else 0.0
@@ -42,6 +42,7 @@ def make_synthetic_history(days=10, seed=7, start_day=0):
             power_w = max(0.0, expected_w * random.uniform(0.93, 1.0))  # a healthy, slightly-lossy real panel
             raw[f"-row{i:06d}"] = {
                 "ts": ts, "device_id": "nodemcu-01", "site_id": cfg.SITE_ID,
+                "simulated": True,
                 "voltage_v": round(11.5 + daylight * 0.6, 2),
                 "current_ma": round(power_w * 1000 / max(11.5, 1), 1),
                 "power_mw": round(power_w * 1000, 1),

@@ -1,6 +1,6 @@
 # Autopilot progress
 
-RESUME HERE: Phase 6 — time-split evaluation, leakage-free preprocessing and stale-input/model checks
+RESUME HERE: Phase 6 — versioned safe artifacts, validated publication, source/model expiry and drift/retrain checks
 
 Status key: [ ] todo; [~] in progress; [x] done and verified as stated; [!] skipped with a reason. A phase is done only after its full gate passes.
 
@@ -63,7 +63,8 @@ Status key: [ ] todo; [~] in progress; [x] done and verified as stated; [!] skip
 - [!] Physical camera/coating verification, actual image interpretation, browser workflow and real PostgreSQL restore checks remain manual/E2E work. No real camera or live service used; MANUAL_STEPS.md records exact setup and checks.
 
 ## Phase 6 — AI validation
-- [~] Time-split evaluation with train-only preprocessing, MAE/RMSE/R2, engineering baseline comparison and labelled-only anomaly metrics; synthetic tests and offline export CLI.
+- [x] Time-split evaluation with train-only preprocessing, MAE/RMSE/R2, training-only engineering baseline and labelled-only anomaly proxies. Six new focused evaluation tests, two existing power integration cases (plus origin rerun) and offline CLI passed. Saved output evaluated 2,880 marked synthetic inputs; no real-site accuracy claim. Real reviewed export not provided/used.
+- [x] Reproducible isolated Python 3.13 environment with verified stable direct versions and freeze lock; install passed. The former requirements differed from actual earlier test runtime. No system environment changed. Failed relative executable startup is retained; absolute-path retry passed.
 - [ ] Schema-validated publication, model version/training/validation metadata and stale input/model/results behavior in API/UI.
 - [ ] Drift/retraining checks and documented offline/scheduled validation workflow.
 - [ ] Current-conditions estimates only until a verified site/weather provider is configured; no fabricated confidence intervals or horizon extrapolations.

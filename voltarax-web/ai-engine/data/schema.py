@@ -33,6 +33,8 @@ TELEMETRY_COLUMNS = {
     "sensors_ok_bh1750": "boolean",
     "sensors_ok_dht11": "boolean",
     "sensors_ok_dust": "boolean",
+    "simulated": "boolean",
+    "anomaly_label": "boolean",  # optional recorded label, never inferred from the detector
 }
 
 REQUIRED_FOR_TRAINING = ["ts", "power_mw", "light_lux"]
@@ -56,6 +58,8 @@ class Reading:
     sensors_ok_bh1750: Optional[bool] = None
     sensors_ok_dht11: Optional[bool] = None
     sensors_ok_dust: Optional[bool] = None
+    simulated: Optional[bool] = None
+    anomaly_label: Optional[bool] = None
 
     @classmethod
     def field_names(cls):

@@ -1,0 +1,14 @@
+{
+  "command": [
+    "C:/Users/JARVIS/Desktop/VOLTARAX/.local-tools/ai-python/Scripts/python.exe",
+    "scripts/evaluate_export.py",
+    "--input",
+    "../../.local-tools/phase06/synthetic-export.json",
+    "--output",
+    "../../docs/test-results/phase06-synthetic-evaluation.json",
+    "--synthetic"
+  ],
+  "cwd": "voltarax-web/ai-engine",
+  "exit_code": 0,
+  "seconds": 4.84
+}

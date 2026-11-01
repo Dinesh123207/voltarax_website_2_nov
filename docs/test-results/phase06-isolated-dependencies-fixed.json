@@ -1,0 +1,14 @@
+{
+  "command": [
+    "C:/Users/JARVIS/Desktop/VOLTARAX/.local-tools/ai-python/Scripts/python.exe",
+    "-m",
+    "pip",
+    "install",
+    "--only-binary=:all:",
+    "-r",
+    "requirements.txt"
+  ],
+  "cwd": "voltarax-web/ai-engine",
+  "exit_code": 0,
+  "seconds": 235.92
+}

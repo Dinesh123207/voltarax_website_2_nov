@@ -1,0 +1,53 @@
+{
+  "schema_version": 2,
+  "data_origin": "synthetic-test-inputs",
+  "rows": 2880,
+  "power": {
+    "method_version": "power-evaluation-v2",
+    "status": "evaluated",
+    "accepted": true,
+    "model": {
+      "mae_mw": 82.22345090718838,
+      "rmse_mw": 105.4759011840871,
+      "r2": 0.9966787102662324
+    },
+    "baseline": {
+      "mae_mw": 123.93995377487794,
+      "rmse_mw": 162.75388490903936,
+      "r2": 0.9920920666279446
+    },
+    "baseline_pr": 0.9934723757784049,
+    "baseline_method": "Training-only 90th-percentile performance ratio, clipped to 0.4\u20131.0; configured panel/lux/temperature assumptions are unverified.",
+    "acceptance_policy": "Finite held-out error, nonnegative R2 when defined, RMSE no more than 5% above the engineering baseline. This policy is not field accuracy assurance.",
+    "split": {
+      "method": "chronological_holdout",
+      "train_rows": 1132,
+      "test_rows": 283,
+      "train_start_ts": 1735711800,
+      "train_end_ts": 1736358600,
+      "test_start_ts": 1736403000,
+      "test_end_ts": 1736531400
+    },
+    "feature_columns": [
+      "light_lux",
+      "temp_c",
+      "humidity_pct",
+      "dust_ugm3",
+      "hour_sin",
+      "hour_cos",
+      "is_daylight"
+    ],
+    "imputation": "Medians fitted on training rows only; entirely missing training features excluded.",
+    "horizon": "Current conditions only; not a weather-ahead forecast",
+    "units": "Power errors in milliwatts; R2 dimensionless and Unavailable for a constant target."
+  },
+  "anomaly": {
+    "status": "unlabelled",
+    "precision": null,
+    "recall": null,
+    "labelled_rows": 0
+  },
+  "dataQuality": "Estimated",
+  "limitations": "Offline current-condition evaluation only. No real-site accuracy, future weather skill, verified fault taxonomy or confidence interval is established.",
+  "input_sha256": "dd9cc58fcdf1a04cafd501b07a48c1c0c72cc547ed4dc0388f7bb55f1507cb56"
+}

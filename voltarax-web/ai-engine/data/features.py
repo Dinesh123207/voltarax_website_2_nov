@@ -23,11 +23,11 @@ ANOMALY_FEATURE_COLUMNS = [
 
 def add_time_features(df: pd.DataFrame) -> pd.DataFrame:
     df = df.copy()
-    dt = pd.to_datetime(df["ts"], unit="s", utc=True)
+    dt = pd.to_datetime(df["ts"], unit="s", utc=True).dt.tz_convert('Asia/Kolkata')
     hour = dt.dt.hour + dt.dt.minute / 60.0
     df["hour_sin"] = np.sin(2 * np.pi * hour / 24)
     df["hour_cos"] = np.cos(2 * np.pi * hour / 24)
-    df["is_daylight"] = (df["light_lux"].fillna(0) > cfg.DAYLIGHT_LUX_THRESHOLD).astype(int)
+    df["is_daylight"] = (df["light_lux"] > cfg.DAYLIGHT_LUX_THRESHOLD).astype(float).where(df['light_lux'].notna())
     return df
 
 
@@ -43,12 +43,16 @@ def daylight_only(df: pd.DataFrame) -> pd.DataFrame:
 def build_forecast_dataset(df: pd.DataFrame):
     """Returns (X, y) for training a same-timestamp power regressor:
     given current conditions, predict current power_mw. Used both to fit the
-    model and, at inference time, to turn a forecast weather/light input into
-    a power estimate."""
+    model and, at inference time, to estimate power from current inputs.
+    No future-weather feed is configured."""
     df = add_time_features(df)
     df = daylight_only(df)
-    df = df.dropna(subset=["power_mw", "light_lux"])
-    X = df[BASE_FEATURE_COLUMNS].fillna(df[BASE_FEATURE_COLUMNS].median(numeric_only=True))
+    df = df.replace([np.inf, -np.inf], np.nan).dropna(subset=["power_mw", "light_lux", "temp_c"])
+    df = df[df['power_mw'] >= 0]
+    for flag in ['sensors_ok_ina219', 'sensors_ok_bh1750', 'sensors_ok_dht11']:
+        if flag in df:
+            df = df[df[flag].ne(False).fillna(True)]
+    X = df.reindex(columns=BASE_FEATURE_COLUMNS)
     y = df["power_mw"]
     return X, y
 
