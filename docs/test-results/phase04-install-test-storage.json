@@ -1,0 +1,13 @@
+{
+  "command": [
+    "npm.cmd",
+    "install",
+    "--save-dev",
+    "--save-exact",
+    "@electric-sql/pglite@0.5.14",
+    "drizzle-kit@0.31.11"
+  ],
+  "cwd": "voltarax-web/backend",
+  "exit_code": 0,
+  "seconds": 43.34
+}

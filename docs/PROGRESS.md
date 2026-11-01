@@ -1,6 +1,6 @@
 # Autopilot progress
 
-RESUME HERE: Phase 4 — PostgreSQL/Drizzle storage, persistent alerts and work orders
+RESUME HERE: Phase 4 — wire persistent alerts/work orders to the API and dashboard
 
 Status key: [ ] todo; [~] in progress; [x] done and verified as stated; [!] skipped with a reason. A phase is done only after its full gate passes.
 
@@ -45,7 +45,7 @@ Status key: [ ] todo; [~] in progress; [x] done and verified as stated; [!] skip
 - [x] Final local gate: 32 backend tests, 9 Python tests, lint, separate typecheck and production build (298.03 seconds) passed. New real-adapter integration, rule emulator, four native tests and placeholder firmware build passed as recorded above. Production audits: frontend 0, backend 8 moderate, no high/critical. Secret scan: 359 files, no matches; diff check passed. Earlier CLI/build timeouts remain saved failures. Tag: phase-03-done.
 
 ## Phase 4 — alerts, work orders and reports
-- [~] PostgreSQL/Drizzle migrations and local PGlite storage tests (Docker daemon unavailable).
+- [x] PostgreSQL/Drizzle TypeScript schema and generated SQL migrations; local PGlite lifecycle/episode tests passed (2). Conditional transitions, edit version checks, transactional event/audit/outbox records and cross-site isolation verified. Compose prepared; actual Docker PostgreSQL/Redis unavailable and not run.
 - [ ] Persistent alert create/acknowledge/resolve/history and actual rule-event ingestion.
 - [ ] Work orders from alerts, assignment, status, comments, due dates and list/detail UI.
 - [ ] Relational audit adapter and explicit offline legacy audit import (never run live).

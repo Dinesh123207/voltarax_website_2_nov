@@ -1,0 +1,12 @@
+{
+  "command": [
+    "npx.cmd",
+    "drizzle-kit",
+    "generate",
+    "--name",
+    "operations"
+  ],
+  "cwd": "voltarax-web/backend",
+  "exit_code": 0,
+  "seconds": 16.39
+}

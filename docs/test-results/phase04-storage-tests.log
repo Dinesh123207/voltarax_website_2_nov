@@ -1,0 +1,10 @@
+✔ relational lifecycle is site-scoped, atomic, persistent and safe against concurrent edits (35357.4587ms)
+✔ rule episodes deduplicate replay, preserve acknowledgement and require a cleared condition to recur (9766.8427ms)
+ℹ tests 2
+ℹ suites 0
+ℹ pass 2
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 46652.8328

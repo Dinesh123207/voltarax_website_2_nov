@@ -1,0 +1,59 @@
+import { pgTable, text, timestamp, integer, bigint, boolean, jsonb, index, uniqueIndex, check } from 'drizzle-orm/pg-core';
+import { sql } from 'drizzle-orm';
+
+const date = (name: string) => timestamp(name, { withTimezone: true, mode: 'date' });
+export const alerts = pgTable('alerts', {
+  id: text('id').primaryKey(), siteId: text('site_id').notNull(), sourceKey: text('source_key'),
+  title: text('title').notNull(), message: text('message').notNull(), severity: text('severity').notNull(),
+  status: text('status').notNull().default('open'), createdBy: text('created_by').notNull(), createdAt: date('created_at').notNull(),
+  lastSeenAt: date('last_seen_at').notNull(), acknowledgedBy: text('acknowledged_by'), acknowledgedAt: date('acknowledged_at'),
+  resolvedBy: text('resolved_by'), resolvedAt: date('resolved_at'), simulated: boolean('simulated').notNull().default(false),
+}, t => [index('alerts_site_created').on(t.siteId, t.createdAt),
+  check('alerts_status', sql`${t.status} in ('open','acknowledged','resolved')`),
+  check('alerts_severity', sql`${t.severity} in ('info','warning','critical')`)]);
+
+export const alertEvents = pgTable('alert_events', {
+  id: text('id').primaryKey(), siteId: text('site_id').notNull(), alertId: text('alert_id').notNull().references(() => alerts.id),
+  action: text('action').notNull(), actorId: text('actor_id').notNull(), note: text('note').notNull(), at: date('at').notNull(),
+}, t => [index('alert_events_parent').on(t.siteId, t.alertId, t.at)]);
+
+export const siteState = pgTable('site_operation_state', {
+  siteId: text('site_id').primaryKey(), lastReadingTs: bigint('last_reading_ts', { mode: 'number' }).notNull().default(0),
+});
+export const alertSignals = pgTable('alert_signals', {
+  id: text('id').primaryKey(), siteId: text('site_id').notNull(), sourceKey: text('source_key').notNull(),
+  active: boolean('active').notNull(), alertId: text('alert_id').notNull().references(() => alerts.id),
+}, t => [uniqueIndex('alert_signal_site_key').on(t.siteId, t.sourceKey)]);
+
+export const workOrders = pgTable('work_orders', {
+  id: text('id').primaryKey(), siteId: text('site_id').notNull(), alertId: text('alert_id').notNull().references(() => alerts.id),
+  title: text('title').notNull(), description: text('description').notNull(), priority: text('priority').notNull(),
+  status: text('status').notNull().default('open'), assigneeId: text('assignee_id'), dueAt: date('due_at'),
+  createdBy: text('created_by').notNull(), createdAt: date('created_at').notNull(), updatedAt: date('updated_at').notNull(),
+  closedAt: date('closed_at'), simulated: boolean('simulated').notNull().default(false), version: integer('version').notNull().default(1),
+}, t => [index('work_orders_site_created').on(t.siteId, t.createdAt),
+  check('work_orders_status', sql`${t.status} in ('open','in_progress','closed')`),
+  check('work_orders_priority', sql`${t.priority} in ('low','medium','high','critical')`)]);
+export const workOrderEvents = pgTable('work_order_events', {
+  id: text('id').primaryKey(), siteId: text('site_id').notNull(), workOrderId: text('work_order_id').notNull().references(() => workOrders.id),
+  action: text('action').notNull(), actorId: text('actor_id').notNull(), note: text('note').notNull(), at: date('at').notNull(),
+}, t => [index('work_order_events_parent').on(t.siteId, t.workOrderId, t.at)]);
+
+export const auditEvents = pgTable('audit_events', {
+  id: text('id').primaryKey(), siteId: text('site_id'), actorId: text('actor_id').notNull(), action: text('action').notNull(),
+  targetId: text('target_id').notNull(), requestId: text('request_id'), commandId: text('command_id'), desired: boolean('desired'),
+  at: date('at').notNull(), legacyId: text('legacy_id').unique(),
+}, t => [index('audit_events_at').on(t.at)]);
+
+export const notificationOutbox = pgTable('notification_outbox', {
+  id: text('id').primaryKey(), siteId: text('site_id').notNull(), event: text('event').notNull(), targetId: text('target_id').notNull(),
+  status: text('status').notNull().default('pending'), attempts: integer('attempts').notNull().default(0),
+  createdAt: date('created_at').notNull(), sentAt: date('sent_at'),
+}, t => [index('notification_outbox_pending').on(t.status, t.createdAt),
+  check('notification_status', sql`${t.status} in ('pending','queued','sent','dead_letter','disabled')`)]);
+
+export const reports = pgTable('esg_reports', {
+  id: text('id').primaryKey(), siteId: text('site_id').notNull(), startAt: date('start_at').notNull(), endAt: date('end_at').notNull(),
+  createdBy: text('created_by').notNull(), createdAt: date('created_at').notNull(),
+  evidence: jsonb('evidence').notNull(), sha256: text('sha256').notNull(), pdfBase64: text('pdf_base64').notNull(),
+}, t => [index('esg_reports_site_created').on(t.siteId, t.createdAt)]);

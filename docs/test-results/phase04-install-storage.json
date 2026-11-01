@@ -1,0 +1,12 @@
+{
+  "command": [
+    "npm.cmd",
+    "install",
+    "--save-exact",
+    "drizzle-orm@0.45.4",
+    "pg@8.23.1"
+  ],
+  "cwd": "voltarax-web/backend",
+  "exit_code": 0,
+  "seconds": 92.23
+}
