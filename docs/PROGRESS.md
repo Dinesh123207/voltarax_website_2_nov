@@ -48,7 +48,7 @@ Status key: [ ] todo; [~] in progress; [x] done and verified as stated; [!] skip
 - [x] PostgreSQL/Drizzle TypeScript schema and generated SQL migrations; local PGlite lifecycle/episode tests passed (2). Conditional transitions, edit version checks, transactional event/audit/outbox records and cross-site isolation verified. Compose prepared; actual Docker PostgreSQL/Redis unavailable and not run.
 - [x] Persistent alert create/acknowledge/resolve/history; 30-second primary-telemetry collector records rule episodes and offline observations. Reading timestamps preserved in analysis, missing sensor estimates remain absent. Six focused API/analysis/authorization tests passed.
 - [x] Work orders from alerts, validated assignment, status, comments, due dates in IST, list/detail UI and history. Frontend typecheck and narrow lint passed. Real database/server and browser interaction checks remain pending.
-- [~] Relational audit adapter and explicit offline legacy audit import (never run live); focused real-SQL test running.
+- [x] Relational audit adapter and explicit offline legacy audit import; focused actual-SQL test passed (1), including identifier-only redaction and duplicate import with no second effect. Dry-run is the default; no live export/import performed.
 - [ ] Queued notifications, real-data ESG PDF, backup instructions, gate and phase tag.
 
 ## Phase 5 — camera and coating

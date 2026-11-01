@@ -31,6 +31,17 @@ test('relational lifecycle is site-scoped, atomic, persistent and safe against c
   const { auditEvents, notificationOutbox } = require('../db/schema.ts');
   assert.ok((await c.db.select().from(auditEvents)).length >= 6);
   assert.ok((await c.db.select().from(notificationOutbox)).length >= 6);
+  const { parseExport, importRows } = require('../scripts/import-audit');
+  const imported = parseExport({ auditLog: { 'synthetic-legacy-1': { actorId: 'operator-a', targetId: 'site-a', action: 'test.import', at: '2026-11-01T00:00:00.000Z', unexpectedSecret: 'must-be-discarded' } } });
+  assert.equal('unexpectedSecret' in imported[0], false);
+  assert.equal(await importRows(c.db, imported), 1); assert.equal(await importRows(c.db, imported), 0);
+  const client = require('../db/client'), previous = client.getRelational;
+  client.getRelational = () => Promise.resolve(c);
+  try {
+    const audit = require('../services/auditLog');
+    await audit.audit({ actorId: 'operator-a', targetId: alert.id, action: 'test.audit', requestId: 'synthetic-request' });
+    assert.equal((await audit.listAudit(1))[0].action, 'test.audit');
+  } finally { client.getRelational = previous; }
 });
 test('rule episodes deduplicate replay, preserve acknowledgement and require a cleared condition to recur', async t => {
   const c = await open({ pglite: true, migrate: true }); t.after(() => c.close());
