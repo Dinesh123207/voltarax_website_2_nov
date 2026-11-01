@@ -1,6 +1,6 @@
 # Autopilot progress
 
-RESUME HERE: Phase 4 — final post-tooling-patch backend gate, then tag and begin Phase 5
+RESUME HERE: Phase 5 — secured camera proxy and actual inspection/coating records
 
 Status key: [ ] todo; [~] in progress; [x] done and verified as stated; [!] skipped with a reason. A phase is done only after its full gate passes.
 
@@ -52,10 +52,14 @@ Status key: [ ] todo; [~] in progress; [x] done and verified as stated; [!] skip
 - [x] BullMQ transactional outbox, capped exponential retries, retained/reconciled dead letters and disabled defaults; three focused notification/template tests passed with fake queue/mail and actual PGlite. No real mail/Redis execution.
 - [x] Evidence-backed ESG PDF generation and immutable snapshots/hash, IST periods, coverage/factor/synthetic refusal, authenticated review/download UI. Three focused tests and frontend typecheck passed; synthetic two-page fixture visually inspected and text/page-count checked. Actual real-data report verification remains manual.
 - [x] pgBackRest/Firebase backup and isolated restore instructions prepared in DEPLOY.md; live service setup, encryption/retention choices and restore drills are operator tasks and were not run.
-- [~] Local gate: initial 43 backend tests, frontend full lint/typecheck/build and 9 AI tests passed. Compose config and patched schema generation passed. Production audits frontend 0/backend 8 moderate; patched full backend audit 21 moderate, no high/critical. Scan: 443 files/no matches, diff check passed. Final backend rerun after the scoped schema-tool patch is running; no phase tag yet.
+- [x] Local gate: final 43 backend tests after tooling patch, frontend full lint/typecheck/build and 9 AI tests passed. Compose config and patched schema generation passed. Production audits frontend 0/backend 8 moderate; patched full backend audit 21 moderate, no high/critical. Scan: 443 files/no matches, diff check passed. Evidence: test-results/phase04-*. Tag: phase-04-done.
+- [!] Actual PostgreSQL/Redis/SMTP, multi-process locking, real-data report issuance and backup restoration require configured services/data; exact operator checks in MANUAL_STEPS.md. No live services or real mail used.
 
 ## Phase 5 — camera and coating
-- [ ] Authenticated camera proxy and real manual inspection records; gate and phase tag.
+- [~] Fixed configured camera URL proxy, authorized snapshots, strict image handling and offline state with local-only tests.
+- [ ] Persistent manual inspection/coating records with actual observation time/area/condition/photo/notes.
+- [ ] Transparent categorical rule/trends and authenticated dashboard views; no fabricated score or ML claim.
+- [ ] Operator instructions, phase gate and tag.
 
 ## Phase 6 — AI validation
 - [ ] Time-split evaluation, transparent metrics and stale-result behavior.
