@@ -16,7 +16,7 @@ function mock(path, exports) {
 }
 const chain = () => ({ sort() { return this; }, limit() { return this; }, lean() { return this; }, then(resolve) { return Promise.resolve([]).then(resolve); } });
 mock('../services/dashboardData', { dashboard: async () => ({}), panels: async () => [], latest: async () => ({ reading: null, analysis: null }) });
-mock('../services/aiPredictions', { getAiForecast: async () => null, getAiAnomaly: async () => null, getAiHealth: async () => null, getAiStatus: async () => null });
+mock('../services/aiPredictions', { getAiForecast: async () => null, getAiAnomaly: async () => null, getAiHealth: async () => null, getAiStatus: async () => null, getAiDrift: async () => null });
 mock('../models/SolarTelemetry', { find: chain, latest: async () => null, create: async data => data });
 mock('../models/SolarAnalysis', { findOne: () => ({ lean: async () => null }) });
 mock('../services/deviceIngest', { ingestReading: async reading => ({ reading, status: 201, latestUpdated: false, duplicate: false, outOfOrder: false }) });

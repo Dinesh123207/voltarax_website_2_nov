@@ -4,6 +4,8 @@
 
 ## Active roadmap
 
+Phase 6 is locally gated/tagged: 55 backend/28 AI tests, lint/typecheck/build, audits, scan and diff passed. Continue on phase-07-commerce from this phase branch. Real-data/weather/manual-service limitations remain explicit; no live deployment or main/push changes.
+
 Phase 6 drift task: four Python drift cases, seven backend cross-contract cases, offline CLI and UI lint/typecheck passed. Full gate is next; no phase tag until it passes. Real-site accuracy and weather-ahead forecasting remain manual/skipped due absent reviewed inputs/provider.
 
 Phase 6 API/UI task passed six actual-contract/backend tests, narrow lint and typecheck. Future horizon scenarios are removed; current estimates expire and expose validation/source/model information. Drift/retraining checks and full phase gate remain.

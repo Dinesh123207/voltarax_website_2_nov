@@ -1,0 +1,17 @@
+✔ legacy AI output stays unavailable even with a fresh publication time (9.0961ms)
+✔ actual Python synthetic model publications satisfy the backend contract (33.6235ms)
+✔ new publication cannot hide stale source, expired/foreign/unvalidated models or nonfinite data (10.7148ms)
+✔ canonical results take precedence and another site never reads the default legacy path (4.1193ms)
+✔ official SDK RTDB readback normalizes absent empty/null members without fabricating results (2.8563ms)
+✔ actual Python drift publication is accepted and inconsistent/stale checks are refused (4.1503ms)
+✔ engineering estimate requires fresh valid primary daylight input and no future extrapolation (0.5219ms)
+✔ hourly history keeps only today in IST, recorded zero and valid primary measurements (7.88ms)
+✔ admin-only endpoint rejects unauthenticated and viewer requests (3125.2181ms)
+ℹ tests 9
+ℹ suites 0
+ℹ pass 9
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 4339.5443

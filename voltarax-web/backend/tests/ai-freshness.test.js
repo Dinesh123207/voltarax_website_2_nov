@@ -7,11 +7,12 @@ require.cache[config] = { id: config, filename: config, loaded: true, exports: {
 } } };
 const { getAiForecast } = require('../services/aiPredictions');
 
-test('stale or undated AI output is unavailable', async () => {
+test('legacy AI output stays unavailable even with a fresh publication time', async () => {
   value = { status: 'ok', updated_at: Math.floor(Date.now() / 1000) - 7201 };
   assert.equal(await getAiForecast(), null);
   value = { status: 'ok' };
   assert.equal(await getAiForecast(), null);
   value = { status: 'ok', updated_at: Math.floor(Date.now() / 1000) };
-  assert.equal((await getAiForecast()).status, 'ok');
+  // A timestamp alone cannot validate schema, source age, identity or a model.
+  assert.equal(await getAiForecast(), null);
 });

@@ -1,6 +1,6 @@
 # Autopilot progress
 
-RESUME HERE: Phase 6 — run full end-of-phase gate, tag only if passing, then branch into Phase 7
+RESUME HERE: Phase 7 — persist unpriced plans/orders and test-only payment policy; implement signed idempotent payments/invoices/UI, then gate
 
 Status key: [ ] todo; [~] in progress; [x] done and verified as stated; [!] skipped with a reason. A phase is done only after its full gate passes.
 
@@ -70,9 +70,15 @@ Status key: [ ] todo; [~] in progress; [x] done and verified as stated; [!] skip
 - [x] Training-only light/temperature quantile reference, finite smoothed PSI on 50–500 newer eligible samples, explicit initial 0.2 review policy and unavailable/insufficient states. Four focused drift tests, seven backend cross-contract regressions, offline CLI, lint/typecheck passed. Validated optional publication and separate minute inference/hour drift/training schedule documented; no schedule enabled. Initial drift test clock error retained and corrected without weakening guards.
 - [!] No reviewed real export, calibrated field labels, verified site/weather provider or validated confidence interval supplied/used. Current-condition fallback is implemented; exact real-data/provider review is manual. Synthetic metrics do not establish field accuracy.
 - [x] Current-condition estimate only: unsupported horizon/confidence keys null, current engineering fallback uses fresh valid primary daylight inputs with explicit assumptions. Hourly sample view stays within current IST day, keeps recorded zero/missing gaps and discloses 2,000-row limit. No weather provider/site accuracy verified.
-- [ ] Phase gate and tag; real-data accuracy remains unverified until a reviewed export exists.
+- [x] Local gate: 55 backend tests, 28 AI tests, full frontend lint/typecheck/build (85.76 s), production audits and diff check passed. Final scan: 593 files/no matches. Audits frontend 0/backend 8 moderate/no high-critical. Initial backend gate failed because one legacy test expected unvalidated fresh output and an auth fake omitted the new drift reader; corrected expectations/fake, nine focused cases and full 55-case retry passed. Evidence retained. Tag: phase-06-done; real-data accuracy remains unverified.
 
 ## Phase 7 — commerce
+- [~] Read MIT Razorpay/SaaSify references and official Orders/Checkout/webhook docs; registry confirms Razorpay 2.9.8 MIT. No source copied, sample card/subscription data will not ship.
+- [ ] PostgreSQL plans with explicit unset price, administrator edits/versioning, no invented seeded products or recurring billing.
+- [ ] Persist owner-scoped one-time orders, payment events/invoices and manual refund requests; test-only disabled-by-default gateway policy.
+- [ ] Raw-body HMAC webhook, server-stored order signature verification, amount/currency checks, replay/concurrency/idempotency and unknown-create reconciliation.
+- [ ] Public plans/pricing, authenticated test Checkout/order/invoice pages and administrator plan/order/refund screens.
+- [ ] Fake gateway/local SQL/HTTP tests, invoice PDF review and honest test/no-GST labels; real test-account checkout remains manual.
 - [ ] Unpriced plans, test-mode Razorpay orders, verified signatures and idempotent webhook.
 - [ ] Invoices, admin order/refund workflow, tests, gate and phase tag.
 

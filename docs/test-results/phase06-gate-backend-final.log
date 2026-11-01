@@ -1,0 +1,67 @@
+
+> voltarax-backend@2.0.0 test
+> node --test --test-concurrency=1 tests/*.test.js
+
+✔ account lifecycle verifies email, scopes sites, rejects elevation and revokes cookie/native sessions (556.4858ms)
+✔ legacy AI output stays unavailable even with a fresh publication time (10.1126ms)
+✔ actual Python synthetic model publications satisfy the backend contract (50.4193ms)
+✔ new publication cannot hide stale source, expired/foreign/unvalidated models or nonfinite data (15.9301ms)
+✔ canonical results take precedence and another site never reads the default legacy path (6.2605ms)
+✔ official SDK RTDB readback normalizes absent empty/null members without fabricating results (2.7513ms)
+✔ actual Python drift publication is accepted and inconsistent/stale checks are refused (8.3454ms)
+✔ engineering estimate requires fresh valid primary daylight input and no future extrapolation (0.5079ms)
+✔ hourly history keeps only today in IST, recorded zero and valid primary measurements (4.2546ms)
+✔ analysis excludes another site even when its legacy value is newer (2.8554ms)
+✔ admin-only endpoint rejects unauthenticated and viewer requests (3823.8778ms)
+✔ bootstrap is explicitly enabled, once only and never creates a verified/default account (8.9911ms)
+✔ raster re-encoding removes JPEG metadata while preserving pixel dimensions (1915.4171ms)
+✔ camera defaults unavailable and image sanitation rejects active/malformed/oversized input (180.3882ms)
+✔ camera uses only a fixed URL, refuses redirects/offline/HTML and sanitizes an actual local test frame (958.1326ms)
+✔ stale or missing telemetry never becomes current zero power or offline panel counts (13.1976ms)
+✔ missing values are unavailable and valid zero values retain their quality (1.4306ms)
+✔ nested API values receive quality without treating missing readings as zero (2.4082ms)
+✔ response annotation honors record redaction and labels empty array responses (2.875ms)
+✔ ingest is idempotent, rejects conflicting replay/time skew and never rolls latest back (26.4573ms)
+✔ device registry hashes one-time keys, rejects duplicate registration, rotates and disables credentials (7.2628ms)
+✔ period starts follow India time across month and year boundaries (3.4733ms)
+✔ integrates milliwatts over seconds, clips periods and caps stale gaps (0.6677ms)
+✔ energy coverage distinguishes missing/faulted power from a recorded zero (1.5832ms)
+✔ timestamp range is pushed to Firebase without limiting before site filtering (10.848ms)
+✔ HTTP boundary enforces origins, headers, validation, safe errors and scoped rate limits without logging inputs (400.9475ms)
+✔ inspection API authorizes photo/record writes, protects images and proxies a bounded authenticated test stream (37726.1297ms)
+✔ inspection records preserve actual inputs, sanitize photos, isolate sites and group latest dated observations per area (33307.188ms)
+✔ React Email renders both formats and mail defaults to disabled (55.1743ms)
+✔ offline migration is site scoped, preserves keys and is repeatable (3.3912ms)
+✔ notifications default disabled and reject incomplete/invalid/demo configuration (337.96ms)
+✔ transactional outbox dispatch retries, skips duplicate delivery and preserves terminal failures with fake mail only (6624.103ms)
+✔ operations HTTP enforces role/site/CSRF, validates assignees and preserves real history (9989.8522ms)
+✔ unconfigured storage returns an explicit unavailable result (43.0438ms)
+✔ relational lifecycle is site-scoped, atomic, persistent and safe against concurrent edits (9190.6948ms)
+✔ rule episodes deduplicate replay, preserve acknowledgement and require a cleared condition to recur (5158.394ms)
+✔ OTP is six digits, hashed at rest and consumed exactly once under concurrency (7.6533ms)
+✔ OTP expires after ten minutes, enforces five attempts and throttles resends (1.8825ms)
+✔ verification is purpose bound and never accepts an absent challenge (0.5029ms)
+✔ relay defaults disabled, serializes commands and requires a matching acknowledgement (2.572ms)
+✔ late/mismatched/missing acknowledgements never become an applied command (1.5506ms)
+✔ a server-timestamped acknowledgement received before the deadline survives a later reconciliation (0.512ms)
+✔ reports enforce valid IST periods, coverage, real-data policy and explicit factor provenance (4.2392ms)
+✔ synthetic report layout is generated as an explicitly marked two-page test fixture (923.7879ms)
+✔ report snapshots persist in SQL, preserve hash and enforce site isolation (5945.996ms)
+✔ simulator defaults to marked synthetic data and cannot send to production/unconfirmed targets (14.758ms)
+✔ missing essential readings cannot result in a healthy score (1.1185ms)
+✔ analysis stays bound to its input timestamp and never invents a missing temperature (0.402ms)
+✔ collector records offline observations without treating them as new measurements (8.572ms)
+✔ new and inactive subscribers are persisted as active (144.9651ms)
+✔ pages past other sites, merges old and new history, and keeps tied timestamps (22.4488ms)
+✔ writes one atomic compatibility update and validates site paths (1.6594ms)
+✔ migration marker disables legacy reads only for that site (1.3861ms)
+✔ primary device filtering pages past secondary rows before applying a limit (0.4288ms)
+✔ user repository reserves a normalized email once and atomically revokes sessions with sensitive changes (950.2752ms)
+ℹ tests 55
+ℹ suites 0
+ℹ pass 55
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 143691.3607

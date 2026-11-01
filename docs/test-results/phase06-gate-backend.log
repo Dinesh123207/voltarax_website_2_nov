@@ -1,0 +1,94 @@
+
+> voltarax-backend@2.0.0 test
+> node --test --test-concurrency=1 tests/*.test.js
+
+✔ account lifecycle verifies email, scopes sites, rejects elevation and revokes cookie/native sessions (4577.1204ms)
+✖ stale or undated AI output is unavailable (23.0423ms)
+✔ actual Python synthetic model publications satisfy the backend contract (47.583ms)
+✔ new publication cannot hide stale source, expired/foreign/unvalidated models or nonfinite data (10.5533ms)
+✔ canonical results take precedence and another site never reads the default legacy path (3.6774ms)
+✔ official SDK RTDB readback normalizes absent empty/null members without fabricating results (7.3007ms)
+✔ actual Python drift publication is accepted and inconsistent/stale checks are refused (5.4064ms)
+✔ engineering estimate requires fresh valid primary daylight input and no future extrapolation (0.6018ms)
+✔ hourly history keeps only today in IST, recorded zero and valid primary measurements (6.3553ms)
+✔ analysis excludes another site even when its legacy value is newer (3.6542ms)
+✖ admin-only endpoint rejects unauthenticated and viewer requests (19348.3047ms)
+✔ bootstrap is explicitly enabled, once only and never creates a verified/default account (14.5537ms)
+✔ raster re-encoding removes JPEG metadata while preserving pixel dimensions (2985.0664ms)
+✔ camera defaults unavailable and image sanitation rejects active/malformed/oversized input (1157.0574ms)
+✔ camera uses only a fixed URL, refuses redirects/offline/HTML and sanitizes an actual local test frame (1905.2146ms)
+✔ stale or missing telemetry never becomes current zero power or offline panel counts (13.7566ms)
+✔ missing values are unavailable and valid zero values retain their quality (1.475ms)
+✔ nested API values receive quality without treating missing readings as zero (2.224ms)
+✔ response annotation honors record redaction and labels empty array responses (26.0615ms)
+✔ ingest is idempotent, rejects conflicting replay/time skew and never rolls latest back (11.2607ms)
+✔ device registry hashes one-time keys, rejects duplicate registration, rotates and disables credentials (12.4832ms)
+✔ period starts follow India time across month and year boundaries (7.0564ms)
+✔ integrates milliwatts over seconds, clips periods and caps stale gaps (0.965ms)
+✔ energy coverage distinguishes missing/faulted power from a recorded zero (1.5363ms)
+✔ timestamp range is pushed to Firebase without limiting before site filtering (10.2931ms)
+✔ HTTP boundary enforces origins, headers, validation, safe errors and scoped rate limits without logging inputs (736.0288ms)
+✔ inspection API authorizes photo/record writes, protects images and proxies a bounded authenticated test stream (9501.8187ms)
+✔ inspection records preserve actual inputs, sanitize photos, isolate sites and group latest dated observations per area (7015.6774ms)
+✔ React Email renders both formats and mail defaults to disabled (68.8376ms)
+✔ offline migration is site scoped, preserves keys and is repeatable (3.1912ms)
+✔ notifications default disabled and reject incomplete/invalid/demo configuration (194.1763ms)
+✔ transactional outbox dispatch retries, skips duplicate delivery and preserves terminal failures with fake mail only (5224.6476ms)
+✔ operations HTTP enforces role/site/CSRF, validates assignees and preserves real history (5916.7394ms)
+✔ unconfigured storage returns an explicit unavailable result (21.4938ms)
+✔ relational lifecycle is site-scoped, atomic, persistent and safe against concurrent edits (7944.4605ms)
+✔ rule episodes deduplicate replay, preserve acknowledgement and require a cleared condition to recur (2605.7559ms)
+✔ OTP is six digits, hashed at rest and consumed exactly once under concurrency (8.6478ms)
+✔ OTP expires after ten minutes, enforces five attempts and throttles resends (1.4772ms)
+✔ verification is purpose bound and never accepts an absent challenge (0.5584ms)
+✔ relay defaults disabled, serializes commands and requires a matching acknowledgement (5.4829ms)
+✔ late/mismatched/missing acknowledgements never become an applied command (3.0979ms)
+✔ a server-timestamped acknowledgement received before the deadline survives a later reconciliation (0.8238ms)
+✔ reports enforce valid IST periods, coverage, real-data policy and explicit factor provenance (4.3015ms)
+✔ synthetic report layout is generated as an explicitly marked two-page test fixture (1029.8204ms)
+✔ report snapshots persist in SQL, preserve hash and enforce site isolation (12757.556ms)
+✔ simulator defaults to marked synthetic data and cannot send to production/unconfirmed targets (25.7748ms)
+✔ missing essential readings cannot result in a healthy score (2.0159ms)
+✔ analysis stays bound to its input timestamp and never invents a missing temperature (0.4184ms)
+✔ collector records offline observations without treating them as new measurements (10.9025ms)
+✔ new and inactive subscribers are persisted as active (156.3668ms)
+✔ pages past other sites, merges old and new history, and keeps tied timestamps (21.986ms)
+✔ writes one atomic compatibility update and validates site paths (1.1512ms)
+✔ migration marker disables legacy reads only for that site (1.7407ms)
+✔ primary device filtering pages past secondary rows before applying a limit (0.4325ms)
+✔ user repository reserves a normalized email once and atomically revokes sessions with sensitive changes (972.731ms)
+ℹ tests 55
+ℹ suites 0
+ℹ pass 53
+ℹ fail 2
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 141853.5479
+
+✖ failing tests:
+
+test at tests\ai-freshness.test.js:10:1
+✖ stale or undated AI output is unavailable (23.0423ms)
+  TypeError: Cannot read properties of null (reading 'status')
+      at TestContext.<anonymous> (C:\Users\JARVIS\Desktop\VOLTARAX\voltarax-web\backend\tests\ai-freshness.test.js:16:40)
+      at async Test.run (node:internal/test_runner/test:1389:7)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:387:3)
+
+test at tests\authorization.test.js:32:1
+✖ admin-only endpoint rejects unauthenticated and viewer requests (19348.3047ms)
+  AssertionError [ERR_ASSERTION]: /ai/status
+  
+  500 !== 200
+  
+      at TestContext.<anonymous> (C:\Users\JARVIS\Desktop\VOLTARAX\voltarax-web\backend\tests\authorization.test.js:81:12)
+      at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+      at async Test.run (node:internal/test_runner/test:1389:7)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:387:3) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: 500,
+    expected: 200,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }

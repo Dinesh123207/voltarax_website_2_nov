@@ -1,0 +1,9 @@
+{
+  "command": [
+    "npm.cmd",
+    "test"
+  ],
+  "cwd": "voltarax-web/backend",
+  "exit_code": 1,
+  "seconds": 145.99
+}
