@@ -1,0 +1,11 @@
+{
+  "command": [
+    "npm.cmd",
+    "audit",
+    "--omit=dev",
+    "--json"
+  ],
+  "cwd": "voltarax-web/backend",
+  "exit_code": 1,
+  "seconds": 5.27
+}

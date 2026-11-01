@@ -1,0 +1,27 @@
+
+> voltarax-backend@2.0.0 test
+> node --test tests/*.test.js
+
+✔ stale or undated AI output is unavailable (1.3126ms)
+✔ analysis excludes another site even when its legacy value is newer (5.405ms)
+✔ admin-only endpoint rejects unauthenticated and viewer requests (6169.8708ms)
+✔ missing values are unavailable and valid zero values retain their quality (1.3853ms)
+✔ nested API values receive quality without treating missing readings as zero (2.6762ms)
+✔ response annotation honors record redaction and labels empty array responses (0.9957ms)
+✔ period starts follow India time across month and year boundaries (4.1811ms)
+✔ integrates milliwatts over seconds, clips periods and caps stale gaps (0.482ms)
+✔ timestamp range is pushed to Firebase without limiting before site filtering (20.0127ms)
+✔ offline migration is site scoped, preserves keys and is repeatable (3.5277ms)
+✔ missing essential readings cannot result in a healthy score (1.481ms)
+✔ new and inactive subscribers are persisted as active (646.5371ms)
+✔ pages past other sites, merges old and new history, and keeps tied timestamps (153.2101ms)
+✔ writes one atomic compatibility update and validates site paths (2.0681ms)
+✔ migration marker disables legacy reads only for that site (2.7212ms)
+ℹ tests 15
+ℹ suites 0
+ℹ pass 15
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 8816.0703
