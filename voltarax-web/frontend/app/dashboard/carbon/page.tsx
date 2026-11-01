@@ -1,6 +1,7 @@
 'use client';
 import { useEffect, useState } from 'react';
 import { Leaf, RefreshCw, ExternalLink, Globe, TrendingUp } from 'lucide-react';
+import DataQualityBadge from '@/components/ui/DataQualityBadge';
 
 
 export default function CarbonPage() {
@@ -31,6 +32,7 @@ export default function CarbonPage() {
         <div>
           <h1 className="text-2xl font-bold text-white">Carbon Impact Analytics</h1>
           <p className="text-slate-500 text-sm mt-0.5">Estimated from generation and the configured grid factor</p>
+          <DataQualityBadge quality={data ? 'Estimated' : 'Unavailable'} />
         </div>
         <div className="flex gap-2">
           <a href={`/api/carbon`} target="_blank" rel="noopener noreferrer"

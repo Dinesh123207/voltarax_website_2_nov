@@ -24,26 +24,22 @@ const TEAM = [
 // logo: served from public/partners/ or public/clients/ if present; falls
 // back to a plain text wordmark automatically when it isn't (see the
 // README.md in each of those folders for exact filenames).
-const INCUBATION = { name: 'IIT Incubation Cell', logo: '/partners/iit-incubation.png' };
-const CLIENTS = [
-  { name: 'Delhi Technological University', short: 'DTU', logo: '/clients/dtu.png' },
-  { name: 'ITC Hotels', short: 'ITC Hotels', logo: '/clients/itc-hotels.png' },
-];
+const INCUBATION = { name: 'Institutional details under review', logo: '' };
+const CLIENTS: { name: string; short: string; logo: string }[] = [];
 
 const PATENTS = [
   {
-    number: 'Patent-pending',
+    number: 'Information on request',
     title:  'Protected innovations',
-    claim:  'The coating intelligence and inspection methods behind VoltVision are the subject of pending patent applications. Details are shared with partners under NDA.',
-    status: 'Pending',
-    year:   '2024',
+    claim:  'Intellectual property details are available on request.',
+    status: 'Under review',
+    year:   '',
   },
 ];
 
 const MILESTONES = [
-  { year: '2023', event: 'Project inception — BioSolar coating research at DTU Delhi' },
-  { year: '2024', event: 'Patent applications filed for the core innovations' },
-  { year: '2024', event: 'VoltVision AI platform developed for the Jaipur pilot' },
+  { year: 'Research', event: 'BioSolar coating research' },
+  { year: 'Development', event: 'VoltVision software development' },
 ];
 
 export default function AboutPage() {
@@ -64,7 +60,7 @@ export default function AboutPage() {
             <p className="text-lg text-slate-400 leading-relaxed">
               Voltarax Private Limited is a deeptech startup from Delhi, India —
               building AI-integrated BioSolar energy management systems.
-              Incubated at IIT, backed by patent-pending innovations.
+              developing a monitoring platform for renewable-energy applications.
             </p>
           </div>
         </section>
@@ -94,7 +90,7 @@ export default function AboutPage() {
             <div className="text-center mb-12">
               <div className="section-tag mx-auto w-fit"><Users size={12} /> Core Team</div>
               <h2 className="text-3xl font-bold text-white mt-2">The Inventors</h2>
-              <p className="text-slate-500 mt-2">Co-inventors on the Voltarax patent applications</p>
+              <p className="text-slate-500 mt-2">The team working on Voltarax</p>
             </div>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-4xl mx-auto">
               {TEAM.map(member => (
@@ -115,7 +111,7 @@ export default function AboutPage() {
         {/* Incubation */}
         <section id="incubation" className="py-16 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <div className="section-tag mx-auto w-fit"><Building2 size={12} /> Incubation Partner</div>
-          <h2 className="text-3xl font-bold text-white mt-2 mb-8">Backed by</h2>
+            <h2 className="text-3xl font-bold text-white mt-2 mb-8">Institutional information</h2>
           <div className="flex justify-center">
             <LogoBadge src={INCUBATION.logo} name={INCUBATION.name} />
           </div>
@@ -125,8 +121,8 @@ export default function AboutPage() {
         <section id="clients" className="py-16 bg-[#111a14]/40">
           <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
             <div className="section-tag mx-auto w-fit"><Users size={12} /> Institutions &amp; Clients</div>
-            <h2 className="text-3xl font-bold text-white mt-2 mb-2">Trusted by</h2>
-            <p className="text-slate-500 mb-8">A growing list of institutional and hospitality partners.</p>
+            <h2 className="text-3xl font-bold text-white mt-2 mb-2">Institutions and clients</h2>
+            <p className="text-slate-500 mb-8">Public partnership details are under review.</p>
             <div className="flex flex-wrap justify-center gap-4">
               {CLIENTS.map(c => <LogoBadge key={c.short} src={c.logo} name={c.short} />)}
               <div className="h-16 px-6 flex items-center justify-center rounded-xl border border-dashed border-green-900/40 text-slate-500 text-sm">

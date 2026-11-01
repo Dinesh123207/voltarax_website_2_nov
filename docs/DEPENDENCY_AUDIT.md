@@ -49,3 +49,34 @@ Counts: `{'info': 0, 'low': 0, 'moderate': 11, 'high': 2, 'critical': 0, 'total'
 | `retry-request` | moderate | dependency: teeny-request | firebase-admin 14.5.0 (major: True) |
 | `teeny-request` | moderate | dependency: uuid | firebase-admin 14.5.0 (major: True) |
 | `uuid` | moderate | [uuid: Missing buffer bounds check in v3/v5/v6 when buf is provided](https://github.com/advisories/GHSA-w5hq-g745-h8pq) | firebase-admin 14.5.0 (major: True) |
+
+
+## Frontend after Next.js upgrade
+
+Counts: `{'info': 0, 'low': 0, 'moderate': 20, 'high': 3, 'critical': 0, 'total': 23}`
+
+| Package | Severity | Advisory / transitive dependency | npm suggested fix |
+| --- | --- | --- | --- |
+| `@eslint-community/eslint-utils` | moderate | dependency: eslint | eslint 4.0.0 (major: True) |
+| `@eslint/eslintrc` | moderate | dependency: minimatch | eslint 4.0.0 (major: True) |
+| `@humanwhocodes/config-array` | moderate | dependency: minimatch | eslint 4.0.0 (major: True) |
+| `@typescript-eslint/eslint-plugin` | moderate | dependency: @typescript-eslint/parser; dependency: @typescript-eslint/type-utils; dependency: @typescript-eslint/utils; dependency: eslint | eslint-config-next 0.2.4 (major: True) |
+| `@typescript-eslint/parser` | moderate | dependency: @typescript-eslint/typescript-estree; dependency: eslint | eslint-config-next 0.2.4 (major: True) |
+| `@typescript-eslint/type-utils` | moderate | dependency: @typescript-eslint/typescript-estree; dependency: @typescript-eslint/utils; dependency: eslint | eslint-config-next 0.2.4 (major: True) |
+| `@typescript-eslint/typescript-estree` | moderate | dependency: minimatch | eslint-config-next 0.2.4 (major: True) |
+| `@typescript-eslint/utils` | moderate | dependency: @eslint-community/eslint-utils; dependency: @typescript-eslint/typescript-estree; dependency: eslint | eslint-config-next 0.2.4 (major: True) |
+| `eslint` | moderate | dependency: @eslint-community/eslint-utils; dependency: @eslint/eslintrc; dependency: @humanwhocodes/config-array; dependency: file-entry-cache; dependency: minimatch | eslint 4.0.0 (major: True) |
+| `eslint-config-next` | moderate | dependency: @typescript-eslint/eslint-plugin; dependency: @typescript-eslint/parser; dependency: eslint; dependency: eslint-plugin-import; dependency: eslint-plugin-jsx-a11y; dependency: eslint-plugin-react | eslint-config-next 0.2.4 (major: True) |
+| `eslint-plugin-import` | moderate | dependency: minimatch | available |
+| `eslint-plugin-jsx-a11y` | moderate | dependency: minimatch | eslint-config-next 0.2.4 (major: True) |
+| `eslint-plugin-react` | moderate | dependency: minimatch | available |
+| `file-entry-cache` | moderate | dependency: flat-cache | eslint 4.0.0 (major: True) |
+| `flat-cache` | moderate | dependency: rimraf | eslint 4.0.0 (major: True) |
+| `follow-redirects` | high | [follow-redirects array-form headers bypass cross-origin credential stripping](https://github.com/advisories/GHSA-q3jh-wrc6-jgq8); [follow-redirects sensitiveHeaders regex escaping can expose credential headers](https://github.com/advisories/GHSA-8r9p-f939-6h3c); [follow-redirects: Cross-realm sensitiveHeaders arrays are discarded and custom credentials can follow redirects](https://github.com/advisories/GHSA-mrwp-f3q8-3g9p) | available |
+| `glob` | moderate | dependency: minimatch | eslint 4.0.0 (major: True) |
+| `minimatch` | moderate | [minimatch has potential denial of service via globparts amplification](https://github.com/advisories/GHSA-g3hv-75wg-m249) | eslint 4.0.0 (major: True) |
+| `next` | moderate | dependency: postcss | next 16.4.3 (major: True) |
+| `postcss` | high | [PostCSS has XSS via Unescaped </style> in its CSS Stringify Output](https://github.com/advisories/GHSA-qx2v-qp2m-jg93); [PostCSS: Arbitrary file read and information disclosure via attacker-controlled sourceMappingURL in CSS comments](https://github.com/advisories/GHSA-6g55-p6wh-862q); [PostCSS: incomplete fix of GHSA-6g55-p6wh-862q — attacker-controlled sourceMappingURL reads arbitrary .map files when `from` is unset](https://github.com/advisories/GHSA-fxqj-rqcc-2cmp); [PostCSS: Path Traversal in Previous Source Map Auto-Loading (sourceMappingURL) leads to Arbitrary .map File Disclosure](https://github.com/advisories/GHSA-r28c-9q8g-f849) | next 16.4.3 (major: True) |
+| `postcss-selector-parser` | moderate | [PostCSS: Quadratic complexity in flat selector parsing allows CPU exhaustion](https://github.com/advisories/GHSA-rj75-hqrm-r3gf) | available |
+| `rimraf` | moderate | dependency: glob | eslint 4.0.0 (major: True) |
+| `source-map-js` | high | [source-map-js allows event-loop denial of service through indexed source-map section offsets](https://github.com/advisories/GHSA-68fv-2mgg-jv7q) | available |

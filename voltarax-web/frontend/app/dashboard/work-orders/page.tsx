@@ -1,5 +1,5 @@
 'use client';
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { Wrench, RefreshCw, ExternalLink, CheckCircle, Plus } from 'lucide-react';
 
 
@@ -18,7 +18,7 @@ export default function WorkOrdersPage() {
   const [loading, setLoading] = useState(true);
   const [filter,  setFilter]  = useState('open');
 
-  const load = async () => {
+  const load = useCallback(async () => {
     setLoading(true);
     try {
       const token = localStorage.getItem('vv_token');
@@ -27,7 +27,7 @@ export default function WorkOrdersPage() {
       if (r.ok) setOrders(await r.json());
     } catch {}
     finally { setLoading(false); }
-  };
+  }, [filter]);
 
   const close = async (id: number) => {
     const token = localStorage.getItem('vv_token');
@@ -41,7 +41,7 @@ export default function WorkOrdersPage() {
     } catch {}
   };
 
-  useEffect(() => { load(); }, [filter]);
+  useEffect(() => { load(); }, [load]);
 
   const summary = {
     open:        orders.filter(o => o.status === 'open').length,

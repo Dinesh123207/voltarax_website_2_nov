@@ -1,5 +1,5 @@
 'use client';
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { Bell, RefreshCw, CheckCircle, AlertTriangle, Info, ExternalLink } from 'lucide-react';
 
 
@@ -15,7 +15,7 @@ export default function AlertsPage() {
   const [resolved, setResolved] = useState(false);
   const [sevFilter, setSevFilter] = useState('all');
 
-  const load = async () => {
+  const load = useCallback(async () => {
     setLoading(true);
     try {
       const token = localStorage.getItem('vv_token');
@@ -25,9 +25,9 @@ export default function AlertsPage() {
       if (r.ok) setAlerts(await r.json());
     } catch { }
     finally { setLoading(false); }
-  };
+  }, [resolved]);
 
-  useEffect(() => { load(); }, [resolved]);
+  useEffect(() => { load(); }, [load]);
 
   const displayed = sevFilter === 'all' ? alerts : alerts.filter(a => a.severity === sevFilter);
 

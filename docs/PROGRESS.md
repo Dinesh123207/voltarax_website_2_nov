@@ -1,6 +1,6 @@
 # Autopilot progress
 
-RESUME HERE: Phase 1 — validate the Next.js upgrade and complete stabilization
+RESUME HERE: Phase 1 — finish claims and data-quality coverage, then implement bounded site-aware telemetry queries
 
 Status key: [ ] todo; [~] in progress; [x] done and verified as stated; [!] skipped with a reason. A phase is done only after its full gate passes.
 
@@ -14,7 +14,8 @@ Status key: [ ] todo; [~] in progress; [x] done and verified as stated; [!] skip
 - [~] Route inventory recorded and operator authorization added to inactive command stubs; backend test passed for their unauthenticated/viewer/operator/admin statuses and for user-list access. Full protected-group tests and site isolation remain.
 - [x] Correct subscriber creation/reactivation and ID-based Firebase update; focused tests passed without a live database.
 - [ ] Bounded site-aware Firebase reads, compatible writers, migration tooling, rules and tests.
-- [~] Security advisories identify 14.x as affected by issues patched in 15.5.x or later; 15.5.28 installation is running and hook/font warning fixes are pending verification. Initial audit: frontend 21 findings (1 critical, 9 high, 11 moderate); backend 13 (2 high, 11 moderate). These are findings from the pre-upgrade state, not verified exploitability.
+- [~] Security advisories identify 14.x as affected by issues patched in 15.5.x or later. Next.js and its ESLint config are installed at 15.5.28; ESLint CLI, TypeScript and production build passed. Post-upgrade frontend audit: 23 findings (0 critical, 3 high, 20 moderate); backend initial audit: 13 (2 high, 11 moderate). See `DEPENDENCY_AUDIT.md` for each finding and raw reports. These are package matches, not verified exploitability; remediation is unfinished.
+- [x] AI synthetic regression suite rerun: 8 passed; this does not verify hardware or real-data model accuracy.
 - [ ] Complete env descriptions, secret exclusions, gate and phase tag.
 
 ## Phase 2 — security and accounts

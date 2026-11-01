@@ -2,6 +2,7 @@
 'use client';
 import { useEffect, useState } from 'react';
 import { TrendingUp, RefreshCw, ExternalLink } from 'lucide-react';
+import DataQualityBadge from '@/components/ui/DataQualityBadge';
 
 
 export default function ForecastPage() {
@@ -42,6 +43,7 @@ export default function ForecastPage() {
         </div>
       </div>
       <p className="text-sm text-amber-300">Estimate from current conditions, not a weather-ahead forecast. Confidence values are fixed assumptions, not measured model confidence.</p>
+      <DataQualityBadge quality={data ? 'Estimated' : 'Unavailable'} />
 
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
         {loading ? Array.from({length:4}).map((_,i) => <div key={i} className="stat-card"><div className="shimmer h-16 rounded"/></div>)

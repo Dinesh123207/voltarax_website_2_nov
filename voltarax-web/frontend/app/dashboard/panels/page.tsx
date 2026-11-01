@@ -1,6 +1,7 @@
 'use client';
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { Sun, RefreshCw, ExternalLink, Filter } from 'lucide-react';
+import DataQualityBadge from '@/components/ui/DataQualityBadge';
 
 
 interface Panel {
@@ -32,7 +33,7 @@ export default function PanelsPage() {
   const [filter,  setFilter]  = useState('all');
   const [rowFilter, setRowFilter] = useState('all');
 
-  const load = async () => {
+  const load = useCallback(async () => {
     setLoading(true);
     try {
       const token = localStorage.getItem('vv_token');
@@ -46,9 +47,9 @@ export default function PanelsPage() {
       }
     } catch { /* show empty */ }
     finally { setLoading(false); }
-  };
+  }, [rowFilter]);
 
-  useEffect(() => { load(); }, [rowFilter]);
+  useEffect(() => { load(); }, [load]);
 
   const filtered = filter === 'all' ? panels : panels.filter(p => p.status === filter);
 
@@ -66,6 +67,7 @@ export default function PanelsPage() {
         <div>
           <h1 className="text-2xl font-bold text-white">Panel Management</h1>
           <p className="text-slate-500 text-sm mt-0.5">Estimated from site-level reading (power divided across configured panel count). Individual panels are not measured.</p>
+          <DataQualityBadge quality={panels.length ? 'Estimated' : 'Unavailable'} />
         </div>
         <div className="flex items-center gap-2">
           <a href={`/api/panels`} target="_blank" rel="noopener noreferrer"
