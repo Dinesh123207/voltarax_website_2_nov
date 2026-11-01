@@ -45,6 +45,13 @@ function singleUserQuery(loader) {
 }
 
 const User = {
+  async listAssignees(siteId) {
+    const snap = await db.ref('users').orderByKey().limitToFirst(501).get();
+    const rows = Object.entries(snap.val() || {});
+    if (rows.length > 500) throw new Error('Assignee directory requires pagination');
+    return rows.filter(([, u]) => u.isActive && u.emailVerified && ['admin', 'operator'].includes(u.role) && (u.role === 'admin' || u.siteIds?.includes(siteId)))
+      .map(([id, u]) => ({ id, name: u.name }));
+  },
   findOne(filter = {}) {
     return singleUserQuery(async () => {
       if (typeof filter.email === 'string') {

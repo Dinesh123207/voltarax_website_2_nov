@@ -1,6 +1,6 @@
 # Autopilot progress
 
-RESUME HERE: Phase 4 — wire persistent alerts/work orders to the API and dashboard
+RESUME HERE: Phase 4 — relational audit import, notifications, ESG reports and gate
 
 Status key: [ ] todo; [~] in progress; [x] done and verified as stated; [!] skipped with a reason. A phase is done only after its full gate passes.
 
@@ -46,9 +46,9 @@ Status key: [ ] todo; [~] in progress; [x] done and verified as stated; [!] skip
 
 ## Phase 4 — alerts, work orders and reports
 - [x] PostgreSQL/Drizzle TypeScript schema and generated SQL migrations; local PGlite lifecycle/episode tests passed (2). Conditional transitions, edit version checks, transactional event/audit/outbox records and cross-site isolation verified. Compose prepared; actual Docker PostgreSQL/Redis unavailable and not run.
-- [ ] Persistent alert create/acknowledge/resolve/history and actual rule-event ingestion.
-- [ ] Work orders from alerts, assignment, status, comments, due dates and list/detail UI.
-- [ ] Relational audit adapter and explicit offline legacy audit import (never run live).
+- [x] Persistent alert create/acknowledge/resolve/history; 30-second primary-telemetry collector records rule episodes and offline observations. Reading timestamps preserved in analysis, missing sensor estimates remain absent. Six focused API/analysis/authorization tests passed.
+- [x] Work orders from alerts, validated assignment, status, comments, due dates in IST, list/detail UI and history. Frontend typecheck and narrow lint passed. Real database/server and browser interaction checks remain pending.
+- [~] Relational audit adapter and explicit offline legacy audit import (never run live); focused real-SQL test running.
 - [ ] Queued notifications, real-data ESG PDF, backup instructions, gate and phase tag.
 
 ## Phase 5 — camera and coating

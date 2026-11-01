@@ -3,7 +3,7 @@ const SolarAnalysis = require('../models/SolarAnalysis');
 const num = (value, fallback = 0) => Number.isFinite(Number(value)) ? Number(value) : fallback;
 
 function evaluate(reading, config = {}) {
-  const now = Date.now();
+  const now = config.now ?? Date.now();
   const tsMs = Number(reading?.ts || Math.floor(now / 1000)) * 1000;
   const age = Math.max(0, (now - tsMs) / 1000);
 
@@ -14,16 +14,17 @@ function evaluate(reading, config = {}) {
   const luxPerWm2 = num(config.luxPerWm2, 120);
   const dustHigh = num(config.dustHigh, 150);
 
-  const irradiance = Math.max(0, num(reading.light_lux) / luxPerWm2);
-  const cellTemp = num(reading.temp_c, 25) + ((noct - 20) / 800) * irradiance;
-  const expectedW = panelPmax * irradiance / 1000 * (1 + tempCoeff * (cellTemp - 25));
-  const actualW = Math.max(0, num(reading.power_mw) / 1000);
+  const valid = (field, sensor) => typeof reading[field] === 'number' && Number.isFinite(reading[field]) && reading.sensors_ok?.[sensor] !== false;
+  const irradiance = valid('light_lux', 'bh1750') ? Math.max(0, reading.light_lux / luxPerWm2) : null;
+  const cellTemp = irradiance != null && valid('temp_c', 'dht11') ? reading.temp_c + ((noct - 20) / 800) * irradiance : null;
+  const expectedW = cellTemp != null ? panelPmax * irradiance / 1000 * (1 + tempCoeff * (cellTemp - 25)) : null;
+  const actualW = valid('power_mw', 'ina219') ? Math.max(0, reading.power_mw / 1000) : null;
   const dusty = num(reading.dust_ugm3) > dustHigh;
   let performanceRatio = null;
   let score = 100;
   const alerts = [];
 
-  if (irradiance > 200 && expectedW > 0) {
+  if (irradiance > 200 && expectedW > 0 && actualW != null) {
     performanceRatio = actualW / expectedW;
     const relative = baselinePr > 0 ? performanceRatio / baselinePr : performanceRatio;
     if (relative < 0.6) {
@@ -41,7 +42,7 @@ function evaluate(reading, config = {}) {
   }
   if (cellTemp > 70) {
     score -= 15;
-    alerts.push('Panel overheating');
+    alerts.push('Estimated cell temperature above threshold');
   }
 
   const sensors = reading.sensors_ok || {};
@@ -54,11 +55,11 @@ function evaluate(reading, config = {}) {
 
   score = Math.max(0, Math.min(100, Math.round(score)));
   let status = score >= 80 ? 'OK' : score >= 50 ? 'WARNING' : 'FAULT';
-  const missingRequired = ['power_mw', 'light_lux'].some(key => reading[key] == null || !Number.isFinite(Number(reading[key])));
+  const missingRequired = actualW == null || irradiance == null || cellTemp == null;
   if (missingRequired) {
     status = 'UNAVAILABLE';
     score = null;
-    alerts.unshift('Insufficient power or light readings for health analysis');
+    alerts.unshift('Insufficient power, light or temperature readings for health analysis');
   }
   if (age > 60) {
     status = 'OFFLINE';
@@ -66,13 +67,14 @@ function evaluate(reading, config = {}) {
   }
 
   return {
-    ts: Math.floor(Date.now() / 1000),
+    ts: Number(reading.ts),
     status,
     health_score: score,
     alerts,
     performance_ratio: performanceRatio == null ? undefined : Number(performanceRatio.toFixed(3)),
-    irradiance_wm2: Math.round(irradiance),
-    cell_temp_c: Number(cellTemp.toFixed(1)),
+    irradiance_wm2: irradiance == null ? null : Math.round(irradiance),
+    cell_temp_c: cellTemp == null ? null : Number(cellTemp.toFixed(1)),
+    simulated: reading.simulated === true,
     source: 'server-analysis',
   };
 }

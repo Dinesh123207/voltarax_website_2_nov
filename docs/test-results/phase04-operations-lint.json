@@ -1,0 +1,14 @@
+{
+  "command": [
+    "npx.cmd",
+    "eslint",
+    "components/operations",
+    "app/dashboard/work-orders",
+    "lib/operations.ts",
+    "--ext",
+    ".ts,.tsx"
+  ],
+  "cwd": "voltarax-web/frontend",
+  "exit_code": 0,
+  "seconds": 43.31
+}

@@ -1,5 +1,5 @@
 const { randomUUID, createHash } = require('node:crypto');
-const { eq, and, ne, desc, asc } = require('drizzle-orm');
+const { eq, and, ne, desc, count } = require('drizzle-orm');
 const s = require('../db/schema.ts');
 class OperationError extends Error { constructor(status, message) { super(message); this.status = status; } }
 const fail = (status, message) => { throw new OperationError(status, message); };
@@ -118,7 +118,8 @@ function createOperations(db, { notificationsEnabled = false } = {}) {
     });
   }
   return { createAlert: (siteId, data, actorId) => db.transaction(tx => createAlertTx(tx, siteId, data, actorId)), getAlert, listAlerts,
-    transitionAlert, createWorkOrder, getWorkOrder, listWorkOrders, updateWorkOrder, comment, syncSignals };
+    transitionAlert, createWorkOrder, getWorkOrder, listWorkOrders, updateWorkOrder, comment, syncSignals,
+    countActiveAlerts: async siteId => Number(one(await db.select({ value: count() }).from(s.alerts).where(and(eq(s.alerts.siteId, siteId), ne(s.alerts.status, 'resolved')))).value) };
 }
 async function getOperations() {
   const connection = require('../db/client').getRelational();

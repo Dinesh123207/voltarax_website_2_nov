@@ -1,0 +1,14 @@
+✔ admin-only endpoint rejects unauthenticated and viewer requests (3402.9439ms)
+✔ operations HTTP enforces role/site/CSRF, validates assignees and preserves real history (14143.0384ms)
+✔ unconfigured storage returns an explicit unavailable result (31.7974ms)
+✔ missing essential readings cannot result in a healthy score (2.3291ms)
+✔ analysis stays bound to its input timestamp and never invents a missing temperature (0.5879ms)
+✔ collector records offline observations without treating them as new measurements (18.3044ms)
+ℹ tests 6
+ℹ suites 0
+ℹ pass 6
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 22789.5354

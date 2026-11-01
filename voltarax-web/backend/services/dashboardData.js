@@ -44,7 +44,7 @@ async function dashboard() {
     panel_temp_avg_c: null,
     site_sensor_temp_c: reading?.sensors_ok?.dht11 !== false && typeof reading?.temp_c === 'number' && Number.isFinite(reading.temp_c) ? reading.temp_c : null,
     co2_offset_today_kg: dailyKwh == null ? null : Number((dailyKwh * n(process.env.GRID_EMISSION_FACTOR, 0.82)).toFixed(3)),
-    active_alerts: analysis ? (analysis.alerts?.length || 0) : null,
+    active_alerts: null,
     panels_optimal: null,
     panels_warning: null,
     panels_critical: null,
@@ -55,6 +55,10 @@ async function dashboard() {
     simulated: reading?.simulated === true,
     source: reading?.simulated ? 'synthetic-device-simulator' : 'firebase-realtime-database',
   };
+  if (require('../db/client').configured()) {
+    try { result.active_alerts = await (await require('./operations').getOperations()).countActiveAlerts(SITE_ID); }
+    catch { /* No false zero when relational storage is unavailable. */ }
+  }
   result.quality = {
     current_power_kw: qualityOf(result.current_power_kw, QUALITY.CALCULATED),
     daily_generation_kwh: qualityOf(result.daily_generation_kwh, QUALITY.CALCULATED),

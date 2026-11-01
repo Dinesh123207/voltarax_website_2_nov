@@ -37,6 +37,14 @@ Persistent alert resolution, CV scans, work-order updates and ESG report generat
 
 ## Recorded energy, panel allocation and simulator limits
 
+## Persistent operations (Phase 4)
+The same routes are mounted at /api and /api/voltvision. They require configured/migrated PostgreSQL; missing storage returns 503 rather than an empty success. Verified site members read; operator/admin mutations also require the browser request header. Records use camelCase field names and ISO timestamps; displays use IST.
+
+- GET /alerts accepts resolved=true/false and limit (1–200); POST /alerts takes title/message/severity. GET /alerts/:id returns the record and up to 200 recent history events. PUT /alerts/:id/acknowledge and /resolve take a nonempty note and persist actor/time/history/audit atomically.
+- GET /work-orders accepts optional status and limit. POST /work-orders takes alertId,title,description,priority, optional assigneeId and dueAt (ISO offset date-time or null). The referenced alert and active verified operator/administrator must belong to the authorized site. GET /work-orders/assignees returns only IDs/names of eligible accounts; directory populations above 500 need pagination and fail safely.
+- GET /work-orders/:id returns a detail/history. PUT or PATCH /work-orders/:id takes version,note and at least one of status,priority,assigneeId,dueAt. Stale versions return 409. Status flow is open → in_progress → closed; closed records are read-only, with additional comments supported by POST /work-orders/:id/comments {note}.
+- The telemetry rule collector runs every 30 seconds when storage is configured. It deduplicates active rule episodes, observes offline age, and preserves resolved records until a cleared condition recurs. No alert record or empty list proves equipment safety or repair.
+
 Dashboard energy and carbon totals integrate only valid recorded power intervals, capped at fifteen minutes per adjacent pair. No covered interval returns null/Unavailable; a covered interval with measured zero power returns zero. Dashboard energy_coverage_pct describes coverage of the elapsed IST day; carbon responses expose covered seconds by period. Gaps are not extrapolated and partial totals are not full-period yield claims. Carbon remains an estimate using the configured emission factor; its source must be reviewed before an ESG report is issued.
 
 The panel grid is a virtual equal allocation of the primary site's reading only when SOLAR_PANEL_COUNT is explicitly configured. An unset count returns an empty list. Labels are virtual positions, not registered panel IDs. Per-panel health, voltage and temperature remain Unavailable; site_sensor_temp_c is the actual site sensor reading and panel_temp_avg_c remains null. No default count or inferred healthy/fault count is published.

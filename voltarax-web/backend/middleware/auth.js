@@ -4,6 +4,7 @@ const User = require('../models/User');
 // ── Verify JWT ────────────────────────────────────────────────────────────────
 exports.protect = async (req, res, next) => {
   let token;
+  const bearer = req.headers.authorization?.startsWith('Bearer ');
 
   if (req.headers.authorization?.startsWith('Bearer ')) {
     token = req.headers.authorization.split(' ')[1];
@@ -25,7 +26,7 @@ exports.protect = async (req, res, next) => {
     if (!user.emailVerified || !Number.isInteger(decoded.ver) || decoded.ver !== (user.sessionVersion || 0)) {
       return res.status(401).json({ success: false, message: 'Sign in and verify your email again.' });
     }
-    if (!req.headers.authorization && !['GET', 'HEAD', 'OPTIONS'].includes(req.method) && req.get('x-voltarax-request') !== '1') {
+    if (!bearer && !['GET', 'HEAD', 'OPTIONS'].includes(req.method) && req.get('x-voltarax-request') !== '1') {
       return res.status(403).json({ success: false, message: 'Request verification required.' });
     }
     req.user = user;

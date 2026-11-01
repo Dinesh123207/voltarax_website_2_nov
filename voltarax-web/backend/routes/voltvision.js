@@ -28,20 +28,6 @@ router.get('/panels', protect, requireSite, dashboardValidation('get', '/panels'
   } catch (err) { res.status(500).json({ success: false, message: 'Panel data unavailable.' }); }
 });
 
-router.get('/alerts', protect, requireSite, dashboardValidation('get', '/alerts'), async (req, res) => {
-  try {
-    const { analysis } = await latest();
-    const alerts = (analysis?.alerts || []).map((message, i) => ({ id: `sensor-${i}`, severity: analysis.status === 'FAULT' ? 'critical' : 'warning', title: message, message, resolved: false, created_at: analysis.ts }));
-    const ai = await getAiAnomaly();
-    if (ai?.is_anomaly) {
-      alerts.push({ id: 'ai-anomaly', severity: 'warning', title: 'AI engine flagged an unusual reading', message: `Isolation Forest anomaly score ${ai.score} — outside the pattern learned from recent history.`, resolved: false, created_at: ai.updated_at });
-    }
-    res.json(alerts.filter(a => req.query.resolved === 'true' ? a.resolved : !a.resolved));
-  } catch (err) { res.status(500).json({ success: false, message: 'Alert data unavailable.' }); }
-});
-
-router.put('/alerts/:id/resolve', protect, requireOperator, requireSite, dashboardValidation('put', '/alerts/:id/resolve'), async (req, res) => res.status(501).json({ success: false, message: 'Persistent alert resolution is not connected yet.' }));
-
 router.get('/forecast', protect, requireSite, dashboardValidation('get', '/forecast'), async (req, res) => {
   try {
     const ai = await getAiForecast();
@@ -142,9 +128,6 @@ router.get('/carbon', protect, requireSite, dashboardValidation('get', '/carbon'
 router.get('/carbon/monthly', protect, requireSite, dashboardValidation('get', '/carbon/monthly'), async (req,res)=>res.json({ months: [] }));
 router.post('/carbon/report', protect, requireOperator, requireSite, dashboardValidation('post', '/carbon/report'), async (req,res)=>res.status(501).json({success:false,message:'ESG report generation is coming soon.'}));
 
-router.get('/work-orders', protect, requireSite, dashboardValidation('get', '/work-orders'), async (req,res)=>res.json([]));
-router.put('/work-orders/:id', protect, requireOperator, requireSite, dashboardValidation('put', '/work-orders/:id'), async (req,res)=>res.status(501).json({success:false,message:'Work orders require a maintenance workflow to be connected.'}));
-router.patch('/work-orders/:id', protect, requireOperator, requireSite, dashboardValidation('patch', '/work-orders/:id'), async (req,res)=>res.status(501).json({success:false,message:'Work orders require a maintenance workflow to be connected.'}));
 router.get('/users', protect, requireAdmin, requireSite, dashboardValidation('get', '/users'), async (req,res)=>{
   try { const User=require('../models/User'); const users=await User.find({}, {password:0,resetToken:0,resetTokenExpiry:0}).lean(); res.json({data:users}); }
   catch(err){res.status(500).json({success:false,message:'Users unavailable.'});}

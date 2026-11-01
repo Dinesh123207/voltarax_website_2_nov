@@ -20,7 +20,7 @@ export default function DashboardOverview() {
     {label:'Performance Ratio',value:data?.system_efficiency_pct,unit:'%',icon:TrendingUp,color:'text-green-400',sub:'Sensor-derived baseline',quality:'Estimated'},
     {label:'Sensor Temp',value:data?.site_sensor_temp_c,unit:'°C',icon:Thermometer,color:'text-amber-400',sub:'Primary temperature sensor',quality:'Measured'},
     {label:'CO₂ Offset Today',value:data?.co2_offset_today_kg,unit:'kg',icon:Leaf,color:'text-green-400',sub:'Configured grid factor',quality:'Estimated'},
-    {label:'Active Alerts',value:data?.active_alerts,unit:'',icon:AlertTriangle,color:'text-red-400',sub:'Rule-based analysis',quality:'Calculated'},
+    {label:'Active Alerts',value:data?.active_alerts,unit:'',icon:AlertTriangle,color:'text-red-400',sub:'Saved unresolved records',quality:'Calculated'},
   ];
   const statuses=[['Optimal',data?.panels_optimal,'text-green-400'],['Warning',data?.panels_warning,'text-amber-400'],['Critical',data?.panels_critical,'text-red-400'],['Offline',data?.panels_offline,'text-slate-400']];
   return <div className="space-y-6">
