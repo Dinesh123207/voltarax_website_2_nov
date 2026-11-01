@@ -1,4 +1,4 @@
-import Link from 'next/link';
+import { Link } from '@/i18n/navigation';
 import {
   TrendingUp, Zap, ShieldAlert, Activity, Eye, Boxes, Cpu, Leaf,
   Radio, Server, Cloud, LayoutDashboard, ChevronRight, Sun, Building2, Tent, Users,

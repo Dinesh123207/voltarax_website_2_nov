@@ -1,10 +1,11 @@
 'use client';
 import { useState, useEffect } from 'react';
-import Link from 'next/link';
-import { usePathname, useRouter } from 'next/navigation';
+import { Link } from '@/i18n/navigation';
+import { usePathname, useRouter } from '@/i18n/navigation';
 import DataQualityBadge from '@/components/ui/DataQualityBadge';
 import type { DataQuality } from '@/components/ui/DataQualityBadge';
 import ISTClock from '@/components/ui/ISTClock';
+import { useCopy } from '@/i18n/copy';
 import {
   Zap, LayoutDashboard, Sun, Bell, Wrench,
   TestTube, Battery, Leaf, Users, Settings,
@@ -29,6 +30,7 @@ const NAV = [
 ];
 
 export default function DashboardLayout({ children }: { children: React.ReactNode }) {
+  const c = useCopy();
   const pathname   = usePathname();
   const router     = useRouter();
   const [sideOpen, setSideOpen] = useState(false);
@@ -60,7 +62,7 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
     } catch { setSessionMessage('Server unavailable. Please try signing out again.'); }
   };
 
-  if (!user) return <p role="status" className="p-8 text-slate-300">Checking your session…</p>;
+  if (!user) return <p role="status" className="p-8 text-slate-300">{c('Checking your session…')}</p>;
 
   return (
     <div className="min-h-screen bg-[#0a0f0d] flex">
@@ -92,7 +94,7 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
               className={`nav-link ${pathname === href ? 'active' : ''}`}
             >
               <Icon size={15} />
-              <span>{label}</span>
+              <span>{c(label)}</span>
               {pathname === href && <ChevronRight size={13} className="ml-auto text-green-500" />}
             </Link>
           ))}
@@ -131,7 +133,7 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
         <header className="h-14 bg-[#111a14]/80 backdrop-blur border-b border-green-900/20 flex items-center gap-3 px-4 sticky top-0 z-20">
           <button
             onClick={() => setSideOpen(!sideOpen)}
-            aria-label={sideOpen ? 'Close dashboard navigation' : 'Open dashboard navigation'}
+            aria-label={c(sideOpen ? 'Close dashboard navigation' : 'Open dashboard navigation')}
             aria-expanded={sideOpen}
             className="lg:hidden p-1.5 text-slate-400 hover:text-white"
           >
@@ -143,15 +145,15 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
             <Link href="/" className="hover:text-green-400 transition-colors">Voltarax</Link>
             <ChevronRight size={13} />
             <span className="text-white">
-              {NAV.find(n => n.href === pathname)?.label || 'Dashboard'}
+              {c(NAV.find(n => n.href === pathname)?.label || 'Dashboard')}
             </span>
           </div>
 
           <div className="ml-auto flex items-center gap-3">
             <ISTClock />
             <div className="hidden md:flex items-center gap-2 text-xs text-green-600 font-mono">
-              {testMode && <span className="text-amber-300">Test data</span>}
-              Dashboard
+              {testMode && <span className="text-amber-300">{c('Test data')}</span>}
+              {c('Dashboard')}
             </div>
           </div>
         </header>
@@ -159,8 +161,8 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
         {/* Page content */}
         <main className="flex-1 p-4 sm:p-6 overflow-auto">
           <div className="mb-4 flex flex-wrap items-center gap-2 text-xs text-slate-400">
-            <span>Section data:</span><DataQualityBadge quality={sectionQuality} />
-            <span>Individual readings are labelled where their quality differs. Missing data is unavailable.</span>
+            <span>{c('Section data:')}</span><DataQualityBadge quality={sectionQuality} />
+            <span>{c('Individual readings are labelled where their quality differs. Missing data is unavailable.')}</span>
           </div>
           {siteAccess || pathname === '/dashboard/settings' ? children : <p role="status" className="stat-card text-slate-300">Site data is Unavailable. Ask an administrator to assign access to this site. You can still manage your password in Settings.</p>}
         </main>

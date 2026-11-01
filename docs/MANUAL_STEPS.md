@@ -2,6 +2,10 @@
 
 ## Phase 8 public facts and publication review
 
+English/Hindi routing is integrated with English URLs unchanged and Hindi /hi. Full page/workflow translation is still in progress; do not publish it as complete yet. Operator-entered names/notes/data must remain faithful to their input, not be translated as business facts. After completion, review Hindi wording with a fluent reviewer, legal copy with counsel and real browser/locale/account flows before publication.
+
+Local Next tests use hostname localhost and http://localhost consistently; binding Next to 127.0.0.1 exposed a framework loopback-origin rewrite loop. Keep API fixtures loopback-only and test actual proxy/hostname/TLS behavior on the intended non-production host. No arbitrary forwarded-host trust workaround was added. The owned fake backend verified unchanged /api and /health paths without live credentials.
+
 Before public use, supply and approve real legal entity/contact/location, people/roles/biographies, institutional/client permissions and patent/performance evidence. None is inferred from old code or conflicting cities. Set only reviewed NEXT_PUBLIC_CONTACT_LOCATION/email/phone and HTTPS social profile values; blank keeps details hidden/unavailable. Material conversion/lifetime benefits, field savings, deployment/customer counts and automatic model improvement remain absent without proof. Review English/Hindi and legal wording before indexing or publication. No private facts or external profile were published here.
 
 ## Phase 7 commerce configuration (in progress; not enabled)

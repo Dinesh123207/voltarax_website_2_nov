@@ -1,6 +1,6 @@
 'use client';
 import { FormEvent, useCallback, useEffect, useState } from 'react';
-import Link from 'next/link';
+import { Link } from '@/i18n/navigation';
 import { api, inr, ist, rupeesToPaise } from '@/lib/commerce';
 import type { OrderDetails, Order, Checkout } from '@/lib/commerce';
 import { checkoutConstructor } from '@/lib/checkout';

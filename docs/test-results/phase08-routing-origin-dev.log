@@ -1,0 +1,24 @@
+   ▲ Next.js 15.5.28
+   - Local:        http://localhost:38473
+   - Network:      http://localhost:38473
+   - Experiments (use with caution):
+     · cpus: 1
+
+ ✓ Starting...
+ ✓ Ready in 3.4s
+ ✓ Compiled /middleware in 307ms (136 modules)
+locale-smoke {"path":"/","status":200,"location":null,"rewrite":"http://localhost:38473/en"}
+ ○ Compiling /[locale] ...
+ ✓ Compiled /[locale] in 23.4s (835 modules)
+ GET / 200 in 26145ms
+locale-smoke {"path":"/hi","status":200,"location":null,"rewrite":null}
+ GET /hi 200 in 388ms
+locale-smoke {"path":"/about","status":307,"location":"http://localhost:38473/hi/about","rewrite":null}
+locale-smoke {"path":"/hi/about","status":200,"location":null,"rewrite":null}
+ ○ Compiling /[locale]/about ...
+ ✓ Compiled /[locale]/about in 1676ms (840 modules)
+ GET /hi/about 200 in 4217ms
+locale-smoke {"path":"/hi/account/orders/synthetic-routing-probe","status":200,"location":null,"rewrite":null}
+ ○ Compiling /[locale]/account/orders/[id] ...
+ ✓ Compiled /[locale]/account/orders/[id] in 1567ms (845 modules)
+ GET /hi/account/orders/synthetic-routing-probe 200 in 6496ms

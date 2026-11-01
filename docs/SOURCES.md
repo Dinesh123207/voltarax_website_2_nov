@@ -2,6 +2,9 @@
 
 ## Phase 8 localization/SEO preparation (2026-11-02)
 
+- Routing foundation now implemented and actual local HTTP tested. Existing next-intl API/docs were used with original configuration and a literal-copy lookup through its message context; no library/template source copied. English/Hindi seed navigation is not a claim of completed whole-app translation. Own source navigation update helper confines writes to existing app/components.
+- Local loopback rewrite behavior investigated with actual diagnostics and upstream reports https://github.com/amannn/next-intl/issues/524 and https://github.com/vercel/next.js/issues/48230 . Our localhost binding/origin retry passed; this is an observed local setup issue, not proof of behavior on every proxy/version. Product middleware remained standard; temporary diagnostics removed before final rerun.
+
 - Downloaded next-intl root LICENSE (MIT, Jan Amann) and next-sitemap root LICENSE (MIT, Vishnu Sankar) read before use. Official registry metadata saved for next-intl 4.14.9 (Next 15/React 18 supported) and next-sitemap 4.2.3; normal exact installation passed. Installed next-intl LICENSE also read; npm next-sitemap metadata states MIT and upstream reference retains the notice. No template/library source copied into product code.
 - Official integration references read: https://next-intl.dev/docs/routing/setup , https://next-intl.dev/docs/routing/navigation and https://next-intl.dev/docs/routing/configuration . Next 15 uses middleware.ts; examples in current docs may call it proxy.ts for Next 16. Routing/messages are not yet claimed integrated. Original public-copy corrections use actual implemented modules and deliberately omit unsupported business/material/people facts rather than invent evidence.
 

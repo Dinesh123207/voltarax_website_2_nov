@@ -1,8 +1,10 @@
 'use client';
 import { useState, useEffect } from 'react';
-import Link from 'next/link';
-import { usePathname } from 'next/navigation';
+import { Link } from '@/i18n/navigation';
+import { usePathname } from '@/i18n/navigation';
 import { Menu, X, Zap, ChevronRight } from 'lucide-react';
+import LanguageSwitcher from './LanguageSwitcher';
+import { useCopy } from '@/i18n/copy';
 
 const NAV_LINKS = [
   { label: 'Home',        href: '/' },
@@ -15,6 +17,7 @@ const NAV_LINKS = [
 ];
 
 export default function Navbar() {
+  const c = useCopy();
   const [scrolled,  setScrolled]  = useState(false);
   const [menuOpen,  setMenuOpen]  = useState(false);
   const pathname = usePathname();
@@ -45,7 +48,7 @@ export default function Navbar() {
               <div>
                 <span className="font-bold text-white text-lg tracking-tight">Voltarax</span>
                 <div className="text-[10px] text-green-500 font-mono leading-none">
-                  Powering a Sustainable Future
+                  {c('Powering a Sustainable Future')}
                 </div>
               </div>
             </Link>
@@ -62,7 +65,7 @@ export default function Navbar() {
                       : 'text-slate-400 hover:text-white hover:bg-white/5'
                   }`}
                 >
-                  {link.label}
+                  {c(link.label)}
                 </Link>
               ))}
             </div>
@@ -70,21 +73,22 @@ export default function Navbar() {
             {/* CTA */}
             <div className="hidden xl:flex items-center gap-3">
               <Link href="/dashboard" className="text-sm text-slate-400 hover:text-white transition-colors font-medium">
-                Dashboard
+                {c('Dashboard')}
               </Link>
               <Link
                 href="/contact?type=demo"
                 className="btn-green text-sm py-2 px-4"
               >
-                Request Demo <ChevronRight size={14} />
+                {c('Request Demo')} <ChevronRight size={14} />
               </Link>
             </div>
 
+            <LanguageSwitcher />
             {/* Mobile menu toggle */}
             <button
               onClick={() => setMenuOpen(!menuOpen)}
               className="xl:hidden p-2 text-slate-400 hover:text-white"
-              aria-label={menuOpen ? 'Close navigation' : 'Open navigation'}
+              aria-label={c(menuOpen ? 'Close navigation' : 'Open navigation')}
               aria-expanded={menuOpen}
             >
               {menuOpen ? <X size={22} /> : <Menu size={22} />}
@@ -108,7 +112,7 @@ export default function Navbar() {
                     : 'text-slate-300 hover:text-white hover:bg-white/5'
                 }`}
               >
-                {link.label}
+                  {c(link.label)}
               </Link>
             ))}
             <div className="pt-4 mt-2 border-t border-green-900/30 flex flex-col gap-3">

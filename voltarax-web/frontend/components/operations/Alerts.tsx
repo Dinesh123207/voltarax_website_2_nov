@@ -1,6 +1,6 @@
 'use client';
 import { useCallback, useEffect, useState, type FormEvent } from 'react';
-import Link from 'next/link';
+import { Link } from '@/i18n/navigation';
 import DataQualityBadge from '@/components/ui/DataQualityBadge';
 import { api, ist, type AlertRecord } from '@/lib/operations';
 import { EventHistory, Notice, useOperator } from './Shared';

@@ -5,5 +5,7 @@ export function qualityFor(value: unknown, available: Exclude<DataQuality, 'Unav
 }
 
 export default function DataQualityBadge({ quality }: { quality: DataQuality }) {
-  return <span className="inline-flex rounded border border-slate-600 px-1.5 py-0.5 text-[10px] font-medium text-slate-300">{quality}</span>;
+  const c = useCopy();
+  return <span className="inline-flex rounded border border-slate-600 px-1.5 py-0.5 text-[10px] font-medium text-slate-300">{c(quality)}</span>;
 }
+import { useCopy } from '@/i18n/copy';

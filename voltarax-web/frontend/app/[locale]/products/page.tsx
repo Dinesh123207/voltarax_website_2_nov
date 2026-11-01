@@ -1,4 +1,4 @@
-import Link from 'next/link';
+import { Link } from '@/i18n/navigation';
 import Navbar from '@/components/ui/Navbar';
 import Footer from '@/components/ui/Footer';
 import { LayoutDashboard, Sun, Bell, Leaf, ChevronRight } from 'lucide-react';

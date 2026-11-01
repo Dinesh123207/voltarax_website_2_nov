@@ -1,5 +1,9 @@
 import type { Metadata, Viewport } from 'next';
-import './globals.css';
+import '../globals.css';
+import { NextIntlClientProvider, hasLocale } from 'next-intl';
+import { getMessages, setRequestLocale } from 'next-intl/server';
+import { notFound } from 'next/navigation';
+import { routing } from '@/i18n/routing';
 import { Toaster } from 'react-hot-toast';
 import CustomCursor from '@/components/ui/CustomCursor';
 import ParticlesBg from '@/components/ui/ParticlesBg';
@@ -39,10 +43,16 @@ export const viewport: Viewport = {
   themeColor: '#22c55e',
 };
 
-export default function RootLayout({ children }: { children: React.ReactNode }) {
+export function generateStaticParams() { return routing.locales.map(locale => ({ locale })); }
+export default async function RootLayout({ children, params }: { children: React.ReactNode; params: Promise<{ locale: string }> }) {
+  const { locale } = await params;
+  if (!hasLocale(routing.locales, locale)) notFound();
+  setRequestLocale(locale);
+  const messages = await getMessages({ locale });
   return (
-    <html lang="en" className="dark">
+    <html lang={locale} className="dark">
       <body className="bg-[#0a0f0d] text-slate-200 antialiased">
+        <NextIntlClientProvider locale={locale} messages={messages} timeZone="Asia/Kolkata">
         <SiteBackgroundVideo />
         <CustomCursor />
         <ParticlesBg />
@@ -60,6 +70,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             success: { iconTheme: { primary: '#22c55e', secondary: '#000' } },
           }}
         />
+        </NextIntlClientProvider>
       </body>
     </html>
   );

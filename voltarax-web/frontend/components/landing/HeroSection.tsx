@@ -1,6 +1,6 @@
 'use client';
 import { useEffect, useState } from 'react';
-import Link from 'next/link';
+import { Link } from '@/i18n/navigation';
 import { ChevronRight, ArrowDown, Zap, Leaf, Brain, Sun, Wind, Activity } from 'lucide-react';
 import WindTurbineBackdrop from './WindTurbineBackdrop';
 

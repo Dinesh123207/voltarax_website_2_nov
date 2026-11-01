@@ -1,0 +1,10 @@
+{
+  "command": [
+    "node",
+    "../../tools/update-locale-navigation.cjs",
+    "--apply"
+  ],
+  "cwd": "voltarax-web/frontend",
+  "exit_code": 0,
+  "seconds": 0.32
+}

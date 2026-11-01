@@ -1,4 +1,4 @@
-import Link from 'next/link';
+import { Link } from '@/i18n/navigation';
 import { Zap, Mail, MapPin, Phone, Github, Linkedin, Twitter } from 'lucide-react';
 const FOOTER_LINKS = {
   Platform: [{ label: 'Monitoring', href: '/products' }, { label: 'Technology', href: '/technology' }, { label: 'Pricing', href: '/pricing' }],

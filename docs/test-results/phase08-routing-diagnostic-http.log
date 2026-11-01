@@ -1,0 +1,80 @@
+Traceback (most recent call last):
+  File "C:\Users\JARVIS\Desktop\VOLTARAX\tools\verify-locale-routes.py", line 62, in <module>
+    _, english, _ = request('/')
+                    ~~~~~~~^^^^^
+  File "C:\Users\JARVIS\Desktop\VOLTARAX\tools\verify-locale-routes.py", line 48, in request
+    with urllib.request.urlopen(urllib.request.Request(f'http://127.0.0.1:{port}{path}', headers=headers), timeout=75) as response:
+         ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\JARVIS\AppData\Local\Programs\Python\Python313\Lib\urllib\request.py", line 189, in urlopen
+    return opener.open(url, data, timeout)
+           ~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\JARVIS\AppData\Local\Programs\Python\Python313\Lib\urllib\request.py", line 495, in open
+    response = meth(req, response)
+  File "C:\Users\JARVIS\AppData\Local\Programs\Python\Python313\Lib\urllib\request.py", line 604, in http_response
+    response = self.parent.error(
+        'http', request, response, code, msg, hdrs)
+  File "C:\Users\JARVIS\AppData\Local\Programs\Python\Python313\Lib\urllib\request.py", line 527, in error
+    result = self._call_chain(*args)
+  File "C:\Users\JARVIS\AppData\Local\Programs\Python\Python313\Lib\urllib\request.py", line 466, in _call_chain
+    result = func(*args)
+  File "C:\Users\JARVIS\AppData\Local\Programs\Python\Python313\Lib\urllib\request.py", line 720, in http_error_302
+    return self.parent.open(new, timeout=req.timeout)
+           ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\JARVIS\AppData\Local\Programs\Python\Python313\Lib\urllib\request.py", line 495, in open
+    response = meth(req, response)
+  File "C:\Users\JARVIS\AppData\Local\Programs\Python\Python313\Lib\urllib\request.py", line 604, in http_response
+    response = self.parent.error(
+        'http', request, response, code, msg, hdrs)
+  File "C:\Users\JARVIS\AppData\Local\Programs\Python\Python313\Lib\urllib\request.py", line 527, in error
+    result = self._call_chain(*args)
+  File "C:\Users\JARVIS\AppData\Local\Programs\Python\Python313\Lib\urllib\request.py", line 466, in _call_chain
+    result = func(*args)
+  File "C:\Users\JARVIS\AppData\Local\Programs\Python\Python313\Lib\urllib\request.py", line 720, in http_error_302
+    return self.parent.open(new, timeout=req.timeout)
+           ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\JARVIS\AppData\Local\Programs\Python\Python313\Lib\urllib\request.py", line 495, in open
+    response = meth(req, response)
+  File "C:\Users\JARVIS\AppData\Local\Programs\Python\Python313\Lib\urllib\request.py", line 604, in http_response
+    response = self.parent.error(
+        'http', request, response, code, msg, hdrs)
+  File "C:\Users\JARVIS\AppData\Local\Programs\Python\Python313\Lib\urllib\request.py", line 527, in error
+    result = self._call_chain(*args)
+  File "C:\Users\JARVIS\AppData\Local\Programs\Python\Python313\Lib\urllib\request.py", line 466, in _call_chain
+    result = func(*args)
+  File "C:\Users\JARVIS\AppData\Local\Programs\Python\Python313\Lib\urllib\request.py", line 720, in http_error_302
+    return self.parent.open(new, timeout=req.timeout)
+           ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\JARVIS\AppData\Local\Programs\Python\Python313\Lib\urllib\request.py", line 495, in open
+    response = meth(req, response)
+  File "C:\Users\JARVIS\AppData\Local\Programs\Python\Python313\Lib\urllib\request.py", line 604, in http_response
+    response = self.parent.error(
+        'http', request, response, code, msg, hdrs)
+  File "C:\Users\JARVIS\AppData\Local\Programs\Python\Python313\Lib\urllib\request.py", line 527, in error
+    result = self._call_chain(*args)
+  File "C:\Users\JARVIS\AppData\Local\Programs\Python\Python313\Lib\urllib\request.py", line 466, in _call_chain
+    result = func(*args)
+  File "C:\Users\JARVIS\AppData\Local\Programs\Python\Python313\Lib\urllib\request.py", line 720, in http_error_302
+    return self.parent.open(new, timeout=req.timeout)
+           ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\JARVIS\AppData\Local\Programs\Python\Python313\Lib\urllib\request.py", line 495, in open
+    response = meth(req, response)
+  File "C:\Users\JARVIS\AppData\Local\Programs\Python\Python313\Lib\urllib\request.py", line 604, in http_response
+    response = self.parent.error(
+        'http', request, response, code, msg, hdrs)
+  File "C:\Users\JARVIS\AppData\Local\Programs\Python\Python313\Lib\urllib\request.py", line 527, in error
+    result = self._call_chain(*args)
+  File "C:\Users\JARVIS\AppData\Local\Programs\Python\Python313\Lib\urllib\request.py", line 466, in _call_chain
+    result = func(*args)
+  File "C:\Users\JARVIS\AppData\Local\Programs\Python\Python313\Lib\urllib\request.py", line 709, in http_error_302
+    raise HTTPError(req.full_url, code,
+                    self.inf_msg + msg, headers, fp)
+urllib.error.HTTPError: HTTP Error 307: The HTTP server returned a redirect error that would lead to an infinite loop.
+The last 30x error message was:
+Temporary Redirect
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\JARVIS\Desktop\VOLTARAX\tools\verify-locale-routes.py", line 66, in <module>
+    raise RuntimeError('Local route redirected repeatedly: ' + str(error.headers.get('Location')))
+RuntimeError: Local route redirected repeatedly: http://localhost:38473/

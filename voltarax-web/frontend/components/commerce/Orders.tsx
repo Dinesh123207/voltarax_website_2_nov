@@ -1,6 +1,6 @@
 'use client';
 import { useEffect, useState } from 'react';
-import Link from 'next/link';
+import { Link } from '@/i18n/navigation';
 import { api, inr, ist } from '@/lib/commerce';
 import type { Order } from '@/lib/commerce';
 import DataQualityBadge from '@/components/ui/DataQualityBadge';

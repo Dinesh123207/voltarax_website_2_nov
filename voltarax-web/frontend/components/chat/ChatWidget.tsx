@@ -1,7 +1,7 @@
 'use client';
 
 import { useCallback, useEffect, useRef, useState } from 'react';
-import { usePathname } from 'next/navigation';
+import { usePathname } from '@/i18n/navigation';
 import { MessageCircle, X, Send, Mic, Wind } from 'lucide-react';
 
 type Msg = { id: number; role: 'user' | 'bot'; text: string; chips?: string[] };

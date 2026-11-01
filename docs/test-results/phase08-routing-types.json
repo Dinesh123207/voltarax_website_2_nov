@@ -1,0 +1,12 @@
+{
+  "command": [
+    "npx.cmd",
+    "tsc",
+    "--noEmit",
+    "--project",
+    "tsconfig.source.json"
+  ],
+  "cwd": "voltarax-web/frontend",
+  "exit_code": 0,
+  "seconds": 12.13
+}

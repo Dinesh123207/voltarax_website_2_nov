@@ -1,7 +1,7 @@
 import Navbar from '@/components/ui/Navbar';
 import Footer from '@/components/ui/Footer';
 import { Leaf, Globe, TrendingUp, Sun, Droplets, Wind, ChevronRight } from 'lucide-react';
-import Link from 'next/link';
+import { Link } from '@/i18n/navigation';
 import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
