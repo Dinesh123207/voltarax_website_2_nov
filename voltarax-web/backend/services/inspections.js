@@ -57,11 +57,12 @@ function createInspections(db, { now = () => Date.now(), maximumAgeDays = 30 } =
     const rows = await db.selectDistinctOn([s.inspections.areaKey]).from(s.inspections).where(and(eq(s.inspections.siteId, siteId), eq(s.inspections.kind, 'coating')))
       .orderBy(asc(s.inspections.areaKey), desc(s.inspections.observedAt), desc(s.inspections.createdAt), desc(s.inspections.id)).limit(501);
     const day = sql`to_char(${s.inspections.observedAt} at time zone 'Asia/Kolkata', 'YYYY-MM-DD')`;
+    const trendStart = new Date((require('./energy').periodStartsIST(new Date(now())).day - 89 * 86400) * 1000);
     const trends = await db.select({ day, condition: s.inspections.condition, count: count() }).from(s.inspections)
-      .where(and(eq(s.inspections.siteId, siteId), eq(s.inspections.kind, 'coating'), gte(s.inspections.observedAt, new Date(now() - 90 * 86400000)), lte(s.inspections.observedAt, new Date(now()))))
+      .where(and(eq(s.inspections.siteId, siteId), eq(s.inspections.kind, 'coating'), gte(s.inspections.observedAt, trendStart), lte(s.inspections.observedAt, new Date(now()))))
       .groupBy(day, s.inspections.condition).orderBy(asc(day), asc(s.inspections.condition)).limit(600);
     return { areas: rows.slice(0, 500).map(row => ({ ...row, indicator: indicator(row, now(), maximumAgeDays), source: 'operator-observation' })), truncated: rows.length > 500,
-      rules: RULES, trends, trendPeriodDays: 90, trendTimezone: 'Asia/Kolkata', score: null, quality: { score: 'Unavailable' },
+      rules: RULES, trends, trendPeriodDays: 90, trendStartAt: trendStart.toISOString(), trendEndAt: new Date(now()).toISOString(), trendTimezone: 'Asia/Kolkata', score: null, quality: { score: 'Unavailable' },
       note: 'Categories reflect the latest dated manual observation per named area, not measured coating health or ML. Trends count recorded observations, not panels or prevalence.' };
   }
   return { savePhoto, getPhoto, listPhotos, create, list, coating };

@@ -20,5 +20,6 @@ test('inspection records preserve actual inputs, sanitize photos, isolate sites 
   assert.equal(result.areas[0].indicator.category, 'no_issue_reported');
   assert.equal(result.areas[1].indicator.dataQuality, 'Unavailable'); assert.equal(result.score, null);
   assert.equal(result.trends[0].day, '2026-11-01'); assert.equal(result.trends[0].count, 1);
+  assert.ok(result.trendStartAt.endsWith('18:30:00.000Z')); // IST midnight, not a rolling UTC cut.
   assert.equal((await service.list('site-b')).length, 0); assert.equal((await service.listPhotos('site-b')).length, 0);
 });

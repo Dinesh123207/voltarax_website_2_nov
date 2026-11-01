@@ -1,6 +1,6 @@
 # Autopilot progress
 
-RESUME HERE: Phase 5 — inspection/coating dashboard screens, documentation and phase gate
+RESUME HERE: Phase 5 — full local gate and operator documentation, then Phase 6 AI validation
 
 Status key: [ ] todo; [~] in progress; [x] done and verified as stated; [!] skipped with a reason. A phase is done only after its full gate passes.
 
@@ -58,8 +58,8 @@ Status key: [ ] todo; [~] in progress; [x] done and verified as stated; [!] skip
 ## Phase 5 — camera and coating
 - [x] Backend fixed-URL camera proxy and authorized saved snapshots, disabled default, bounded stream/capture/image decoding, metadata removal and explicit offline state. Three camera/metadata tests and two focused API/authorization tests passed, using only localhost fixture cameras. Hardware remains unverified.
 - [x] Persistent photo/manual inspection schema/migration and actual observation time/area/condition/photo/notes, site checks and audit. One actual-PGlite test passed for photo isolation, time validation, latest dated area observations, stale categories and IST trends.
-- [~] Backend categorical rules/trends are tested; implement authenticated camera/coating screens next. No numerical coating score or automatic ML classification exists.
-- [ ] Operator instructions, phase gate and tag.
+- [x] Camera/coating screens now capture/upload/select protected photos and save actual observations; visible rules, latest per-area categories, stale states, IST trends and record history. Frontend typecheck/narrow lint passed. BFCI/CV placeholders no longer fabricate aggregate scores/losses; numerical coating score and automatic ML classification remain explicitly Unavailable.
+- [~] Operator instructions and gate: full backend/frontend lint running. Add indexed latest-area lookup and IST calendar trend boundary to the final gate. Camera hardware and browser interaction verification remain manual; no phase tag yet.
 
 ## Phase 6 — AI validation
 - [ ] Time-split evaluation, transparent metrics and stale-result behavior.

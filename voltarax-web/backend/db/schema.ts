@@ -71,5 +71,6 @@ export const inspections = pgTable('inspections', {
   photoId: text('photo_id').notNull().references(() => inspectionPhotos.id),
   createdAt: date('created_at').notNull(), createdBy: text('created_by').notNull(),
 }, t => [index('inspections_site_observed').on(t.siteId, t.kind, t.observedAt),
+  index('inspections_latest_area').on(t.siteId, t.kind, t.areaKey, t.observedAt.desc(), t.createdAt.desc(), t.id.desc()),
   check('inspection_kind', sql`${t.kind} in ('camera','coating')`),
   check('inspection_condition', sql`${t.condition} in ('clean','dusty','cracked','peeling','other','unknown')`)]);

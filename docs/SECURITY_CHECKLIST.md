@@ -6,7 +6,7 @@
 - Before sharing any real Firebase service-account credentials, device passwords, Wi-Fi credentials, API keys, JWT secrets, SMTP credentials, or firmware `secrets.h`, keep them out of Git. **Must be rotated if ever shared** or exposed in Git history.
 - Check actual local configuration and any external repositories separately before deployment or sharing. Never paste real values into logs or issue reports.
 
-## Route access inventory (updated Phase 4)
+## Route access inventory (updated Phase 5)
 
 The dashboard router is mounted both at `/api` and `/api/voltvision`; entries below apply to both prefixes. The public health check is `/health`.
 
@@ -30,7 +30,8 @@ The dashboard router is mounted both at `/api` and `/api/voltvision`; entries be
 | GET `/alerts/:id`, `/work-orders/:id`, `/carbon/reports`, `/carbon/reports/:id`, `/carbon/reports/:id/pdf` | Verified JWT + configured-site membership | Persistent site-scoped records; report PDF/evidence/hash never publicly exposed. |
 | POST `/alerts`, `/work-orders`, `/work-orders/:id/comments`, `/carbon/report`; PUT `/alerts/:id/acknowledge`, `/alerts/:id/resolve`, `/work-orders/:id`; PATCH `/work-orders/:id` | Verified JWT + operator/admin + site | Strict schema, validated assignment, event/audit transaction, version conflict check and explicit report sufficiency policy. |
 | GET `/work-orders/assignees` | Verified JWT + operator/admin + site | Eligible verified account IDs/names only; bounded directory. |
-| POST `/cv/scan` | Verified JWT + operator/admin + site | Camera pipeline remains 501 until Phase 5. |
+| GET `/camera/status`, `/camera/stream`, `/inspection-photos`, `/inspection-photos/:id`, `/inspections`, `/coating` | Verified JWT + site | Fixed server-only camera configuration; bounded stream/list/SQL lookups. Raster photo bytes are private, no-store, no public camera address/credentials. |
+| POST `/camera/snapshots`, `/cv/scan`, `/inspection-photos`, `/inspections` | Verified JWT + operator/admin + site | Capture alias is not ML. Strict body/query validation, per-account photo rate limit, bounded image worker, metadata removal and site/photo binding; append-only record/audit transaction. |
 | GET `/users` | JWT | Admin. |
 
 All browser mutations with a cookie require the X-Voltarax-Request header. Exact-origin CORS rejects unapproved origins. JSON-only parsing prevents ordinary cross-origin form login. Native bearer clients remain supported. HTTPS/proxy handling must be verified on the target host.

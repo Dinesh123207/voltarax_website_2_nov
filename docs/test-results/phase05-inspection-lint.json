@@ -1,0 +1,16 @@
+{
+  "command": [
+    "npx.cmd",
+    "eslint",
+    "components/operations/Inspections.tsx",
+    "app/dashboard/bfci",
+    "app/dashboard/cv",
+    "app/dashboard/layout.tsx",
+    "app/dashboard/page.tsx",
+    "--ext",
+    ".ts,.tsx"
+  ],
+  "cwd": "voltarax-web/frontend",
+  "exit_code": 0,
+  "seconds": 12.99
+}

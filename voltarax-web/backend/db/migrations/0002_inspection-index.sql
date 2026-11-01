@@ -1,0 +1,1 @@
+CREATE INDEX "inspections_latest_area" ON "inspections" USING btree ("site_id","kind","area_key","observed_at" DESC NULLS LAST,"created_at" DESC NULLS LAST,"id" DESC NULLS LAST);
