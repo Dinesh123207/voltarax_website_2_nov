@@ -1,0 +1,49 @@
+
+> voltarax-frontend@1.0.0 test:e2e
+> playwright test --grep @public Hindi draft
+
+
+Running 1 test using 1 worker
+
+(node:11000) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  x  1 tests\e2e\public.spec.ts:68:5 › @public Hindi draft metadata, form labels and synthetic submission only (2.3m)
+
+
+  1) tests\e2e\public.spec.ts:68:5 › @public Hindi draft metadata, form labels and synthetic submission only 
+
+    Test timeout of 90000ms exceeded.
+
+    Error: page.goto: net::ERR_ABORTED; maybe frame was detached?
+    Call log:
+      - navigating to "http://localhost:38473/contact", waiting until "load"
+
+
+      71 |   await expect(page.locator('main')).toContainText('सार्वजनिक उपयोग के लिए स्वीकृत नहीं');
+      72 |   expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true);
+    > 73 |   await page.goto('/contact');
+         |              ^
+      74 |   const unnamed = await page.locator('main input, main select, main textarea').evaluateAll(nodes => nodes.filter(node => {
+      75 |     const control = node as HTMLInputElement; return control.type !== 'hidden' && !control.disabled && !(control.labels?.length || control.getAttribute('aria-label') || control.getAttribute('aria-labelledby'));
+      76 |   }).map(node => (node as HTMLInputElement).name));
+        at C:\Users\JARVIS\Desktop\VOLTARAX\voltarax-web\frontend\tests\e2e\public.spec.ts:73:14
+
+    Error Context: ..\..\.local-tools\playwright\phase08-forms-focused-browser\public--public-Hindi-draft-336f3-d-synthetic-submission-only\error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    ..\..\.local-tools\playwright\phase08-forms-focused-browser\public--public-Hindi-draft-336f3-d-synthetic-submission-only\trace.zip
+    Usage:
+
+        npx playwright show-trace ..\..\.local-tools\playwright\phase08-forms-focused-browser\public--public-Hindi-draft-336f3-d-synthetic-submission-only\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  1 failed
+    tests\e2e\public.spec.ts:68:5 › @public Hindi draft metadata, form labels and synthetic submission only 
+Traceback (most recent call last):
+  File "C:\Users\JARVIS\Desktop\VOLTARAX\tools\verify-locale-routes.py", line 112, in <module>
+    run_browser(layouts_only=True)
+    ~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\JARVIS\Desktop\VOLTARAX\tools\verify-locale-routes.py", line 86, in run_browser
+    raise RuntimeError('Browser checks failed; inspect the saved browser result')
+RuntimeError: Browser checks failed; inspect the saved browser result

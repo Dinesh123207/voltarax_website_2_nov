@@ -1,0 +1,20 @@
+   ▲ Next.js 15.5.28
+   - Local:        http://localhost:38473
+   - Network:      http://localhost:38473
+   - Experiments (use with caution):
+     · cpus: 1
+
+ ✓ Starting...
+ ✓ Ready in 3.7s
+ ○ Compiling /middleware ...
+ ✓ Compiled /middleware in 630ms (136 modules)
+ ○ Compiling /[locale] ...
+ ✓ Compiled /[locale] in 4.1s (829 modules)
+ GET / 200 in 8661ms
+ ○ Compiling /[locale]/privacy ...
+ ✓ Compiled /[locale]/privacy in 1365ms (835 modules)
+ GET /hi/privacy 200 in 2975ms
+ ✓ Compiled /[locale]/contact in 331ms (868 modules)
+ GET /hi/contact 200 in 1878ms
+ GET /hi/privacy 200 in 2547ms
+ GET /hi/contact 200 in 3188ms

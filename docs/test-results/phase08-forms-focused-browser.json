@@ -1,0 +1,194 @@
+{
+  "config": {
+    "argv": [
+      "C:\\Program Files\\nodejs\\node.exe",
+      "C:\\Users\\JARVIS\\Desktop\\VOLTARAX\\voltarax-web\\frontend\\node_modules\\@playwright\\test\\cli.js",
+      "test",
+      "--grep",
+      "@public Hindi draft"
+    ],
+    "configFile": "C:\\Users\\JARVIS\\Desktop\\VOLTARAX\\voltarax-web\\frontend\\playwright.config.ts",
+    "rootDir": "C:/Users/JARVIS/Desktop/VOLTARAX/voltarax-web/frontend/tests/e2e",
+    "failOnFlakyTests": false,
+    "forbidOnly": false,
+    "fullyParallel": false,
+    "globalSetup": null,
+    "globalTeardown": null,
+    "globalTimeout": 0,
+    "grep": {},
+    "grepInvert": null,
+    "maxFailures": 0,
+    "metadata": {
+      "actualWorkers": 1
+    },
+    "preserveOutput": "always",
+    "projects": [
+      {
+        "outputDir": "C:/Users/JARVIS/Desktop/VOLTARAX/.local-tools/playwright/phase08-forms-focused-browser",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 1
+        },
+        "id": "",
+        "name": "",
+        "testDir": "C:/Users/JARVIS/Desktop/VOLTARAX/voltarax-web/frontend/tests/e2e",
+        "testIgnore": [],
+        "testMatch": [
+          "**/*.@(spec|test).?(c|m)[jt]s?(x)"
+        ],
+        "timeout": 90000
+      }
+    ],
+    "filteredProjects": [
+      {
+        "grep": {},
+        "grepInvert": null,
+        "outputDir": "C:\\Users\\JARVIS\\Desktop\\VOLTARAX\\.local-tools\\playwright\\phase08-forms-focused-browser",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 1
+        },
+        "name": "",
+        "testDir": "C:\\Users\\JARVIS\\Desktop\\VOLTARAX\\voltarax-web\\frontend\\tests\\e2e",
+        "snapshotDir": "C:\\Users\\JARVIS\\Desktop\\VOLTARAX\\voltarax-web\\frontend\\tests\\e2e",
+        "testIgnore": [],
+        "testMatch": "**/*.@(spec|test).?(c|m)[jt]s?(x)",
+        "timeout": 90000,
+        "use": {
+          "baseURL": "http://localhost:38473",
+          "browserName": "chromium",
+          "channel": "msedge",
+          "headless": true,
+          "viewport": {
+            "width": 360,
+            "height": 800
+          },
+          "reducedMotion": "reduce",
+          "locale": "en-IN",
+          "timezoneId": "Asia/Kolkata",
+          "serviceWorkers": "block",
+          "trace": "retain-on-failure",
+          "screenshot": "only-on-failure",
+          "launchOptions": {
+            "args": [
+              "--disable-background-networking",
+              "--disable-component-update",
+              "--no-first-run"
+            ]
+          }
+        },
+        "dependencies": [],
+        "ignoreSnapshots": false,
+        "__projectId": ""
+      }
+    ],
+    "quiet": false,
+    "reporter": [
+      [
+        "list",
+        null
+      ],
+      [
+        "json",
+        {
+          "outputFile": "C:\\Users\\JARVIS\\Desktop\\VOLTARAX\\docs\\test-results\\phase08-forms-focused-browser.json"
+        }
+      ]
+    ],
+    "reportSlowTests": {
+      "max": 5,
+      "threshold": 300000
+    },
+    "shard": null,
+    "tags": [],
+    "updateSnapshots": "default",
+    "updateSourceMethod": "patch",
+    "version": "1.64.1",
+    "workers": 1,
+    "webServer": null
+  },
+  "suites": [
+    {
+      "title": "public.spec.ts",
+      "file": "public.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [
+        {
+          "title": "@public Hindi draft metadata, form labels and synthetic submission only",
+          "ok": false,
+          "tags": [
+            "public"
+          ],
+          "tests": [
+            {
+              "timeout": 90000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "timedOut",
+                  "duration": 138581,
+                  "error": {
+                    "message": "\u001b[31mTest timeout of 90000ms exceeded.\u001b[39m",
+                    "stack": "\u001b[31mTest timeout of 90000ms exceeded.\u001b[39m"
+                  },
+                  "errors": [
+                    {
+                      "message": "\u001b[31mTest timeout of 90000ms exceeded.\u001b[39m"
+                    },
+                    {
+                      "location": {
+                        "file": "C:\\Users\\JARVIS\\Desktop\\VOLTARAX\\voltarax-web\\frontend\\tests\\e2e\\public.spec.ts",
+                        "column": 14,
+                        "line": 73
+                      },
+                      "message": "Error: page.goto: net::ERR_ABORTED; maybe frame was detached?\nCall log:\n\u001b[2m  - navigating to \"http://localhost:38473/contact\", waiting until \"load\"\u001b[22m\n\n\n  71 |   await expect(page.locator('main')).toContainText('सार्वजनिक उपयोग के लिए स्वीकृत नहीं');\n  72 |   expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true);\n> 73 |   await page.goto('/contact');\n     |              ^\n  74 |   const unnamed = await page.locator('main input, main select, main textarea').evaluateAll(nodes => nodes.filter(node => {\n  75 |     const control = node as HTMLInputElement; return control.type !== 'hidden' && !control.disabled && !(control.labels?.length || control.getAttribute('aria-label') || control.getAttribute('aria-labelledby'));\n  76 |   }).map(node => (node as HTMLInputElement).name));\n    at C:\\Users\\JARVIS\\Desktop\\VOLTARAX\\voltarax-web\\frontend\\tests\\e2e\\public.spec.ts:73:14"
+                    }
+                  ],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-01T23:36:02.421Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "C:\\Users\\JARVIS\\Desktop\\VOLTARAX\\.local-tools\\playwright\\phase08-forms-focused-browser\\public--public-Hindi-draft-336f3-d-synthetic-submission-only\\error-context.md"
+                    },
+                    {
+                      "name": "trace",
+                      "contentType": "application/zip",
+                      "path": "C:\\Users\\JARVIS\\Desktop\\VOLTARAX\\.local-tools\\playwright\\phase08-forms-focused-browser\\public--public-Hindi-draft-336f3-d-synthetic-submission-only\\trace.zip"
+                    }
+                  ]
+                }
+              ],
+              "status": "unexpected"
+            }
+          ],
+          "id": "349fc90c6061c792a808-36104de94683af9984b0",
+          "file": "public.spec.ts",
+          "line": 68,
+          "column": 5
+        }
+      ]
+    }
+  ],
+  "errors": [],
+  "stats": {
+    "startTime": "2026-11-01T23:36:01.374Z",
+    "duration": 158618.307,
+    "expected": 0,
+    "skipped": 0,
+    "unexpected": 1,
+    "flaky": 0
+  }
+}

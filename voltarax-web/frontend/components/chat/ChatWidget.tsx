@@ -17,7 +17,7 @@ const ANSWERS: Record<string, string> = {
 export default function ChatWidget() {
   const copyText = useCopy();
   const pathname = usePathname() || '/';
-  const hidden = pathname.startsWith('/login');
+  const hidden = /^\/(login|contact|dashboard|account)(\/|$)/.test(pathname);
   const [open, setOpen] = useState(false);
   const [input, setInput] = useState('');
   const [msgs, setMsgs] = useState<Msg[]>([]);
@@ -25,6 +25,7 @@ export default function ChatWidget() {
   const bodyRef = useRef<HTMLDivElement>(null);
   const triggerRef = useRef<HTMLButtonElement>(null);
   const closeRef = useRef<HTMLButtonElement>(null);
+  useEffect(() => { if (hidden) setOpen(false); }, [hidden]);
 
   const push = useCallback((role: Msg['role'], text: string, chips?: string[]) => {
     setMsgs(m => [...m, { id: ++idRef.current, role, text, chips }]);

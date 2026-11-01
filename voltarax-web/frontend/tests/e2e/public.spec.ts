@@ -75,6 +75,12 @@ test('@public Hindi draft metadata, form labels and synthetic submission only', 
     const control = node as HTMLInputElement; return control.type !== 'hidden' && !control.disabled && !(control.labels?.length || control.getAttribute('aria-label') || control.getAttribute('aria-labelledby'));
   }).map(node => (node as HTMLInputElement).name));
   expect(unnamed).toEqual([]);
+  const borders = await page.locator('main input:not([type="hidden"]), main select, main textarea').evaluateAll(nodes => {
+    const luminance = (color: string) => { const rgb = (color.match(/[\d.]+/g) || []).slice(0, 3).map(value => Number(value) / 255).map(value => value <= .04045 ? value / 12.92 : ((value + .055) / 1.055) ** 2.4); return rgb[0] * .2126 + rgb[1] * .7152 + rgb[2] * .0722; };
+    return nodes.map(node => { const style = getComputedStyle(node), foreground = luminance(style.borderTopColor), background = luminance(style.backgroundColor); return (Math.max(foreground, background) + .05) / (Math.min(foreground, background) + .05); });
+  });
+  expect(borders.length).toBeGreaterThan(0); expect(Math.min(...borders)).toBeGreaterThanOrEqual(3);
+  await expect(page.getByRole('button', { name: /सहायक खोलें|Open assistant/ })).toHaveCount(0);
   await page.screenshot({ path: path.resolve('../../docs/test-results/phase08-contact-360.png'), fullPage: true });
   await page.locator('#contact-name').fill('Synthetic Person'); await page.locator('#contact-email').fill('synthetic@local.test');
   await page.locator('#contact-subject').fill('Synthetic browser check'); await page.locator('#contact-message').fill('Synthetic input only; no message is delivered.');

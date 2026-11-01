@@ -1,0 +1,13 @@
+
+> voltarax-frontend@1.0.0 test:e2e
+> playwright test --grep @public Hindi draft
+
+
+Running 1 test using 1 worker
+
+(node:15916) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ok 1 tests\e2e\public.spec.ts:68:5 › @public Hindi draft metadata, form labels and synthetic submission only (24.3s)
+
+  1 passed (30.0s)
+{"browser_workflow": "Focused 360px checks passed against owned loopback fixtures", "full_http_smoke": "Not run by this focused command"}

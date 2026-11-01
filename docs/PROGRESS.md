@@ -1,8 +1,8 @@
 # Autopilot progress
 
-RESUME HERE: Phase 8 — rebuild production after the verified mobile fix, rerun generated types and full production HTTP/five-browser gate, final scan/diff, then tag; backend 74/AI 28 already passed on unchanged code
+RESUME HERE: Phase 8 — rebuild after the final form contrast/FAQ fix, rerun generated types and five production browser/HTTP checks, final scan/diff, then tag and branch Phase 9; backend 74/AI 28 remain passed
 
-Current checkpoint: 1015/1015 active phrases translated. Full backend 74 and AI 28 pass; first production build passed (176.06 s), generated types passed. First production web run passed HTTP checks and three browser cases; URL test wrongly omitted the intentionally preserved fragment, and dashboard min-width caused real 360px overflow. Fixed both; dashboard focused case passes, separate focused language/keyboard/contrast case passes (41.09 s outer run). Narrow source types/lint and four language checks pass. Rebuild/retry all five against production before tagging. Production audits: frontend 0/backend 8 moderate; full frontend 18 moderate tooling/no high-critical. Scan 861 files/no matches. Hindi PDF remains explicitly partial/manual; original names preserved.
+Current checkpoint: 1015/1015 phrases translated. Full backend 74/AI 28 pass; build retry passed (64.31 s), generated types passed, all five production browser and HTTP checks passed (42.93 s outer/38.5 s browser). Visual review then found faint control borders and FAQ overlay on forms; corrected both and role-description contrast. Focused actual form/label/border>=3:1/no-overlay/synthetic-submit check passed after prewarming (52.56 s outer); initial cold dev compilation timeout retained. Rebuild/recheck current source before tag. Production audits frontend 0/backend 8 moderate; full frontend 18 moderate tooling, no high-critical. Hindi PDF/legal/independent AT review remain explicitly manual/partial.
 
 Status key: [ ] todo; [~] in progress; [x] done and verified as stated; [!] skipped with a reason. A phase is done only after its full gate passes.
 
@@ -104,6 +104,7 @@ Status key: [ ] todo; [~] in progress; [x] done and verified as stated; [!] skip
 - [ ] Verified claims, English/Hindi, SEO, legal drafts, accessibility, performance and IST clock.
 - [ ] Gate and phase tag.
 - [x] Browser-discovered mobile regression fixed: main flex column can shrink; user-page controls wrap and role explanations stack on narrow screens. Corrected the URL assertion to require the preserved #main-content fragment. Dashboard focused case and isolated language/keyboard/solid-background contrast case passed. Cold development compilation needed a development-only longer wait; production timeouts remain unchanged. Final two captions no longer suggest a validated coating sensor/score or hardware readiness. Four language regressions pass; full production browser retry remains pending.
+- [x] Visual follow-up: strengthened input boundaries, removed opacity from role explanations, and kept the prepared FAQ off account/dashboard/login/contact forms. Focused actual browser form check passed, including >=3:1 computed border contrast, associated labels, no assistant overlap and intercepted synthetic submission. Initial development compilation exceeded the case bound; prewarming selected pages before starting Edge reduced resource overlap and passed without relaxing production limits. Latest production rebuild/recheck is next.
 
 ## Phase 9 — India map
 - [ ] Verify licensed boundary data, build real-data join and missing-data state, gate and phase tag.

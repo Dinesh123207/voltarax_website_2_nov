@@ -1,0 +1,11 @@
+{
+  "command": [
+    "npx.cmd",
+    "eslint",
+    "components/chat/ChatWidget.tsx",
+    "app/[locale]/dashboard/users/page.tsx"
+  ],
+  "cwd": "voltarax-web/frontend",
+  "exit_code": 0,
+  "seconds": 5.89
+}

@@ -67,19 +67,25 @@ if production:
     assert sum(route['source'] in ('/api/:path*', '/health') for route in routes) == 2
 
 
-def request(path, cookie=None, binary=False):
+def request(path, cookie=None, binary=False, timeout=75):
     headers = {'Accept-Language': 'en', **({'Cookie': cookie} if cookie else {})}
     # Next development mode canonicalizes the loopback URL to localhost.
     # Use that same origin so an internal locale rewrite stays internal.
-    with urllib.request.urlopen(urllib.request.Request(f'http://localhost:{port}{path}', headers=headers), timeout=75) as response:
+    with urllib.request.urlopen(urllib.request.Request(f'http://localhost:{port}{path}', headers=headers), timeout=timeout) as response:
         body = response.read()
         return response.url, body if binary else body.decode('utf-8'), response.headers
 
 
 def run_browser(layouts_only=False):
+    if not production:
+        # Compile selected development routes before Edge starts on the 4 GB
+        # host. Production has no compiler and keeps its normal test limits.
+        paths = ['/hi/privacy', '/hi/contact'] if os.environ.get('FRONTEND_CHECK_FORM_ONLY') == 'true' else ['/hi', '/hi/dashboard/users']
+        for path in paths:
+            request(path, timeout=180)
     browser_env = {**environment, 'E2E_BASE_URL': f'http://localhost:{port}', 'E2E_LABEL': label + '-browser', 'E2E_DEV': 'false' if production else 'true'}
     command = [shutil.which('npm.cmd' if os.name == 'nt' else 'npm'), 'run']
-    grep = '@public 360px' if os.environ.get('FRONTEND_CHECK_LANGUAGE_ONLY') == 'true' else '@public (360px|Hindi role)'
+    grep = '@public Hindi draft' if os.environ.get('FRONTEND_CHECK_FORM_ONLY') == 'true' else '@public 360px' if os.environ.get('FRONTEND_CHECK_LANGUAGE_ONLY') == 'true' else '@public (360px|Hindi role)'
     command += ['test:e2e', '--', '--grep', grep] if layouts_only else ['test:e2e:public']
     browser = subprocess.run(command, cwd=frontend, env=browser_env, timeout=300)
     if browser.returncode:
