@@ -1,0 +1,8 @@
+{
+  "pages": 1,
+  "unsupported_plan_label_explicit": true,
+  "original_name_preserved_in_evidence": "Verified by Node regression",
+  "amount": "INR 123.45",
+  "full_hindi_pdf_support": false,
+  "visual_review": "Passed: one-page render inspected; no clipping or garbled glyphs, clear unavailable plan label and test/non-tax notices"
+}

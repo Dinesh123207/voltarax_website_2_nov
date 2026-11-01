@@ -149,3 +149,6 @@ SEO helpers/routes and original English brand PNG are implemented with indexing 
 
 ### Phase 8 legal drafting checkpoint
 Bilingual noindex privacy, terms and refund/cancellation drafts are implemented, linked at public/account entry points and pass source/type/lint checks. LEGAL_REVIEW.md records primary-source checks, retrieval limits and the operator/counsel inputs still required. A draft does not establish a legally approved production policy. Accessibility/font and the stable HTTP/full gate remain.
+
+### Phase 8 accessibility and PDF coverage
+Interaction, contact-label/validation, reduced-motion/performance and receipt glyph safeguards are implemented and narrow tests pass. English/ASCII fallback receipt passes text/page/render inspection while original Unicode data remains preserved. Five loopback browser checks are prepared; execute with the final owned production build and record real outcomes before tagging. Full Hindi PDF font output and independent AT/legal/field reviews remain manual/partial.

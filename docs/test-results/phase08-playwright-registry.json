@@ -1,0 +1,14 @@
+{
+  "command": [
+    "npm.cmd",
+    "view",
+    "@playwright/test",
+    "version",
+    "license",
+    "engines",
+    "--json"
+  ],
+  "cwd": "voltarax-web/frontend",
+  "exit_code": 0,
+  "seconds": 2.47
+}

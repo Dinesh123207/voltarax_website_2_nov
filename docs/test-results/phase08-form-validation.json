@@ -1,0 +1,11 @@
+{
+  "command": [
+    "node",
+    "--test",
+    "tests/content-validation.test.js",
+    "tests/http-security.test.js"
+  ],
+  "cwd": "voltarax-web/backend",
+  "exit_code": 1,
+  "seconds": 6.77
+}

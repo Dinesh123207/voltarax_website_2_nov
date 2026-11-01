@@ -20,7 +20,7 @@ export default function ProductsPage() {
   return (
     <>
       <Navbar />
-      <main className="relative z-10 pt-28 pb-20">
+      <main id="main-content" tabIndex={-1} className="relative z-10 pt-28 pb-20">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-14">
             <div className="section-tag mx-auto w-fit">{copyText("Products")}</div>

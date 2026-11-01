@@ -1,0 +1,26 @@
+
+❌ Firebase is not configured.
+
+FIREBASE_DATABASE_URL is not set.
+  Firebase Console -> Project settings -> General -> your web app, or
+  Realtime Database -> the URL shown above the data tree.
+  Set it in backend/.env, e.g. FIREBASE_DATABASE_URL=https://voltarax-default-rtdb.firebaseio.com
+
+See backend/README-FIREBASE.md for the full setup steps.
+
+✖ tests\content-validation.test.js (5341.6496ms)
+✔ HTTP boundary enforces origins, headers, validation, safe errors and scoped rate limits without logging inputs (562.9848ms)
+ℹ tests 2
+ℹ suites 0
+ℹ pass 1
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 5482.031
+
+✖ failing tests:
+
+test at tests\content-validation.test.js:1:1
+✖ tests\content-validation.test.js (5341.6496ms)
+  'test failed'

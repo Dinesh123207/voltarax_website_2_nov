@@ -28,7 +28,7 @@ function buildEvidence({ siteId, deviceId, readings, start, end, factor, source,
   if (!fixture && rows.some(r => r.simulated)) fail('Synthetic readings cannot issue an ESG report.');
   const energy = energyStats(rows, start, end);
   const coverage = energy.coveredSeconds / energy.periodSeconds * 100;
-  if (energy.kwh == null || coverage + 1e-8 < minimumCoverage) fail(`Insufficient recorded-power coverage; at least ${minimumCoverage}% is required. Gaps are not extrapolated.`);
+  if (energy.kwh == null || coverage + 1e-8 < minimumCoverage) fail('Insufficient recorded-power coverage. Review the configured minimum; gaps are not extrapolated.');
   const quality = fixture ? 'Estimated' : 'Calculated';
   return { siteId, deviceId, fixture, generatedAt: new Date(now).toISOString(),
     period: { start: new Date(start * 1000).toISOString(), endExclusive: new Date(end * 1000).toISOString(), timezone: 'Asia/Kolkata' },

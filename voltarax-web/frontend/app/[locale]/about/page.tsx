@@ -7,7 +7,7 @@ import { useCopy } from '@/i18n/copy';
 export const generateMetadata = pageMetadata("/about", "About Voltarax", "Renewable equipment monitoring, dated inspections and maintenance records, with setup and evidence requirements.");
 export default function AboutPage() {
   const copyText = useCopy();
-  return <><Navbar/><main className="mx-auto max-w-5xl px-4 pt-28 pb-20 space-y-12">
+  return <><Navbar/><main id="main-content" tabIndex={-1} className="mx-auto max-w-5xl px-4 pt-28 pb-20 space-y-12">
     <section className="space-y-5"><h1 className="text-4xl font-bold text-white">{copyText("About Voltarax")}</h1>
       <p className="text-lg text-slate-300">{copyText("Voltarax is a renewable equipment monitoring project. Its software combines site readings, current-condition estimates, dated manual inspections and maintenance records.")}</p>
       <p className="text-slate-400">{copyText("Availability depends on authorized hardware and configured services. Calibration, installation reliability and field performance require separate verification.")}</p>

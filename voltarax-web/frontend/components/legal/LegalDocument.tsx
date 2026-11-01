@@ -7,7 +7,7 @@ const documents = {
   privacy: { title: 'Privacy draft', sections: [
     ['Status and operator details', 'This development draft is not an operational privacy notice or compliance certification. The legal operator, address, privacy contact, grievance process, processor locations and production retention schedule are not yet confirmed. Public collection requires a reviewed notice and working request process.'],
     ['Accounts and security', 'Account features use names, email addresses, password hashes, verification challenges, roles, site assignments and session records for registration, authentication and access control. Never send passwords or device keys in an inquiry or inspection note.'],
-    ['Inquiries and site records', 'Contact/demo forms record the details you submit for review. Authorized site functions store telemetry, device identifiers, manual observations, photos, maintenance actions and audit timestamps. Images or notes may identify people; submit only material you are authorized to provide.'],
+    ['Inquiries and site records', 'Contact/demo forms record the details you submit for review. Contact records also include the request IP address. Authorized site functions store telemetry, device identifiers, manual observations, photos, maintenance actions and audit timestamps. Images or notes may identify people; submit only material you are authorized to provide.'],
     ['Browser storage and optional services', 'The application uses a session cookie, a language-preference cookie and session storage for test checkout request keys. Optional SMTP, camera, queue and test-payment services depend on operator configuration. Razorpay Checkout is external and loads only on an explicit test-checkout action; its provider terms and data handling require review.'],
     ['Retention, requests and children', 'Production retention, deletion and backup schedules have not been approved. No automatic erasure deadline is promised. Access, correction, erasure, consent withdrawal, nomination and grievance workflows need an operational contact and review. The platform is intended for authorized site operators; age verification and guardian-consent workflows are not implemented.'],
     ['India legal review', 'Review scope includes the DPDP Act, 2023, the 2025 Rules and their phased commencement. Applicable provisions and later amendments must be checked by counsel for the actual launch date. This draft does not assert that the deployment complies with them.'],
@@ -28,7 +28,7 @@ const documents = {
 };
 export default function LegalDocument({ kind }: { kind: keyof typeof documents }) {
   const copyText = useCopy(), document = documents[kind];
-  return <><Navbar/><main className="mx-auto max-w-4xl px-4 pt-28 pb-20 space-y-8">
+  return <><Navbar/><main id="main-content" tabIndex={-1} className="mx-auto max-w-4xl px-4 pt-28 pb-20 space-y-8">
     <p className="rounded-lg border border-amber-400/50 p-4 text-amber-200">{copyText('DRAFT — legal review required')}</p>
     <h1 className="text-3xl font-bold text-white">{copyText(document.title)}</h1>
     <p className="text-sm text-slate-300">{copyText('Draft source review: 2 November 2026 (IST). Not approved for public launch.')}</p>

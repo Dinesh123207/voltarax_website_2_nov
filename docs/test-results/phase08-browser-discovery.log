@@ -1,0 +1,7 @@
+Listing tests:
+  public.spec.ts:23:5 › @public 360px language switch, native cursor, keyboard skip and navigation
+  public.spec.ts:44:5 › @public clock crosses IST midnight, pauses on visibility event and has stable reduced-motion text
+  public.spec.ts:58:5 › @public prepared assistant preserves entered Hindi text and returns keyboard focus
+  public.spec.ts:68:5 › @public Hindi draft metadata, form labels and synthetic submission only
+  public.spec.ts:86:5 › @public Hindi role labels retain API values and closed mobile sidebar stays hidden
+Total: 5 tests in 1 file

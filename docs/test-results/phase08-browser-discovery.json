@@ -1,0 +1,11 @@
+{
+  "command": [
+    "npx.cmd",
+    "playwright",
+    "test",
+    "--list"
+  ],
+  "cwd": "voltarax-web/frontend",
+  "exit_code": 0,
+  "seconds": 3.18
+}

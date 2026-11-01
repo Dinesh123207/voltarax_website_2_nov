@@ -1,9 +1,10 @@
 'use client';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { Link } from '@/i18n/navigation';
 import { usePathname } from '@/i18n/navigation';
 import { Menu, X, Zap, ChevronRight } from 'lucide-react';
 import LanguageSwitcher from './LanguageSwitcher';
+import ISTClock from './ISTClock';
 import { useCopy } from '@/i18n/copy';
 
 const NAV_LINKS = [
@@ -22,6 +23,16 @@ export default function Navbar() {
   const [scrolled,  setScrolled]  = useState(false);
   const [menuOpen,  setMenuOpen]  = useState(false);
   const pathname = usePathname();
+  const navRef = useRef<HTMLElement>(null), menuRef = useRef<HTMLDivElement>(null), toggleRef = useRef<HTMLButtonElement>(null);
+
+  useEffect(() => {
+    if (!menuOpen) return;
+    menuRef.current?.querySelector<HTMLAnchorElement>('a')?.focus();
+    const key = (event: KeyboardEvent) => { if (event.key === 'Escape') { setMenuOpen(false); toggleRef.current?.focus(); } };
+    const focus = (event: FocusEvent) => { if (!navRef.current?.contains(event.target as Node) && !menuRef.current?.contains(event.target as Node)) setMenuOpen(false); };
+    document.addEventListener('keydown', key); document.addEventListener('focusin', focus);
+    return () => { document.removeEventListener('keydown', key); document.removeEventListener('focusin', focus); };
+  }, [menuOpen]);
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 20);
@@ -31,7 +42,7 @@ export default function Navbar() {
 
   return (
     <>
-      <nav
+      <nav ref={navRef} aria-label={copyText('Primary navigation')}
         className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
           scrolled
             ? 'bg-[#0a0f0d]/90 backdrop-blur-xl border-b border-green-900/30 shadow-lg shadow-black/20'
@@ -48,7 +59,7 @@ export default function Navbar() {
               </div>
               <div>
                 <span className="font-bold text-white text-lg tracking-tight">{copyText("Voltarax")}</span>
-                <div className="text-[10px] text-green-500 font-mono leading-none">
+                <div className="hidden min-[420px]:block text-[10px] text-green-500 font-mono leading-none">
                   {c('Powering a Sustainable Future')}
                 </div>
               </div>
@@ -60,6 +71,7 @@ export default function Navbar() {
                 <Link
                   key={link.href}
                   href={link.href}
+                  aria-current={pathname === link.href ? 'page' : undefined}
                   className={`px-3.5 py-2 rounded-lg text-sm font-medium transition-all ${
                     pathname === link.href
                       ? 'text-green-400 bg-green-500/10'
@@ -87,20 +99,23 @@ export default function Navbar() {
             <LanguageSwitcher />
             {/* Mobile menu toggle */}
             <button
+              ref={toggleRef}
               onClick={() => setMenuOpen(!menuOpen)}
               className="xl:hidden p-2 text-slate-400 hover:text-white"
               aria-label={c(menuOpen ? 'Close navigation' : 'Open navigation')}
               aria-expanded={menuOpen}
+              aria-controls="public-mobile-menu"
             >
               {copyText(menuOpen ? <X size={22} /> : <Menu size={22} />)}
             </button>
           </div>
+          <div className="flex justify-end pb-2"><ISTClock /></div>
         </div>
       </nav>
 
       {/* Mobile menu */}
       {menuOpen && (
-        <div className="fixed inset-0 z-40 bg-[#0a0f0d]/98 backdrop-blur-xl pt-16 xl:hidden">
+        <div id="public-mobile-menu" ref={menuRef} role="navigation" aria-label={copyText('Mobile navigation')} className="fixed inset-0 z-40 bg-[#0a0f0d]/98 backdrop-blur-xl pt-24 overflow-y-auto xl:hidden">
           <div className="flex flex-col gap-1 p-4">
             {NAV_LINKS.map(link => (
               <Link

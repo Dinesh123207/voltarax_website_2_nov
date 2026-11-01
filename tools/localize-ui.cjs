@@ -84,7 +84,9 @@ function analyze(file) {
       edits.push({ start: node.getStart(source), end: argument.getStart(source), value: '' }, { start: argument.end, end: node.end, value: '' });
     }
     if (ts.isStringLiteral(node)) {
-      const attribute = ts.isJsxAttribute(node.parent) ? node.parent.name.getText() : '';
+      let attributeParent = node.parent;
+      while (attributeParent && !ts.isJsxAttribute(attributeParent) && !ts.isSourceFile(attributeParent) && !ts.isFunctionLike(attributeParent)) attributeParent = attributeParent.parent;
+      const attribute = attributeParent && ts.isJsxAttribute(attributeParent) ? attributeParent.name.getText() : '';
       const literalCopy = ts.isCallExpression(node.parent) && ts.isIdentifier(node.parent.expression) && node.parent.expression.text === 'copyText' && node.parent.arguments[0] === node;
       if (!['className', 'href', 'src', 'id', 'name', 'type', 'value', 'key'].includes(attribute)) add(node.text, relative, literalCopy);
     }

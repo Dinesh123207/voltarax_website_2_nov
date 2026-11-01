@@ -107,3 +107,7 @@ PostHog is not enabled; TimescaleDB is a design reference only. Boundary GeoJSON
 - [India Code official Act listing](https://www.indiacode.nic.in/indiacode/handle/123456789/22037?view_type=browse): source location found; full PDF retrieval timed out, and the legacy MeitY Act link returned 404. Current consolidated Act/amendment review remains manual.
 - [Official Act commencement Gazette PDF, G.S.R. 843(E)](https://www.meity.gov.in/static/uploads/2025/11/c56ceae6c383460ca69577428d36828b.pdf): two pages read for phased commencement.
 - [Official 2025 Rules Gazette PDF, G.S.R. 846(E)](https://www.meity.gov.in/static/uploads/2025/11/53450e6e5dc0bfa85ebd78686cadad39.pdf): original bilingual PDF, English Rule 1 at page 24 checked. Recheck corrigenda and subsequent instruments with counsel. Product draft wording is original; no government text copied.
+
+### Phase 8 browser/PDF references
+- [Playwright official browser configuration](https://playwright.dev/docs/browsers#google-chrome--microsoft-edge): isolated installed Edge channel, not a user's normal profile. Registry confirmed @playwright/test 1.64.1, Apache-2.0, Node >=20. Downloaded reference LICENSE read in full; exact dev dependency installed with its notices, no source copied. Actual browser checks are pending the Phase 8 gate.
+- [PDFKit official text/font documentation](https://pdfkit.org/docs/text.html): reviewed for base-font and embedding limits. Current original receipt renderer uses explicit ASCII availability; no font asset or upstream implementation copied.

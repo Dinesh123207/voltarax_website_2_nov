@@ -48,6 +48,7 @@ export default function OrderDetail({ id, admin = false }: { id: string; admin?:
       <section className="stat-card space-y-3"><h2 className="text-lg text-white font-semibold">{copyText("Test receipt / invoice")}</h2>
         {data.invoice ? <><a className="text-green-300 underline" href={'/api/commerce/orders/' + id + '/invoice.pdf'}>{copyText("Download test invoice PDF")}</a><p className="break-all text-sm text-slate-400">{copyText("SHA-256: ")}{data.invoice.sha256}</p></> : <p>{copyText("Unavailable until a verified captured-payment webhook is recorded.")}</p>}
         <p className="text-sm text-slate-400">{copyText("GST details unavailable. This is not a tax invoice or evidence of real payment.")}</p>
+        <p className="text-sm text-slate-300">{copyText('PDF receipts are English and support ASCII plan labels. Other original names remain visible in this order; the PDF marks them unavailable until reviewed font support is added.')}</p>
       </section>
       <section className="stat-card space-y-3"><h2 className="text-lg text-white font-semibold">{copyText("Refund records")}</h2>
         <p>{copyText("Confirmed test refunds: ")}{copyText(data.payment ? inr(data.payment.refundedPaise) : 'Unavailable')}</p>

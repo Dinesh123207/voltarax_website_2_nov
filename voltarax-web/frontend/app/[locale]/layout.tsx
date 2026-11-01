@@ -5,9 +5,8 @@ import { getMessages, setRequestLocale } from 'next-intl/server';
 import { notFound } from 'next/navigation';
 import { routing } from '@/i18n/routing';
 import { Toaster } from 'react-hot-toast';
-import CustomCursor from '@/components/ui/CustomCursor';
-import ParticlesBg from '@/components/ui/ParticlesBg';
 import SiteBackgroundVideo from '@/components/ui/SiteBackgroundVideo';
+import SkipToContent from '@/components/ui/SkipToContent';
 import ChatWidget from '@/components/chat/ChatWidget';
 
 export const metadata: Metadata = { title: { default: 'Voltarax', template: '%s | Voltarax' }, robots: { index: false, follow: false, noarchive: true } };
@@ -26,9 +25,8 @@ export default async function RootLayout({ children, params }: { children: React
     <html lang={locale} className="dark">
       <body className="bg-[#0a0f0d] text-slate-200 antialiased">
         <NextIntlClientProvider locale={locale} messages={messages} timeZone="Asia/Kolkata">
-        <SiteBackgroundVideo />
-        <CustomCursor />
-        <ParticlesBg />
+        <SkipToContent />
+        {process.env.NEXT_PUBLIC_BACKGROUND_VIDEO_ENABLED === 'true' && <SiteBackgroundVideo />}
         {children}
         <ChatWidget />
         <Toaster

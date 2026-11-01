@@ -9,7 +9,7 @@ const nextConfig = {
   images: { domains: ['voltarax.in'] },
   async headers() {
     const development = process.env.NODE_ENV !== 'production';
-    const csp = ["default-src 'self'", `script-src 'self' 'unsafe-inline'${development ? " 'unsafe-eval'" : ''}`, "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com", "font-src 'self' https://fonts.gstatic.com", "img-src 'self' data: blob: https://voltarax.in", "media-src 'self'", `connect-src 'self'${development ? ' ws: wss:' : ''}`, "frame-ancestors 'none'", "base-uri 'self'", "form-action 'self'", "object-src 'none'"].join('; ');
+    const csp = ["default-src 'self'", `script-src 'self' 'unsafe-inline'${development ? " 'unsafe-eval'" : ''}`, "style-src 'self' 'unsafe-inline'", "font-src 'self'", "img-src 'self' data: blob: https://voltarax.in", "media-src 'self'", `connect-src 'self'${development ? ' ws: wss:' : ''}`, "frame-ancestors 'none'", "base-uri 'self'", "form-action 'self'", "object-src 'none'"].join('; ');
     return [{ source: '/:path*', headers: [
       { key: 'Content-Security-Policy', value: csp },
       { key: 'X-Content-Type-Options', value: 'nosniff' },

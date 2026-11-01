@@ -1,11 +1,9 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap');
-
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 /* ── Custom cursor ────────────────────────────────────────────────────────── */
-*, *::before, *::after { cursor: none !important; }
+/* Native pointer/text cursors remain available on every input surface. */
 
 #cursor-dot {
   position: fixed;
@@ -44,7 +42,7 @@
   --surface2:   #172010;
   --border:     #1e3020;
   --text:       #e2e8f0;
-  --muted:      #64748b;
+  --muted:      #a8b8ca;
 }
 
 /* ── Base ────────────────────────────────────────────────────────────────────── */
@@ -53,7 +51,7 @@ html { scroll-behavior: smooth; }
 body {
   background: var(--bg);
   color: var(--text);
-  font-family: 'Inter', system-ui, sans-serif;
+  font-family: 'Segoe UI', 'Nirmala UI', system-ui, sans-serif;
   overflow-x: hidden;
 }
 
@@ -283,3 +281,21 @@ body {
   .wind-turbine-wrap { right: -48%; bottom: 0; width: 95vw; opacity: .24; }
   .renewable-hero { min-height: 720px; }
 }
+
+/* Keyboard focus, readable small text and touch targets. */
+:focus-visible { outline: 3px solid #86efac !important; outline-offset: 3px; }
+button, select, input:not([type="checkbox"]):not([type="radio"]), textarea, .btn-green, .btn-outline { min-height: 44px; }
+button { min-width: 44px; }
+button:disabled { cursor: not-allowed; }
+.text-slate-500, .text-slate-600 { color: #a8b8ca; }
+.text-green-700, .text-emerald-700 { color: #4ade80; }
+.input-field { width: 100%; padding: .65rem .85rem; border-radius: .5rem; border: 1px solid #64748b; background: #111a14; color: #e2e8f0; }
+.skip-link { position: fixed; top: .5rem; left: .5rem; z-index: 1000; padding: .8rem 1rem; background: #86efac; color: #07110b; border-radius: .5rem; transform: translateY(-200%); }
+.skip-link:focus { transform: translateY(0); }
+html[lang="hi"] [class*="tracking-"] { letter-spacing: normal; }
+body[data-page-hidden="true"] *, body[data-page-hidden="true"] *::before, body[data-page-hidden="true"] *::after { animation-play-state: paused !important; }
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; scroll-behavior: auto !important; }
+}
+html[lang="hi"] h1, html[lang="hi"] h2, html[lang="hi"] h3 { line-height: 1.35; }

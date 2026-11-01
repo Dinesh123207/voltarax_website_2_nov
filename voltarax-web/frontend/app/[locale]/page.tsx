@@ -14,7 +14,7 @@ export default function HomePage() {
     <>
       <PublicStructuredData />
       <Navbar />
-      <main className="relative z-10">
+      <main id="main-content" tabIndex={-1} className="relative z-10">
         <HeroSection />
         <WhySection />
         <CoatingSection />

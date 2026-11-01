@@ -8,6 +8,7 @@ import shutil
 import signal
 import socket
 import subprocess
+import sys
 import threading
 import time
 import urllib.request
@@ -33,7 +34,8 @@ class FakeBackend(http.server.BaseHTTPRequestHandler):
         pass
 
 
-fake = http.server.ThreadingHTTPServer(('127.0.0.1', 0), FakeBackend)
+backend_port = 38475
+fake = http.server.ThreadingHTTPServer(('127.0.0.1', backend_port), FakeBackend)
 threading.Thread(target=fake.serve_forever, daemon=True).start()
 environment = {**os.environ, 'NEXT_TELEMETRY_DISABLED': '1', 'NODE_OPTIONS': '--max-old-space-size=768',
                'BACKEND_URL': f'http://127.0.0.1:{fake.server_port}', 'SITE_URL': '',
@@ -42,6 +44,27 @@ label = os.environ.get('LOCALE_SMOKE_LABEL', 'phase08-routing')
 if not re.fullmatch('[a-z0-9-]{1,80}', label):
     raise RuntimeError('Invalid smoke-result label')
 log_path = root / f'docs/test-results/{label}-dev.log'
+
+if '--build' in sys.argv:
+    try:
+        result = subprocess.run([shutil.which('npm.cmd' if os.name == 'nt' else 'npm'), 'run', 'build'], cwd=frontend, env=environment, timeout=550)
+        if result.returncode:
+            raise RuntimeError('Frontend build failed')
+        print(json.dumps({'built_with_owned_loopback_backend': True, 'backend_port': backend_port, 'indexing': False}))
+    finally:
+        fake.shutdown()
+        fake.server_close()
+    sys.exit(0)
+
+production = os.environ.get('FRONTEND_CHECK_SERVER') == 'production'
+if production:
+    manifest = json.loads((frontend / '.next/routes-manifest.json').read_text(encoding='utf-8'))
+    rewrites = manifest['rewrites']
+    routes = rewrites if isinstance(rewrites, list) else sum(rewrites.values(), [])
+    for route in routes:
+        if route['source'] in ('/api/:path*', '/health'):
+            assert route['destination'].startswith(f'http://127.0.0.1:{backend_port}/'), 'Production rewrites were not built for the owned fixture'
+    assert sum(route['source'] in ('/api/:path*', '/health') for route in routes) == 2
 
 
 def request(path, cookie=None, binary=False):
@@ -54,7 +77,7 @@ def request(path, cookie=None, binary=False):
 
 
 with log_path.open('w', encoding='utf-8') as log:
-    process = subprocess.Popen([shutil.which('node'), str(frontend / 'node_modules/next/dist/bin/next'), 'dev', '--hostname', 'localhost', '--port', str(port)],
+    process = subprocess.Popen([shutil.which('node'), str(frontend / 'node_modules/next/dist/bin/next'), 'start' if production else 'dev', '--hostname', 'localhost', '--port', str(port)],
                                cwd=frontend, env=environment, stdout=log, stderr=subprocess.STDOUT,
                                **({'creationflags': subprocess.CREATE_NEW_PROCESS_GROUP} if os.name == 'nt' else {'start_new_session': True}))
     try:
@@ -103,10 +126,20 @@ with log_path.open('w', encoding='utf-8') as log:
         _, _, headers = request('/hi/account/orders/synthetic-routing-probe')
         assert 'checkout.razorpay.com' in headers.get('Content-Security-Policy', ''), 'Localized payment-page CSP missing'
         assert 'noindex' in headers.get('X-Robots-Tag', ''), 'Account indexing header missing'
+        _, privacy, privacy_headers = request('/hi/privacy')
+        assert 'गोपनीयता का मसौदा' in privacy and 'सार्वजनिक उपयोग के लिए स्वीकृत नहीं' in privacy
+        assert 'noindex' in privacy_headers.get('X-Robots-Tag', '')
         result = {'english_and_hindi_document_languages': True, 'hindi_navigation': True, 'hindi_about_content': True, 'hindi_home_products_technology_sustainability': True, 'locale_preference_redirect': True,
                   'api_and_health_proxy_unprefixed': True, 'localized_checkout_header': True, 'review_gated_metadata_robots_sitemap': True,
                   'localized_page_metadata': True, 'private_noindex_header': True, 'original_1200x630_png': True,
+                  'hindi_legal_draft_noindex': True,
                   'backend': 'Owned loopback synthetic fixture only', 'browser_workflow': 'Not run by this HTTP smoke test'}
+        if os.environ.get('FRONTEND_CHECK_BROWSER') == 'true':
+            browser_env = {**environment, 'E2E_BASE_URL': f'http://localhost:{port}', 'E2E_LABEL': label + '-browser'}
+            browser = subprocess.run([shutil.which('npm.cmd' if os.name == 'nt' else 'npm'), 'run', 'test:e2e:public'], cwd=frontend, env=browser_env, timeout=300)
+            if browser.returncode:
+                raise RuntimeError('Browser checks failed; inspect the saved browser result')
+            result['browser_workflow'] = 'Five local synthetic UI checks passed; no real services or backend authentication verification'
         (root / f'docs/test-results/{label}-fixture.json').write_text(json.dumps(result, indent=2) + '\n', encoding='utf-8')
         print(json.dumps(result))
     finally:

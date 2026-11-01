@@ -29,7 +29,7 @@ export default function LoginPage() {
   };
   const field = (key: keyof typeof form, label: string, type = 'text') => <label className="block text-sm text-slate-300" htmlFor={key}>{copyText(label)}<input id={key} name={key} type={type} required value={form[key]} onChange={e => setForm({ ...form, [key]: e.target.value })} autoComplete={key === 'password' ? (register ? 'new-password' : 'current-password') : key === 'code' ? 'one-time-code' : key} minLength={key === 'password' && register ? 12 : undefined} maxLength={key === 'code' ? 6 : key === 'password' ? 72 : 254} inputMode={key === 'code' ? 'numeric' : undefined} pattern={key === 'code' ? '[0-9]{6}' : undefined} className="input-dark mt-2" /></label>;
   return <div className="min-h-screen flex items-center justify-center px-4 bg-[#0a0f0d]">
-    <main className="glass rounded-2xl p-8 border border-green-500/20 w-full max-w-md space-y-5">
+    <main id="main-content" tabIndex={-1} className="glass rounded-2xl p-8 border border-green-500/20 w-full max-w-md space-y-5">
       <Link href="/" className="text-green-400 font-bold">{copyText("Voltarax")}</Link>
       <h1 className="text-2xl text-white font-bold">{copyText(verify ? 'Verify your email' : register ? 'Create an account' : 'Sign in')}</h1>
       <p className="text-sm text-slate-400">{copyText(register ? 'New accounts have viewer access. An administrator must assign your site.' : 'Use your verified email to access your account.')}</p>

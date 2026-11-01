@@ -20,8 +20,8 @@ function ContactForm() {
 
   const [form, setForm]       = useState({
     name: '', email: '', company: '', phone: '',
-    subject: isDemo ? 'Request a Live Demo' : '',
-    message: '', type: isDemo ? 'demo' : 'general',
+    subject: isDemo ? copyText('Request a Live Demo') : '',
+    message: '', type: isDemo ? 'demo' : 'general', website: '',
   });
   const [loading,  setLoading]  = useState(false);
   const [success,  setSuccess]  = useState(false);
@@ -56,7 +56,7 @@ function ContactForm() {
   return (
     <>
       <Navbar />
-      <main className="relative z-10 pt-24">
+      <main id="main-content" tabIndex={-1} className="relative z-10 pt-24">
 
         <section className="py-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-14">
@@ -127,37 +127,38 @@ function ContactForm() {
                 </div>
               ) : (
                 <form onSubmit={onSubmit} className="stat-card space-y-4">
+                  <input type="hidden" name="website" value={form.website} onChange={onChange}/>
                   <div className="grid grid-cols-2 gap-4">
                     <div>
-                      <label className="text-xs text-slate-400 font-medium mb-1.5 block">{copyText("Name *")}</label>
-                      <input name="name" value={form.name} onChange={onChange}
+                      <label htmlFor="contact-name" className="text-xs text-slate-400 font-medium mb-1.5 block">{copyText("Name *")}</label>
+                      <input id="contact-name" name="name" autoComplete="name" minLength={2} maxLength={100} value={form.name} onChange={onChange}
                         required placeholder={copyText("Your name")}
                         className="input-dark" />
                     </div>
                     <div>
-                      <label className="text-xs text-slate-400 font-medium mb-1.5 block">{copyText("Email *")}</label>
-                      <input name="email" type="email" value={form.email} onChange={onChange}
+                      <label htmlFor="contact-email" className="text-xs text-slate-400 font-medium mb-1.5 block">{copyText("Email *")}</label>
+                      <input id="contact-email" name="email" type="email" autoComplete="email" maxLength={254} value={form.email} onChange={onChange}
                         required placeholder={copyText("your@email.com")}
                         className="input-dark" />
                     </div>
                   </div>
                   <div className="grid grid-cols-2 gap-4">
                     <div>
-                      <label className="text-xs text-slate-400 font-medium mb-1.5 block">{copyText("Company")}</label>
-                      <input name="company" value={form.company} onChange={onChange}
+                      <label htmlFor="contact-company" className="text-xs text-slate-400 font-medium mb-1.5 block">{copyText("Company")}</label>
+                      <input id="contact-company" name="company" autoComplete="organization" maxLength={150} value={form.company} onChange={onChange}
                         placeholder={copyText("Company name")}
                         className="input-dark" />
                     </div>
                     <div>
-                      <label className="text-xs text-slate-400 font-medium mb-1.5 block">{copyText("Phone")}</label>
-                      <input name="phone" value={form.phone} onChange={onChange}
+                      <label htmlFor="contact-phone" className="text-xs text-slate-400 font-medium mb-1.5 block">{copyText("Phone")}</label>
+                      <input id="contact-phone" name="phone" type="tel" autoComplete="tel" maxLength={32} value={form.phone} onChange={onChange}
                         placeholder="+91 ..."
                         className="input-dark" />
                     </div>
                   </div>
                   <div>
-                    <label className="text-xs text-slate-400 font-medium mb-1.5 block">{copyText("Type")}</label>
-                    <select name="type" value={form.type} onChange={onChange}
+                    <label htmlFor="contact-type" className="text-xs text-slate-400 font-medium mb-1.5 block">{copyText("Type")}</label>
+                    <select id="contact-type" name="type" value={form.type} onChange={onChange}
                       className="input-dark">
                       <option value="general">{copyText("General Inquiry")}</option>
                       <option value="demo">{copyText("Live Demo Request")}</option>
@@ -166,14 +167,14 @@ function ContactForm() {
                     </select>
                   </div>
                   <div>
-                    <label className="text-xs text-slate-400 font-medium mb-1.5 block">{copyText("Subject *")}</label>
-                    <input name="subject" value={form.subject} onChange={onChange}
+                    <label htmlFor="contact-subject" className="text-xs text-slate-400 font-medium mb-1.5 block">{copyText("Subject *")}</label>
+                    <input id="contact-subject" name="subject" maxLength={200} value={form.subject} onChange={onChange}
                       required placeholder={copyText("How can we help?")}
                       className="input-dark" />
                   </div>
                   <div>
-                    <label className="text-xs text-slate-400 font-medium mb-1.5 block">{copyText("Message *")}</label>
-                    <textarea name="message" value={form.message} onChange={onChange}
+                    <label htmlFor="contact-message" className="text-xs text-slate-400 font-medium mb-1.5 block">{copyText("Message *")}</label>
+                    <textarea id="contact-message" name="message" minLength={isDemo ? undefined : 10} maxLength={2000} value={form.message} onChange={onChange}
                       required rows={5}
                       placeholder={copyText(isDemo
                         ? 'Tell us about your solar installation, panel count, and what you\'d like to see in the demo...'

@@ -28,7 +28,7 @@ export default function SustainabilityPage() {
   return (
     <>
       <Navbar />
-      <main className="relative z-10 pt-24">
+      <main id="main-content" tabIndex={-1} className="relative z-10 pt-24">
 
         {/* Hero */}
         <section className="py-20 relative overflow-hidden">

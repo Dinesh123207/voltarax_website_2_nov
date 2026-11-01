@@ -5,6 +5,7 @@ import { usePathname, useRouter } from '@/i18n/navigation';
 import DataQualityBadge from '@/components/ui/DataQualityBadge';
 import type { DataQuality } from '@/components/ui/DataQualityBadge';
 import ISTClock from '@/components/ui/ISTClock';
+import LanguageSwitcher from '@/components/ui/LanguageSwitcher';
 import { useCopy } from '@/i18n/copy';
 import {
   Zap, LayoutDashboard, Sun, Bell, Wrench,
@@ -71,8 +72,8 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
       {/* Sidebar */}
       {copyText(sessionMessage && <p role="alert" className="fixed bottom-2 right-2 z-50 bg-slate-900 p-3 text-white">{copyText(sessionMessage)}</p>)}
       <aside className={`fixed inset-y-0 left-0 z-40 w-60 bg-[#111a14] border-r border-green-900/20 flex flex-col transition-transform duration-300 ${
-        sideOpen ? 'translate-x-0' : '-translate-x-full'
-      } lg:translate-x-0`}>
+        sideOpen ? 'translate-x-0 visible' : '-translate-x-full invisible'
+      } lg:translate-x-0 lg:visible`}>
 
         {/* Logo */}
         <div className="h-14 flex items-center gap-2.5 px-4 border-b border-green-900/20">
@@ -86,11 +87,12 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
         </div>
 
         {/* Nav */}
-        <nav className="flex-1 overflow-y-auto py-3 px-2 space-y-0.5">
+        <nav aria-label={copyText('Dashboard navigation')} className="flex-1 overflow-y-auto py-3 px-2 space-y-0.5">
           {NAV.filter(item => item.href !== '/dashboard/commerce' || user.role === 'admin').map(({ label, href, icon: Icon }) => (
             <Link
               key={href}
               href={href}
+              aria-current={pathname === href ? 'page' : undefined}
               onClick={() => setSideOpen(false)}
               className={`nav-link ${pathname === href ? 'active' : ''}`}
             >
@@ -112,7 +114,7 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
               <div className="text-white text-xs font-semibold truncate">{user?.name || 'Account'}</div>
               <div className="text-slate-500 text-[10px] truncate">{copyText(user?.role || 'Unavailable')}</div>
             </div>
-            <button onClick={logout} className="p-1.5 text-slate-500 hover:text-red-400 transition-colors rounded">
+            <button onClick={logout} aria-label={copyText('Sign out')} className="p-1.5 text-slate-500 hover:text-red-400 transition-colors rounded">
               <LogOut size={14} />
             </button>
           </div>
@@ -131,7 +133,7 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
       <div className="flex-1 lg:ml-60 flex flex-col min-h-screen">
 
         {/* Top bar */}
-        <header className="h-14 bg-[#111a14]/80 backdrop-blur border-b border-green-900/20 flex items-center gap-3 px-4 sticky top-0 z-20">
+        <header className="min-h-14 py-2 bg-[#111a14]/80 backdrop-blur border-b border-green-900/20 flex items-center gap-3 px-4 sticky top-0 z-20">
           <button
             onClick={() => setSideOpen(!sideOpen)}
             aria-label={c(sideOpen ? 'Close dashboard navigation' : 'Open dashboard navigation')}
@@ -150,7 +152,8 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
             </span>
           </div>
 
-          <div className="ml-auto flex items-center gap-3">
+          <div className="ml-auto flex flex-wrap items-center justify-end gap-2">
+            <LanguageSwitcher />
             <ISTClock />
             <div className="hidden md:flex items-center gap-2 text-xs text-green-600 font-mono">
               {copyText(testMode && <span className="text-amber-300">{c('Test data')}</span>)}
@@ -160,7 +163,7 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
         </header>
 
         {/* Page content */}
-        <main className="flex-1 p-4 sm:p-6 overflow-auto">
+        <main id="main-content" tabIndex={-1} className="flex-1 p-4 sm:p-6 overflow-auto">
           <div className="mb-4 flex flex-wrap items-center gap-2 text-xs text-slate-400">
             <span>{c('Section data:')}</span><DataQualityBadge quality={sectionQuality} />
             <span>{c('Individual readings are labelled where their quality differs. Missing data is unavailable.')}</span>

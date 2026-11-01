@@ -31,8 +31,8 @@ module.exports = {
         },
       },
       fontFamily: {
-        sans: ['Inter', 'system-ui', 'sans-serif'],
-        mono: ['JetBrains Mono', 'Fira Code', 'monospace'],
+        sans: ['Segoe UI', 'Nirmala UI', 'system-ui', 'sans-serif'],
+        mono: ['Consolas', 'Nirmala UI', 'monospace'],
       },
       animation: {
         'float':       'float 6s ease-in-out infinite',

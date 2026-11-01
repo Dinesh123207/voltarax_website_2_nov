@@ -1,0 +1,15 @@
+✔ valid browser signature is only a hint; verified capture atomically creates one payment/invoice under replay (7064.3472ms)
+✔ signed mismatched amounts and unconfirmed events cannot mark an order paid (2455.237ms)
+✔ out-of-order refunds retry, manual requests do not move funds and signed refunds have no second effect (2209.4847ms)
+✔ receipt-based test reconciliation binds an uncertain order but never invents payment confirmation (1855.9638ms)
+✔ reports enforce valid IST periods, coverage, real-data policy and explicit factor provenance (2.1527ms)
+✔ synthetic report layout is generated as an explicitly marked two-page test fixture (149.5026ms)
+✔ report snapshots persist in SQL, preserve hash and enforce site isolation (4724.6668ms)
+ℹ tests 7
+ℹ suites 0
+ℹ pass 7
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 21163.727

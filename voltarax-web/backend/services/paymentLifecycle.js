@@ -72,7 +72,7 @@ function createLifecycle({ db, env, policy, audit, order, fail, fetchRemoteOrder
         const now = new Date(), id = randomUUID();
         const evidence = { id: `TEST-${id}`, mode: 'test', orderId: row.id, userId: row.userId, gatewayOrderId: row.gatewayOrderId,
           paymentId: entity.id, planName: row.planSnapshot.name, amountPaise: row.amountPaise, currency: 'INR', confirmedAt: now.toISOString(),
-          gst: null, dataQuality: 'Calculated', notice: 'Test transaction only; no real funds, tax invoice or fulfilment established.' };
+          gst: null, dataQuality: 'Calculated', pdfLanguage: 'en', pdfTextPolicy: 'ascii-only-v1', notice: 'Test transaction only; no real funds, tax invoice or fulfilment established.' };
         const pdf = await renderInvoice(evidence);
         await tx.insert(s.commercePayments).values({ id: entity.id, orderId: row.id, amountPaise: row.amountPaise, currency: 'INR', capturedAt: now });
         await tx.insert(s.commerceInvoices).values({ id, orderId: row.id, evidence, pdfBase64: pdf.toString('base64'), sha256: createHash('sha256').update(pdf).digest('hex'), createdAt: now });
