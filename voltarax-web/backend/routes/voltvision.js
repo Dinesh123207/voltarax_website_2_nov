@@ -1,5 +1,5 @@
 const express = require('express');
-const { protect, requireAdmin } = require('../middleware/auth');
+const { protect, requireAdmin, requireOperator } = require('../middleware/auth');
 const { periodStartsIST, integrateKwh } = require('../services/energy');
 const { dashboard, panels, latest } = require('../services/dashboardData');
 const { getAiForecast, getAiAnomaly, getAiHealth, getAiStatus } = require('../services/aiPredictions');
@@ -34,7 +34,7 @@ router.get('/alerts', protect, async (req, res) => {
   } catch (err) { res.status(500).json({ success: false, message: 'Alert data unavailable.' }); }
 });
 
-router.put('/alerts/:id/resolve', protect, async (req, res) => res.status(501).json({ success: false, message: 'Persistent alert resolution is not connected yet.' }));
+router.put('/alerts/:id/resolve', protect, requireOperator, async (req, res) => res.status(501).json({ success: false, message: 'Persistent alert resolution is not connected yet.' }));
 
 router.get('/forecast', protect, async (req, res) => {
   try {
@@ -93,7 +93,7 @@ router.get('/bfci', protect, async (req, res) => res.json([]));
 router.get('/bfci/shap/:id', protect, async (req, res) => res.json({ shap: {}, dataQuality: 'unavailable' }));
 router.get('/cv', protect, async (req, res) => res.json([]));
 router.get('/cv/summary', protect, async (req, res) => res.json({ total_panels: 0, counts: { clean: 0, dusty: 0, cracked: 0, bio_degraded: 0 }, note: 'Connect ESP32-CAM / CV pipeline to populate inspections.' }));
-router.post('/cv/scan', protect, async (req, res) => res.json({ success: false, message: 'Camera/CV pipeline is not connected yet.' }));
+router.post('/cv/scan', protect, requireOperator, async (req, res) => res.status(501).json({ success: false, message: 'Camera/CV pipeline is not connected yet.' }));
 
 router.get('/relay', protect, async (req, res) => res.json({ battery_on: null, load_on: null, grid_export: null, spare_on: null, reason: 'Relay hardware not connected', commanded_by: 'system', commanded_at: null, source: 'not-connected' }));
 router.get('/relay/history', protect, async (req, res) => res.json([]));
@@ -112,11 +112,11 @@ router.get('/carbon', protect, async (req, res) => {
   } catch (err) { res.status(500).json({ success:false,message:'Carbon analytics unavailable.'}); }
 });
 router.get('/carbon/monthly', protect, async (req,res)=>res.json({ months: [] }));
-router.post('/carbon/report', protect, async (req,res)=>res.json({success:false,message:'ESG report generation is coming soon.'}));
+router.post('/carbon/report', protect, requireOperator, async (req,res)=>res.status(501).json({success:false,message:'ESG report generation is coming soon.'}));
 
 router.get('/work-orders', protect, async (req,res)=>res.json([]));
-router.put('/work-orders/:id', protect, async (req,res)=>res.json({success:false,message:'Work orders require a maintenance workflow to be connected.'}));
-router.patch('/work-orders/:id', protect, async (req,res)=>res.json({success:false,message:'Work orders require a maintenance workflow to be connected.'}));
+router.put('/work-orders/:id', protect, requireOperator, async (req,res)=>res.status(501).json({success:false,message:'Work orders require a maintenance workflow to be connected.'}));
+router.patch('/work-orders/:id', protect, requireOperator, async (req,res)=>res.status(501).json({success:false,message:'Work orders require a maintenance workflow to be connected.'}));
 router.get('/users', protect, requireAdmin, async (req,res)=>{
   try { const User=require('../models/User'); const users=await User.find({}, {password:0,resetToken:0,resetTokenExpiry:0}).lean(); res.json({data:users}); }
   catch(err){res.status(500).json({success:false,message:'Users unavailable.'});}

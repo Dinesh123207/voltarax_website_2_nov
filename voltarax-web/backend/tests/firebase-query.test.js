@@ -17,4 +17,9 @@ test('timestamp range is pushed to Firebase without limiting before site filteri
   const rows = await new FirebaseModel('history').find({ site_id: 'a', ts: { $gte: 15, $lte: 40 } }).sort({ ts: -1 }).limit(1);
   assert.deepEqual(rows.map(r => r.ts), [30]);
   assert.deepEqual(calls, [['orderByChild', 'ts'], ['startAt', 15], ['endAt', 40]]);
+  let written;
+  ref.get = async () => ({ exists: () => true, val: () => ({ email: 'a@example.com', isActive: false }) });
+  ref.set = async value => { written = value; };
+  await new FirebaseModel('subscribers').findOneAndUpdate({ _id: 'a' }, { isActive: true });
+  assert.equal(written.isActive, true);
 });

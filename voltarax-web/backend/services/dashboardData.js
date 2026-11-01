@@ -1,6 +1,7 @@
 const SolarTelemetry = require('../models/SolarTelemetry');
 const SolarAnalysis = require('../models/SolarAnalysis');
 const { periodStartsIST, integrateKwh } = require('./energy');
+const { QUALITY, qualityOf } = require('./dataQuality');
 
 const SITE_ID = process.env.SOLAR_SITE_ID || 'solar_site';
 const n = (v, d = 0) => Number.isFinite(Number(v)) ? Number(v) : d;
@@ -28,7 +29,7 @@ async function dashboard() {
   const warning = stale ? 0 : health >= 80 ? 0 : health >= 50 ? panelCount - optimal : Math.round(panelCount * 0.5);
   const critical = stale ? 0 : health < 50 ? panelCount - optimal - warning : 0;
 
-  return {
+  const result = {
     current_power_kw: currentPower == null ? null : Number(currentPower.toFixed(3)),
     daily_generation_kwh: today.length < 2 ? null : Number(dailyKwh.toFixed(3)),
     battery_soc_pct: null,
@@ -45,6 +46,17 @@ async function dashboard() {
     last_seen: isoFromTs(reading?.ts),
     source: 'firebase-realtime-database',
   };
+  result.quality = {
+    current_power_kw: qualityOf(result.current_power_kw, QUALITY.CALCULATED),
+    daily_generation_kwh: qualityOf(result.daily_generation_kwh, QUALITY.CALCULATED),
+    battery_soc_pct: qualityOf(result.battery_soc_pct, QUALITY.MEASURED),
+    bfci_score_avg: qualityOf(result.bfci_score_avg, QUALITY.CALCULATED),
+    system_efficiency_pct: qualityOf(result.system_efficiency_pct, QUALITY.ESTIMATED),
+    panel_temp_avg_c: qualityOf(result.panel_temp_avg_c, QUALITY.MEASURED),
+    co2_offset_today_kg: qualityOf(result.co2_offset_today_kg, QUALITY.ESTIMATED),
+    active_alerts: qualityOf(result.active_alerts, QUALITY.CALCULATED),
+  };
+  return result;
 }
 
 async function panels() {

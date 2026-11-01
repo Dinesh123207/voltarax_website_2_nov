@@ -59,6 +59,11 @@ class FirebaseModel {
   }
   async _filtered(filter = {}, ops = []) {
     const entries = Object.entries(filter);
+    if (filter[this.idField] != null && typeof filter[this.idField] !== 'object') {
+      const id = String(filter[this.idField]);
+      const snap = await this.ref(id).get();
+      return snap.exists() ? [{ [this.idField]: id, ...snap.val() }] : [];
+    }
     const range = entries.find(([, v]) => v && typeof v === 'object' && !Array.isArray(v));
     const equality = entries.find(([, v]) => v == null || typeof v !== 'object');
     const chosen = range || equality;

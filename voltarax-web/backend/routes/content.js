@@ -53,10 +53,10 @@ router.post('/subscribe', [
   try {
     const exists = await Subscriber.findOne({ email: req.body.email });
     if (exists) {
-      if (!exists.isActive) { exists.isActive = true; await exists.save(); }
+      if (!exists.isActive) await Subscriber.findOneAndUpdate({ _id: exists._id }, { isActive: true });
       return res.json({ success: true, message: 'Already subscribed!' });
     }
-    await Subscriber.create({ email: req.body.email, source: req.body.source || 'landing' });
+    await Subscriber.create({ email: req.body.email, source: req.body.source || 'landing', isActive: true });
     res.status(201).json({ success: true, message: 'Subscribed successfully!' });
   } catch (err) {
     res.status(500).json({ success: false, message: 'Server error.' });

@@ -2,6 +2,10 @@
 
 ## 2026-11-01: In-place mode change
 
+- [FOUND] The 2026-11-01 autopilot request supersedes the prior instruction to wait between phases. Continue through the roadmap while recording gates, blocked external work, and `docs/PROGRESS.md`.
+- [FOUND] The official Next.js advisories list vulnerable ranges containing 14.x and patched releases in 15.5.x or newer; an in-place major-version upgrade is required for those fixes. Sources: https://github.com/vercel/next.js/security/advisories/GHSA-q4gf-8mx6-v5v3 and https://github.com/advisories/GHSA-2464-fhr4-w9xw (accessed 2026-11-01). Verify the upgrade and current audit, not just the version number.
+- [FOUND] Archive extraction deliberately omits symbolic links for safety. The first extraction pass stopped at such a link; a second pass skips them and retains existing extracted files without deleting anything.
+
 - [FOUND] The user's Phase 1 prompt supersedes the earlier `app/` rebuild, read-only legacy and PostgreSQL telemetry assumptions. `voltarax-web/` is the active codebase; Firebase, Express, Next.js, NodeMCU and Python components remain in use.
 - [FOUND] The template is a UI pattern reference only. PostgreSQL/Drizzle are deferred to relational features; existing authentication will be extended, with email OTP and Hindi/English in later phases.
 - [FOUND] The user explicitly authorized a local baseline commit on `main`, a baseline tag and then a phase branch, after secret scanning. No remote push is authorized.
@@ -12,7 +16,7 @@
 - [FOUND] Alert resolution is not persistent; the API now reports it unavailable and the dashboard action is disabled. The carbon report endpoint now reports that generation is coming soon.
 - [ASSUMED] Energy integration holds the previous recorded power for at most 15 minutes and clips intervals at IST period boundaries and the present instant. It does not extrapolate beyond the latest pair of readings. This retains the legacy gap cap and avoids inventing extended production.
 - [FOUND] Installed Next.js 14.2.5 emitted a security-vulnerability warning during dependency installation. Verify and upgrade to a patched, compatible release in the security phase before deployment.
-- [FOUND] The subscriber reactivation branch calls `.save()` on a plain Firebase model result, which has no such method, and new subscribers do not explicitly receive `isActive`. This remains to be fixed and tested. See `backend/routes/content.js` and `backend/services/firebaseModel.js`.
+- [FOUND] The subscriber reactivation branch previously called `.save()` on a plain Firebase model result and new subscribers did not explicitly receive `isActive`. It now uses an ID-based update and marks new subscribers active; isolated route and repository tests passed. See `backend/routes/content.js` and `backend/services/firebaseModel.js`.
 - [FOUND] If a trained AI prediction fails, the orchestrator records an error without replacing the prior published result. The API now rejects old or undated model results, but the orchestrator still needs explicit failure publication; fresh results may predate an intervening failed run.
 - [ASSUMED] AI results expire after two hours by default (`AI_MAX_AGE_SECONDS=7200`), allowing for the documented hourly schedule. Deployments using a different schedule must configure an appropriate age; this is not model validation.
 - [FOUND] An incomplete bridge payload previously defaulted sensor health to true and could yield a healthy score. Missing power/light readings now make the health result unavailable; absent sensor flags remain unknown.

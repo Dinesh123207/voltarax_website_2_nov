@@ -31,4 +31,11 @@ test('admin-only endpoint rejects unauthenticated and viewer requests', async t 
     const token = jwt.sign({ id: role }, process.env.JWT_SECRET);
     assert.equal((await fetch(url, { headers: { Authorization: `Bearer ${token}` } })).status, expected);
   }
+  for (const [method, path] of [['PUT', '/alerts/1/resolve'], ['POST', '/cv/scan'], ['POST', '/carbon/report'], ['PUT', '/work-orders/1'], ['PATCH', '/work-orders/1']]) {
+    assert.equal((await fetch(url.replace('/users', path), { method })).status, 401);
+    for (const [role, expected] of [['viewer', 403], ['operator', 501], ['admin', 501]]) {
+      const token = jwt.sign({ id: role }, process.env.JWT_SECRET);
+      assert.equal((await fetch(url.replace('/users', path), { method, headers: { Authorization: `Bearer ${token}` } })).status, expected);
+    }
+  }
 });

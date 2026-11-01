@@ -4,6 +4,7 @@ const SolarTelemetry = require('../models/SolarTelemetry');
 const SolarAnalysis = require('../models/SolarAnalysis');
 const { saveAnalysis } = require('../services/solarAnalytics');
 const { protect } = require('../middleware/auth');
+const { QUALITY, qualityOf } = require('../services/dataQuality');
 
 const router = express.Router();
 const SITE_ID = process.env.SOLAR_SITE_ID || 'solar_site';
@@ -75,7 +76,8 @@ router.get('/latest', protect, async (req, res) => {
   try {
     const latest = await require('../services/firebaseModel').db.ref('/solar_site/latest').get().then(s => s.exists() ? s.val() : null);
     const analysis = await SolarAnalysis.findOne({ site_id: SITE_ID }).lean();
-    res.json({ success: true, latest: latest || null, analysis: analysis || null, site_id: SITE_ID });
+    res.json({ success: true, latest: latest || null, analysis: analysis || null, site_id: SITE_ID,
+      quality: { latest: qualityOf(latest, QUALITY.MEASURED), analysis: qualityOf(analysis, QUALITY.CALCULATED) } });
   } catch (err) { res.status(500).json({ success: false, message: 'Unable to read telemetry.' }); }
 });
 
@@ -83,14 +85,16 @@ router.get('/history', protect, async (req, res) => {
   try {
     const limit = Math.min(Math.max(Number(req.query.limit) || 100, 1), 1000);
     const rows = await SolarTelemetry.find({ site_id: SITE_ID }).sort({ ts: -1 }).limit(limit).lean();
-    res.json({ success: true, history: rows.reverse(), count: rows.length, site_id: SITE_ID });
+    res.json({ success: true, history: rows.reverse(), count: rows.length, site_id: SITE_ID,
+      quality: { history: rows.length ? QUALITY.MEASURED : QUALITY.UNAVAILABLE, count: QUALITY.CALCULATED } });
   } catch (err) { res.status(500).json({ success: false, message: 'Unable to read telemetry history.' }); }
 });
 
 router.get('/analysis', protect, async (req, res) => {
   try {
     const analysis = await SolarAnalysis.findOne({ site_id: SITE_ID }).lean();
-    res.json({ success: true, analysis: analysis || null, site_id: SITE_ID });
+    res.json({ success: true, analysis: analysis || null, site_id: SITE_ID,
+      quality: { analysis: qualityOf(analysis, QUALITY.CALCULATED) } });
   } catch (err) { res.status(500).json({ success: false, message: 'Unable to read analysis.' }); }
 });
 
