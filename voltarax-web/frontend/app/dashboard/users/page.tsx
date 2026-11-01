@@ -96,8 +96,8 @@ export default function UsersPage() {
                 </td>
               </tr>
             ) : users.map(u => (
-              <tr key={u.id} className="border-b border-green-900/10 hover:bg-green-500/3 transition-colors">
-                <td className="py-2.5 px-3 text-slate-600 text-xs font-mono">#{u.id}</td>
+              <tr key={u._id} className="border-b border-green-900/10 hover:bg-green-500/3 transition-colors">
+                <td className="py-2.5 px-3 text-slate-600 text-xs font-mono">#{u._id}</td>
                 <td className="py-2.5 px-3 text-slate-200 text-sm font-semibold">{u.name}</td>
                 <td className="py-2.5 px-3 text-slate-400 text-xs font-mono">{u.email}</td>
                 <td className="py-2.5 px-3">
@@ -106,9 +106,9 @@ export default function UsersPage() {
                   </span>
                 </td>
                 <td className="py-2.5 px-3">
-                  <div className={`flex items-center gap-1.5 text-xs ${u.is_active ? 'text-green-400' : 'text-slate-600'}`}>
-                    <div className={`w-1.5 h-1.5 rounded-full ${u.is_active ? 'bg-green-500' : 'bg-slate-600'}`} />
-                    {u.is_active ? 'Active' : 'Inactive'}
+                  <div className={`flex items-center gap-1.5 text-xs ${u.isActive ? 'text-green-400' : 'text-slate-600'}`}>
+                    <div className={`w-1.5 h-1.5 rounded-full ${u.isActive ? 'bg-green-500' : 'bg-slate-600'}`} />
+                    {u.isActive == null ? 'Unavailable' : u.isActive ? 'Active' : 'Inactive'}
                   </div>
                 </td>
                 <td className="py-2.5 px-3 text-xs text-slate-500">

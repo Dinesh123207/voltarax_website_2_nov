@@ -9,12 +9,12 @@ export const metadata: Metadata = {
 };
 
 const MODULES = [
-  { icon: Brain,       title: 'Coating intelligence',  desc: 'Tracks the condition of the bio-fluorescent coating over time so it is refreshed at the right moment — not too early, not too late.' },
-  { icon: Eye,         title: 'Visual inspection',     desc: 'Camera-based checks identify dust, physical damage and coating problems across the array and estimate the impact on output.' },
-  { icon: TrendingUp,  title: 'Generation forecasting', desc: 'Predicts output from hours to a week ahead using weather and site conditions, supporting better planning.' },
-  { icon: ShieldAlert, title: 'Predictive maintenance', desc: 'Watches for abnormal behaviour on every panel and raises alerts before small faults become outages.' },
-  { icon: Boxes,       title: 'Digital twin',          desc: 'A virtual replica of the installation for testing operating strategies without risk to the real system.' },
-  { icon: Cpu,         title: 'Adaptive control',      desc: 'Decides how energy is stored, used or exported to reduce wastage and improve efficiency.' },
+  { icon: Brain,       title: 'Coating intelligence',  desc: 'Coming soon: coating condition tracking requires dedicated measurements.' },
+  { icon: Eye,         title: 'Visual inspection',     desc: 'Coming soon: web-based camera inspection is not connected.' },
+  { icon: TrendingUp,  title: 'Generation forecasting', desc: 'Current-condition estimates are available when sufficient telemetry exists; weather-ahead forecasts are not yet connected.' },
+  { icon: ShieldAlert, title: 'Predictive maintenance', desc: 'Site-level sensor rules and anomaly detection can flag unusual readings; per-panel fault prediction is not yet connected.' },
+  { icon: Boxes,       title: 'Digital twin',          desc: 'Coming soon: digital twin.' },
+  { icon: Cpu,         title: 'Adaptive control',      desc: 'Coming soon: automated energy control.' },
 ];
 
 export default function TechnologyPage() {
@@ -29,7 +29,7 @@ export default function TechnologyPage() {
               AI built for <span className="gradient-text">bio-coated solar</span>
             </h1>
             <p className="text-slate-500 max-w-2xl mx-auto">
-              Sensors and cameras on every panel feed models that run on site and in the cloud, turning raw readings into forecasts, alerts and decisions.
+              Site-level sensor readings can inform monitoring and estimates. Individual-panel sensing, camera inspection and automated control are planned.
             </p>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">

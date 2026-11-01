@@ -54,7 +54,7 @@ export default function WorkOrdersPage() {
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
         <div>
           <h1 className="text-2xl font-bold text-white">Work Orders</h1>
-          <p className="text-slate-500 text-sm mt-0.5">Maintenance tickets from Voltarax</p>
+          <p className="text-slate-500 text-sm mt-0.5">Work-order workflow is not connected · Coming soon</p>
         </div>
         <div className="flex gap-2">
           <a href={`/api/work-orders`} target="_blank" rel="noopener noreferrer"
@@ -109,7 +109,7 @@ export default function WorkOrdersPage() {
               <tr>
                 <td colSpan={7} className="text-center py-14">
                   <CheckCircle size={36} className="text-green-500/30 mx-auto mb-3" />
-                  <div className="text-slate-600 text-sm">No {filter} work orders</div>
+                  <div className="text-slate-600 text-sm">Work orders are unavailable · Coming soon</div>
                 </td>
               </tr>
             ) : orders.map(o => (

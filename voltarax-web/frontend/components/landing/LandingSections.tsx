@@ -45,7 +45,7 @@ export function CoatingSection() {
   const STEPS = [
     { n: '01', title: 'Collect & process', text: 'Fruit-peel waste is dried and processed into a fluorescent material.' },
     { n: '02', title: 'Formulate & coat',  text: 'The material is formulated into a coating and applied to the panel surface.' },
-    { n: '03', title: 'Sense & monitor',   text: 'Sensors and AI follow coating condition so upkeep happens when it is needed.' },
+    { n: '03', title: 'Sense & monitor',   text: 'Coating monitoring is planned and requires additional measurements.' },
   ];
   return (
     <section id="coating" className="relative py-28 bg-[#111a14]/40">
@@ -71,19 +71,19 @@ export function CoatingSection() {
 /* 3 ── Eight AI capabilities ──────────────────────────────────────────────── */
 export function CapabilitiesSection() {
   const CAPS = [
-    { icon: TrendingUp, title: 'Generation forecasting', text: 'Predicts solar output from hours to weeks ahead.' },
-    { icon: Zap,        title: 'Energy optimisation',    text: 'Decides whether to store, use or export power.' },
-    { icon: ShieldAlert,title: 'Predictive maintenance', text: 'Flags abnormal behaviour before it becomes an outage.' },
+    { icon: TrendingUp, title: 'Generation forecasting', text: 'Provides a current-condition estimate; weather-ahead forecasts are planned.' },
+    { icon: Zap,        title: 'Energy optimisation',    text: 'Coming soon: energy dispatch control.' },
+    { icon: ShieldAlert,title: 'Predictive maintenance', text: 'Site-level sensor rules and anomaly detection flag unusual readings.' },
     { icon: Activity,   title: 'Environmental monitoring', text: 'Temperature, humidity, light and air quality in one picture.' },
-    { icon: Eye,        title: 'Computer vision',        text: 'Camera checks for dust, damage and coating problems.' },
-    { icon: Boxes,      title: 'Digital twin',           text: 'A virtual replica for testing strategies risk-free.' },
-    { icon: Cpu,        title: 'Autonomous control',     text: 'Adaptive control of charging and dispatch.' },
-    { icon: Leaf,       title: 'Carbon analytics',       text: 'Turns generation into CO₂ offset and ESG reports.' },
+    { icon: Eye,        title: 'Computer vision',        text: 'Coming soon: camera inspection.' },
+    { icon: Boxes,      title: 'Digital twin',           text: 'Coming soon: a virtual replica.' },
+    { icon: Cpu,        title: 'Autonomous control',     text: 'Coming soon: automated relay control.' },
+    { icon: Leaf,       title: 'Carbon analytics',       text: 'Estimates CO₂ offset from readings; ESG reports are coming soon.' },
   ];
   return (
     <section id="ai" className="relative py-28 bg-[#0a0f0d]">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <Heading tag="AI capabilities" title="Eight jobs," accent="one always-on system" sub="Models running on site and in the cloud turn raw readings into forecasts, alerts and decisions." />
+        <Heading tag="AI capabilities" title="Monitoring and" accent="planned capabilities" sub="Current site-level monitoring and planned features are shown below." />
         <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
           {CAPS.map(({ icon: Icon, title, text }, i) => (
             <div key={title} className="stat-card group relative overflow-hidden">
@@ -109,10 +109,10 @@ export function CapabilitiesSection() {
 /* 4 ── How it works ───────────────────────────────────────────────────────── */
 export function HowItWorksSection() {
   const LAYERS = [
-    { icon: Radio,           name: 'Sense',     title: 'Sensors and cameras on every panel', text: 'Electrical, thermal, environmental and optical readings collected continuously.' },
-    { icon: Server,          name: 'Edge',      title: 'On-site intelligence',               text: 'Time-critical checks run locally, so the system keeps working without a constant connection.' },
+    { icon: Radio,           name: 'Sense',     title: 'Site-level sensors', text: 'Site-level electrical and environmental readings can be collected from connected hardware.' },
+    { icon: Server,          name: 'Edge',      title: 'On-site display',                    text: 'The Raspberry Pi reference dashboard can analyze readings fetched from the API.' },
     { icon: Cloud,           name: 'Cloud',     title: 'Analytics and model improvement',    text: 'History is stored and models keep improving as more data builds up.' },
-    { icon: LayoutDashboard, name: 'Dashboard', title: 'One view for operators',             text: 'Role-based access to forecasts, alerts, panel health and sustainability reports.' },
+    { icon: LayoutDashboard, name: 'Dashboard', title: 'One view for operators',             text: 'Access telemetry, calculated health and estimates; additional features are planned.' },
   ];
   return (
     <section id="how" className="relative py-28 bg-[#111a14]/40">

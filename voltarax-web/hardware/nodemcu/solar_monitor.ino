@@ -16,13 +16,8 @@
 #include <DHT.h>
 #include <Firebase_ESP_Client.h>
 #include <addons/TokenHelper.h>
+#include "secrets.h"
 
-#define WIFI_SSID "YOUR_WIFI"
-#define WIFI_PASSWORD "YOUR_WIFI_PASSWORD"
-#define API_KEY "YOUR_FIREBASE_WEB_API_KEY"
-#define DATABASE_URL "https://YOUR-PROJECT-default-rtdb.firebaseio.com"
-#define USER_EMAIL "device@voltarax.in"
-#define USER_PASSWORD "YOUR_DEVICE_FIREBASE_PASSWORD"
 #define DEVICE_ID "nodemcu-01"
 #define SITE_ID "solar_site"
 

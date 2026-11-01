@@ -6,8 +6,8 @@ import WindTurbineBackdrop from './WindTurbineBackdrop';
 
 const STATS = [
   { value: '32', label: 'Pilot panels', icon: Zap },
-  { value: '8', label: 'AI capabilities', icon: Brain },
-  { value: '24/7', label: 'Monitoring', icon: Activity },
+  { value: 'AI', label: 'Analysis under validation', icon: Brain },
+  { value: 'IoT', label: 'Sensor telemetry', icon: Activity },
   { value: 'Bio', label: 'Waste-derived coating', icon: Leaf },
 ];
 const PHRASES = ['BioSolar Intelligence.', 'Smarter Clean Energy.', 'AI for Renewable Power.', 'A Sustainable Future.'];
@@ -60,7 +60,7 @@ export default function HeroSection() {
             </p>
             <p className="text-slate-400 text-base sm:text-lg max-w-2xl leading-relaxed mb-9">
               Voltarax combines bio-fluorescent solar technology with AI-powered monitoring,
-              forecasting and inspection to help renewable assets produce more from every ray of sunlight.
+              and estimates from sensor data. Camera inspection and automated control are planned.
             </p>
 
             <div className="flex flex-col sm:flex-row gap-3 mb-12">

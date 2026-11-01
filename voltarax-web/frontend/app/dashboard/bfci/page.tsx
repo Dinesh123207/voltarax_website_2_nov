@@ -39,7 +39,7 @@ export default function BFCIPage() {
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
         <div>
           <h1 className="text-2xl font-bold text-white">BFCI — Bio-Coating Intelligence</h1>
-          <p className="text-slate-500 text-sm mt-0.5">Coating health monitoring</p>
+          <p className="text-slate-500 text-sm mt-0.5">Coating health monitoring is not connected · Coming soon</p>
         </div>
         <div className="flex gap-2">
           <a href={`/api/bfci`} target="_blank" rel="noopener noreferrer"
@@ -54,10 +54,10 @@ export default function BFCIPage() {
       {/* Fleet KPIs */}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
         {[
-          { label:'Fleet Avg BFCI', value: avg.toFixed(1), unit:'%', color:'text-green-400' },
-          { label:'Good (≥75%)',    value: good,    unit:'panels', color:'text-green-400' },
-          { label:'Warning (<75%)', value: warning, unit:'panels', color:'text-amber-400' },
-          { label:'Critical (<65%)',value: critical,unit:'panels', color:'text-red-400' },
+          { label:'Fleet Avg BFCI', value: fleet.length ? avg.toFixed(1) : "—", unit:'%', color:'text-green-400' },
+          { label:'Good (≥75%)',    value: fleet.length ? good : '—',    unit:'panels', color:'text-green-400' },
+          { label:'Warning (<75%)', value: fleet.length ? warning : '—', unit:'panels', color:'text-amber-400' },
+          { label:'Critical (<65%)',value: fleet.length ? critical : '—',unit:'panels', color:'text-red-400' },
         ].map(k => (
           <div key={k.label} className="stat-card">
             <div className="text-xs text-slate-500 mb-1">{k.label}</div>

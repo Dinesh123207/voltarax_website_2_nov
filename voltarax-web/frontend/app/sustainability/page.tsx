@@ -20,7 +20,7 @@ const SDGs = [
   { num: '7',  title: 'Affordable Clean Energy',      desc: 'AI optimisation maximises every watt of solar generation' },
   { num: '9',  title: 'Industry, Innovation',         desc: 'Deeptech for renewable energy infrastructure' },
   { num: '11', title: 'Sustainable Cities',           desc: 'Smart solar management for urban and peri-urban sites' },
-  { num: '13', title: 'Climate Action',               desc: 'Real-time CO₂ offset tracking and ESG reporting' },
+  { num: '13', title: 'Climate Action',               desc: 'Estimated CO₂ offset; ESG reporting is planned' },
   { num: '17', title: 'Partnerships for Goals',       desc: 'Collaboration with research institutions and solar developers' },
 ];
 
@@ -28,7 +28,7 @@ const BIO_COATING = [
   'Made from fruit-peel waste — a natural UV absorber',
   'Converts UV light into visible light the cells can use',
   'Bio-degradable, non-toxic and locally sourced',
-  'AI tracks coating condition so it is refreshed only when needed',
+  'Coating condition monitoring is planned',
 ];
 
 export default function SustainabilityPage() {
@@ -46,8 +46,8 @@ export default function SustainabilityPage() {
               Powering a <span className="gradient-text">Greener India</span>
             </h1>
             <p className="text-slate-400 text-lg max-w-2xl mx-auto">
-              Every VoltVision-managed panel is monitored, optimised, and carbon-tracked
-              in real time. We don't just generate clean energy — we prove it.
+              VoltVision is designed to monitor site telemetry and estimate carbon impact
+              when real readings are available.
             </p>
           </div>
         </section>
@@ -78,14 +78,14 @@ export default function SustainabilityPage() {
                 <p className="text-slate-400 leading-relaxed mb-6">
                   VoltVision AI calculates CO₂ offset in real time using India's
                   Central Electricity Authority emission factor (0.82 kg CO₂/kWh, 2024).
-                  Every kWh generated is logged, every kilogram of CO₂ avoided is tracked.
+                  The estimate uses available telemetry and a configurable factor.
                 </p>
                 <div className="space-y-3">
                   {[
-                    'Live CO₂ offset per 30-second reading interval',
-                    'Daily / monthly / annual ESG report generation',
-                    'Trees equivalent calculation (21.77 kg CO₂/tree/year)',
-                    'Grid savings in ₹ at current electricity tariff',
+                    'Estimated CO₂ offset based on available readings',
+                    'ESG report generation coming soon',
+                    'Illustrative tree equivalent; methodology requires validation',
+                    'Illustrative grid savings using an assumed tariff',
                     'API endpoint: /api/carbon for direct integration',
                   ].map((item, i) => (
                     <div key={i} className="flex items-center gap-3 text-sm text-slate-300">
@@ -160,9 +160,9 @@ export default function SustainabilityPage() {
                 abundantly available in Rajasthan — acting as a natural UV absorber. Fully biodegradable. Zero toxic chemicals.
               </p>
               <p className="text-slate-400 leading-relaxed mb-6">
-                Our AI monitors coating health,
-                predicting when recoating is needed — eliminating both
-                premature recoating waste and efficiency-loss from overdue coats.
+                Coating health monitoring is planned,
+                with the goal of supporting recoating decisions. This does not yet eliminate
+                premature recoating waste or efficiency loss.
               </p>
               <Link href="/technology" className="btn-green text-sm py-2.5 px-5">
                 BFCI Technology Deep Dive <ChevronRight size={14} />

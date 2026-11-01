@@ -65,7 +65,7 @@ export default function PanelsPage() {
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
         <div>
           <h1 className="text-2xl font-bold text-white">Panel Management</h1>
-          <p className="text-slate-500 text-sm mt-0.5">32 panels · Rows A–D · Live from Voltarax hardware gateway</p>
+          <p className="text-slate-500 text-sm mt-0.5">Estimated from site-level reading (power divided across configured panel count). Individual panels are not measured.</p>
         </div>
         <div className="flex items-center gap-2">
           <a href={`/api/panels`} target="_blank" rel="noopener noreferrer"

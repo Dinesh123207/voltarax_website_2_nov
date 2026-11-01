@@ -89,7 +89,7 @@ export default function AlertsPage() {
             <CheckCircle size={40} className="text-green-500 mx-auto mb-3" />
             <div className="text-white font-semibold">No {sevFilter !== 'all' ? sevFilter+' ' : ''}alerts</div>
             <div className="text-slate-500 text-sm mt-1">
-              {resolved ? 'No resolved alerts found' : 'System is running clean'}
+              {resolved ? 'No resolved alerts found' : 'No alerts available for the current analysis'}
             </div>
           </div>
         ) : displayed.map(alert => {
@@ -121,13 +121,13 @@ export default function AlertsPage() {
                 </div>
                 <p className="text-slate-300 text-sm leading-relaxed">{alert.message}</p>
                 <div className="text-slate-600 text-xs mt-1">
-                  {new Date(alert.created_at).toLocaleString('en-IN')}
+                  {new Date(Number(alert.created_at) * 1000).toLocaleString('en-IN', { timeZone: 'Asia/Kolkata' })}
                 </div>
               </div>
               {!alert.resolved && (
-                <button onClick={() => resolve(alert.id)}
+                <button disabled
                   className="btn-outline py-1.5 px-3 text-xs flex-shrink-0">
-                  Resolve
+                  Resolution coming soon
                 </button>
               )}
               {alert.resolved && (

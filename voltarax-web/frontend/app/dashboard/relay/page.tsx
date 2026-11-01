@@ -34,7 +34,7 @@ export default function RelayPage() {
       <div className="flex items-center justify-between">
         <div>
           <h1 className="text-2xl font-bold text-white">Energy Management Relay</h1>
-          <p className="text-slate-500 text-sm mt-0.5">4-channel relay · AI-EMS controlled · MQTT → ESP32</p>
+          <p className="text-slate-500 text-sm mt-0.5">Relay control is not connected · Coming soon</p>
         </div>
         <div className="flex gap-2">
           <a href={`/api/relay`} target="_blank" rel="noopener noreferrer"
@@ -52,7 +52,7 @@ export default function RelayPage() {
           <div className="flex items-center gap-2 mb-5">
             <Battery size={15} className="text-blue-400" />
             <div className="text-sm font-semibold text-white">Current Relay State</div>
-            {state && <div className="live-dot ml-auto" />}
+            {state && state.source !== 'not-connected' && <div className="live-dot ml-auto" />}
           </div>
           {loading ? (
             <div className="space-y-3">
@@ -75,9 +75,9 @@ export default function RelayPage() {
                       <div className="text-slate-600 text-xs font-mono">{gpio}</div>
                     </div>
                     <div className="flex items-center gap-2">
-                      <Dot on={on} />
+                      {on != null && <Dot on={on} />}
                       <span className={`text-xs font-mono font-bold ${on ? 'text-green-400' : 'text-slate-600'}`}>
-                        {on ? 'ON' : 'OFF'}
+                        {on == null ? 'Unavailable' : on ? 'ON' : 'OFF'}
                       </span>
                     </div>
                   </div>
@@ -139,13 +139,7 @@ export default function RelayPage() {
       {/* Info card */}
       <div className="stat-card border border-green-500/10 bg-green-500/3">
         <div className="text-xs text-green-600 font-mono font-bold mb-2">HARDWARE NOTE</div>
-        <p className="text-slate-400 text-sm leading-relaxed">
-          Relay commands are sent via MQTT topic{' '}
-          <code className="text-green-500 font-mono bg-green-500/10 px-1 rounded">voltarax/control/relay</code>{' '}
-          and executed by the ESP32 firmware on GPIO pins 25, 26, 27, 14.
-          The AI-EMS (Bio-State RL agent) autonomously manages relay state based on
-          BFCI score, battery SoC, and irradiance forecast.
-        </p>
+        <p className="text-slate-400 text-sm leading-relaxed">Relay hardware and automated control are not connected yet. Coming soon.</p>
       </div>
     </div>
   );

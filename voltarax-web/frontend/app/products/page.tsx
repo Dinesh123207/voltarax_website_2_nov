@@ -10,10 +10,10 @@ export const metadata: Metadata = {
 };
 
 const PRODUCTS = [
-  { icon: LayoutDashboard, title: 'VoltVision dashboard', desc: 'One view of panel health, forecasts, alerts, work orders and energy flow, with role-based access for operators and viewers.' },
-  { icon: Sun,             title: 'Bio-coating solution',  desc: 'A fruit-peel-waste fluorescent coating that turns UV light into usable visible light, supported by AI-guided upkeep.' },
-  { icon: Bell,            title: 'Alerts and maintenance', desc: 'Early warnings and work orders so cleaning and repairs happen when they matter.' },
-  { icon: Leaf,            title: 'Carbon reporting',      desc: 'Converts generation into CO₂ offset and sustainability figures for reporting.' },
+  { icon: LayoutDashboard, title: 'VoltVision dashboard', desc: 'Site-level telemetry, calculated health and estimated generation, with planned work orders and energy flow.' },
+  { icon: Sun,             title: 'Bio-coating solution',  desc: 'A fruit-peel-waste fluorescent coating that turns UV light into usable visible light, with coating monitoring planned.' },
+  { icon: Bell,            title: 'Alerts and maintenance', desc: 'Site-level warnings are available; persistent work orders are coming soon.' },
+  { icon: Leaf,            title: 'Carbon reporting',      desc: 'Calculates an estimated CO₂ offset from available generation data; downloadable reports are coming soon.' },
 ];
 
 export default function ProductsPage() {

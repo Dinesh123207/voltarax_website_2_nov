@@ -41,6 +41,7 @@ export default function ForecastPage() {
           <button onClick={load} disabled={loading} className="btn-green py-2 px-3 text-xs disabled:opacity-60"><RefreshCw size={12} className={loading?'animate-spin':''}/> Refresh</button>
         </div>
       </div>
+      <p className="text-sm text-amber-300">Estimate from current conditions, not a weather-ahead forecast. Confidence values are fixed assumptions, not measured model confidence.</p>
 
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
         {loading ? Array.from({length:4}).map((_,i) => <div key={i} className="stat-card"><div className="shimmer h-16 rounded"/></div>)
@@ -64,7 +65,7 @@ export default function ForecastPage() {
       {/* Hourly bar chart (CSS only) */}
       {hourly.length > 0 && (
         <div className="stat-card">
-          <div className="text-sm font-semibold text-white mb-4">Hourly Generation Profile — Today</div>
+          <div className="text-sm font-semibold text-white mb-4">Recent hourly averages · Calculated from readings</div>
           <div className="flex items-end gap-0.5 h-32">
             {hourly.map((h: any) => {
               const maxKw = Math.max(...hourly.map((x:any) => x.kw));
@@ -93,7 +94,7 @@ export default function ForecastPage() {
       {!data && !loading && (
         <div className="ai-placeholder">
           <TrendingUp size={32} className="text-green-500/40"/>
-          <div className="text-white font-semibold">LSTM Forecast</div>
+          <div className="text-white font-semibold">Forecast unavailable</div>
           <div className="text-slate-600 text-sm">Collect hardware telemetry to enable AI forecasting</div>
           <a href={`/api/forecast`} target="_blank" rel="noopener noreferrer" className="btn-outline py-2 px-4 text-xs mt-2">Try API directly</a>
         </div>

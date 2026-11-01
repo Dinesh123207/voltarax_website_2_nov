@@ -31,7 +31,7 @@ export const metadata: Metadata = {
   twitter: {
     card:        'summary_large_image',
     title:       'Voltarax — AI-Integrated BioSolar Energy Platform',
-    description: 'India\'s first AI-powered BioSolar platform.',
+    description: 'Solar monitoring and energy estimates.',
   },
 };
 

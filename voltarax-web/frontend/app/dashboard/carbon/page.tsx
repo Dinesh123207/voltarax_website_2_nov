@@ -17,7 +17,7 @@ export default function CarbonPage() {
         fetch(`/api/carbon`,           { headers: h }).then(r => r.json()),
         fetch(`/api/carbon/monthly?months=6`, { headers: h }).then(r => r.json()),
       ]);
-      setData(c);
+      setData(c?.success === false ? null : c);
       setMonthly(Array.isArray(m) ? m : (m?.months || []));
     } catch {}
     finally { setLoading(false); }
@@ -40,7 +40,7 @@ export default function CarbonPage() {
       <div className="flex items-center justify-between">
         <div>
           <h1 className="text-2xl font-bold text-white">Carbon Impact Analytics</h1>
-          <p className="text-slate-500 text-sm mt-0.5">India CEA 2024 · 0.82 kg CO₂/kWh · Real-time tracking</p>
+          <p className="text-slate-500 text-sm mt-0.5">Estimated from generation and the configured grid factor</p>
         </div>
         <div className="flex gap-2">
           <a href={`/api/carbon`} target="_blank" rel="noopener noreferrer"

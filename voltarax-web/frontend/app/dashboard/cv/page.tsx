@@ -28,7 +28,7 @@ export default function CVPage() {
         fetch(`/api/cv/summary`, { headers: h }).then(r => r.json()),
       ]);
       setDetections(Array.isArray(d) ? d : []);
-      setSummary(s?.counts ? s : { total_panels: s?.total ?? 0, counts: { clean: s?.clean ?? 0, dusty: s?.dusty ?? 0, cracked: s?.cracked ?? 0, bio_degraded: s?.bio_degraded ?? 0 } });
+      setSummary(s?.note ? null : s?.counts ? s : null);
     } catch {}
     finally { setLoading(false); }
   };
@@ -57,7 +57,7 @@ export default function CVPage() {
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
         <div>
           <h1 className="text-2xl font-bold text-white">Computer Vision Inspection</h1>
-          <p className="text-slate-500 text-sm mt-0.5">Visual inspection · 4 condition classes</p>
+          <p className="text-slate-500 text-sm mt-0.5">Camera inspection is not connected · Coming soon</p>
         </div>
         <div className="flex gap-2">
           <a href={`/api/cv/summary`} target="_blank" rel="noopener noreferrer" className="btn-outline py-2 px-3 text-xs"><ExternalLink size={12}/> API</a>
@@ -83,7 +83,7 @@ export default function CVPage() {
             <div className="text-xs text-slate-500 mb-1">{k.label}</div>
             <div className={`text-xl font-counter font-bold ${k.color}`}>{k.value}</div>
           </div>
-        )) : Array.from({length:6}).map((_,i) => <div key={i} className="stat-card"><div className="shimmer h-12 rounded"/></div>)}
+        )) : loading ? Array.from({length:6}).map((_,i) => <div key={i} className="stat-card"><div className="shimmer h-12 rounded"/></div>) : <div className="stat-card col-span-full text-slate-400">Inspection data unavailable. Coming soon.</div>}
       </div>
 
       <div className="flex gap-2 flex-wrap">
@@ -99,7 +99,7 @@ export default function CVPage() {
       <div className="stat-card overflow-auto">
         <div className="flex items-center justify-between mb-4">
           <div className="text-sm font-semibold text-white">CV Detections</div>
-          <div className="text-xs text-slate-600 font-mono">conf threshold ≥85%</div>
+          <div className="text-xs text-slate-600 font-mono">Inspection not connected</div>
         </div>
         <table className="w-full min-w-[540px]">
           <thead>
