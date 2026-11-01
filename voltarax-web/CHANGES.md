@@ -1,5 +1,7 @@
 # Changes in this build
 
+> Historical notes below describe earlier versions and may not match the current implementation. For current configuration and verification see the root `docs/DEPLOY.md`, `docs/BUILD_PLAN.md`, and the actual source.
+
 ## Chatbot (React/TypeScript + Node/Express, adapted from the Polaris chat widget pattern)
 - `frontend/components/chat/ChatWidget.tsx` — floating button + chat panel, typing indicator, quick-reply chips, voice input. Mounted once in `app/layout.tsx`.
   - public pages: answers via `POST {NEXT_PUBLIC_API_URL}/api/chat`

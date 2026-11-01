@@ -23,12 +23,12 @@ The guide also specifies:
 
 ## Device configuration
 
-1. Deploy the backend on your GoDaddy server.
-2. Set `HARDWARE_API_KEY` in `backend/.env`.
-3. Set the same key in `hardware/nodemcu/solar_monitor.ino`.
-4. Set `API_HOST` to `https://your-domain.com`.
-5. Flash the NodeMCU.
-6. Log in to `/dashboard` and watch the live telemetry.
+1. Create a dedicated Firebase device account and configure its UID in your local rules deployment copy.
+2. Copy `nodemcu/secrets.example.h` to `nodemcu/secrets.h` and fill in Wi-Fi and Firebase device details locally. Never commit the populated file.
+3. Install the libraries listed in `../backend/README-FIREBASE.md`, compile and flash the NodeMCU.
+4. Configure and start the backend and frontend, then log in to the dashboard to inspect readings.
+
+`HARDWARE_API_KEY` applies only to the optional HTTP bridge; the supplied NodeMCU firmware writes directly to Firebase and does not use that key or an `API_HOST` setting. See `../../docs/DEPLOY.md`.
 
 The dashboard reads the same-origin API. There is no Render/onrender dependency.
 

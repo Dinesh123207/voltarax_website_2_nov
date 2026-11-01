@@ -17,6 +17,10 @@
 
 Preserve Firebase and hardware data, use real measurements or clear unavailable states, and proceed to a later phase only when instructed.
 
+### Phase 1 status
+
+In progress. A local baseline and phase branch exist. Source text files have been read in chunks and inventoried. Admin enforcement, IST energy calculations, selected honesty fixes, firmware secret separation, and indexed Firebase filters have been implemented. Remaining acceptance work includes a complete claims and route audit, consistently bounded queries without losing site-filter semantics, complete measured/estimated/calculated/unavailable labels, test coverage of the remaining behavior, and firmware/Firebase integration verification. See `DECISIONS.md` for limits. Do not treat Phase 1 as complete while those items remain open.
+
 Date: 2026-11-01. Phase 0 audit. Details, source conflicts, and limitations are in `DECISIONS.md`. This plan is internal and must not publish the contents of the internal project reference.
 
 ## Current system

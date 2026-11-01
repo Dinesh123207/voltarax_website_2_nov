@@ -60,7 +60,7 @@ Install these Arduino libraries:
 - DHT sensor library
 - Adafruit Unified Sensor
 
-Edit `hardware/nodemcu/solar_monitor.ino`:
+Copy `hardware/nodemcu/secrets.example.h` to `hardware/nodemcu/secrets.h` and configure locally:
 
 - `WIFI_SSID`
 - `WIFI_PASSWORD`

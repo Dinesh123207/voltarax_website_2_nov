@@ -21,3 +21,5 @@ secrets.h
 *.pfx
 reference/
 *.zip
+firebase.local.json
+firebase.local.rules.json

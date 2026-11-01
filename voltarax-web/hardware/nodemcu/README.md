@@ -14,7 +14,7 @@ Install:
 
 ## Configure
 
-Edit the constants at the top of `solar_monitor.ino`:
+Copy `secrets.example.h` to `secrets.h`, then edit the local `secrets.h` values:
 
 - `WIFI_SSID`
 - `WIFI_PASSWORD`
