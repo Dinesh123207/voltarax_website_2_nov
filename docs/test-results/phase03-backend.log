@@ -1,0 +1,43 @@
+
+> voltarax-backend@2.0.0 test
+> node --test tests/*.test.js
+
+✔ account lifecycle verifies email, scopes sites, rejects elevation and revokes cookie/native sessions (3153.4483ms)
+✔ stale or undated AI output is unavailable (4.8923ms)
+✔ analysis excludes another site even when its legacy value is newer (14.7972ms)
+✔ admin-only endpoint rejects unauthenticated and viewer requests (6843.2059ms)
+✔ bootstrap is explicitly enabled, once only and never creates a verified/default account (13.9168ms)
+✔ stale or missing telemetry never becomes current zero power or offline panel counts (19.7033ms)
+✔ missing values are unavailable and valid zero values retain their quality (2.7068ms)
+✔ nested API values receive quality without treating missing readings as zero (3.5365ms)
+✔ response annotation honors record redaction and labels empty array responses (3.1305ms)
+✔ ingest is idempotent, rejects conflicting replay/time skew and never rolls latest back (8.2347ms)
+✔ device registry hashes one-time keys, rejects duplicate registration, rotates and disables credentials (16.6599ms)
+✔ period starts follow India time across month and year boundaries (6.9126ms)
+✔ integrates milliwatts over seconds, clips periods and caps stale gaps (0.7724ms)
+✔ timestamp range is pushed to Firebase without limiting before site filtering (23.9564ms)
+✔ HTTP boundary enforces origins, headers, validation, safe errors and scoped rate limits without logging inputs (2271.9992ms)
+✔ React Email renders both formats and mail defaults to disabled (407.8893ms)
+✔ offline migration is site scoped, preserves keys and is repeatable (4.6783ms)
+✔ OTP is six digits, hashed at rest and consumed exactly once under concurrency (21.6231ms)
+✔ OTP expires after ten minutes, enforces five attempts and throttles resends (1.5077ms)
+✔ verification is purpose bound and never accepts an absent challenge (0.5045ms)
+✔ relay defaults disabled, serializes commands and requires a matching acknowledgement (6.1403ms)
+✔ late/mismatched/missing acknowledgements never become an applied command (1.4563ms)
+✔ a server-timestamped acknowledgement received before the deadline survives a later reconciliation (0.6821ms)
+✔ simulator defaults to marked synthetic data and cannot send to production/unconfirmed targets (8.7633ms)
+✔ missing essential readings cannot result in a healthy score (2.9549ms)
+✔ new and inactive subscribers are persisted as active (988.6462ms)
+✔ pages past other sites, merges old and new history, and keeps tied timestamps (57.4346ms)
+✔ writes one atomic compatibility update and validates site paths (4.3061ms)
+✔ migration marker disables legacy reads only for that site (5.1838ms)
+✔ primary device filtering pages past secondary rows before applying a limit (0.9393ms)
+✔ user repository reserves a normalized email once and atomically revokes sessions with sensitive changes (6427.3019ms)
+ℹ tests 31
+ℹ suites 0
+ℹ pass 31
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 28328.8638

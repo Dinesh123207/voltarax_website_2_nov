@@ -1,3 +1,4 @@
+const { transact } = require('./firebaseTransaction');
 const { randomBytes } = require('node:crypto');
 function createRelayService({ store, registry, audit, enabled = false, now = Date.now, makeId = () => randomBytes(16).toString('hex') }) {
   const seconds = () => Math.floor(now() / 1000);
@@ -58,10 +59,10 @@ function getRelayService() {
     const { db } = require('../config/firebase');
     service = createRelayService({ enabled: process.env.RELAY_CONTROL_ENABLED === 'true', registry: require('./devices').getRegistry(), audit: require('./auditLog').audit, store: {
       get: async id => (await db.ref(`relayCommands/${id}`).get()).val(),
-      transaction: async (id, update) => { const r = await db.ref(`relayCommands/${id}`).transaction(update); return { committed: r.committed, value: r.snapshot.val() }; },
+      transaction: async (id, update) => { const r = await transact(db.ref(`relayCommands/${id}`), update); return { committed: r.committed, value: r.snapshot.val() }; },
       ack: async (device, command) => (await db.ref(`relayAcks/${device}/${command}`).get()).val(),
-      putAck: async (device, command, value) => db.ref(`relayAcks/${device}/${command}`).transaction(current => current === null ? value : undefined),
-      history: async (device, command) => db.ref(`relayHistory/${device}/${command.id}`).transaction(current => current?.status !== 'pending' && current?.status && command.status === 'pending' ? undefined : command),
+      putAck: async (device, command, value) => transact(db.ref(`relayAcks/${device}/${command}`), current => current === null ? value : undefined),
+      history: async (device, command) => transact(db.ref(`relayHistory/${device}/${command.id}`), current => current?.status !== 'pending' && current?.status && command.status === 'pending' ? undefined : command),
       list: async (device, limit) => Object.values((await db.ref(`relayHistory/${device}`).orderByChild('created_at').limitToLast(limit).get()).val() || {}).reverse(),
       pending: async () => Object.keys((await db.ref('relayCommands').orderByChild('status').equalTo('pending').limitToFirst(100).get()).val() || {}),
     } });

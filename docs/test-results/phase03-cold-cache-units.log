@@ -1,0 +1,15 @@
+✔ account lifecycle verifies email, scopes sites, rejects elevation and revokes cookie/native sessions (3410.3809ms)
+✔ analysis excludes another site even when its legacy value is newer (4.0521ms)
+✔ ingest is idempotent, rejects conflicting replay/time skew and never rolls latest back (42.1897ms)
+✔ relay defaults disabled, serializes commands and requires a matching acknowledgement (5.7902ms)
+✔ late/mismatched/missing acknowledgements never become an applied command (1.8437ms)
+✔ a server-timestamped acknowledgement received before the deadline survives a later reconciliation (0.8256ms)
+✔ user repository reserves a normalized email once and atomically revokes sessions with sensitive changes (19052.0812ms)
+ℹ tests 7
+ℹ suites 0
+ℹ pass 7
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 28529.0056

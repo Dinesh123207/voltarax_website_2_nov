@@ -1,0 +1,13 @@
+
+> voltarax-backend@2.0.0 test:device-emulator
+> firebase emulators:exec --only database --project demo-voltarax --config ../firebase.test.json "node --test tests/device-emulator.test.cjs"
+
+i  emulators: Starting emulators: database
+i  emulators: Detected demo project ID "demo-voltarax", emulated services will use a demo configuration and attempts to access non-emulated services for this project will fail.
+i  database: Database Emulator logging to database-debug.log
+i  emulators: Shutting down emulators.
+i  database: Stopping Database Emulator
+!  Database Emulator has exited upon receiving signal: SIGINT
+i  hub: Stopping emulator hub
+
+Error: TIMEOUT: Port 9000 on 127.0.0.1 was not active within 60000ms

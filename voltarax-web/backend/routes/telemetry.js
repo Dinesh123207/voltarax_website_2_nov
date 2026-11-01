@@ -20,7 +20,7 @@ const measurements = {
   dust_ugm3: z.number().min(0).max(1e6).optional(), rssi: z.number().int().min(-150).max(0).optional(), uptime_s: z.number().int().min(0).optional(),
 };
 const schema = validate({ body: z.object({ ...measurements, ts: z.number().int().positive().optional(),
-  device_id: z.string().regex(/^[A-Za-z0-9_-]{1,64}$/).optional(), site_id: z.string().regex(/^[A-Za-z0-9_-]{1,64}$/).optional(), firmware_version: z.string().min(1).max(64).optional(), device_key: z.string().max(256).optional(),
+  device_id: z.string().regex(/^[A-Za-z0-9_-]{1,64}$/).optional(), site_id: z.string().regex(/^[A-Za-z0-9_-]{1,64}$/).optional(), firmware_version: z.string().min(1).max(64).optional(), simulated: z.boolean().optional(), device_key: z.string().max(256).optional(),
   sensors_ok: z.object({ ina219: z.boolean().optional(), bh1750: z.boolean().optional(), dht11: z.boolean().optional(), dust: z.boolean().optional() }).strict().optional(),
 }).strict().refine(data => ['voltage_v', 'current_ma', 'power_mw', 'light_lux', 'temp_c', 'humidity_pct', 'dust_ugm3'].some(k => data[k] !== undefined) || Object.values(data.sensors_ok || {}).includes(false)) });
 
@@ -38,12 +38,14 @@ function cleanPayload(body, device) {
   out.device_id = device.device_id;
   out.site_id = device.site_id;
   if (body.firmware_version) out.firmware_version = body.firmware_version;
+  if (body.simulated === true) out.simulated = true;
   return out;
 }
 
 // POST /api/telemetry/ingest — ESP8266/other hardware writes here.
 router.post('/ingest', deviceAuth, schema, async (req, res) => {
   try {
+    if (req.body.simulated && !require('../config/testMode').simulatorAllowed()) return res.status(403).json({ success: false, message: 'Synthetic data is restricted to the enabled localhost demo emulator.' });
     if (req.device.site_id !== SITE_ID || (req.body.device_id && req.body.device_id !== req.device.device_id) || (req.body.site_id && req.body.site_id !== req.device.site_id)) return res.status(422).json({ success: false, message: 'Device identity does not match its credential.' });
     if (!req.device.legacy && !req.body.ts) return res.status(422).json({ success: false, message: 'Device timestamp is required.' });
     const result = await ingestReading(cleanPayload(req.body, req.device));

@@ -1,3 +1,4 @@
+const { transact } = require('../services/firebaseTransaction');
 const { db, clone } = require('../services/firebaseModel');
 const { validSite } = require('../services/telemetryRepository');
 const DEFAULT_SITE = process.env.SOLAR_SITE_ID || 'solar_site';
@@ -28,11 +29,11 @@ const SolarAnalysis = {
     for (const [k,v] of Object.entries(update || {})) if (!k.startsWith('$')) next[k] = v;
     const value = clone(next); const stamp = String(value.ts || Date.now());
     const advance = previous => previous && Number(previous.ts) > Number(value.ts) ? undefined : value;
-    const result = await db.ref(`sites/${site}/analysis`).transaction(advance);
+    const result = await transact(db.ref(`sites/${site}/analysis`), advance);
     if (!result.committed) return clone(result.snapshot.val());
     await db.ref().update({ [`sites/${site}/analysis_history/${stamp}`]: value,
       ...(site === 'solar_site' ? { [`solar_site/analysis_history/${stamp}`]: value } : {}) });
-    if (site === 'solar_site') await db.ref('solar_site/analysis').transaction(advance);
+    if (site === 'solar_site') await transact(db.ref('solar_site/analysis'), advance);
     return clone(next);
   },
 };

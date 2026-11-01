@@ -1,0 +1,49 @@
+
+> voltarax-frontend@1.0.0 build
+> next build
+
+   ▲ Next.js 15.5.28
+   - Experiments (use with caution):
+     · cpus: 1
+
+   Creating an optimized production build ...
+ ✓ Compiled successfully in 53s
+   Linting and checking validity of types ...
+   Collecting page data ...
+   Generating static pages (0/22) ...
+   Generating static pages (5/22) 
+   Generating static pages (10/22) 
+   Generating static pages (16/22) 
+ ✓ Generating static pages (22/22)
+   Finalizing page optimization ...
+   Collecting build traces ...
+
+Route (app)                                 Size  First Load JS
+┌ ○ /                                    4.64 kB         111 kB
+├ ○ /_not-found                            995 B         104 kB
+├ ○ /about                               2.44 kB         109 kB
+├ ○ /contact                                5 kB         117 kB
+├ ○ /dashboard                            4.4 kB         107 kB
+├ ○ /dashboard/alerts                    2.68 kB         106 kB
+├ ○ /dashboard/bfci                      3.08 kB         106 kB
+├ ○ /dashboard/carbon                    3.02 kB         106 kB
+├ ○ /dashboard/cv                        2.93 kB         106 kB
+├ ○ /dashboard/devices                   2.23 kB         105 kB
+├ ○ /dashboard/forecast                  2.85 kB         106 kB
+├ ○ /dashboard/panels                    3.25 kB         106 kB
+├ ○ /dashboard/relay                     2.57 kB         105 kB
+├ ○ /dashboard/settings                  2.75 kB         106 kB
+├ ○ /dashboard/users                     3.62 kB         106 kB
+├ ○ /dashboard/work-orders               2.57 kB         105 kB
+├ ○ /login                               1.75 kB         108 kB
+├ ○ /products                            2.13 kB         108 kB
+├ ○ /sustainability                      2.13 kB         108 kB
+└ ○ /technology                          2.13 kB         108 kB
++ First Load JS shared by all             103 kB
+  ├ chunks/255-b1e2483a7e02feee.js       46.6 kB
+  ├ chunks/4bd1b696-c023c6e3521b1417.js  54.2 kB
+  └ other shared chunks (total)          1.99 kB
+
+
+○  (Static)  prerendered as static content
+

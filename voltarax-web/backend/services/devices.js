@@ -1,3 +1,4 @@
+const { transact } = require('./firebaseTransaction');
 const { randomBytes, createHash, timingSafeEqual } = require('node:crypto');
 const digest = key => createHash('sha256').update(key).digest('hex');
 const publicDevice = row => { if (!row) return null; const { keyHash, ...safe } = row; return safe; };
@@ -43,7 +44,7 @@ function getRegistry() {
     registry = createDeviceRegistry({ audit: require('./auditLog').audit, store: {
       get: async id => (await db.ref(`devices/${id}`).get()).val(),
       list: async () => { const snap = await db.ref('devices').orderByKey().limitToLast(200).get(); return Object.values(snap.val() || {}); },
-      transaction: async (id, update) => { const result = await db.ref(`devices/${id}`).transaction(update); return { committed: result.committed, value: result.snapshot.val() }; },
+      transaction: async (id, update) => { const result = await transact(db.ref(`devices/${id}`), update); return { committed: result.committed, value: result.snapshot.val() }; },
     } });
   }
   return registry;

@@ -3,7 +3,7 @@ const assert = require('node:assert/strict');
 const { createDeviceIngest } = require('../services/deviceIngest');
 test('ingest is idempotent, rejects conflicting replay/time skew and never rolls latest back', async () => {
   const values = new Map(); let failBridge = false;
-  const db = { ref: path => ({
+  const db = { ref: path => ({ on(event, listener) { queueMicrotask(listener); }, off() {},
     transaction: async update => { const current = values.get(path) ?? null; const value = update(current); if (value === undefined) return { committed: false, snapshot: { val: () => current } }; values.set(path, value); return { committed: true, snapshot: { val: () => value } }; },
     update: async updates => { if (failBridge) throw new Error('synthetic transient failure'); for (const [key, value] of Object.entries(updates)) values.set(key, value); },
   }) };

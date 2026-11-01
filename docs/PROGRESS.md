@@ -1,6 +1,6 @@
 # Autopilot progress
 
-RESUME HERE: Phase 3 — synthetic-only simulator and end-of-phase gate
+RESUME HERE: Phase 3 — final local gate after simulator, transaction and coverage corrections
 
 Status key: [ ] todo; [~] in progress; [x] done and verified as stated; [!] skipped with a reason. A phase is done only after its full gate passes.
 
@@ -39,8 +39,10 @@ Status key: [ ] todo; [~] in progress; [x] done and verified as stated; [!] skip
 - [x] Reconnect/backoff, NTP gating, sensor presence/range checks, watchdog, 12-sample history buffer, firmware version and native helpers. Placeholder-only ESP8266 compilation passed; all three native reliability tests passed. Hardware/flash/live Firebase verification remains manual.
 - [x] Dashboard freshness suppression, honest unknown panel state, dust Estimated label and missing CV counts corrected. Focused backend tests and frontend typecheck passed.
 - [x] Relay command state machine/API, administrator confirmation and target/output-bound OTP, 30-second expiry, immutable server-dated acks, scoped device policies and audit. Firmware compiles, four native tests pass, five focused backend tests and rule emulator pass; frontend typecheck/lint pass. Physical contact feedback remains Unavailable and real switching is not verified.
-- [ ] Synthetic-only simulator and hardware/operator instructions.
-- [ ] Gate and phase tag.
+- [x] Synthetic-only loopback/demo-project simulator, disabled SMTP and Estimated test-data banner. Actual local database integration passed registration/OTP/password/session revocation, device authentication/replay/order, relay acknowledgement and disable. No live credentials or hardware used.
+- [x] Fix conditional Firebase transactions on a cold SDK cache, exposed by the actual emulator (not by fakes). Seven focused regressions and the real-adapter integration passed.
+- [x] Remove remaining default panel counts, invented panel health counts, copied panel voltage/temperature and empty-history zero energy. Virtual allocation requires configured count; recorded zero remains zero; period coverage is disclosed. Eight focused tests and frontend typecheck passed.
+- [~] Final gate and phase tag. Final backend suite: 32 passed; frontend lint and final production build passed (298.03 seconds). Final separate typecheck, Python suite and production audits are running. Secret scan: 359 files, no matches. Earlier emulator CLI startup/build timeouts remain retained as failed evidence.
 
 ## Phase 4 — alerts, work orders and reports
 - [ ] PostgreSQL/Drizzle migrations, alert lifecycle, work orders and audit records.

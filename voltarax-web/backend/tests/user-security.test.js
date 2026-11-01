@@ -5,7 +5,7 @@ const clone = value => value == null ? value : JSON.parse(JSON.stringify(value))
 const snap = value => ({ val: () => clone(value), exists: () => value != null });
 const db = { ref(path) {
   let field, expected;
-  const api = {
+  const api = { on(event, listener) { queueMicrotask(listener); }, off() {},
     push: () => ({ key: `user-${sequence++}` }),
     orderByChild(key) { field = key; return this; }, equalTo(value) { expected = value; return this; }, limitToFirst() { return this; },
     get: async () => field ? snap(Object.fromEntries([...values.entries()].filter(([key, row]) => key.startsWith(path + '/') && row[field] === expected).map(([key, row]) => [key.slice(path.length + 1), row]))) : snap(values.get(path)),

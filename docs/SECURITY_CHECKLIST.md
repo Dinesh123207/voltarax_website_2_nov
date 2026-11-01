@@ -6,7 +6,7 @@
 - Before sharing any real Firebase service-account credentials, device passwords, Wi-Fi credentials, API keys, JWT secrets, SMTP credentials, or firmware `secrets.h`, keep them out of Git. **Must be rotated if ever shared** or exposed in Git history.
 - Check actual local configuration and any external repositories separately before deployment or sharing. Never paste real values into logs or issue reports.
 
-## Route access inventory (updated Phase 2)
+## Route access inventory (updated Phase 3)
 
 The dashboard router is mounted both at `/api` and `/api/voltvision`; entries below apply to both prefixes. The public health check is `/health`.
 
@@ -20,7 +20,11 @@ The dashboard router is mounted both at `/api` and `/api/voltvision`; entries be
 | POST `/api/contact`, `/api/demo`, `/api/subscribe`, `/api/chat` | None | Public form/FAQ by design; Zod, bounded inputs, endpoint throttling. |
 | GET `/api/posts`, `/api/posts/:slug` | None | Published content only. |
 | GET `/api/admin/contacts`, `/api/admin/demos`, `/api/admin/stats` | JWT | Admin. |
-| POST `/api/telemetry/ingest` | Device key | Shared key; per-device keys remain Phase 3. |
+| POST `/api/telemetry/ingest` | Registered device ID/key | Hashed key, disabled-device rejection, identity binding, timestamp bounds, replay checks. Legacy shared key requires an explicit migration flag and is pinned to configured primary identity. |
+| GET `/api/devices`, `/api/devices/:id/history` | Verified JWT | Administrator only; bounded metadata/history, no keys or hashes returned. |
+| POST `/api/devices`, `/api/devices/:id/rotate-key`; PATCH `/api/devices/:id` | Verified administrator + purpose/target-bound OTP | Registration/rotation returns plaintext key once with no-store; configuration changes audited. |
+| GET `/api/devices/:id/command`; POST `/api/devices/:id/relay-ack` | Registered device ID/key | Own identity/site only; no legacy shared-key relay access, immutable acknowledgement. |
+| POST `/api/relay/command` | Verified administrator + site access + output/device-bound OTP | Server/device permissions, explicit confirmation, 30-second expiry; intent/GPIO acknowledgement separate from physical state. |
 | GET `/api/telemetry/latest`, `/history`, `/analysis` | Verified JWT + configured-site membership | Admin global access; viewer/operator must have explicit siteIds. No query may override site. |
 | GET `/dashboard`, `/panels`, `/alerts`, `/forecast`, `/forecast/hourly`, `/ai/status`, `/bfci`, `/bfci/shap/:id`, `/cv`, `/cv/summary`, `/relay`, `/relay/history`, `/carbon`, `/carbon/monthly`, `/work-orders`, `/system`, `/health` | Verified JWT + configured-site membership | Several are unavailable stubs. Every route validates inputs; current server serves one configured site. |
 | PUT `/alerts/:id/resolve`, `/work-orders/:id`; PATCH `/work-orders/:id`; POST `/cv/scan`, `/carbon/report` | JWT | Admin or operator; currently return 501, no persistent action. |
@@ -29,3 +33,5 @@ The dashboard router is mounted both at `/api` and `/api/voltvision`; entries be
 All browser mutations with a cookie require the X-Voltarax-Request header. Exact-origin CORS rejects unapproved origins. JSON-only parsing prevents ordinary cross-origin form login. Native bearer clients remain supported. HTTPS/proxy handling must be verified on the target host.
 
 Express sessions and Firebase Authentication are separate trust systems. The web app accesses RTDB through the authorized server. Direct Firebase role-based reads require trusted custom role claims and access/{firebaseUid}/sites/{siteId}=true set by an operator; clients cannot grant either. Passwords, challenges and audit nodes deny all client reads/writes, including Firebase admin-role clients. The Admin SDK bypasses rules and depends on server checks.
+
+Simulator writes require an explicitly enabled, non-production demo project on the loopback database emulator. The CLI also verifies local API health before sending and refuses redirects. SMTP is disabled in demo mode. Tests use fake mail and generated short-lived credentials, never a real account or database.

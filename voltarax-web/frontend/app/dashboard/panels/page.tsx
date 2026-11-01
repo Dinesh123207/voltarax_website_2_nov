@@ -36,28 +36,27 @@ export default function PanelsPage() {
   const load = useCallback(async () => {
     setLoading(true);
     try {
-      const token = null;
-      const url   = `/api/panels${rowFilter !== 'all' ? `?row=${rowFilter}` : ''}`;
-      const r     = await fetch(url, {
-        headers: (token ? { 'x-voltarax-request': '1' } : {}) as Record<string, string>,
-      });
+      const url   = '/api/panels';
+      const r     = await fetch(url);
       if (r.ok) {
         const data = await r.json();
         setPanels(Array.isArray(data) ? data : []);
-      }
-    } catch { /* show empty */ }
+      } else setPanels([]);
+    } catch { setPanels([]); }
     finally { setLoading(false); }
-  }, [rowFilter]);
+  }, []);
 
   useEffect(() => { load(); }, [load]);
 
-  const filtered = filter === 'all' ? panels : panels.filter(p => p.status === filter);
+  const filtered = panels.filter(p => (filter === 'all' || p.status === filter) && (rowFilter === 'all' || p.row_label === rowFilter));
+  const rows = Array.from(new Set(panels.map(p => p.row_label)));
+  const hasPerPanelStatus = panels.length > 0 && panels.every(p => p.status !== 'unknown');
 
   const summary = {
-    optimal:  panels.filter(p => p.status === 'optimal').length,
-    warning:  panels.filter(p => p.status === 'warning').length,
-    critical: panels.filter(p => p.status === 'critical').length,
-    offline:  panels.filter(p => p.status === 'offline').length,
+    optimal:  hasPerPanelStatus ? panels.filter(p => p.status === 'optimal').length : 'Unavailable',
+    warning:  hasPerPanelStatus ? panels.filter(p => p.status === 'warning').length : 'Unavailable',
+    critical: hasPerPanelStatus ? panels.filter(p => p.status === 'critical').length : 'Unavailable',
+    offline:  hasPerPanelStatus ? panels.filter(p => p.status === 'offline').length : 'Unavailable',
   };
 
   return (
@@ -66,7 +65,7 @@ export default function PanelsPage() {
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
         <div>
           <h1 className="text-2xl font-bold text-white">Panel Management</h1>
-          <p className="text-slate-500 text-sm mt-0.5">Estimated from site-level reading (power divided across configured panel count). Individual panels are not measured.</p>
+          <p className="text-slate-500 text-sm mt-0.5">Uniform power estimate across the actual configured panel count. Display positions are virtual, not physical panel IDs. Individual measurements and fault states are Unavailable.</p>
           <DataQualityBadge quality={panels.length ? 'Estimated' : 'Unavailable'} />
         </div>
         <div className="flex items-center gap-2">
@@ -81,14 +80,15 @@ export default function PanelsPage() {
       </div>
 
       {/* Status summary */}
-      <div className="grid grid-cols-4 gap-3">
+      <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
         {Object.entries(summary).map(([status, count]) => (
           <button key={status}
+            disabled={!hasPerPanelStatus}
             onClick={() => setFilter(filter === status ? 'all' : status)}
             className={`stat-card text-center cursor-pointer transition-all ${
               filter === status ? 'border-green-500/60' : ''
             }`}>
-            <div className={`text-2xl font-counter font-bold ${STATUS_STYLE[status].split(' ')[0]}`}>{count}</div>
+            <div className={`${count === 'Unavailable' ? 'text-sm' : 'text-2xl'} font-counter font-bold ${STATUS_STYLE[status].split(' ')[0]}`}>{count}</div>
             <div className="text-xs text-slate-500 capitalize mt-0.5">{status}</div>
           </button>
         ))}
@@ -98,7 +98,7 @@ export default function PanelsPage() {
       <div className="flex flex-wrap gap-2 items-center">
         <Filter size={14} className="text-slate-500" />
         <span className="text-xs text-slate-500">Row:</span>
-        {['all','A','B','C','D'].map(r => (
+        {['all', ...rows].map(r => (
           <button key={r}
             onClick={() => setRowFilter(r)}
             className={`px-3 py-1 rounded-lg text-xs font-semibold transition-all border ${
@@ -119,15 +119,15 @@ export default function PanelsPage() {
 
       {/* Panel grid visual (8×4) */}
       <div className="stat-card">
-        <div className="text-xs text-slate-500 font-mono mb-3">PANEL GRID — JAIPUR BIOSOLAR SITE</div>
+        <div className="text-xs text-slate-500 font-mono mb-3">VIRTUAL ALLOCATION VIEW</div>
+        {!panels.length && <p className="text-slate-400 text-sm">Panel count is Unavailable. Ask an administrator to configure the actual installation count.</p>}
         <div className="space-y-2">
-          {['A','B','C','D'].map(row => (
+          {(rowFilter === 'all' ? rows : [rowFilter]).map(row => (
             <div key={row} className="flex items-center gap-2">
               <span className="text-xs text-slate-600 font-mono w-4">{row}</span>
               <div className="flex gap-1.5 flex-1">
-                {Array.from({length:8},(_,i)=>i+1).map(col => {
-                  const label = `${row}${col}`;
-                  const p = panels.find(x => x.label === label);
+                {panels.filter(p => p.row_label === row).map(p => {
+                  const col = p.col_number, label = p.label;
                   const st = p?.status || 'unknown';
                   return (
                     <div key={col}

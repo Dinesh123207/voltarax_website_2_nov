@@ -1,0 +1,56 @@
+const test = require('node:test');
+const assert = require('node:assert/strict');
+test('registered simulator ingests/replays and acknowledges a relay through the real local RTDB adapter', async t => {
+  if (process.env.FIREBASE_DATABASE_EMULATOR_HOST !== '127.0.0.1:9000') throw new Error('Requires the isolated localhost demo emulator');
+  const rulesResponse = await fetch('http://127.0.0.1:9000/.settings/rules.json?ns=demo-voltarax', { method: 'PUT', headers: { Authorization: 'Bearer owner', 'Content-Type': 'application/json' }, body: require('node:fs').readFileSync(require('node:path').join(__dirname, '../../firebase.rules.json'), 'utf8') });
+  assert.equal(rulesResponse.status, 200);
+  Object.assign(process.env, { NODE_ENV: 'test', FIREBASE_PROJECT_ID: 'demo-voltarax', DEVICE_SIMULATOR_ENABLED: 'true', SOLAR_SITE_ID: 'solar_site', SOLAR_DEVICE_ID: 'simulator-01', RELAY_CONTROL_ENABLED: 'true', EMAIL_ENABLED: 'false', JWT_SECRET: 'synthetic-local-emulator-session-secret-32-plus' });
+  const { app: firebase, db } = require('../config/firebase');
+  t.after(() => firebase.delete());
+  const registry = require('../services/devices').getRegistry();
+  const created = await registry.create({ device_id: 'simulator-01', site_id: 'solar_site', name: 'Synthetic local test' }, 'test-setup');
+  assert.equal((await registry.update('simulator-01', { enabled: true, relayEnabled: true }, 'test-setup')).relayEnabled, true);
+  const messages = new Map();
+  const otp = require('../services/otp').createOtpService({ secret: 'synthetic-local-emulator-otp-secret-32-plus', send: async message => messages.set(`${message.email}|${message.purpose}`, message.code), store: {
+    transaction: async (key, update) => { const result = await require('../services/firebaseTransaction').transact(db.ref(`authChallenges/${key}`), update); return { committed: result.committed, value: result.snapshot.val() }; },
+  } });
+  otp.configured = () => true;
+  const express = require('express'); const empty = () => express.Router();
+  const app = require('../app').createApp({ logger: { info() {}, error() {} }, limiters: require('../services/rateLimits').createLimiters(),
+    routes: { auth: require('../routes/auth').createAuthRouter({ otp }), content: empty(), dashboard: empty(), chat: empty(), telemetry: require('../routes/telemetry'), devices: require('../routes/devices').createDeviceRouter() } });
+  const server = app.listen(0, '127.0.0.1'); await new Promise(resolve => server.once('listening', resolve));
+  t.after(() => new Promise(resolve => server.close(resolve)));
+  const url = `http://127.0.0.1:${server.address().port}`;
+  const post = (path, body, cookie) => fetch(url + path, { method: 'POST', headers: { 'Content-Type': 'application/json', 'x-voltarax-request': '1', ...(cookie ? { Cookie: cookie } : {}) }, body: JSON.stringify(body) });
+  const credentials = { email: 'synthetic-viewer@example.test', password: 'synthetic-password-one' };
+  assert.equal((await post('/api/auth/register', { ...credentials, name: 'Synthetic Viewer' })).status, 202);
+  let verified = await post('/api/auth/otp/verify', { ...credentials, code: messages.get(`${credentials.email}|registration`) });
+  assert.equal(verified.status, 200); const cookie = verified.headers.get('set-cookie').split(';')[0]; const account = (await verified.json()).user;
+  assert.equal('password' in account, false); assert.equal(account.role, 'viewer');
+  assert.equal((await post('/api/auth/sensitive/request', { action: 'password', target: account._id }, cookie)).status, 202);
+  const passwordCode = messages.get(`${credentials.email}|sensitive:${account._id}:password:${account._id}`);
+  assert.equal((await post('/api/auth/password', { password: 'synthetic-password-two', code: passwordCode }, cookie)).status, 200);
+  assert.equal((await fetch(url + '/api/auth/me', { headers: { Cookie: cookie } })).status, 401);
+  const login = await post('/api/auth/login', { ...credentials, password: 'synthetic-password-two' }); assert.equal(login.status, 200);
+  const nextCookie = login.headers.get('set-cookie').split(';')[0]; assert.equal((await post('/api/auth/logout', {}, nextCookie)).status, 200);
+  assert.equal((await fetch(url + '/api/auth/me', { headers: { Cookie: nextCookie } })).status, 401);
+  const { syntheticReading, sendReading } = require('../../../tools/device-simulator/index.cjs');
+  const reading = syntheticReading();
+  assert.equal((await sendReading({ url, key: created.key, reading })).status, 201);
+  assert.equal((await sendReading({ url, key: created.key, reading })).status, 200);
+  await assert.rejects(sendReading({ url, key: created.key, reading: { ...reading, power_mw: 9999 } }), /409/);
+  assert.equal((await sendReading({ url, key: created.key, reading: { ...reading, ts: reading.ts - 1 } })).status, 201);
+  assert.equal((await db.ref('sites/solar_site/latest').get()).val().ts, reading.ts);
+  const headers = { 'X-Device-ID': 'simulator-01', 'X-Device-Key': created.key, 'Content-Type': 'application/json' };
+  const relay = require('../services/relay').getRelayService();
+  const issued = await relay.issue('simulator-01', false, 'test-setup'); assert.equal(issued.status, 202);
+  let response = await fetch(url + '/api/devices/simulator-01/command', { headers });
+  assert.equal(response.status, 200); assert.equal((await response.json()).command.status, 'pending');
+  const ack = { command_id: issued.command.id, ts: Math.floor(Date.now() / 1000), success: true, output: false, reason: 'none' };
+  response = await fetch(url + '/api/devices/simulator-01/relay-ack', { method: 'POST', headers, body: JSON.stringify(ack) });
+  assert.equal(response.status, 200); assert.equal((await response.json()).command.status, 'applied');
+  response = await fetch(url + '/api/devices/simulator-01/relay-ack', { method: 'POST', headers, body: JSON.stringify(ack) });
+  assert.equal((await response.json()).duplicate, true);
+  await registry.update('simulator-01', { enabled: false, relayEnabled: false }, 'test-setup');
+  response = await fetch(url + '/api/devices/simulator-01/command', { headers }); assert.equal(response.status, 401);
+});

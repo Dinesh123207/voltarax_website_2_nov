@@ -1,0 +1,14 @@
+✔ missing values are unavailable and valid zero values retain their quality (2.0798ms)
+✔ nested API values receive quality without treating missing readings as zero (3.048ms)
+✔ response annotation honors record redaction and labels empty array responses (3.9706ms)
+✔ HTTP boundary enforces origins, headers, validation, safe errors and scoped rate limits without logging inputs (790.7341ms)
+✔ React Email renders both formats and mail defaults to disabled (61.1086ms)
+✔ simulator defaults to marked synthetic data and cannot send to production/unconfirmed targets (4.0348ms)
+ℹ tests 6
+ℹ suites 0
+ℹ pass 6
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 2399.7425

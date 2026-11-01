@@ -32,10 +32,12 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
   const [user,     setUser]     = useState<any>(null);
   const [sessionMessage, setSessionMessage] = useState('');
   const [siteAccess, setSiteAccess] = useState(false);
+  const [testMode, setTestMode] = useState(false);
   const sectionQuality: DataQuality = ['/dashboard/bfci', '/dashboard/cv', '/dashboard/work-orders'].includes(pathname)
     ? 'Unavailable' : ['/dashboard/panels', '/dashboard/forecast', '/dashboard/carbon'].includes(pathname) ? 'Estimated' : 'Calculated';
 
   useEffect(() => {
+    fetch('/health').then(response => response.json()).then(data => setTestMode(data.testMode === true)).catch(() => {});
     localStorage.removeItem('vv_token');
     localStorage.removeItem('vv_user');
     let active = true;
@@ -142,6 +144,7 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
 
           <div className="ml-auto flex items-center gap-3">
             <div className="flex items-center gap-2 text-xs text-green-600 font-mono">
+              {testMode && <span className="text-amber-300">Test data</span>}
               Dashboard
             </div>
           </div>

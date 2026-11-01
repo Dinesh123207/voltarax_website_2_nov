@@ -3,6 +3,7 @@ const { render, toPlainText } = require('@react-email/render');
 const nodemailer = require('nodemailer');
 
 function mailConfigured(env = process.env) {
+  if (require('../config/testMode').demoEmulator(env)) return false;
   return env.EMAIL_ENABLED === 'true' && !!(env.SMTP_HOST && env.SMTP_FROM && env.SMTP_USER && env.SMTP_PASS);
 }
 async function otpMessage({ code, purpose, expiresMinutes }) {

@@ -2,6 +2,8 @@
 const backendUrl = (process.env.BACKEND_URL || 'http://127.0.0.1:5000').replace(/\/$/, '');
 
 const nextConfig = {
+  outputFileTracingRoot: __dirname,
+  experimental: { cpus: 1 },
   images: { domains: ['voltarax.in'] },
   async headers() {
     const development = process.env.NODE_ENV !== 'production';

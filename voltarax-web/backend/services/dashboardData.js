@@ -1,11 +1,17 @@
 const SolarTelemetry = require('../models/SolarTelemetry');
 const SolarAnalysis = require('../models/SolarAnalysis');
-const { periodStartsIST, integrateKwh } = require('./energy');
+const { periodStartsIST, energyStats } = require('./energy');
 const { QUALITY, qualityOf } = require('./dataQuality');
 
 const SITE_ID = process.env.SOLAR_SITE_ID || 'solar_site';
 const n = (v, d = 0) => Number.isFinite(Number(v)) ? Number(v) : d;
 const isoFromTs = ts => { const date = new Date(Number(ts) * 1000); return ts && Number.isFinite(date.getTime()) ? date.toISOString() : null; };
+function configuredPanelCount() {
+  const value = process.env.SOLAR_PANEL_COUNT;
+  const number = Number(value);
+  return value?.trim() && Number.isInteger(number) && number > 0 && number <= 10000 ? number : null;
+}
+function virtualRow(index) { let value = index + 1, label = ''; while (value) { value--; label = String.fromCharCode(65 + value % 26) + label; value = Math.floor(value / 26); } return label; }
 
 async function latest() {
   const [raw, result] = await Promise.all([SolarTelemetry.latest(SITE_ID), SolarAnalysis.findOne({ site_id: SITE_ID }).lean()]);
@@ -21,33 +27,33 @@ async function dashboard() {
   const now = Date.now() / 1000;
   const start = periodStartsIST(new Date(now * 1000)).day;
   const today = await SolarTelemetry.find({ site_id: SITE_ID, ts: { $gte: start - 900 } }).sort({ ts: 1 }).lean();
-  const dailyKwh = integrateKwh(today, start, now);
+  const energy = energyStats(today, start, now);
+  const dailyKwh = energy.kwh;
   const stale = !reading;
-  const currentPower = reading?.power_mw != null && Number.isFinite(Number(reading.power_mw)) ? Number(reading.power_mw) / 1000000 : null;
+  const currentPower = typeof reading?.power_mw === 'number' && reading?.sensors_ok?.ina219 !== false && Number.isFinite(reading.power_mw) && reading.power_mw >= 0 ? reading.power_mw / 1000000 : null;
   const status = stale ? 'UNAVAILABLE' : (analysis?.status || 'UNAVAILABLE');
-  const panelCount = Number(process.env.SOLAR_PANEL_COUNT || 32);
-  const hasHealth = analysis?.health_score != null && Number.isFinite(Number(analysis.health_score));
-  const health = n(analysis?.health_score, 0);
-  const optimal = stale ? 0 : health >= 80 ? panelCount : Math.max(0, Math.round(panelCount * health / 100));
-  const warning = stale ? 0 : health >= 80 ? 0 : health >= 50 ? panelCount - optimal : Math.round(panelCount * 0.5);
-  const critical = stale ? 0 : health < 50 ? panelCount - optimal - warning : 0;
 
   const result = {
     current_power_kw: currentPower == null ? null : Number(currentPower.toFixed(3)),
-    daily_generation_kwh: today.length < 2 ? null : Number(dailyKwh.toFixed(3)),
+    daily_generation_kwh: dailyKwh == null ? null : Number(dailyKwh.toFixed(3)),
+    energy_coverage_pct: energy.periodSeconds > 0 ? Number((energy.coveredSeconds / energy.periodSeconds * 100).toFixed(2)) : null,
+    energy_note: 'Integration covers recorded valid-power intervals only, capped at 15 minutes per sample; gaps are not extrapolated.',
     battery_soc_pct: null,
     bfci_score_avg: null,
     system_efficiency_pct: analysis?.performance_ratio != null ? Number((analysis.performance_ratio * 100).toFixed(1)) : null,
-    panel_temp_avg_c: reading?.temp_c ?? null,
-    co2_offset_today_kg: today.length < 2 ? null : Number((dailyKwh * n(process.env.GRID_EMISSION_FACTOR, 0.82)).toFixed(3)),
+    panel_temp_avg_c: null,
+    site_sensor_temp_c: reading?.sensors_ok?.dht11 !== false && typeof reading?.temp_c === 'number' && Number.isFinite(reading.temp_c) ? reading.temp_c : null,
+    co2_offset_today_kg: dailyKwh == null ? null : Number((dailyKwh * n(process.env.GRID_EMISSION_FACTOR, 0.82)).toFixed(3)),
     active_alerts: analysis ? (analysis.alerts?.length || 0) : null,
-    panels_optimal: stale || !hasHealth ? null : Math.max(0, optimal),
-    panels_warning: stale || !hasHealth ? null : Math.max(0, warning),
-    panels_critical: stale || !hasHealth ? null : Math.max(0, critical),
+    panels_optimal: null,
+    panels_warning: null,
+    panels_critical: null,
     panels_offline: null,
     status,
     last_seen: lastSeen,
-    source: 'firebase-realtime-database',
+    telemetry_fresh: !stale,
+    simulated: reading?.simulated === true,
+    source: reading?.simulated ? 'synthetic-device-simulator' : 'firebase-realtime-database',
   };
   result.quality = {
     current_power_kw: qualityOf(result.current_power_kw, QUALITY.CALCULATED),
@@ -56,6 +62,7 @@ async function dashboard() {
     bfci_score_avg: qualityOf(result.bfci_score_avg, QUALITY.CALCULATED),
     system_efficiency_pct: qualityOf(result.system_efficiency_pct, QUALITY.ESTIMATED),
     panel_temp_avg_c: qualityOf(result.panel_temp_avg_c, QUALITY.MEASURED),
+    site_sensor_temp_c: qualityOf(result.site_sensor_temp_c, QUALITY.MEASURED),
     co2_offset_today_kg: qualityOf(result.co2_offset_today_kg, QUALITY.ESTIMATED),
     active_alerts: qualityOf(result.active_alerts, QUALITY.CALCULATED),
     panels_optimal: qualityOf(result.panels_optimal, QUALITY.ESTIMATED),
@@ -63,20 +70,22 @@ async function dashboard() {
     panels_critical: qualityOf(result.panels_critical, QUALITY.ESTIMATED),
     panels_offline: qualityOf(result.panels_offline, QUALITY.ESTIMATED),
   };
+  if (result.simulated) for (const key of Object.keys(result.quality)) if (result.quality[key] !== QUALITY.UNAVAILABLE) result.quality[key] = QUALITY.ESTIMATED;
   return result;
 }
 
 async function panels() {
   const { reading, analysis } = await latest();
-  const count = Number(process.env.SOLAR_PANEL_COUNT || 32);
-  const status = !reading || !analysis || analysis.status === 'UNAVAILABLE' ? 'unknown' : analysis.status === 'FAULT' ? 'critical' : analysis.status === 'WARNING' ? 'warning' : 'optimal';
-  const perPanelPower = reading?.power_mw != null ? n(reading.power_mw) / 1000 / count : null;
+  const count = configuredPanelCount();
+  if (!count) return [];
+  const status = 'unknown';
+  const perPanelPower = typeof reading?.power_mw === 'number' && reading?.sensors_ok?.ina219 !== false && Number.isFinite(reading.power_mw) && reading.power_mw >= 0 ? reading.power_mw / 1000 / count : null;
   return Array.from({ length: count }, (_, i) => {
-    const row = String.fromCharCode(65 + Math.floor(i / 8));
+    const row = virtualRow(Math.floor(i / 8));
     const col = (i % 8) + 1;
-    return { id: i + 1, label: `${row}${col}`, row_label: row, col_number: col, status, dataQuality: 'estimated',
+    return { id: i + 1, label: `${row}${col}`, row_label: row, col_number: col, status, dataQuality: 'estimated', simulated: reading?.simulated === true,
       efficiency_pct: analysis?.performance_ratio != null ? Number((analysis.performance_ratio * 100).toFixed(1)) : null,
-      power_w: perPanelPower, voltage_v: reading?.voltage_v ?? null, temp_c: reading?.temp_c ?? null,
+      power_w: perPanelPower, voltage_v: null, temp_c: null, identity_note: 'Virtual display position, not a registered physical panel ID',
       bfci_score: null, cv_class: null };
   });
 }

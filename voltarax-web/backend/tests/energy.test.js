@@ -17,3 +17,9 @@ test('integrates milliwatts over seconds, clips periods and caps stale gaps', ()
   assert.equal(integrateKwh([{ ts: 0, power_mw: 1000000 }, { ts: 7200 }], 0, 7200), 0.25);
   assert.equal(integrateKwh([], 0, 7200), 0);
 });
+test('energy coverage distinguishes missing/faulted power from a recorded zero', () => {
+  const { energyStats } = require('../services/energy');
+  for (const power of [null, undefined, '', '0', false, -1]) assert.equal(energyStats([{ ts: 100, power_mw: power }, { ts: 110 }], 100, 110).kwh, null);
+  assert.equal(energyStats([{ ts: 100, power_mw: 0, sensors_ok: { ina219: false } }, { ts: 110 }], 100, 110).kwh, null);
+  assert.deepEqual(energyStats([{ ts: 100, power_mw: 0 }, { ts: 110 }], 100, 110), { kwh: 0, coveredSeconds: 10, periodSeconds: 10 });
+});

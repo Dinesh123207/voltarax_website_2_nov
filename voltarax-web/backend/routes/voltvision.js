@@ -1,6 +1,6 @@
 const express = require('express');
 const { protect, requireAdmin, requireOperator, requireSite } = require('../middleware/auth');
-const { periodStartsIST, integrateKwh } = require('../services/energy');
+const { periodStartsIST, energyStats } = require('../services/energy');
 const { dashboard, panels, latest } = require('../services/dashboardData');
 const { getAiForecast, getAiAnomaly, getAiHealth, getAiStatus } = require('../services/aiPredictions');
 const SolarTelemetry = require('../models/SolarTelemetry');
@@ -132,12 +132,11 @@ router.get('/carbon', protect, requireSite, dashboardValidation('get', '/carbon'
     const rows = await SolarTelemetry.find({ site_id: SITE_ID, ts: { $gte: starts.year - 900, $lte: now } }).sort({ ts: 1 }).lean();
     if (rows.length < 2) return res.json({ success: false, dataQuality: 'unavailable', message: 'Not enough telemetry to calculate carbon impact.' });
     const factor = Number(process.env.GRID_EMISSION_FACTOR || 0.82);
-    const todayKwh = integrateKwh(rows, starts.day, now);
-    const monthKwh = integrateKwh(rows, starts.month, now);
-    const yearKwh = integrateKwh(rows, starts.year, now);
+    const today = energyStats(rows, starts.day, now), month = energyStats(rows, starts.month, now), year = energyStats(rows, starts.year, now);
+    const convert = (value, scale = 1, digits = 3) => value == null || !Number.isFinite(scale) ? null : Number((value * scale).toFixed(digits));
     const treeFactor = Number(process.env.TREE_CO2_KG_PER_YEAR);
     const tariff = Number(process.env.GRID_TARIFF_INR_PER_KWH);
-    res.json({ today_kwh:Number(todayKwh.toFixed(3)), month_kwh:Number(monthKwh.toFixed(3)), today_co2_kg:Number((todayKwh*factor).toFixed(3)), month_co2_kg:Number((monthKwh*factor).toFixed(3)), year_co2_kg:Number((yearKwh*factor).toFixed(3)), trees_equivalent:Number.isFinite(treeFactor) && treeFactor > 0 ? Number((yearKwh*factor/treeFactor).toFixed(2)) : null, grid_saved_inr:Number.isFinite(tariff) && tariff > 0 ? Number((yearKwh*tariff).toFixed(0)) : null, emission_factor:factor, emission_factor_source:process.env.GRID_EMISSION_FACTOR_SOURCE || 'Unverified configured assumption', tariff_inr_per_kwh:Number.isFinite(tariff) && tariff > 0 ? tariff : null, tree_co2_kg_per_year:Number.isFinite(treeFactor) && treeFactor > 0 ? treeFactor : null, dataQuality:'Estimated' });
+    res.json({ today_kwh:convert(today.kwh), month_kwh:convert(month.kwh), today_co2_kg:convert(today.kwh, factor), month_co2_kg:convert(month.kwh, factor), year_co2_kg:convert(year.kwh, factor), trees_equivalent:Number.isFinite(treeFactor) && treeFactor > 0 ? convert(year.kwh, factor/treeFactor, 2) : null, grid_saved_inr:Number.isFinite(tariff) && tariff > 0 ? convert(year.kwh, tariff, 0) : null, emission_factor:factor, emission_factor_source:process.env.GRID_EMISSION_FACTOR_SOURCE || 'Unverified configured assumption', tariff_inr_per_kwh:Number.isFinite(tariff) && tariff > 0 ? tariff : null, tree_co2_kg_per_year:Number.isFinite(treeFactor) && treeFactor > 0 ? treeFactor : null, dataQuality:'Estimated', energy_note:'Recorded valid-power intervals only; missing periods are not extrapolated.', coverage_seconds:{today:today.coveredSeconds,month:month.coveredSeconds,year:year.coveredSeconds} });
   } catch (err) { res.status(500).json({ success:false,message:'Carbon analytics unavailable.'}); }
 });
 router.get('/carbon/monthly', protect, requireSite, dashboardValidation('get', '/carbon/monthly'), async (req,res)=>res.json({ months: [] }));

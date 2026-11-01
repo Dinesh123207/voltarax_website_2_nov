@@ -1,0 +1,45 @@
+
+> voltarax-backend@2.0.0 test:device-emulator
+> firebase emulators:exec --only database --project demo-voltarax --config ../firebase.test.json "node --test tests/device-emulator.test.cjs"
+
+i  emulators: Starting emulators: database
+i  emulators: Detected demo project ID "demo-voltarax", emulated services will use a demo configuration and attempts to access non-emulated services for this project will fail.
+i  database: Database Emulator logging to database-debug.log
+i  Running script: node --test tests/device-emulator.test.cjs
+✖ registered simulator ingests/replays and acknowledges a relay through the real local RTDB adapter (4712.5099ms)
+ℹ tests 1
+ℹ suites 0
+ℹ pass 0
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 5073.3793
+
+✖ failing tests:
+
+test at tests\device-emulator.test.cjs:3:1
+✖ registered simulator ingests/replays and acknowledges a relay through the real local RTDB adapter (4712.5099ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  403 !== 202
+  
+      at TestContext.<anonymous> (C:\Users\JARVIS\Desktop\VOLTARAX\voltarax-web\backend\tests\device-emulator.test.cjs:26:81)
+      at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+      at async Test.run (node:internal/test_runner/test:1389:7)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:387:3) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 403,
+    expected: 202,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+!  Script exited unsuccessfully (code 1)
+i  emulators: Shutting down emulators.
+i  database: Stopping Database Emulator
+!  Database Emulator has exited upon receiving signal: SIGINT
+i  hub: Stopping emulator hub
+i  logging: Stopping Logging Emulator
+
+Error: Script "node --test tests/device-emulator.test.cjs" exited with code 1

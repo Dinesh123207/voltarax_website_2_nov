@@ -1,0 +1,14 @@
+{
+  "command": [
+    "node",
+    "--test",
+    "tests/user-security.test.js",
+    "tests/analysis-site.test.js",
+    "tests/device-ingest.test.js",
+    "tests/accounts.test.js",
+    "tests/relay.test.js"
+  ],
+  "cwd": "voltarax-web/backend",
+  "exit_code": 0,
+  "seconds": 37.24
+}

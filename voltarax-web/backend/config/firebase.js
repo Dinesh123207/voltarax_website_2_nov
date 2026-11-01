@@ -18,7 +18,9 @@ function parseServiceAccount() {
 class ConfigError extends Error {}
 
 function initFirebase() {
+  const demo = require('./testMode').demoEmulator();
   if (admin.apps.length) return admin.app();
+  if (demo) return admin.initializeApp({ projectId: process.env.FIREBASE_PROJECT_ID, databaseURL: `http://${process.env.FIREBASE_DATABASE_EMULATOR_HOST}/?ns=${process.env.FIREBASE_PROJECT_ID}` });
 
   if (!process.env.FIREBASE_DATABASE_URL) {
     throw new ConfigError(

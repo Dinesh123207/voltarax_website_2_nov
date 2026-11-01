@@ -1,17 +1,30 @@
 const test = require('node:test');
 const assert = require('node:assert/strict');
-let raw, analysis;
+let raw, analysis, history = [];
 function mock(path, exports) { const id = require.resolve(path); require.cache[id] = { id, filename: id, loaded: true, exports }; }
-mock('../models/SolarTelemetry', { latest: async () => raw, find: () => ({ sort() { return this; }, lean: async () => [] }) });
+mock('../models/SolarTelemetry', { latest: async () => raw, find: () => ({ sort() { return this; }, lean: async () => history }) });
 mock('../models/SolarAnalysis', { findOne: () => ({ lean: async () => analysis }) });
 const { latest, dashboard, panels } = require('../services/dashboardData');
-test('stale or missing telemetry never becomes current zero power or offline panel counts', async () => {
+test('stale or missing telemetry never becomes current zero power or offline panel counts', async t => {
+  const realNow = Date.now, panelCount = process.env.SOLAR_PANEL_COUNT;
+  Date.now = () => 2000000000000;
+  delete process.env.SOLAR_PANEL_COUNT;
+  t.after(() => { Date.now = realNow; if (panelCount === undefined) delete process.env.SOLAR_PANEL_COUNT; else process.env.SOLAR_PANEL_COUNT = panelCount; });
   raw = { ts: Math.floor(Date.now() / 1000) - 3600, power_mw: 1000 }; analysis = { ts: raw.ts, health_score: 100 };
   assert.equal((await latest()).reading, null);
   const data = await dashboard(); assert.equal(data.current_power_kw, null); assert.equal(data.panels_offline, null); assert.equal(data.panels_optimal, null); assert.ok(data.last_seen); assert.equal(data.status, 'UNAVAILABLE');
   assert.ok((await panels()).every(row => row.power_w === null && row.status === 'unknown'));
+  assert.deepEqual(await panels(), []);
   raw = { ts: Math.floor(Date.now() / 1000), power_mw: 0 }; analysis = { ts: raw.ts - 5, health_score: 100 };
   assert.equal((await latest()).analysis, null); assert.equal((await dashboard()).current_power_kw, 0);
   raw = { ts: Math.floor(Date.now() / 1000) - 90, power_mw: 0 };
   assert.ok((await latest()).reading); assert.equal((await dashboard()).current_power_kw, 0);
+  process.env.SOLAR_PANEL_COUNT = '2';
+  const allocation = await panels(); assert.equal(allocation.length, 2);
+  assert.ok(allocation.every(row => row.voltage_v === null && row.temp_c === null && row.status === 'unknown' && row.power_w === 0));
+  const stamp = Math.floor(Date.now() / 1000);
+  history = [{ ts: stamp - 60, power_mw: null }, { ts: stamp }];
+  assert.equal((await dashboard()).daily_generation_kwh, null);
+  history = [{ ts: stamp - 60, power_mw: 0 }, { ts: stamp, power_mw: 0 }];
+  assert.equal((await dashboard()).daily_generation_kwh, 0);
 });

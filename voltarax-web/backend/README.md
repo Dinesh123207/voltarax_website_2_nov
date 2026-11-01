@@ -12,3 +12,7 @@ Registration uses email OTP and creates an unverified viewer. Email sending is d
 `npm run seed` is a guarded one-time administrator bootstrap, never sample content. Review the exact setup and recovery steps in `../../docs/MANUAL_STEPS.md` before running it. It was not run on a live project.
 
 See `../../docs/API.md`, `SECURITY_CHECKLIST.md`, `DEPLOY.md` and `KNOWN_ISSUES.md` for route contracts, trust boundaries and remaining checks. The Admin SDK bypasses Firebase rules, so API authorization is essential. Physical devices, live SMTP, real Firebase deployment and production proxy behavior require operator verification.
+
+Registered devices authenticate with hashed per-device keys. Administrator OTP actions register, rotate and disable keys; keys are shown once. Relay commands default disabled, expire in thirty seconds and require a device acknowledgement; physical contact state remains unavailable without a sensor. See `../../tools/device-simulator/README.md` for the guarded loopback-only demo. `npm run test:device-emulator` uses a cached official local emulator and fake mail, not live credentials.
+
+Conditional Firebase transactions use the shared cache-warming adapter, verified through the real local SDK. Recorded energy totals disclose interval coverage and remain null without valid intervals. Panel allocation is virtual and requires an explicit verified installation count; it does not measure individual panel health.

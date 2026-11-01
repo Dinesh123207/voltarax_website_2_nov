@@ -1,3 +1,4 @@
+const { transact } = require('../services/firebaseTransaction');
 const bcrypt = require('bcryptjs');
 const { createHash } = require('node:crypto');
 const { db, FirebaseQuery, clone } = require('../services/firebaseModel');
@@ -83,10 +84,10 @@ const User = {
     const now = new Date().toISOString();
     const row = { name: data.name, email, password, role: data.role || 'viewer', company: data.company || '', phone: data.phone || '', isActive: data.isActive !== false, emailVerified: false, siteIds: [], sessionVersion: 0, lastLogin: data.lastLogin || null, createdAt: now, updatedAt: now };
     const ref = db.ref(`userEmails/${createHash('sha256').update(email).digest('hex')}`);
-    const reserved = await ref.transaction(current => current === null ? id : undefined);
+    const reserved = await transact(ref, current => current === null ? id : undefined);
     if (!reserved.committed) throw new Error('Account exists');
     try { await db.ref(`users/${id}`).set(row); }
-    catch (error) { await ref.transaction(current => current === id ? null : undefined); throw error; }
+    catch (error) { await transact(ref, current => current === id ? null : undefined); throw error; }
     return new UserRecord({ _id: id, ...row });
   },
   async update(id, patch) {
@@ -94,10 +95,10 @@ const User = {
     return User.findById(id);
   },
   async revokeSessions(id) {
-    await db.ref(`users/${id}/sessionVersion`).transaction(current => (Number(current) || 0) + 1);
+    await transact(db.ref(`users/${id}/sessionVersion`), current => (Number(current) || 0) + 1);
   },
   async secureUpdate(id, patch) {
-    const result = await db.ref(`users/${id}`).transaction(current => current === null ? undefined : ({ ...current, ...patch, sessionVersion: (Number(current.sessionVersion) || 0) + 1, updatedAt: new Date().toISOString() }));
+    const result = await transact(db.ref(`users/${id}`), current => current === null ? undefined : ({ ...current, ...patch, sessionVersion: (Number(current.sessionVersion) || 0) + 1, updatedAt: new Date().toISOString() }));
     if (!result.committed) throw new Error('Account unavailable');
     return new UserRecord({ _id: id, ...result.snapshot.val() });
   },

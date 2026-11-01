@@ -1,0 +1,13 @@
+{
+  "command": [
+    "node",
+    "--test",
+    "tests/simulator.test.js",
+    "tests/data-quality.test.js",
+    "tests/http-security.test.js",
+    "tests/mailer.test.js"
+  ],
+  "cwd": "voltarax-web/backend",
+  "exit_code": 0,
+  "seconds": 2.79
+}

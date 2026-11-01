@@ -1,0 +1,16 @@
+✔ stale or missing telemetry never becomes current zero power or offline panel counts (34.6535ms)
+✔ missing values are unavailable and valid zero values retain their quality (4.282ms)
+✔ nested API values receive quality without treating missing readings as zero (7.1362ms)
+✔ response annotation honors record redaction and labels empty array responses (7.4289ms)
+✔ period starts follow India time across month and year boundaries (47.67ms)
+✔ integrates milliwatts over seconds, clips periods and caps stale gaps (1.1715ms)
+✔ energy coverage distinguishes missing/faulted power from a recorded zero (3.815ms)
+✔ simulator defaults to marked synthetic data and cannot send to production/unconfirmed targets (40.6432ms)
+ℹ tests 8
+ℹ suites 0
+ℹ pass 8
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 3235.2444

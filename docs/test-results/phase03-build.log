@@ -1,0 +1,23 @@
+
+> voltarax-frontend@1.0.0 build
+> next build
+
+   ▲ Next.js 15.5.28
+
+   Creating an optimized production build ...
+ ✓ Compiled successfully in 87s
+   Linting and checking validity of types ...
+   Collecting page data ...
+   Generating static pages (0/22) ...
+   Generating static pages (5/22) 
+   Generating static pages (10/22) 
+   Generating static pages (16/22) 
+ ✓ Generating static pages (22/22)
+   Finalizing page optimization ...
+   Collecting build traces ...
+SUCCESS: The process with PID 14792 (child process of PID 16732) has been terminated.
+SUCCESS: The process with PID 16732 (child process of PID 7368) has been terminated.
+SUCCESS: The process with PID 7368 (child process of PID 16620) has been terminated.
+SUCCESS: The process with PID 16620 (child process of PID 9192) has been terminated.
+
+TIMEOUT after 600 seconds

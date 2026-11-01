@@ -33,7 +33,15 @@ Persistent alert resolution, CV scans, work-order updates and ESG report generat
 - POST /api/devices: administrator, body {device_id,site_id,name,code}. The site must equal SOLAR_SITE_ID. Request an OTP first with action:'device-register', target:device_id. Response returns a one-time key; store it only in local device secrets.
 - POST /api/devices/:id/rotate-key: administrator, body {code}, sensitive action:'device-key-rotate'. Previous key stops authenticating immediately.
 - PATCH /api/devices/:id: administrator, body {enabled,relayEnabled,code}, sensitive action:'device-configure'. No self-service device enrollment or public credential recovery.
-- Device list metadata includes last_seen and firmware_version; these remain null/Unavailable until accepted device traffic is wired. Relay permission defaults false and does not itself issue a command.
+- Device list metadata includes last_seen and firmware_version; these remain null/Unavailable until accepted device traffic is received. Relay permission defaults false and does not itself issue a command.
+
+## Recorded energy, panel allocation and simulator limits
+
+Dashboard energy and carbon totals integrate only valid recorded power intervals, capped at fifteen minutes per adjacent pair. No covered interval returns null/Unavailable; a covered interval with measured zero power returns zero. Dashboard energy_coverage_pct describes coverage of the elapsed IST day; carbon responses expose covered seconds by period. Gaps are not extrapolated and partial totals are not full-period yield claims. Carbon remains an estimate using the configured emission factor; its source must be reviewed before an ESG report is issued.
+
+The panel grid is a virtual equal allocation of the primary site's reading only when SOLAR_PANEL_COUNT is explicitly configured. An unset count returns an empty list. Labels are virtual positions, not registered panel IDs. Per-panel health, voltage and temperature remain Unavailable; site_sensor_temp_c is the actual site sensor reading and panel_temp_avg_c remains null. No default count or inferred healthy/fault count is published.
+
+Synthetic ingestion is allowed only with DEVICE_SIMULATOR_ENABLED=true in a non-production demo-* project using a loopback emulator. Payloads carry simulated:true, the UI shows Test data and numeric quality is Estimated. See tools/device-simulator/README.md. Real project credentials are ignored and SMTP is disabled in this mode.
 
 ## Registered-device ingest
 POST /api/telemetry/ingest uses X-Device-ID and X-Device-Key. Send an integer Unix timestamp in seconds, optional matching device_id/site_id, firmware_version, numeric sensor fields and strict boolean sensors_ok flags. Identity is derived from the authenticated device. Timestamps may be at most 24 hours old or five minutes ahead. Responses are 201 for a new sample, 200 for an exact duplicate, 409 for a conflicting replay and 422 for invalid data/time/identity. data.accepted_reading is the accepted sample; data.latest is the actual primary site latest and may differ for delayed/secondary samples. Failed sensor flags remove their numeric fields. No client-supplied keys are stored with telemetry.
