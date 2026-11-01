@@ -1,9 +1,10 @@
+import { pageMetadata } from '@/lib/seo';
 import Navbar from '@/components/ui/Navbar';
 import Footer from '@/components/ui/Footer';
 import { Link } from '@/i18n/navigation';
 import { useCopy } from '@/i18n/copy';
 
-export const metadata = { title: 'About Voltarax', description: 'Renewable equipment monitoring, dated inspections and maintenance records, with setup and evidence requirements.' };
+export const generateMetadata = pageMetadata("/about", "About Voltarax", "Renewable equipment monitoring, dated inspections and maintenance records, with setup and evidence requirements.");
 export default function AboutPage() {
   const copyText = useCopy();
   return <><Navbar/><main className="mx-auto max-w-5xl px-4 pt-28 pb-20 space-y-12">

@@ -172,3 +172,9 @@ After configuring email verification, an administrator opens Dashboard > Devices
 
 ### Voice input and Hindi publication review (Phase 8)
 Before enabling voice input, choose and document the browser/provider processing path, data destination, consent and retention, review Permissions-Policy and test only with explicit user initiation. It remains disabled/coming soon. Have a fluent Hindi reviewer check equipment/control/payment terminology and complete translated workflows; static catalog/HTTP checks alone do not establish linguistic accuracy or full browser accessibility.
+
+### Public indexing and SEO (Phase 8)
+1. Confirm ownership/TLS of the intended public HTTPS origin. Set SITE_URL to that origin only; do not reuse a test host or inferred domain.
+2. Complete claims, bilingual, privacy/legal, operator identity, contact, accessibility and service review. Only then explicitly set PUBLIC_CONTENT_REVIEWED=true and PUBLIC_INDEXING_ENABLED=true in the intended deployment. Keep preview/test hosts false. These flags do not certify compliance.
+3. Locally/staging verify robots.txt, the 14 public language URLs in sitemap.xml, matching canonical/hreflang, OG PNG, default noindex when flags are false, and noindex headers/authorization for private pages. Draft legal pages remain excluded/noindex. The shared OG brand artwork is English; a Hindi artwork variant needs reviewed font/content if required.
+4. Rebuild/restart for changed environment settings and check the actual deployment response; no external publication or search-engine submission was performed here.

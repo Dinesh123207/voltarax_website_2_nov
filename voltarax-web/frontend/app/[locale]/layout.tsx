@@ -10,34 +10,7 @@ import ParticlesBg from '@/components/ui/ParticlesBg';
 import SiteBackgroundVideo from '@/components/ui/SiteBackgroundVideo';
 import ChatWidget from '@/components/chat/ChatWidget';
 
-export const metadata: Metadata = {
-  title: {
-    default: 'Voltarax — Renewable Equipment Monitoring',
-    template: '%s | Voltarax',
-  },
-  description:
-    'Site telemetry, calculated health and current-condition energy estimates.',
-  keywords: [
-    'solar telemetry', 'equipment monitoring', 'solar panel management',
-    'VoltVision', 'Voltarax', 'sustainable energy India',
-    'IoT solar', 'maintenance records',
-  ],
-  authors:  [{ name: 'Voltarax' }],
-  creator:  'Voltarax',
-  openGraph: {
-    type:        'website',
-    locale:      'en_IN',
-    url:         'https://voltarax.in',
-    siteName:    'Voltarax',
-    title:       'Voltarax — Renewable Equipment Monitoring',
-    description: 'Site telemetry, dated inspections and current-condition estimates.',
-  },
-  twitter: {
-    card:        'summary_large_image',
-    title:       'Voltarax — Renewable Equipment Monitoring',
-    description: 'Solar monitoring and energy estimates.',
-  },
-};
+export const metadata: Metadata = { title: { default: 'Voltarax', template: '%s | Voltarax' }, robots: { index: false, follow: false, noarchive: true } };
 
 export const viewport: Viewport = {
   themeColor: '#22c55e',

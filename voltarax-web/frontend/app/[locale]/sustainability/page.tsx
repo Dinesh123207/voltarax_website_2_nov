@@ -1,15 +1,12 @@
+import { pageMetadata } from '@/lib/seo';
 import Navbar from '@/components/ui/Navbar';
 import Footer from '@/components/ui/Footer';
 import { Leaf, Globe, TrendingUp, Sun, Droplets, Wind, ChevronRight } from 'lucide-react';
 import { Link } from '@/i18n/navigation';
-import type { Metadata } from 'next';
 import { useCopy } from '@/i18n/copy';
 
 
-export const metadata: Metadata = {
-  title: 'Sustainability — Voltarax',
-  description: 'Voltarax monitoring and estimated carbon impact from available solar telemetry.',
-};
+export const generateMetadata = pageMetadata("/sustainability", "Sustainability", "Voltarax monitoring and estimated carbon impact from available solar telemetry.");
 
 const SDGs = [
   { num: '7',  title: 'Affordable Clean Energy',      desc: 'Solar monitoring supports energy awareness' },

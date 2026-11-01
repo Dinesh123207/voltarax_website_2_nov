@@ -1,0 +1,10 @@
+✔ public indexing needs an explicit reviewed origin and both switches (4.1045ms)
+✔ sitemap allows only public bilingual paths, without invented timestamps or private records (0.967ms)
+ℹ tests 2
+ℹ suites 0
+ℹ pass 2
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 296.6257

@@ -1,15 +1,12 @@
+import { pageMetadata } from '@/lib/seo';
 import { Link } from '@/i18n/navigation';
 import Navbar from '@/components/ui/Navbar';
 import Footer from '@/components/ui/Footer';
 import { LayoutDashboard, Sun, Bell, Leaf, ChevronRight } from 'lucide-react';
-import type { Metadata } from 'next';
 import { useCopy } from '@/i18n/copy';
 
 
-export const metadata: Metadata = {
-  title: 'Products',
-  description: 'VoltVision site monitoring and energy estimates, with further capabilities under development.',
-};
+export const generateMetadata = pageMetadata("/products", "Products", "VoltVision site monitoring and energy estimates, with further capabilities under development.");
 
 const PRODUCTS = [
   { icon: LayoutDashboard, title: 'VoltVision dashboard', desc: 'Site readings, estimated current power, dated manual inspections and recorded maintenance, when services are configured.' },

@@ -1,14 +1,11 @@
+import { pageMetadata } from '@/lib/seo';
 import Navbar from '@/components/ui/Navbar';
 import Footer from '@/components/ui/Footer';
 import { Brain, Eye, TrendingUp, ShieldAlert, Boxes, Cpu } from 'lucide-react';
-import type { Metadata } from 'next';
 import { useCopy } from '@/i18n/copy';
 
 
-export const metadata: Metadata = {
-  title: 'Technology',
-  description: 'Site monitoring, current-condition estimates, manual inspections and recorded maintenance.',
-};
+export const generateMetadata = pageMetadata("/technology", "Technology", "Site monitoring, current-condition estimates, manual inspections and recorded maintenance.");
 
 const MODULES = [
   { icon: Brain, title: 'Manual coating records', desc: 'Dated area/photo/condition observations with visible categorical rules. Numerical coating score and material performance are unavailable.' },

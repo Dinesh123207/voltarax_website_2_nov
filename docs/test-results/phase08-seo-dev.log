@@ -1,0 +1,38 @@
+   ▲ Next.js 15.5.28
+   - Local:        http://localhost:38473
+   - Network:      http://localhost:38473
+   - Experiments (use with caution):
+     · cpus: 1
+
+ ✓ Starting...
+ ✓ Ready in 4s
+ ○ Compiling /middleware ...
+ ✓ Compiled /middleware in 1150ms (136 modules)
+ ○ Compiling /[locale] ...
+ ✓ Compiled /[locale] in 41.4s (842 modules)
+ GET / 200 in 44633ms
+ GET /hi 200 in 595ms
+ ○ Compiling /[locale]/products ...
+ ✓ Compiled /[locale]/products in 5.2s (849 modules)
+ GET /hi/products 200 in 9560ms
+ ○ Compiling /[locale]/technology ...
+ ✓ Compiled /[locale]/technology in 1469ms (839 modules)
+ GET /hi/technology 200 in 4821ms
+ ○ Compiling /[locale]/sustainability ...
+ ✓ Compiled /[locale]/sustainability in 2.6s (843 modules)
+ GET /hi/sustainability 200 in 6438ms
+ ○ Compiling /robots.txt ...
+ ✓ Compiled /robots.txt in 7s (851 modules)
+ GET /robots.txt 200 in 7502ms
+ ○ Compiling /sitemap.xml ...
+ ✓ Compiled /sitemap.xml in 3.5s (859 modules)
+ GET /sitemap.xml 200 in 3749ms
+ ○ Compiling /og.png ...
+ ✓ Compiled /og.png in 2.7s (864 modules)
+ GET /og.png 200 in 6948ms
+ ○ Compiling /[locale]/about ...
+ ✓ Compiled /[locale]/about in 1723ms (866 modules)
+ GET /hi/about 200 in 6542ms
+ ○ Compiling /[locale]/account/orders/[id] ...
+ ✓ Compiled /[locale]/account/orders/[id] in 26.2s (885 modules)
+ ✓ Compiled in 1749ms (308 modules)

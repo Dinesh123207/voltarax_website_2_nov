@@ -143,3 +143,6 @@ Complete translatable headlines, public Hindi copy and source-preserving prepare
 
 ### Phase 8 language boundary checkpoint
 977 active source messages now have Hindi entries with parameter parity. Explicit dropdown protocol values and locale-preserving account/work-order links prevent localization from changing API requests. Four boundary/coverage regressions, lint and source typecheck pass. SEO/legal/accessibility and the final phase gate remain pending; original entered records remain in their original language.
+
+### Phase 8 public indexing
+SEO helpers/routes and original English brand PNG are implemented with indexing off, reviewed-origin language URLs and noindex private/draft pages. Two policy tests, lint/types pass; expanded HTTP smoke needs a complete rerun after a cold private-route timeout. No website was published, submitted to a search engine or externally deployed.

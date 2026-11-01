@@ -26,7 +26,7 @@ const nextConfig = {
       { key: 'Content-Security-Policy', value: csp.replace("script-src 'self'", "script-src 'self' https://checkout.razorpay.com")
         .replace("connect-src 'self'", "connect-src 'self' https://api.razorpay.com https://lumberjack.razorpay.com")
         + "; frame-src 'self' https://api.razorpay.com https://checkout.razorpay.com" },
-    ] }];
+    ] }, ...['/api/:path*', '/health', '/dashboard/:path*', '/account/:path*', '/login', '/hi/dashboard/:path*', '/hi/account/:path*', '/hi/login', '/privacy', '/terms', '/refunds', '/hi/privacy', '/hi/terms', '/hi/refunds'].map(source => ({ source, headers: [{ key: 'X-Robots-Tag', value: 'noindex, nofollow, noarchive' }] }))];
   },
   async rewrites() {
     return [
