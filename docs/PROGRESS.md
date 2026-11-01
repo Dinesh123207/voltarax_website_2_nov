@@ -2,7 +2,7 @@
 
 RESUME HERE: Phase 8 — complete English/Hindi page/workflow messages and coverage audit, then SEO/legal drafts, accessibility/font review and full gate
 
-Current localization checkpoint: all 932 currently catalogued source phrases have Hindi entries (zero pending). Public Hindi HTTP checks passed. Dynamic audit FOUND implicit option values that would submit translated labels, untranslated runtime templates, native navigation that drops the locale, toast messages, and backend indicator labels omitted from the catalog; fix and test these before claiming multilingual completion. Use tools/merge-hindi.cjs and tools/localize-ui.cjs --catalog --prune; inspect .local-tools/localization/pending.json after source changes.
+Current localization checkpoint: 977/977 active source phrases translated, including runtime templates, backend inspection indicators/report method and current model labels. Explicit select values, locale-preserving navigation and translated toasts are fixed. Four focused localization/boundary/coverage regressions, full lint and source types passed. Browser workflows/accessibility and final phase gate remain pending. Next: SEO metadata/next-sitemap, current-source legal drafts, accessibility/performance/font review.
 
 Status key: [ ] todo; [~] in progress; [x] done and verified as stated; [!] skipped with a reason. A phase is done only after its full gate passes.
 
@@ -98,6 +98,7 @@ Status key: [ ] todo; [~] in progress; [x] done and verified as stated; [!] skip
 - [x] First workflow Hindi group: 230 source-validated entries for dashboard labels, device/relay acknowledgements, current-condition/chronological validation, manual inspections, reports and test-commerce states/errors. Translations preserve unknown physical relay state, lack of field assurance and webhook-only payment confirmation. Merge/coverage checks passed; content-only change, no redundant build. 413 catalog entries remain.
 - [x] Remaining two workflow groups: 230 + 183 source-validated Hindi entries. Catalog now 932/932 with no pending literal entries. This is a content checkpoint, not proof of complete multilingual behavior: the dynamic/form audit found specific implementation gaps recorded above, to be fixed next. Content merge/coverage passed; full build/suite reserved for phase gate.
 - [ ] Privacy/Terms/Refund drafts with current official India sources and explicit legal review; no invented retention/contact/seller tax facts.
+- [x] Dynamic/form boundary fixes: explicit API values on every option, locale-aware work-order/commerce/password navigation, plain-text parameter interpolation, translated toast/model/condition/indicator/report-method messages and 72-byte UTF-8 password hint. Four focused regressions pass (opaque content, zero/one-pass interpolation, every option's protocol value, exact-source/full-Hindi/template parity); full lint/source types passed. Initial coverage test caught three newly collected uppercase status tokens; translations added, failure retained and four-case retry passed. Catalog 977/977. Browser flow and final gate remain pending.
 - [ ] Accessibility/360 px, form spam/performance checks and PDF Hindi/font coverage review; run actual checks and record any limits.
 - [ ] Verified claims, English/Hindi, SEO, legal drafts, accessibility, performance and IST clock.
 - [ ] Gate and phase tag.

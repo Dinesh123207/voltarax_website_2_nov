@@ -1,0 +1,10 @@
+{
+  "command": [
+    "node",
+    "../../tools/merge-hindi.cjs",
+    "C:/Users/JARVIS/Desktop/VOLTARAX/.local-tools/localization/translations-007.json"
+  ],
+  "cwd": "voltarax-web/frontend",
+  "exit_code": 0,
+  "seconds": 0.11
+}

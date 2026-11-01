@@ -1,0 +1,32 @@
+✔ literal localization preserves opaque values, numbers and surrounding whitespace, with exact source binding (1.2182ms)
+✔ localized templates keep zero and interpolate operator content once without interpreting replacement tokens (0.367ms)
+✔ translated select labels always have explicit protocol values (402.0995ms)
+✖ all active copy keys bind exact source and preserve every template parameter in Hindi (8.0318ms)
+ℹ tests 4
+ℹ suites 0
+ℹ pass 3
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 621.0698
+
+✖ failing tests:
+
+test at tests\localization.test.js:40:1
+✖ all active copy keys bind exact source and preserve every template parameter in Hindi (8.0318ms)
+  AssertionError [ERR_ASSERTION]: Missing translation for p_51bc8d1f
+      at TestContext.<anonymous> (C:\Users\JARVIS\Desktop\VOLTARAX\voltarax-web\backend\tests\localization.test.js:45:12)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: undefined,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }

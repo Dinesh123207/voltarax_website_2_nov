@@ -12,7 +12,7 @@ const obsolete = text => ['use client', 'use server', 'use strict', 'Enter', 'Es
 const phrases = new Map(Object.values(en.Phrases).filter(text => !obsolete(text)).map(text => [phraseId(text), text]));
 const locations = new Map(), changed = [], unsupported = [], rewritten = [];
 const technical = new Set('Voltarax VoltVision Razorpay INR IST PDF CSV JSON HTML HTTP HTTPS JWT OTP SMTP TLS GET POST PUT PATCH DELETE INA219 BH1750 DHT11 ESP32 NodeMCU R2 API'.split(' '));
-const states = new Set('open acknowledged resolved in_progress closed low medium high critical info warning pending paid refunded requested submitted processed rejected creating creation_unknown review_required clean dusty cracked peeling other unknown viewer operator admin active disabled healthy faulty online offline unavailable measured estimated calculated applied failed timed_out not_enough_data stale_input invalid_input model_expired validation_failed not_enough_daylight model_unavailable insufficient_new_data stable drift_detected ready missing expired legacy_unverified invalid unsupervised engineering_reference evaluated'.split(' '));
+const states = new Set('open acknowledged resolved in_progress closed low medium high critical info warning pending paid refunded requested submitted processed rejected creating creation_unknown review_required clean dusty cracked peeling other unknown viewer operator admin active disabled healthy faulty online offline unavailable measured estimated calculated applied failed timed_out not_enough_data stale_input invalid_input model_expired validation_failed not_enough_daylight model_unavailable insufficient_new_data stable drift_detected ready missing expired legacy_unverified invalid unsupervised engineering_reference evaluated created updated comment acknowledge resolve upload camera'.split(' '));
 const blocked = new Set(['name', 'title', 'description', 'note', 'notes', 'message', 'text', 'id', '_id', 'site_id', 'device_id', 'userId', 'email', 'phone', 'sha256', 'gatewayOrderId', 'gatewayRefundId']);
 function words(value) { return value.replace(/\s+/g, ' ').trim(); }
 function add(value, source, force = false) {
@@ -83,7 +83,8 @@ function analyze(file) {
     }
     if (ts.isStringLiteral(node)) {
       const attribute = ts.isJsxAttribute(node.parent) ? node.parent.name.getText() : '';
-      if (!['className', 'href', 'src', 'id', 'name', 'type', 'value', 'key'].includes(attribute)) add(node.text, relative);
+      const literalCopy = ts.isCallExpression(node.parent) && ts.isIdentifier(node.parent.expression) && node.parent.expression.text === 'copyText' && node.parent.arguments[0] === node;
+      if (!['className', 'href', 'src', 'id', 'name', 'type', 'value', 'key'].includes(attribute)) add(node.text, relative, literalCopy);
     }
     if (eligible && ts.isJsxText(node) && /[A-Za-z]{2}/.test(node.text)) {
       const scope = parentComponent(node), text = words(node.text);
@@ -145,7 +146,7 @@ for (const directory of ['services', 'routes', 'middleware', 'data']) walk(path.
   const source = ts.createSourceFile(file, fs.readFileSync(file, 'utf8'), ts.ScriptTarget.Latest, true);
   const visible = node => {
     for (let parent = node.parent; parent; parent = parent.parent) {
-      if (ts.isPropertyAssignment(parent)) return ['message', 'reason', 'note'].includes(parent.name.getText(source).replace(/['"]/g, ''));
+      if (ts.isPropertyAssignment(parent)) return ['message', 'reason', 'note', 'label', 'method'].includes(parent.name.getText(source).replace(/['"]/g, ''));
       if (ts.isCallExpression(parent)) return ts.isIdentifier(parent.expression) && ['fail'].includes(parent.expression.text);
       if (ts.isNewExpression(parent)) return ['OperationError', 'CommerceError', 'CameraError'].includes(parent.expression.getText(source));
     }

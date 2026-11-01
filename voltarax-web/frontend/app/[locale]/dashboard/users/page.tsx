@@ -92,7 +92,7 @@ export default function UsersPage() {
           const u = users.find(row => row._id === e.target.value);
           setAccess({ id: e.target.value, role: u?.role || 'viewer', siteIds: (u?.siteIds || []).join(','), isActive: u?.isActive === true, code: '' });
         }}><option value="">{copyText("Choose an account")}</option>{users.map(u => <option key={u._id} value={u._id}>{u.name} — {u.email}</option>)}</select></label>
-        <label className="block text-sm text-slate-300" htmlFor="access-role">{copyText("Role")}<select id="access-role" className="input-dark mt-1" value={access.role} onChange={e => setAccess({ ...access, role: e.target.value })}>{['viewer', 'operator', 'admin'].map(role => <option key={role}>{copyText(role)}</option>)}</select></label>
+        <label className="block text-sm text-slate-300" htmlFor="access-role">{copyText("Role")}<select id="access-role" className="input-dark mt-1" value={access.role} onChange={e => setAccess({ ...access, role: e.target.value })}>{['viewer', 'operator', 'admin'].map(role => <option key={role} value={role}>{copyText(role)}</option>)}</select></label>
         <label className="block text-sm text-slate-300" htmlFor="access-sites">{copyText("Site IDs (comma separated)")}<input id="access-sites" className="input-dark mt-1" value={access.siteIds} onChange={e => setAccess({ ...access, siteIds: e.target.value })} /></label>
         <label className="block text-sm text-slate-300"><input type="checkbox" checked={access.isActive} onChange={e => setAccess({ ...access, isActive: e.target.checked })} /> {copyText(" Account active")}</label>
         <button type="button" disabled={busy || !access.id} className="btn-outline" onClick={() => changeAccess(true)}>{copyText("Email confirmation code")}</button>

@@ -1,6 +1,6 @@
 'use client';
 import { useEffect, useState } from 'react';
-import { Link } from '@/i18n/navigation';
+import { Link, useRouter } from '@/i18n/navigation';
 import { api, inr } from '@/lib/commerce';
 import type { Plan, Order } from '@/lib/commerce';
 import DataQualityBadge from '@/components/ui/DataQualityBadge';
@@ -8,6 +8,7 @@ import { useCopy } from '@/i18n/copy';
 
 export default function Catalog() {
   const copyText = useCopy();
+  const router = useRouter();
   const [plans, setPlans] = useState<Plan[]>([]), [enabled, setEnabled] = useState(false), [loaded, setLoaded] = useState(false);
   const [message, setMessage] = useState('Loading plans…'), [error, setError] = useState(''), [busy, setBusy] = useState(false);
   useEffect(() => {
@@ -21,16 +22,16 @@ export default function Catalog() {
     setBusy(true); setError('');
     try {
       const session = await fetch('/api/auth/me', { cache: 'no-store' });
-      if (session.status === 401) { window.location.assign('/login'); return; }
+      if (session.status === 401) { router.push('/login'); return; }
       if (!session.ok) throw Error('Verify your account before checkout.');
       const previous = await api<{ orders: Order[] }>('/commerce/orders');
       const pending = previous.orders.find(row => row.planId === plan.id && ['pending', 'creating', 'creation_unknown', 'review_required'].includes(row.status));
-      if (pending) { window.location.assign('/account/orders/' + pending.id); return; }
+      if (pending) { router.push('/account/orders/' + pending.id); return; }
       const storageKey = 'voltarax-checkout-' + plan.id + '-' + plan.version;
       let requestKey = sessionStorage.getItem(storageKey);
       if (!requestKey) { requestKey = crypto.randomUUID(); sessionStorage.setItem(storageKey, requestKey); }
       const data = await api<{ order: Order }>('/commerce/orders', 'POST', { planId: plan.id, planVersion: plan.version, requestKey });
-      window.location.assign('/account/orders/' + data.order.id);
+      router.push('/account/orders/' + data.order.id);
     } catch (failure) { setError(failure instanceof Error ? failure.message : 'Checkout unavailable. Check your orders before trying again.'); }
     finally { setBusy(false); }
   };

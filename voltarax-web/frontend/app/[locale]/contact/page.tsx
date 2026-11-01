@@ -41,12 +41,12 @@ function ContactForm() {
       const data = await r.json();
       if (data.success) {
         setSuccess(true);
-        toast.success(data.message);
+        toast.success(copyText(data.message));
       } else {
-        toast.error(data.message || 'Something went wrong.');
+        toast.error(copyText(data.message || 'Something went wrong.'));
       }
     } catch {
-      toast.error(CONTACT_EMAIL ? `Server unreachable. Email us at ${CONTACT_EMAIL}` : 'Server unreachable. Please try again shortly.');
+      toast.error(CONTACT_EMAIL ? copyText('Server unreachable. Email us at {email}', { email: CONTACT_EMAIL }) : copyText('Server unreachable. Please try again shortly.'));
     } finally {
       setLoading(false);
     }

@@ -36,6 +36,7 @@ export default function LoginPage() {
       <form onSubmit={submit} className="space-y-4">
         {copyText(register && !verify && field('name', 'Name'))}
         {copyText(!verify && <>{copyText(field('email', 'Email address', 'email'))}{copyText(field('password', register ? 'Password (12–72 characters)' : 'Password', 'password'))}</>)}
+        {register && !verify && <p className="text-xs text-slate-400">{copyText('Passwords also have a 72-byte UTF-8 limit; Hindi characters can use more than one byte.')}</p>}
         {copyText(verify && field('code', 'Six-digit verification code'))}
         <button className="btn-green w-full justify-center" disabled={busy} type="submit">{copyText(busy ? 'Please wait…' : verify ? 'Verify email' : register ? 'Create account' : 'Sign in')}</button>
       </form>

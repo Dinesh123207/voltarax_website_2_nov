@@ -10,3 +10,10 @@ export function lookupCopy<T>(text: T, source: Record<string, string>, translate
   if (source[id] !== normalized || translated[id] == null) return text;
   return (text.slice(0, text.indexOf(trimmed)) + translated[id] + text.slice(text.indexOf(trimmed) + trimmed.length)) as T;
 }
+// Parameters are substituted once as plain text. They are never interpreted as
+// message keys, HTML, regular-expression replacements or another template.
+export function formatCopy<T>(text: T, source: Record<string, string>, translated: Record<string, string> = {}, values?: Record<string, string | number>): T {
+  const result = lookupCopy(text, source, translated);
+  if (typeof result !== 'string' || !values) return result;
+  return result.replace(/\{([a-zA-Z][a-zA-Z0-9_]*)\}/g, (placeholder, key: string) => Object.hasOwn(values, key) ? String(values[key]) : placeholder) as T;
+}

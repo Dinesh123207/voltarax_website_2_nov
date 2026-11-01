@@ -2,6 +2,7 @@
 import { useEffect, useState } from 'react';
 import { Users, RefreshCw, ExternalLink, Settings as SettingsIcon, Shield } from 'lucide-react';
 import { useCopy } from '@/i18n/copy';
+import { useRouter } from '@/i18n/navigation';
 
 
 
@@ -16,6 +17,7 @@ const ROLE_COL: Record<string, string> = {
 
 export default function SettingsPage() {
   const copyText = useCopy();
+  const router = useRouter();
   const [user, setUser] = useState<any>(null);
   const [password, setPassword] = useState(''); const [code, setCode] = useState('');
   const [message, setMessage] = useState(''); const [busy, setBusy] = useState(false);
@@ -24,7 +26,7 @@ export default function SettingsPage() {
     try {
       const response = await fetch(requestCode ? '/api/auth/sensitive/request' : '/api/auth/password', { method: 'POST', headers: { 'Content-Type': 'application/json', 'x-voltarax-request': '1' }, body: JSON.stringify(requestCode ? { action: 'password', target: user._id } : { password, code }) });
       const data = await response.json(); setMessage(data.message || 'Unable to continue.');
-      if (response.ok && !requestCode) window.location.assign('/login');
+      if (response.ok && !requestCode) router.replace('/login');
     } catch { setMessage('Server unavailable.'); } finally { setBusy(false); }
   };
 
@@ -79,6 +81,7 @@ export default function SettingsPage() {
         <p className="text-sm text-slate-400">{copyText("Email confirmation is required. This signs out every device.")}</p>
         <button type="button" disabled={busy} className="btn-outline" onClick={() => changePassword(true)}>{copyText("Email confirmation code")}</button>
         <label className="block text-sm text-slate-300" htmlFor="new-password">{copyText("New password (12–72 characters)")}<input id="new-password" type="password" autoComplete="new-password" required minLength={12} maxLength={72} className="input-dark mt-1" value={password} onChange={e => setPassword(e.target.value)} /></label>
+        <p className="text-xs text-slate-400">{copyText('Passwords also have a 72-byte UTF-8 limit; Hindi characters can use more than one byte.')}</p>
         <label className="block text-sm text-slate-300" htmlFor="password-code">{copyText("Six-digit code")}<input id="password-code" inputMode="numeric" autoComplete="one-time-code" required pattern="[0-9]{6}" maxLength={6} className="input-dark mt-1" value={code} onChange={e => setCode(e.target.value)} /></label>
         <button type="submit" disabled={busy} className="btn-green">{copyText("Change password")}</button>
         <p role="status" className="text-sm text-slate-300">{copyText(message)}</p>

@@ -15,6 +15,7 @@ type Pipeline = { valid_until: number; model_states: Record<string, string>; mod
 type Drift = { status: string; valid_until?: number; models?: Record<string, { status: string; recent_rows?: number | null; max_psi?: number | null }> };
 const ist = (stamp?: number | null) => stamp ? new Date(stamp * 1000).toLocaleString('en-IN', { timeZone: 'Asia/Kolkata', hour12: false }) + ' IST' : 'Unavailable';
 const number = (value?: number | null, digits = 3) => typeof value === 'number' && Number.isFinite(value) ? value.toFixed(digits) : 'Unavailable';
+const modelLabels: Record<string, string> = { forecast: 'Current power estimates', forecast_gbr: 'Current power estimates', anomaly: 'Anomaly Detection', anomaly_isolation_forest: 'Anomaly Detection', health: 'Sensor-derived baseline', health_baseline: 'Sensor-derived baseline' };
 
 export default function ForecastPage() {
   const copyText = useCopy();
@@ -85,8 +86,8 @@ export default function ForecastPage() {
           <caption className="sr-only">{copyText("Current-power errors compared with the training-only engineering baseline")}</caption>
           <thead><tr className="text-slate-300"><th scope="col">{copyText("Metric")}</th><th scope="col">{copyText("Model")}</th><th scope="col">{copyText("Engineering baseline")}</th></tr></thead>
           <tbody className="text-slate-400">{(['mae_mw', 'rmse_mw', 'r2'] as const).map(key => <tr key={key}>
-            <th scope="row" className="py-2">{key === 'mae_mw' ? 'MAE (mW)' : key === 'rmse_mw' ? 'RMSE (mW)' : 'R²'}</th>
-            <td>{number(validation.model?.[key])}</td><td>{number(validation.baseline?.[key])}</td>
+            <th scope="row" className="py-2">{copyText(key === 'mae_mw' ? 'MAE (mW)' : key === 'rmse_mw' ? 'RMSE (mW)' : 'R²')}</th>
+            <td>{copyText(number(validation.model?.[key]))}</td><td>{copyText(number(validation.baseline?.[key]))}</td>
           </tr>)}</tbody>
         </table></div>
         <p className="text-sm text-slate-400">{copyText("Training rows: ")}{copyText(validation.split?.train_rows ?? 'Unavailable')} {copyText(" · Held-out rows: ")}{copyText(validation.split?.test_rows ?? 'Unavailable')}</p>
@@ -95,7 +96,7 @@ export default function ForecastPage() {
         <h2 className="text-lg text-white font-semibold">{copyText("Model availability")}</h2>
         <p className="text-sm text-slate-400">{copyText("A recent publication cannot refresh an old input or expired model. Unusual patterns are estimates, not confirmed faults; physical health remains unavailable.")}</p>
         {pipeline ? <ul className="space-y-3 text-sm text-slate-300">{Object.entries(pipeline.model_states).map(([name, state]) => <li key={name}>
-          <span className="font-semibold capitalize">{copyText(name)}: </span>{copyText(state.replaceAll('_', ' '))}
+          <span className="font-semibold">{copyText(modelLabels[name] || 'Unavailable')}: </span>{copyText(state === 'ok' ? 'ready' : state.replaceAll('_', ' '))}
           <span className="block text-slate-400 break-all">{copyText(pipeline.model_info[name]?.model_version || 'No validated version')} {copyText(" · Trained ")}{copyText(ist(pipeline.model_info[name]?.trained_at))}</span>
         </li>)}</ul> : <p className="text-sm text-slate-400">{copyText("No fresh validated pipeline status available.")}</p>}
       </section>
@@ -112,7 +113,7 @@ export default function ForecastPage() {
         <h2 className="text-lg text-white font-semibold">{copyText("Input distribution check")}</h2>
         <p className="text-sm text-slate-400">{copyText("Training-reference PSI compares light and temperature with up to 500 new daylight samples. At least 50 are required. The initial 0.2 review threshold is an assumption, not validated site accuracy or a fault diagnosis.")}</p>
         {drift?.status === 'ok' && drift.models ? <ul className="space-y-2 text-sm text-slate-300">{Object.entries(drift.models).map(([name, row]) => <li key={name}>
-          <span className="capitalize">{copyText(name)}</span>: {copyText(row.status.replaceAll('_', ' '))} {copyText(" · New samples ")}{copyText(row.recent_rows ?? 'Unavailable')} {copyText(" · PSI ")}{copyText(number(row.max_psi))}
+          <span>{copyText(modelLabels[name] || 'Unavailable')}</span>: {copyText(row.status.replaceAll('_', ' '))} {copyText(" · New samples ")}{copyText(row.recent_rows ?? 'Unavailable')} {copyText(" · PSI ")}{copyText(number(row.max_psi))}
         </li>)}</ul> : <p className="text-sm text-slate-400">{copyText("No fresh validated distribution check available.")}</p>}
       </section>
     </div>

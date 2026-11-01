@@ -140,3 +140,6 @@ The local account tests use fake Firebase repositories and a fake email sender. 
 
 ### Phase 8 public language task
 Complete translatable headlines, public Hindi copy and source-preserving prepared assistant are implemented. Narrow lint/typecheck and actual HTTP public Hindi render passed; dynamic templates, remaining workflow copy, SEO/legal/accessibility and the full phase gate remain pending. Voice input is labelled coming soon pending an explicit privacy/provider review.
+
+### Phase 8 language boundary checkpoint
+977 active source messages now have Hindi entries with parameter parity. Explicit dropdown protocol values and locale-preserving account/work-order links prevent localization from changing API requests. Four boundary/coverage regressions, lint and source typecheck pass. SEO/legal/accessibility and the final phase gate remain pending; original entered records remain in their original language.

@@ -107,7 +107,7 @@ export default function PanelsPage() {
                 ? 'border-green-500 text-green-400 bg-green-500/10'
                 : 'border-green-900/30 text-slate-500 hover:text-white hover:border-slate-600'
             }`}>
-            {copyText(r === 'all' ? 'All' : `Row ${r}`)}
+            {r === 'all' ? copyText('All') : copyText('Row {row}', { row: r })}
           </button>
         ))}
         {copyText(filter !== 'all' && (
@@ -132,7 +132,7 @@ export default function PanelsPage() {
                   const st = p?.status || 'unknown';
                   return (
                     <div key={col}
-                      title={copyText(`${label} — ${st} ${p?.efficiency_pct ? `${p.efficiency_pct.toFixed(1)}%` : ''}`)}
+                      title={`${label} — ${copyText(st)} ${p?.efficiency_pct != null ? `${p.efficiency_pct.toFixed(1)}%` : ''}`}
                       className={`flex-1 h-8 rounded flex items-center justify-center text-[9px] font-mono font-bold cursor-default border ${STATUS_STYLE[st] || STATUS_STYLE.unknown} ${
                         st === 'critical' ? 'animate-pulse' : ''
                       }`}>

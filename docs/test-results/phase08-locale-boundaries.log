@@ -1,0 +1,11 @@
+✔ literal localization preserves opaque values, numbers and surrounding whitespace, with exact source binding (1.1964ms)
+✔ localized templates keep zero and interpolate operator content once without interpreting replacement tokens (0.6374ms)
+✔ translated select labels always have explicit protocol values (546.3919ms)
+ℹ tests 3
+ℹ suites 0
+ℹ pass 3
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 758.6056

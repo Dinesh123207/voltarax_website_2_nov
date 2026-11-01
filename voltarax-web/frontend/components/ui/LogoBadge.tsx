@@ -15,7 +15,7 @@ export default function LogoBadge({ src, name }: { src?: string; name: string })
   if (!src || failed) {
     return (
       <div className="h-16 px-6 flex items-center justify-center rounded-xl border border-green-900/30 bg-[#111a14]">
-        <span className="text-slate-300 font-semibold tracking-wide text-sm sm:text-base">{copyText(name)}</span>
+        <span className="text-slate-300 font-semibold tracking-wide text-sm sm:text-base">{name}</span>
       </div>
     );
   }
@@ -25,7 +25,7 @@ export default function LogoBadge({ src, name }: { src?: string; name: string })
       {/* eslint-disable-next-line @next/next/no-img-element */}
       <img
         src={src}
-        alt={copyText(`${name} logo`)}
+        alt={copyText('{name} logo', { name })}
         onError={() => setFailed(true)}
         className="max-h-10 max-w-full object-contain"
       />

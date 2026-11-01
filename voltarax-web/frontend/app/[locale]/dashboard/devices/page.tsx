@@ -48,7 +48,7 @@ export default function DevicesPage() {
     </form>
     {operation && <form className="stat-card space-y-3 border border-amber-700" onSubmit={e => submit(e, true)}>
       <h2 className="text-white font-semibold">{copyText("Confirm ")}{copyText(operation.action === 'device-key-rotate' ? 'key rotation' : 'configuration change')}: {operation.id}</h2>
-      <p className="text-sm">{copyText(operation.action === 'device-key-rotate' ? 'The existing key will stop working immediately.' : `Device enabled: ${operation.enabled ? 'yes' : 'no'}. Relay permission: ${operation.relayEnabled ? 'yes' : 'no'}. Server and firmware safety gates also apply.`)}</p>
+      <p className="text-sm">{copyText(operation.action === 'device-key-rotate' ? 'The existing key will stop working immediately.' : copyText('Device enabled: {enabled}. Relay permission: {relay}. Server and firmware safety gates also apply.', { enabled: copyText(operation.enabled ? 'Yes' : 'No'), relay: copyText(operation.relayEnabled ? 'Yes' : 'No') }))}</p>
       <button type="button" className="btn-outline" disabled={busy} onClick={() => requestCode(operation.action, operation.id)}>{copyText("Email confirmation code")}</button>
       <label className="block text-sm" htmlFor="device-code">{copyText("Six-digit code")}<input id="device-code" required pattern="[0-9]{6}" maxLength={6} inputMode="numeric" autoComplete="one-time-code" className="input-dark mt-1" value={code} onChange={e => setCode(e.target.value)} /></label>
       <button className="btn-green" disabled={busy}>{copyText("Confirm change")}</button> <button type="button" className="btn-outline" onClick={() => setOperation(null)}>{copyText("Cancel")}</button>

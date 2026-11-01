@@ -2,11 +2,11 @@ import { Link } from '@/i18n/navigation';
 import { Zap, Mail, MapPin, Phone, Github, Linkedin, Twitter } from 'lucide-react';
 import { useCopy } from '@/i18n/copy';
 
-const FOOTER_LINKS = {
-  Platform: [{ label: 'Monitoring', href: '/products' }, { label: 'Technology', href: '/technology' }, { label: 'Pricing', href: '/pricing' }],
-  Project: [{ label: 'About', href: '/about' }, { label: 'Contact', href: '/contact' }, { label: 'Sustainability', href: '/sustainability' }],
-  Account: [{ label: 'Sign in', href: '/login' }, { label: 'My test orders', href: '/account/orders' }],
-};
+const FOOTER_LINKS = [
+  { heading: 'Platform', links: [{ label: 'Monitoring', href: '/products' }, { label: 'Technology', href: '/technology' }, { label: 'Pricing', href: '/pricing' }] },
+  { heading: 'Project', links: [{ label: 'About', href: '/about' }, { label: 'Contact', href: '/contact' }, { label: 'Sustainability', href: '/sustainability' }] },
+  { heading: 'Account', links: [{ label: 'Sign in', href: '/login' }, { label: 'My test orders', href: '/account/orders' }] },
+];
 function publicHttps(value: string | undefined) {
   if (!value) return null;
   try { const url = new URL(value); return url.protocol === 'https:' && !url.username && !url.password ? url.href : null; } catch { return null; }
@@ -31,7 +31,7 @@ export default function Footer() {
           </div>
           <div className="flex gap-3">{socials.filter(item => item.href).map(({ icon: Icon, label, href }) => <a key={label} href={href!} aria-label={copyText(label)} target="_blank" rel="noopener noreferrer" className="p-2 border border-slate-600 rounded"><Icon size={18} aria-hidden="true"/></a>)}</div>
         </div>
-        {Object.entries(FOOTER_LINKS).map(([heading, links]) => <div key={heading}><h2 className="font-semibold text-white mb-3">{copyText(heading)}</h2><ul className="space-y-2">{links.map(link => <li key={link.href}><Link className="text-sm text-slate-300 hover:text-green-300" href={link.href}>{copyText(link.label)}</Link></li>)}</ul></div>)}
+        {FOOTER_LINKS.map(({ heading, links }) => <div key={heading}><h2 className="font-semibold text-white mb-3">{copyText(heading)}</h2><ul className="space-y-2">{links.map(link => <li key={link.href}><Link className="text-sm text-slate-300 hover:text-green-300" href={link.href}>{copyText(link.label)}</Link></li>)}</ul></div>)}
       </div>
       <p className="border-t border-slate-700 pt-4 text-xs text-slate-400">{copyText("© Voltarax. Software under development; field performance unverified.")}</p>
     </div>
