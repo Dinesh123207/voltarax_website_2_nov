@@ -2,13 +2,13 @@
  * Keeps /solar_site/analysis up to date regardless of HOW a reading arrived.
  *
  * Hardware can reach Firebase two ways (see backend/README-FIREBASE.md):
- *   1. Directly from the NodeMCU (the primary path — hardware/nodemcu/solar_monitor.ino
+ *   1. Directly from the NodeMCU (the primary path â€” hardware/nodemcu/solar_monitor.ino
  *      writes straight to Firebase over Wi-Fi, and this Node server is never involved).
  *   2. Through the optional POST /api/telemetry/ingest bridge, for devices that can't
  *      talk to Firebase directly.
  *
  * routes/telemetry.js only computes analysis for path 2. Without this watcher, a
- * NodeMCU using path 1 — the one described in the setup guide — would update
+ * NodeMCU using path 1 â€” the one described in the setup guide â€” would update
  * /solar_site/latest every 5s but /solar_site/analysis would stay empty forever,
  * and the dashboard would never show health/alerts.
  *
@@ -44,13 +44,13 @@ function startTelemetryWatcher() {
     const reading = snap.val();
     if (!reading || (reading.site_id || 'solar_site') !== SITE_ID) return;
     saveAnalysis(reading, readConfig()).catch((err) => {
-      console.error('telemetryWatcher: failed to update /solar_site/analysis:', err.message);
+      require('./logger').logger.error({ event: 'analysis-write-failed' }, 'Analysis unavailable');
     });
   }, (err) => {
-    console.error('telemetryWatcher: lost connection to /solar_site/latest:', err.message);
+    require('./logger').logger.error({ event: 'watcher-disconnected' }, 'Telemetry connection unavailable');
   });
 
-  console.log('📡 Telemetry watcher attached to /solar_site/latest (works for direct-from-hardware writes too)');
+  console.log('ðŸ“¡ Telemetry watcher attached to /solar_site/latest (works for direct-from-hardware writes too)');
 }
 
 module.exports = { startTelemetryWatcher };

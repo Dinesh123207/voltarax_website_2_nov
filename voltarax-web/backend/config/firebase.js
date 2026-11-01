@@ -3,7 +3,7 @@ const admin = require('firebase-admin');
 function parseServiceAccount() {
   if (process.env.FIREBASE_SERVICE_ACCOUNT_JSON) {
     try { return JSON.parse(process.env.FIREBASE_SERVICE_ACCOUNT_JSON); }
-    catch (err) { throw new ConfigError(`FIREBASE_SERVICE_ACCOUNT_JSON is not valid JSON: ${err.message}`); }
+    catch { throw new ConfigError('FIREBASE_SERVICE_ACCOUNT_JSON is not valid JSON. Review it locally without logging the value.'); }
   }
   if (process.env.FIREBASE_PROJECT_ID && process.env.FIREBASE_CLIENT_EMAIL && process.env.FIREBASE_PRIVATE_KEY) {
     return {

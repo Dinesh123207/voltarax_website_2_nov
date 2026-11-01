@@ -29,6 +29,7 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
   const router     = useRouter();
   const [sideOpen, setSideOpen] = useState(false);
   const [user,     setUser]     = useState<any>(null);
+  const [sessionMessage, setSessionMessage] = useState('');
   const sectionQuality: DataQuality = ['/dashboard/bfci', '/dashboard/cv', '/dashboard/relay', '/dashboard/work-orders'].includes(pathname)
     ? 'Unavailable' : ['/dashboard/panels', '/dashboard/forecast', '/dashboard/carbon'].includes(pathname) ? 'Estimated' : 'Calculated';
 
@@ -45,8 +46,11 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
   }, [router]);
 
   const logout = async () => {
-    const response = await fetch('/api/auth/logout', { method: 'POST', headers: { 'x-voltarax-request': '1' } });
-    if (response.ok || response.status === 401) router.replace('/login');
+    try {
+      const response = await fetch('/api/auth/logout', { method: 'POST', headers: { 'x-voltarax-request': '1' } });
+      if (response.ok || response.status === 401) router.replace('/login');
+      else setSessionMessage('Unable to sign out. Please try again.');
+    } catch { setSessionMessage('Server unavailable. Please try signing out again.'); }
   };
 
   if (!user) return <p role="status" className="p-8 text-slate-300">Checking your session…</p>;
@@ -55,6 +59,7 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
     <div className="min-h-screen bg-[#0a0f0d] flex">
 
       {/* Sidebar */}
+      {sessionMessage && <p role="alert" className="fixed bottom-2 right-2 z-50 bg-slate-900 p-3 text-white">{sessionMessage}</p>}
       <aside className={`fixed inset-y-0 left-0 z-40 w-60 bg-[#111a14] border-r border-green-900/20 flex flex-col transition-transform duration-300 ${
         sideOpen ? 'translate-x-0' : '-translate-x-full'
       } lg:translate-x-0`}>

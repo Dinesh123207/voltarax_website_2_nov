@@ -1,0 +1,40 @@
+const test = require('node:test');
+const assert = require('node:assert/strict');
+const { Writable } = require('node:stream');
+const express = require('express');
+const { createApp } = require('../app');
+const { createLimiters } = require('../services/rateLimits');
+const { createLogger } = require('../services/logger');
+const { validate, z } = require('../middleware/validate');
+test('HTTP boundary enforces origins, headers, validation, safe errors and scoped rate limits without logging inputs', async t => {
+  let output = '';
+  const logger = createLogger(new Writable({ write(chunk, encoding, done) { output += chunk; done(); } }));
+  const router = express.Router();
+  router.post('/login', validate({ body: z.object({ email: z.string().email(), password: z.string() }).strict() }), (req, res) => res.json({ success: true }));
+  const content = express.Router(); content.post('/contact', (req, res) => res.json({ success: true }));
+  content.get('/fail', () => { throw new Error('synthetic-sensitive-error'); });
+  const telemetry = express.Router(); telemetry.post('/ingest', (req, res) => res.json({ success: true }));
+  const app = createApp({ logger, env: { NODE_ENV: 'production', CORS_ORIGINS: 'https://example.test' },
+    limiters: createLimiters({ limits: { 'auth-email': 2, forms: 1, ingest: 2 } }),
+    routes: { auth: router, content, dashboard: express.Router(), telemetry, chat: express.Router() } });
+  const server = app.listen(0, '127.0.0.1'); await new Promise(resolve => server.once('listening', resolve)); t.after(() => server.close());
+  const base = `http://127.0.0.1:${server.address().port}`;
+  let response = await fetch(base + '/health'); assert.equal(response.status, 200);
+  for (const header of ['content-security-policy', 'strict-transport-security', 'x-content-type-options', 'referrer-policy', 'permissions-policy', 'x-frame-options', 'x-request-id']) assert.ok(response.headers.get(header), header);
+  assert.equal(response.headers.get('x-powered-by'), null);
+  assert.equal((await fetch(base + '/health?unknown=1')).status, 422);
+  assert.equal((await fetch(base + '/health', { headers: { Origin: 'https://unapproved.test' } })).status, 403);
+  response = await fetch(base + '/health', { headers: { Origin: 'https://example.test' } }); assert.equal(response.headers.get('access-control-allow-origin'), 'https://example.test');
+  response = await fetch(base + '/api/fail?code=synthetic-secret-query'); assert.equal(response.status, 500); assert.doesNotMatch(await response.text(), /sensitive-error|stack/);
+  const send = (path, body) => fetch(base + path, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(body) });
+  assert.equal((await send('/api/auth/login', { email: 'user@example.test', password: 'synthetic-secret-password' })).status, 200);
+  assert.equal((await send('/api/auth/login', { email: 'user@example.test', password: 'synthetic-secret-password' })).status, 200);
+  assert.equal((await send('/api/auth/login', { email: 'USER@example.test', password: 'synthetic-secret-password' })).status, 429);
+  assert.equal((await send('/api/auth/login', { email: 'other@example.test', password: 'synthetic-secret-password', role: 'admin' })).status, 422);
+  assert.equal((await send('/api/contact', {})).status, 200); assert.equal((await send('/api/contact', {})).status, 429);
+  for (const status of [200, 200, 429]) assert.equal((await send('/api/telemetry/ingest', {})).status, status);
+  response = await fetch(base + '/api/auth/login', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: '{' }); assert.equal(response.status, 400);
+  logger.info({ password: 'synthetic-secret-password', code: 'synthetic-secret-code', token: 'synthetic-secret-token', req: { body: { email: 'synthetic-secret-email' } } }, 'redaction-test');
+  assert.doesNotMatch(output, /synthetic-secret-|synthetic-sensitive-error|user@example.test/);
+  assert.match(output, /requestId/);
+});

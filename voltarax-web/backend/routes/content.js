@@ -1,19 +1,16 @@
 const express  = require('express');
-const { body, validationResult } = require('express-validator');
+const { validate, z, email } = require('../middleware/validate');
+const short = z.string().trim().max(150).optional();
+const optionalFields = { company: short, phone: z.string().trim().max(32).optional(), type: z.string().max(50).optional(), website: z.literal('').optional() };
+const contactBody = z.object({ name: z.string().trim().min(2).max(100), email, subject: z.string().trim().min(1).max(200), message: z.string().trim().min(10).max(2000), ...optionalFields }).strict();
+const demoBody = z.object({ name: z.string().trim().min(2).max(100), email, subject: z.string().max(200).optional(), message: z.string().max(2000).optional(), ...optionalFields }).strict();
 const { Contact, Subscriber, DemoRequest, Post } = require('../models/Content');
 const { protect, requireAdmin } = require('../middleware/auth');
 
 const router = express.Router();
 
-// ── POST /api/contact ─────────────────────────────────────────────────────────
-router.post('/contact', [
-  body('name').trim().isLength({ min: 2 }),
-  body('email').isEmail().normalizeEmail(),
-  body('subject').trim().notEmpty(),
-  body('message').trim().isLength({ min: 10, max: 2000 }),
-], async (req, res) => {
-  const errs = validationResult(req);
-  if (!errs.isEmpty()) return res.status(422).json({ success: false, errors: errs.array() });
+// â”€â”€ POST /api/contact â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+router.post('/contact', validate({ body: contactBody }), async (req, res) => {
 
   try {
     const contact = await Contact.create({
@@ -26,14 +23,8 @@ router.post('/contact', [
   }
 });
 
-// ── POST /api/demo ────────────────────────────────────────────────────────────
-router.post('/demo', [
-  body('name').trim().notEmpty(),
-  body('email').isEmail().normalizeEmail(),
-  body('company').trim().notEmpty(),
-], async (req, res) => {
-  const errs = validationResult(req);
-  if (!errs.isEmpty()) return res.status(422).json({ success: false, errors: errs.array() });
+// â”€â”€ POST /api/demo â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+router.post('/demo', validate({ body: demoBody }), async (req, res) => {
 
   try {
     await DemoRequest.create(req.body);
@@ -43,12 +34,8 @@ router.post('/demo', [
   }
 });
 
-// ── POST /api/subscribe ───────────────────────────────────────────────────────
-router.post('/subscribe', [
-  body('email').isEmail().normalizeEmail(),
-], async (req, res) => {
-  const errs = validationResult(req);
-  if (!errs.isEmpty()) return res.status(422).json({ success: false, message: 'Invalid email.' });
+// â”€â”€ POST /api/subscribe â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+router.post('/subscribe', validate({ body: z.object({ email, source: z.string().max(50).optional(), website: z.literal('').optional() }).strict() }), async (req, res) => {
 
   try {
     const exists = await Subscriber.findOne({ email: req.body.email });
@@ -63,8 +50,8 @@ router.post('/subscribe', [
   }
 });
 
-// ── GET /api/posts ─────────────────────────────────────────────────────────────
-router.get('/posts', async (req, res) => {
+// â”€â”€ GET /api/posts â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+router.get('/posts', validate({ query: z.object({ category: z.string().regex(/^[A-Za-z0-9_-]{1,50}$/).optional(), page: z.coerce.number().int().min(1).max(10000).default(1), limit: z.coerce.number().int().min(1).max(100).default(10) }).strict() }), async (req, res) => {
   try {
     const { category, limit = 10, page = 1 } = req.query;
     const filter = { published: true };
@@ -76,7 +63,7 @@ router.get('/posts', async (req, res) => {
       .skip((page - 1) * limit)
       .limit(Number(limit));
     // .select('-content') on the FirebaseQuery above is a no-op (see
-    // services/firebaseModel.js — select/populate are only accepted for
+    // services/firebaseModel.js â€” select/populate are only accepted for
     // Mongoose-style call-site compatibility, they don't actually project).
     // A list view returning every post's full body is wasted bandwidth, so
     // strip it here instead, explicitly.
@@ -88,8 +75,8 @@ router.get('/posts', async (req, res) => {
   }
 });
 
-// ── GET /api/posts/:slug ──────────────────────────────────────────────────────
-router.get('/posts/:slug', async (req, res) => {
+// â”€â”€ GET /api/posts/:slug â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+router.get('/posts/:slug', validate({ params: z.object({ slug: z.string().regex(/^[a-z0-9-]{1,150}$/) }).strict() }), async (req, res) => {
   try {
     const post = await Post.findOneAndUpdate(
       { slug: req.params.slug, published: true },
@@ -103,8 +90,8 @@ router.get('/posts/:slug', async (req, res) => {
   }
 });
 
-// ── Admin: GET /api/admin/contacts ────────────────────────────────────────────
-router.get('/admin/contacts', protect, requireAdmin, async (req, res) => {
+// â”€â”€ Admin: GET /api/admin/contacts â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+router.get('/admin/contacts', protect, requireAdmin, validate(), async (req, res) => {
   try {
     const contacts = await Contact.find().sort({ createdAt: -1 }).limit(100);
     res.json({ success: true, contacts });
@@ -113,8 +100,8 @@ router.get('/admin/contacts', protect, requireAdmin, async (req, res) => {
   }
 });
 
-// ── Admin: GET /api/admin/demos ───────────────────────────────────────────────
-router.get('/admin/demos', protect, requireAdmin, async (req, res) => {
+// â”€â”€ Admin: GET /api/admin/demos â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+router.get('/admin/demos', protect, requireAdmin, validate(), async (req, res) => {
   try {
     const demos = await DemoRequest.find().sort({ createdAt: -1 });
     res.json({ success: true, demos });
@@ -123,8 +110,8 @@ router.get('/admin/demos', protect, requireAdmin, async (req, res) => {
   }
 });
 
-// ── Admin: GET /api/admin/stats ───────────────────────────────────────────────
-router.get('/admin/stats', protect, requireAdmin, async (req, res) => {
+// â”€â”€ Admin: GET /api/admin/stats â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+router.get('/admin/stats', protect, requireAdmin, validate(), async (req, res) => {
   try {
     const [contacts, demos, subscribers, posts] = await Promise.all([
       Contact.countDocuments(),

@@ -1,92 +1,17 @@
 require('dotenv').config();
-const express     = require('express');
-const cors        = require('cors');
-const helmet      = require('helmet');
-const morgan      = require('morgan');
-const rateLimit   = require('express-rate-limit');
-const connectDB   = require('./config/db');
-const { responseQuality } = require('./services/dataQuality');
-
-// Routes
-const authRoutes       = require('./routes/auth');
-const contentRoutes    = require('./routes/content');
-const voltvisionRoutes = require('./routes/voltvision');
-const chatRoutes       = require('./routes/chat');
-const telemetryRoutes  = require('./routes/telemetry');
-const { startTelemetryWatcher } = require('./services/telemetryWatcher');
-
-const app  = express();
-const PORT = process.env.PORT || 5000;
-
-// ── Connect DB ────────────────────────────────────────────────────────────────
-connectDB();
-startTelemetryWatcher();
-
-// ── Security middleware ───────────────────────────────────────────────────────
-app.use(helmet());
-app.use(cors({
-  origin: [
-    process.env.FRONTEND_URL || 'http://localhost:3000',
-    'https://voltarax.in',
-    'https://www.voltarax.in',
-  ],
-  credentials: true,
-}));
-
-// ── Rate limiting ─────────────────────────────────────────────────────────────
-const limiter = rateLimit({ windowMs: 15 * 60 * 1000, max: 200 });
-const authLimiter = rateLimit({ windowMs: 15 * 60 * 1000, max: 20,
-  message: { success: false, message: 'Too many login attempts. Try again in 15 minutes.' }
-});
-app.use('/api/', limiter);
-app.use('/api/auth/login', authLimiter);
-
-// ── Body parsing ──────────────────────────────────────────────────────────────
-app.use(express.json({ limit: '10kb' }));
-app.use(express.urlencoded({ extended: true, limit: '10kb' }));
-app.use(responseQuality);
-
-// ── Logging ───────────────────────────────────────────────────────────────────
-if (process.env.NODE_ENV === 'development') {
-  app.use(morgan('dev'));
+const { createApp } = require('./app');
+const { logger } = require('./services/logger');
+const { createLimiters, connectRateStore } = require('./services/rateLimits');
+async function main() {
+  if (!process.env.JWT_SECRET || process.env.JWT_SECRET.length < 32) throw new Error('Configure a strong session secret');
+  const client = await connectRateStore(process.env, logger);
+  const limiters = createLimiters({ client });
+  const routes = { auth: require('./routes/auth').createAuthRouter({ emailLimiter: limiters.authEmail }), content: require('./routes/content'), dashboard: require('./routes/voltvision'), telemetry: require('./routes/telemetry'), chat: require('./routes/chat') };
+  const app = createApp({ logger, limiters, routes });
+  await require('./config/db')();
+  require('./services/telemetryWatcher').startTelemetryWatcher();
+  const server = app.listen(Number(process.env.PORT || 5000), () => logger.info({ event: 'listening' }, 'API started'));
+  const stop = () => server.close(async () => { if (client) await client.quit(); process.exit(0); });
+  process.on('SIGTERM', stop); process.on('SIGINT', stop);
 }
-
-// ── Health check ──────────────────────────────────────────────────────────────
-app.get('/health', (req, res) => {
-  res.json({
-    status: 'ok',
-    app: 'Voltarax Corporate API',
-    version: '1.0.0',
-    env: process.env.NODE_ENV,
-  });
-});
-
-// ── API routes ────────────────────────────────────────────────────────────────
-app.use('/api/auth',       authRoutes);
-app.use('/api',            contentRoutes);
-app.use('/api/voltvision', voltvisionRoutes);
-// Same-origin dashboard API. GoDaddy deployment does not depend on an external service.
-app.use('/api', voltvisionRoutes);
-// Hardware telemetry ingestion + read API. Devices use x-device-key; dashboard uses JWT.
-app.use('/api/telemetry', telemetryRoutes);
-app.use('/api/chat',       chatRoutes);
-
-// ── 404 ───────────────────────────────────────────────────────────────────────
-app.use('*', (req, res) => {
-  res.status(404).json({ success: false, message: 'Route not found.' });
-});
-
-// ── Global error handler ──────────────────────────────────────────────────────
-app.use((err, req, res, next) => {
-  console.error(err.stack);
-  res.status(err.status || 500).json({
-    success: false,
-    message: process.env.NODE_ENV === 'production' ? 'Server error.' : err.message,
-  });
-});
-
-// ── Start ─────────────────────────────────────────────────────────────────────
-app.listen(PORT, () => {
-  console.log(`🚀 Voltarax API running on port ${PORT} [${process.env.NODE_ENV}]`);
-  console.log(`📡 Health: http://localhost:${PORT}/health`);
-});
+if (require.main === module) main().catch(() => { logger.fatal({ event: 'startup-failed' }, 'API startup failed. Review local configuration.'); process.exit(1); });

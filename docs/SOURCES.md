@@ -41,3 +41,5 @@ PostHog is not enabled; TimescaleDB is a design reference only. Boundary GeoJSON
 - React Email render/toPlainText: https://react.email/docs/utilities/render and reference/react-email-canary/react-email-canary/LICENSE.md (MIT text verified); installed @react-email/render 2.2.0, no template source copied.
 - Nodemailer TLS and disabled file/URL access: https://nodemailer.com/smtp and https://nodemailer.com/message (official docs; installed package, no copied source).
 - Pino redaction reference: reference/pino-main/pino-main/docs/redaction.md (root MIT verified previously).
+- Rate-store integration: https://github.com/express-rate-limit/rate-limit-redis (MIT, official README v6.0.2), https://redis.io/docs/latest/develop/clients/nodejs/connect/ (official docs). Installed rate-limit-redis 6.0.2, node-redis 6.3.1 and compatible express-rate-limit 8.7.2 after inspecting npm metadata. No source copied. Memory-boundary tests pass; real Redis integration remains unverified.
+- Firebase rules semantics and test API: https://firebase.google.com/docs/database/security/core-syntax and https://firebase.google.com/docs/rules/unit-tests (official docs, 2026-11-01).

@@ -16,6 +16,7 @@ const users = {
   },
   update: async (id, data) => { Object.assign(records.get(id), data); return records.get(id); },
   revokeSessions: async id => { records.get(id).sessionVersion++; },
+  secureUpdate: async (id, data) => { records.get(id).sessionVersion++; Object.assign(records.get(id), data); return records.get(id); },
 };
 const path = require.resolve('../models/User');
 require.cache[path] = { id: path, filename: path, loaded: true, exports: users };

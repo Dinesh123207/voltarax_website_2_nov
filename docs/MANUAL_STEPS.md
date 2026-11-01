@@ -32,3 +32,10 @@ No real credentials or infrastructure actions are performed automatically. This 
 6. Administrators request a code with POST /api/auth/sensitive/request {action:'user-access', target:USER_ID}, then PATCH /api/auth/users/USER_ID/access {role,siteIds,isActive,code}. Browser mutations include x-voltarax-request:1. Each challenge applies only to that target/action and one attempt that succeeds. Separate attempts/applied audit events distinguish an incomplete change.
 7. Change a password by requesting action:'password', target:YOUR_USER_ID, then POST /api/auth/password {password,code}. All sessions are revoked. Sign-out also signs out all devices.
 8. Check API/browser cookie handling over HTTPS and the configured same-origin Next.js proxy before deployment. Cookies intentionally contain no Domain attribute. Never expose tokens in screenshots or logs.
+
+## HTTP security deployment checks
+- Set CORS_ORIGINS to exact frontend origins, comma separated, without trailing slashes. Cookie requests use the same-origin frontend proxy. Never use a wildcard with credentials.
+- Keep TRUST_PROXY_HOPS=0 until the backend listens behind a trusted proxy with its direct port inaccessible externally. Set the exact hop count for that deployment and verify client IPs without logging request bodies/headers. Incorrect proxy setup can combine all users' limits or allow IP spoofing.
+- For multiple API processes configure REDIS_URL. Run local Redis, test two processes share counters and stop Redis to confirm requests fail closed. This run tests the in-memory boundary; a Redis server was not running. Memory counters reset on process restart.
+- Review API and frontend response headers over actual HTTPS. API CSP is restrictive for JSON; frontend script/style requirements need their own policy. HSTS is enabled in production only. Do not enable HSTS for a domain until HTTPS is working.
+- Docker CLI exists but the Linux daemon is not running. Start Docker Desktop before the later compose integration checks; no daemon was started automatically.

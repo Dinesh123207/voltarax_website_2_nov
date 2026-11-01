@@ -1,0 +1,15 @@
+{
+  "command": [
+    "node",
+    "--test",
+    "tests/http-security.test.js",
+    "tests/accounts.test.js",
+    "tests/authorization.test.js",
+    "tests/bootstrap-admin.test.js",
+    "tests/mailer.test.js",
+    "tests/subscriber.test.js"
+  ],
+  "cwd": "voltarax-web/backend",
+  "exit_code": 0,
+  "seconds": 3.26
+}

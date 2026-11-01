@@ -14,6 +14,16 @@ const ROLE_COL: Record<string, string> = {
 
 export default function SettingsPage() {
   const [user, setUser] = useState<any>(null);
+  const [password, setPassword] = useState(''); const [code, setCode] = useState('');
+  const [message, setMessage] = useState(''); const [busy, setBusy] = useState(false);
+  const changePassword = async (requestCode: boolean) => {
+    setBusy(true); setMessage('');
+    try {
+      const response = await fetch(requestCode ? '/api/auth/sensitive/request' : '/api/auth/password', { method: 'POST', headers: { 'Content-Type': 'application/json', 'x-voltarax-request': '1' }, body: JSON.stringify(requestCode ? { action: 'password', target: user._id } : { password, code }) });
+      const data = await response.json(); setMessage(data.message || 'Unable to continue.');
+      if (response.ok && !requestCode) window.location.assign('/login');
+    } catch { setMessage('Server unavailable.'); } finally { setBusy(false); }
+  };
 
   useEffect(() => {
     fetch('/api/auth/me').then(r => r.json()).then(d => setUser(d.user)).catch(() => setUser(null));
@@ -61,6 +71,15 @@ export default function SettingsPage() {
         </div>
       )}
 
+      {user && <form className="stat-card space-y-3" onSubmit={e => { e.preventDefault(); changePassword(false); }}>
+        <h2 className="text-white font-semibold">Change password</h2>
+        <p className="text-sm text-slate-400">Email confirmation is required. This signs out every device.</p>
+        <button type="button" disabled={busy} className="btn-outline" onClick={() => changePassword(true)}>Email confirmation code</button>
+        <label className="block text-sm text-slate-300" htmlFor="new-password">New password (12–72 characters)<input id="new-password" type="password" autoComplete="new-password" required minLength={12} maxLength={72} className="input-dark mt-1" value={password} onChange={e => setPassword(e.target.value)} /></label>
+        <label className="block text-sm text-slate-300" htmlFor="password-code">Six-digit code<input id="password-code" inputMode="numeric" autoComplete="one-time-code" required pattern="[0-9]{6}" maxLength={6} className="input-dark mt-1" value={code} onChange={e => setCode(e.target.value)} /></label>
+        <button type="submit" disabled={busy} className="btn-green">Change password</button>
+        <p role="status" className="text-sm text-slate-300">{message}</p>
+      </form>}
       {/* API connections */}
       <div className="grid md:grid-cols-2 gap-4">
         {[

@@ -14,6 +14,20 @@ const ROLE_COL: Record<string, string> = {
 export default function UsersPage() {
   const [users,   setUsers]   = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
+  const [access, setAccess] = useState({ id: '', role: 'viewer', siteIds: '', isActive: true, code: '' });
+  const [message, setMessage] = useState('');
+  const [busy, setBusy] = useState(false);
+  const changeAccess = async (requestCode: boolean) => {
+    setBusy(true); setMessage('');
+    try {
+      const response = await fetch(requestCode ? '/api/auth/sensitive/request' : `/api/auth/users/${access.id}/access`, {
+        method: requestCode ? 'POST' : 'PATCH', headers: { 'Content-Type': 'application/json', 'x-voltarax-request': '1' },
+        body: JSON.stringify(requestCode ? { action: 'user-access', target: access.id } : { role: access.role, siteIds: access.siteIds.split(',').map(s => s.trim()).filter(Boolean), isActive: access.isActive, code: access.code }),
+      });
+      const data = await response.json(); setMessage(data.message || (response.ok ? 'Access updated. Existing sessions have been revoked.' : 'Unable to update access.'));
+      if (response.ok && !requestCode) { setAccess({ ...access, code: '' }); await load(); }
+    } catch { setMessage('Server unavailable.'); } finally { setBusy(false); }
+  };
 
   const load = async () => {
     setLoading(true);
@@ -37,7 +51,7 @@ export default function UsersPage() {
       <div className="flex items-center justify-between">
         <div>
           <h1 className="text-2xl font-bold text-white">User Management</h1>
-          <p className="text-slate-500 text-sm mt-0.5">Admin-only · Voltarax RBAC</p>
+          <p className="text-slate-500 text-sm mt-0.5">Admin-only Â· Voltarax RBAC</p>
         </div>
         <div className="flex gap-2">
           <a href={`/api/users`} target="_blank" rel="noopener noreferrer"
@@ -53,13 +67,13 @@ export default function UsersPage() {
       <div className="stat-card border border-green-500/10 bg-green-500/3">
         <div className="flex items-center gap-2 mb-3">
           <Shield size={14} className="text-green-500" />
-          <div className="text-xs text-green-600 font-mono font-bold">RBAC — ROLE-BASED ACCESS CONTROL</div>
+          <div className="text-xs text-green-600 font-mono font-bold">RBAC â€” ROLE-BASED ACCESS CONTROL</div>
         </div>
         <div className="grid grid-cols-3 gap-3">
           {[
             { role: 'admin',    perms: 'Access to the user list and admin content.' },
-            { role: 'operator', perms: 'Authenticated dashboard access.' },
-            { role: 'viewer',   perms: 'Authenticated dashboard access.' },
+            { role: 'operator', perms: 'Dashboard access to assigned sites.' },
+            { role: 'viewer',   perms: 'Dashboard access to assigned sites.' },
           ].map(({ role, perms }) => (
             <div key={role} className={`rounded-lg border px-3 py-2 ${ROLE_COL[role]}`}>
               <div className="font-bold text-xs uppercase font-mono mb-1">{role}</div>
@@ -69,6 +83,22 @@ export default function UsersPage() {
         </div>
       </div>
 
+      <form className="stat-card space-y-3" onSubmit={e => { e.preventDefault(); changeAccess(false); }}>
+        <h2 className="text-white font-semibold">Assign account access</h2>
+        <p className="text-sm text-slate-400">An email code confirms each change. New viewers need a site assignment. Ask another administrator to change your own access.</p>
+        <label className="block text-sm text-slate-300" htmlFor="access-user">Account<select id="access-user" className="input-dark mt-1" required value={access.id} onChange={e => {
+          const u = users.find(row => row._id === e.target.value);
+          setAccess({ id: e.target.value, role: u?.role || 'viewer', siteIds: (u?.siteIds || []).join(','), isActive: u?.isActive === true, code: '' });
+        }}><option value="">Choose an account</option>{users.map(u => <option key={u._id} value={u._id}>{u.name} — {u.email}</option>)}</select></label>
+        <label className="block text-sm text-slate-300" htmlFor="access-role">Role<select id="access-role" className="input-dark mt-1" value={access.role} onChange={e => setAccess({ ...access, role: e.target.value })}>{['viewer', 'operator', 'admin'].map(role => <option key={role}>{role}</option>)}</select></label>
+        <label className="block text-sm text-slate-300" htmlFor="access-sites">Site IDs (comma separated)<input id="access-sites" className="input-dark mt-1" value={access.siteIds} onChange={e => setAccess({ ...access, siteIds: e.target.value })} /></label>
+        <label className="block text-sm text-slate-300"><input type="checkbox" checked={access.isActive} onChange={e => setAccess({ ...access, isActive: e.target.checked })} /> Account active</label>
+        <button type="button" disabled={busy || !access.id} className="btn-outline" onClick={() => changeAccess(true)}>Email confirmation code</button>
+        <label className="block text-sm text-slate-300" htmlFor="access-code">Six-digit code<input id="access-code" className="input-dark mt-1" inputMode="numeric" autoComplete="one-time-code" pattern="[0-9]{6}" maxLength={6} required value={access.code} onChange={e => setAccess({ ...access, code: e.target.value })} /></label>
+        <button type="submit" disabled={busy || !access.id} className="btn-green">Save access</button>
+        <p role="status" className="text-sm text-slate-300">{message}</p>
+        <a className="block text-sm text-green-400" href="/api/auth/audit" target="_blank" rel="noopener noreferrer">View administrator audit events</a>
+      </form>
       {/* Users table */}
       <div className="stat-card overflow-auto">
         <table className="w-full min-w-[480px]">
@@ -92,7 +122,7 @@ export default function UsersPage() {
               <tr>
                 <td colSpan={6} className="text-center py-12 text-slate-600">
                   <Users size={32} className="mx-auto mb-2 text-slate-700" />
-                  No users found — admin access required
+                  No users found â€” admin access required
                 </td>
               </tr>
             ) : users.map(u => (

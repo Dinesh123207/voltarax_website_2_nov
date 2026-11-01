@@ -1,0 +1,14 @@
+✔ account lifecycle verifies email, scopes sites, rejects elevation and revokes cookie/native sessions (417.794ms)
+✔ admin-only endpoint rejects unauthenticated and viewer requests (1700.5911ms)
+✔ bootstrap is explicitly enabled, once only and never creates a verified/default account (7.2583ms)
+✔ HTTP boundary enforces origins, headers, validation, safe errors and scoped rate limits without logging inputs (390.7386ms)
+✔ React Email renders both formats and mail defaults to disabled (71.7315ms)
+✔ new and inactive subscribers are persisted as active (135.6536ms)
+ℹ tests 6
+ℹ suites 0
+ℹ pass 6
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 3172.4775

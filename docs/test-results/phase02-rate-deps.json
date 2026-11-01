@@ -1,0 +1,15 @@
+{
+  "command": [
+    "npm.cmd",
+    "install",
+    "--save-exact",
+    "express-rate-limit@8.7.2",
+    "rate-limit-redis@6.0.2",
+    "redis@6.3.1",
+    "--no-audit",
+    "--no-fund"
+  ],
+  "cwd": "voltarax-web/backend",
+  "exit_code": 0,
+  "seconds": 24.1
+}

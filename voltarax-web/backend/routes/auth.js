@@ -15,6 +15,7 @@ const safe = fn => (req, res, next) => Promise.resolve(fn(req, res, next)).catch
 function createAuthRouter(deps = {}) {
   const users = deps.users || User, otp = deps.otp || verification, log = deps.audit || audit;
   const router = express.Router();
+  const emailLimiter = deps.emailLimiter || ((req, res, next) => next());
   const ready = (req, res, next) => otp.configured() ? next() : res.status(503).json({ success: false, message: 'Email verification is not configured.' });
   const deliver = async (user, res) => {
     const result = await otp.issue(user.email);
@@ -52,31 +53,32 @@ function createAuthRouter(deps = {}) {
     res.json({ success: true, user: verified, ...(req.body.client === 'native' ? { token } : {}) });
   }));
   router.get('/me', protect, validate(), (req, res) => res.json({ success: true, user: req.user }));
+  router.get('/audit', protect, requireAdmin, validate({ query: z.object({ limit: z.coerce.number().int().min(1).max(500).default(100) }).strict() }), safe(async (req, res) => {
+    res.json({ success: true, events: await require('../services/auditLog').listAudit(req.query.limit) });
+  }));
   router.post('/logout', protect, validate(), safe(async (req, res) => {
     await users.revokeSessions(req.user._id);
     res.clearCookie('token', options());
     res.json({ success: true, message: 'Signed out on all devices.' });
   }));
-  router.post('/sensitive/request', protect, validate({ body: z.object({ action: z.enum(['password', 'user-access']), target: id }).strict() }), ready, safe(async (req, res) => {
+  router.post('/sensitive/request', protect, emailLimiter, validate({ body: z.object({ action: z.enum(['password', 'user-access']), target: id }).strict() }), ready, safe(async (req, res) => {
     if (req.body.action === 'user-access' ? req.user.role !== 'admin' : req.body.target !== req.user._id) return res.status(403).json({ success: false, message: 'Access denied.' });
     const result = await otp.issue(req.user.email, purpose(req.user, req.body.action, req.body.target));
     res.status(result.issued ? 202 : 429).json({ success: result.issued, message: result.issued ? 'Verification code requested.' : 'Please wait before requesting another code.' });
   }));
-  router.post('/password', protect, validate({ body: z.object({ password, code }).strict() }), ready, safe(async (req, res) => {
+  router.post('/password', protect, emailLimiter, validate({ body: z.object({ password, code }).strict() }), ready, safe(async (req, res) => {
     if (!(await otp.verify(req.user.email, req.body.code, purpose(req.user, 'password', req.user._id)))) return res.status(401).json({ success: false, message: 'Invalid or expired verification.' });
-    await users.revokeSessions(req.user._id);
-    await users.update(req.user._id, { password: await bcrypt.hash(req.body.password, 12) });
+    await users.secureUpdate(req.user._id, { password: await bcrypt.hash(req.body.password, 12) });
     res.clearCookie('token', options());
     res.json({ success: true, message: 'Password changed. Sign in again.' });
   }));
-  router.patch('/users/:id/access', protect, requireAdmin, validate({ params: z.object({ id }).strict(), body: z.object({ role: z.enum(['viewer', 'operator', 'admin']), siteIds: z.array(id).max(100), isActive: z.boolean(), code }).strict() }), ready, safe(async (req, res) => {
+  router.patch('/users/:id/access', protect, requireAdmin, emailLimiter, validate({ params: z.object({ id }).strict(), body: z.object({ role: z.enum(['viewer', 'operator', 'admin']), siteIds: z.array(id).max(100), isActive: z.boolean(), code }).strict() }), ready, safe(async (req, res) => {
     if (req.params.id === req.user._id) return res.status(409).json({ success: false, message: 'Ask another administrator to change your access.' });
     if (!(await users.findById(req.params.id))) return res.status(404).json({ success: false, message: 'User not found.' });
     if (!(await otp.verify(req.user.email, req.body.code, purpose(req.user, 'user-access', req.params.id)))) return res.status(401).json({ success: false, message: 'Invalid or expired verification.' });
     await log({ actorId: req.user._id, action: 'user-access-attempt', targetId: req.params.id, requestId: req.id });
-    await users.revokeSessions(req.params.id);
     const { role, siteIds, isActive } = req.body;
-    await users.update(req.params.id, { role, siteIds, isActive });
+    await users.secureUpdate(req.params.id, { role, siteIds, isActive });
     await log({ actorId: req.user._id, action: 'user-access-applied', targetId: req.params.id, requestId: req.id });
     res.json({ success: true });
   }));

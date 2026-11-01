@@ -26,7 +26,9 @@ Status key: [ ] todo; [~] in progress; [x] done and verified as stated; [!] skip
 - [x] Implement transactional hashed OTP challenges (six digits, ten minutes, five attempts, single use and resend cooldown) with a fake sender; three focused tests passed including concurrent replay rejection.
 - [x] Wire registration/verification, purpose/target-bound sensitive action OTPs, disabled-by-default SMTP React Email templates and browser verification form. Focused account/template tests passed with fake mail only.
 - [x] Enforce verified accounts, cookie sessions with revocation, explicit site membership and one-time administrator bootstrap. Focused lifecycle/bootstrap tests passed. No bootstrap or SMTP used against live services; legacy accounts must verify and receive site access.
-- [ ] Rate limits, logging, headers, validation, Firebase rules and admin audit log.
+- [x] IP/email rate limits with optional Redis store, structured redacted logs, request IDs, security headers and exact-origin CORS; focused HTTP tests passed. Redis server verification remains pending.
+- [x] Zod schemas on every current endpoint, safe central errors, configured-site authorization and sensitive admin audit events. Route-group/invalid-input tests passed; frontend account screens typecheck and production build passed.
+- [~] Firebase role/device rules and emulator tests; administrator access/password screens added.
 - [ ] Dependency automation, gate and phase tag.
 
 ## Phase 3 — hardware

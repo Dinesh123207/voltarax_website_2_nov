@@ -96,6 +96,11 @@ const User = {
   async revokeSessions(id) {
     await db.ref(`users/${id}/sessionVersion`).transaction(current => (Number(current) || 0) + 1);
   },
+  async secureUpdate(id, patch) {
+    const result = await db.ref(`users/${id}`).transaction(current => current === null ? undefined : ({ ...current, ...patch, sessionVersion: (Number(current.sessionVersion) || 0) + 1, updatedAt: new Date().toISOString() }));
+    if (!result.committed) throw new Error('Account unavailable');
+    return new UserRecord({ _id: id, ...result.snapshot.val() });
+  },
 };
 
 module.exports = User;
