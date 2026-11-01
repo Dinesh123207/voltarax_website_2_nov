@@ -10,7 +10,7 @@ const empty = (v:any) => v === null || v === undefined ? 'Unavailable' : v;
 export default function DashboardOverview() {
   const [data,setData]=useState<any>(null); const [loading,setLoading]=useState(true); const [lastFetch,setLastFetch]=useState('');
   const [error,setError]=useState('');
-  const load=async()=>{ setLoading(true); setError(''); try { const token=localStorage.getItem('vv_token'); const r=await fetch('/api/dashboard',{headers:token?{Authorization:`Bearer ${token}`}:{}}); if(!r.ok) throw new Error('API unavailable'); const d=await r.json(); setData(d); setLastFetch(new Date().toLocaleTimeString('en-IN', { timeZone: 'Asia/Kolkata' })); } catch(e){setError('Waiting for the local hardware gateway.');} finally{setLoading(false);} };
+  const load=async()=>{ setLoading(true); setError(''); try { const token = null; const r=await fetch('/api/dashboard',{headers:token?{Authorization:`Bearer ${token}`}:{}}); if(!r.ok) throw new Error('API unavailable'); const d=await r.json(); setData(d); setLastFetch(new Date().toLocaleTimeString('en-IN', { timeZone: 'Asia/Kolkata' })); } catch(e){setError('Waiting for the local hardware gateway.');} finally{setLoading(false);} };
   useEffect(()=>{load(); const id=setInterval(load,5000); return()=>clearInterval(id)},[]);
   const kpis:KPI[]=[
     {label:'Current Power',value:data?.current_power_kw,unit:'kW',icon:Zap,color:'text-green-400',sub:'Converted from INA219',quality:'Calculated'},

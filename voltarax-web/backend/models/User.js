@@ -1,4 +1,5 @@
 const bcrypt = require('bcryptjs');
+const { createHash } = require('node:crypto');
 const { db, FirebaseQuery, clone } = require('../services/firebaseModel');
 
 class UserRecord {
@@ -45,6 +46,14 @@ function singleUserQuery(loader) {
 const User = {
   findOne(filter = {}) {
     return singleUserQuery(async () => {
+      if (typeof filter.email === 'string') {
+        const email = filter.email.trim().toLowerCase();
+        const index = await db.ref(`userEmails/${createHash('sha256').update(email).digest('hex')}`).get();
+        if (index.exists()) return User.findById(index.val());
+        const snap = await db.ref('users').orderByChild('email').equalTo(email).limitToFirst(2).get();
+        const match = Object.entries(snap.val() || {})[0];
+        return match ? new UserRecord({ _id: match[0], ...match[1] }) : null;
+      }
       const rows = (await allUsers()).filter(row => Object.entries(filter).every(([k,v]) => String(row[k]).toLowerCase() === String(v).toLowerCase()));
       return rows[0] || null;
     });
@@ -67,12 +76,25 @@ const User = {
     });
   },
   async create(data) {
+    const email = String(data.email).trim().toLowerCase();
+    if (await User.findOne({ email })) throw new Error('Account exists');
     const id = db.ref('users').push().key;
     const password = await bcrypt.hash(data.password, 12);
     const now = new Date().toISOString();
-    const row = { name: data.name, email: String(data.email).toLowerCase(), password, role: data.role || 'viewer', company: data.company || '', phone: data.phone || '', isActive: data.isActive !== false, lastLogin: data.lastLogin || null, createdAt: now, updatedAt: now };
-    await db.ref(`users/${id}`).set(row);
+    const row = { name: data.name, email, password, role: data.role || 'viewer', company: data.company || '', phone: data.phone || '', isActive: data.isActive !== false, emailVerified: false, siteIds: [], sessionVersion: 0, lastLogin: data.lastLogin || null, createdAt: now, updatedAt: now };
+    const ref = db.ref(`userEmails/${createHash('sha256').update(email).digest('hex')}`);
+    const reserved = await ref.transaction(current => current === null ? id : undefined);
+    if (!reserved.committed) throw new Error('Account exists');
+    try { await db.ref(`users/${id}`).set(row); }
+    catch (error) { await ref.transaction(current => current === id ? null : undefined); throw error; }
     return new UserRecord({ _id: id, ...row });
+  },
+  async update(id, patch) {
+    await db.ref(`users/${id}`).update({ ...patch, updatedAt: new Date().toISOString() });
+    return User.findById(id);
+  },
+  async revokeSessions(id) {
+    await db.ref(`users/${id}/sessionVersion`).transaction(current => (Number(current) || 0) + 1);
   },
 };
 

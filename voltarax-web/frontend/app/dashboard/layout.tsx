@@ -33,20 +33,23 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
     ? 'Unavailable' : ['/dashboard/panels', '/dashboard/forecast', '/dashboard/carbon'].includes(pathname) ? 'Estimated' : 'Calculated';
 
   useEffect(() => {
-    const token = localStorage.getItem('vv_token');
-    const stored = localStorage.getItem('vv_user');
-    if (!token) { router.replace('/login'); return; }
-    if (stored) {
-      try { setUser(JSON.parse(stored)); }
-      catch { localStorage.removeItem('vv_user'); }
-    }
-  }, [router]);
-
-  const logout = () => {
     localStorage.removeItem('vv_token');
     localStorage.removeItem('vv_user');
-    router.push('/login');
+    let active = true;
+    fetch('/api/auth/me').then(async response => {
+      if (!response.ok) { router.replace('/login'); return; }
+      const data = await response.json();
+      if (active) setUser(data.user);
+    }).catch(() => router.replace('/login'));
+    return () => { active = false; };
+  }, [router]);
+
+  const logout = async () => {
+    const response = await fetch('/api/auth/logout', { method: 'POST', headers: { 'x-voltarax-request': '1' } });
+    if (response.ok || response.status === 401) router.replace('/login');
   };
+
+  if (!user) return <p role="status" className="p-8 text-slate-300">Checking your session…</p>;
 
   return (
     <div className="min-h-screen bg-[#0a0f0d] flex">

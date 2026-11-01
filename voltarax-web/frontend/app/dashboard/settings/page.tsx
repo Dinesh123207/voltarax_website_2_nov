@@ -16,8 +16,7 @@ export default function SettingsPage() {
   const [user, setUser] = useState<any>(null);
 
   useEffect(() => {
-    const u = localStorage.getItem('vv_user');
-    if (u) { try { setUser(JSON.parse(u)); } catch { setUser(null); } }
+    fetch('/api/auth/me').then(r => r.json()).then(d => setUser(d.user)).catch(() => setUser(null));
   }, []);
 
   const ENDPOINTS = [
@@ -51,7 +50,7 @@ export default function SettingsPage() {
               { label: 'Name',      value: user.name || user.full_name || 'Unavailable' },
               { label: 'Email',     value: user.email },
               { label: 'Role',      value: user.role },
-              { label: 'Token',     value: localStorage.getItem('vv_token')?.slice(0,20) + '…' },
+              { label: 'Session', value: 'Secure cookie' },
             ].map(({ label, value }) => (
               <div key={label} className="bg-[#0a0f0d] rounded-lg border border-green-900/20 p-3">
                 <div className="text-xs text-slate-500 mb-1">{label}</div>
@@ -86,7 +85,7 @@ export default function SettingsPage() {
       <div className="stat-card">
         <div className="flex items-center gap-2 mb-4">
           <div className="text-sm font-semibold text-white">local telemetry API Endpoints</div>
-          <span className="text-xs text-slate-500 font-mono">19 endpoints · JWT protected</span>
+          <span className="text-xs text-slate-500 font-mono">Authenticated API</span>
         </div>
         <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-2">
           {ENDPOINTS.map(e => (

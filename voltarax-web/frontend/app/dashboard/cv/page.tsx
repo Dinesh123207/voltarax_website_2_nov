@@ -20,8 +20,8 @@ export default function CVPage() {
   const load = async () => {
     setLoading(true);
     try {
-      const token = localStorage.getItem('vv_token');
-      const h: Record<string, string> = token ? { Authorization: `Bearer ${token}` } : {};
+      const token = null;
+      const h: Record<string, string> = token ? { 'x-voltarax-request': '1' } : {};
       const [d, s] = await Promise.all([
         fetch(`/api/cv`,         { headers: h }).then(r => r.json()),
         fetch(`/api/cv/summary`, { headers: h }).then(r => r.json()),

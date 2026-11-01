@@ -24,8 +24,8 @@ Status key: [ ] todo; [~] in progress; [x] done and verified as stated; [!] skip
 ## Phase 2 — security and accounts
 - [~] Email OTP, verified viewer registration, privileged bootstrap and tests.
 - [x] Implement transactional hashed OTP challenges (six digits, ten minutes, five attempts, single use and resend cooldown) with a fake sender; three focused tests passed including concurrent replay rejection.
-- [ ] Wire registration/verification and sensitive-action verification, SMTP templates and frontend flows.
-- [ ] Enforce verified accounts, secure cookie sessions and one-time administrator bootstrap.
+- [x] Wire registration/verification, purpose/target-bound sensitive action OTPs, disabled-by-default SMTP React Email templates and browser verification form. Focused account/template tests passed with fake mail only.
+- [x] Enforce verified accounts, cookie sessions with revocation, explicit site membership and one-time administrator bootstrap. Focused lifecycle/bootstrap tests passed. No bootstrap or SMTP used against live services; legacy accounts must verify and receive site access.
 - [ ] Rate limits, logging, headers, validation, Firebase rules and admin audit log.
 - [ ] Dependency automation, gate and phase tag.
 

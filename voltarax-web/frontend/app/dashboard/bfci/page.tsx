@@ -11,8 +11,8 @@ export default function BFCIPage() {
   const load = async () => {
     setLoading(true);
     try {
-      const token = localStorage.getItem('vv_token');
-      const h: Record<string, string> = token ? { Authorization: `Bearer ${token}` } : {};
+      const token = null;
+      const h: Record<string, string> = token ? { 'x-voltarax-request': '1' } : {};
       const [f, s] = await Promise.all([
         fetch(`/api/bfci`, { headers: h }).then(r => r.json()),
         fetch(`/api/bfci/shap/1`, { headers: h }).then(r => r.json()),

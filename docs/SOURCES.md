@@ -35,3 +35,9 @@ PostHog is not enabled; TimescaleDB is a design reference only. Boundary GeoJSON
 - [Next.js denial-of-service advisory](https://github.com/vercel/next.js/security/advisories/GHSA-q4gf-8mx6-v5v3), accessed 2026-11-01: version risk and patched-version assessment. No code copied; upstream terms apply.
 - [Next.js image-optimization advisory](https://github.com/advisories/GHSA-2464-fhr4-w9xw), accessed 2026-11-01: version risk and sharp dependency guidance. No code copied; upstream terms apply.
 - [Firebase query documentation](https://firebase.google.com/docs/database/web/lists-of-data), accessed 2026-11-01: indexing and one-ordering-field constraint. No code copied; Google documentation terms apply.
+
+### Account implementation sources (2026-11-01)
+- Zod runtime schemas: https://zod.dev/basics and https://zod.dev/api (official documentation; package installed normally, MIT). safeParse used without reflecting input values.
+- React Email render/toPlainText: https://react.email/docs/utilities/render and reference/react-email-canary/react-email-canary/LICENSE.md (MIT text verified); installed @react-email/render 2.2.0, no template source copied.
+- Nodemailer TLS and disabled file/URL access: https://nodemailer.com/smtp and https://nodemailer.com/message (official docs; installed package, no copied source).
+- Pino redaction reference: reference/pino-main/pino-main/docs/redaction.md (root MIT verified previously).

@@ -36,10 +36,10 @@ export default function PanelsPage() {
   const load = useCallback(async () => {
     setLoading(true);
     try {
-      const token = localStorage.getItem('vv_token');
+      const token = null;
       const url   = `/api/panels${rowFilter !== 'all' ? `?row=${rowFilter}` : ''}`;
       const r     = await fetch(url, {
-        headers: (token ? { Authorization: `Bearer ${token}` } : {}) as Record<string, string>,
+        headers: (token ? { 'x-voltarax-request': '1' } : {}) as Record<string, string>,
       });
       if (r.ok) {
         const data = await r.json();

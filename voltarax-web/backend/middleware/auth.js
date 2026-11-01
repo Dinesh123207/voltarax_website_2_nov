@@ -16,10 +16,16 @@ exports.protect = async (req, res, next) => {
   }
 
   try {
-    const decoded = jwt.verify(token, process.env.JWT_SECRET);
+    const decoded = jwt.verify(token, process.env.JWT_SECRET, { algorithms: ['HS256'], audience: 'voltarax-api', issuer: 'voltarax' });
     const user    = await User.findById(decoded.id).select('-password');
     if (!user || !user.isActive) {
       return res.status(401).json({ success: false, message: 'User not found or deactivated.' });
+    }
+    if (!user.emailVerified || !Number.isInteger(decoded.ver) || decoded.ver !== (user.sessionVersion || 0)) {
+      return res.status(401).json({ success: false, message: 'Sign in and verify your email again.' });
+    }
+    if (!req.headers.authorization && !['GET', 'HEAD', 'OPTIONS'].includes(req.method) && req.get('x-voltarax-request') !== '1') {
+      return res.status(403).json({ success: false, message: 'Request verification required.' });
     }
     req.user = user;
     next();
@@ -44,3 +50,8 @@ exports.requireRole = (...roles) => (req, res, next) => {
 
 exports.requireAdmin    = exports.requireRole('admin');
 exports.requireOperator = exports.requireRole('admin', 'operator');
+exports.requireSite = (req, res, next) => {
+  const site = process.env.SOLAR_SITE_ID || 'solar_site';
+  if (req.user?.role === 'admin' || req.user?.siteIds?.includes(site)) return next();
+  return res.status(403).json({ success: false, message: 'Site access has not been assigned. Contact an administrator.' });
+};

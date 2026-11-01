@@ -11,8 +11,8 @@ export default function RelayPage() {
   const load = async () => {
     setLoading(true);
     try {
-      const token = localStorage.getItem('vv_token');
-      const h: Record<string, string> = token ? { Authorization: `Bearer ${token}` } : {};
+      const token = null;
+      const h: Record<string, string> = token ? { 'x-voltarax-request': '1' } : {};
       const [s, hist] = await Promise.all([
         fetch(`/api/relay`,         { headers: h }).then(r => r.json()),
         fetch(`/api/relay/history?limit=15`, { headers: h }).then(r => r.json()),

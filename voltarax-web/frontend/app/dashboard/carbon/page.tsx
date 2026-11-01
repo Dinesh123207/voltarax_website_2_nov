@@ -12,8 +12,8 @@ export default function CarbonPage() {
   const load = async () => {
     setLoading(true);
     try {
-      const token = localStorage.getItem('vv_token');
-      const h: Record<string, string> = token ? { Authorization: `Bearer ${token}` } : {};
+      const token = null;
+      const h: Record<string, string> = token ? { 'x-voltarax-request': '1' } : {};
       const [c, m] = await Promise.all([
         fetch(`/api/carbon`,           { headers: h }).then(r => r.json()),
         fetch(`/api/carbon/monthly?months=6`, { headers: h }).then(r => r.json()),

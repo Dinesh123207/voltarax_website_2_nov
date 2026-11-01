@@ -73,3 +73,10 @@ Date: 2026-11-01. This is an internal project document. The internal project ref
 - [FOUND] The health baseline model records the daylight-filtered count as `total_rows_at_train`, although the readiness check compares against total history; retraining can occur too often. Forecast is a same-conditions estimate, not a weather-ahead forecast.
 - [SKIPPED: no new application exists] New-app lint, typecheck, build, acceptance tests and phase commit cannot be run in this audit. Do not call Phase 0 production readiness or claim the phase gates for an unbuilt app pass.
 - [ASSUMED] Estimates in BUILD_PLAN.md are indicative engineering ranges, not calendar promises; actual staffing, integrations and validation data are unknown.
+
+## Phase 2 account security decisions (2026-11-01)
+- [FOUND] Existing password hashes and Firebase users are preserved. Browser JWT storage was replaced with httpOnly, production-secure, SameSite=Lax cookies; native clients explicitly request a bearer token. Session audience/issuer/version are enforced. Old tokens require a new login.
+- [ASSUMED] Sign-out and password/access changes revoke all tokens through an atomic per-user version increment. This avoids a separate session database; individual session management is not implemented.
+- [ASSUMED] A newly verified viewer has no assigned sites. Administrators manage access through purpose/target-bound email OTP; admins can inspect the configured site. The current backend serves one configured site, and ignores no requested tenant overrides.
+- [FOUND] Verification uses random six-digit codes, HMAC digests with a separate secret, transactional consumption, ten-minute expiry, five attempts and 60-second resend cooldown. Tests use a fake sender only. No email was sent.
+- [FOUND] Bootstrap now requires explicit enablement, supplied name/email/long password, no existing administrator and an atomic one-time lock. It creates an unverified administrator and publishes no sample posts. It was tested with fakes, never run on Firebase.

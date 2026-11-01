@@ -18,9 +18,9 @@ export default function AlertsPage() {
   const load = useCallback(async () => {
     setLoading(true);
     try {
-      const token = localStorage.getItem('vv_token');
+      const token = null;
       const r = await fetch(`/api/alerts?resolved=${resolved}&limit=100`, {
-        headers: (token ? { Authorization: `Bearer ${token}` } : {}) as Record<string, string>,
+        headers: (token ? { 'x-voltarax-request': '1' } : {}) as Record<string, string>,
       });
       if (r.ok) setAlerts(await r.json());
     } catch { }

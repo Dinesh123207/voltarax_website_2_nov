@@ -21,8 +21,8 @@ export default function WorkOrdersPage() {
   const load = useCallback(async () => {
     setLoading(true);
     try {
-      const token = localStorage.getItem('vv_token');
-      const h: Record<string, string> = token ? { Authorization: `Bearer ${token}` } : {};
+      const token = null;
+      const h: Record<string, string> = token ? { 'x-voltarax-request': '1' } : {};
       const r = await fetch(`/api/work-orders?status=${filter}`, { headers: h });
       if (r.ok) setOrders(await r.json());
     } catch {}
@@ -30,11 +30,11 @@ export default function WorkOrdersPage() {
   }, [filter]);
 
   const close = async (id: number) => {
-    const token = localStorage.getItem('vv_token');
+    const token = null;
     try {
       await fetch(`/api/work-orders/${id}`, {
         method: 'PUT',
-        headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${token}` },
+        headers: { 'Content-Type': 'application/json', 'x-voltarax-request': '1' },
         body: JSON.stringify({ status: 'closed' }),
       });
       load();
