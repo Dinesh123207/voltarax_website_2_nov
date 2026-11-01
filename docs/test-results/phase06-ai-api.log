@@ -1,0 +1,14 @@
+✔ actual Python synthetic model publications satisfy the backend contract (24.9243ms)
+✔ new publication cannot hide stale source, expired/foreign/unvalidated models or nonfinite data (7.6879ms)
+✔ canonical results take precedence and another site never reads the default legacy path (4.4676ms)
+✔ official SDK RTDB readback normalizes absent empty/null members without fabricating results (2.1383ms)
+✔ engineering estimate requires fresh valid primary daylight input and no future extrapolation (0.9441ms)
+✔ hourly history keeps only today in IST, recorded zero and valid primary measurements (2.4417ms)
+ℹ tests 6
+ℹ suites 0
+ℹ pass 6
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 672.6021

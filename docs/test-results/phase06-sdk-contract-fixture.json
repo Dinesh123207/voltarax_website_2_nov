@@ -1,0 +1,76 @@
+{
+  "now": 1793549204,
+  "payloads": {
+    "anomaly": {
+      "dataQuality": "Unavailable",
+      "data_origin": "synthetic-test-inputs",
+      "daylight_rows": 1,
+      "device_id": "nodemcu-01",
+      "reason": "not_enough_data",
+      "schema_version": 2,
+      "site_id": "solar_site",
+      "source_ts": 1793549203,
+      "status": "not_enough_data",
+      "total_rows": 1,
+      "updated_at": 1793549204
+    },
+    "forecast": {
+      "dataQuality": "Unavailable",
+      "data_origin": "synthetic-test-inputs",
+      "daylight_rows": 1,
+      "device_id": "nodemcu-01",
+      "reason": "not_enough_data",
+      "schema_version": 2,
+      "site_id": "solar_site",
+      "source_ts": 1793549203,
+      "status": "not_enough_data",
+      "total_rows": 1,
+      "updated_at": 1793549204
+    },
+    "health": {
+      "dataQuality": "Unavailable",
+      "data_origin": "synthetic-test-inputs",
+      "daylight_rows": 1,
+      "device_id": "nodemcu-01",
+      "reason": "not_enough_data",
+      "schema_version": 2,
+      "site_id": "solar_site",
+      "source_ts": 1793549203,
+      "status": "not_enough_data",
+      "total_rows": 1,
+      "updated_at": 1793549204
+    },
+    "status": {
+      "dataQuality": "Estimated",
+      "data_origin": "synthetic-test-inputs",
+      "device_id": "nodemcu-01",
+      "model_info": {
+        "anomaly": {
+          "load_state": "missing"
+        },
+        "forecast": {
+          "load_state": "missing"
+        },
+        "health": {
+          "load_state": "missing"
+        }
+      },
+      "model_states": {
+        "anomaly": "not_enough_data",
+        "forecast": "not_enough_data",
+        "health": "not_enough_data"
+      },
+      "schema_version": 2,
+      "site_id": "solar_site",
+      "skipped_models": [
+        "forecast_gbr",
+        "anomaly_isolation_forest",
+        "health_baseline"
+      ],
+      "source_ts": 1793549203,
+      "status": "ok",
+      "total_rows": 1,
+      "updated_at": 1793549204
+    }
+  }
+}

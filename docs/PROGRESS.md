@@ -1,6 +1,6 @@
 # Autopilot progress
 
-RESUME HERE: Phase 6 — backend/API/UI validation and current-condition estimates, then drift checks and full gate
+RESUME HERE: Phase 6 — drift/retraining checks, then end-of-phase full gate and Phase 7
 
 Status key: [ ] todo; [~] in progress; [x] done and verified as stated; [!] skipped with a reason. A phase is done only after its full gate passes.
 
@@ -66,9 +66,9 @@ Status key: [ ] todo; [~] in progress; [x] done and verified as stated; [!] skip
 - [x] Time-split evaluation with train-only preprocessing, MAE/RMSE/R2, training-only engineering baseline and labelled-only anomaly proxies. Six new focused evaluation tests, two existing power integration cases (plus origin rerun) and offline CLI passed. Saved output evaluated 2,880 marked synthetic inputs; no real-site accuracy claim. Real reviewed export not provided/used.
 - [x] Reproducible isolated Python 3.13 environment with verified stable direct versions and freeze lock; install passed. The former requirements differed from actual earlier test runtime. No system environment changed. Failed relative executable startup is retained; absolute-path retry passed.
 - [x] Versioned SHA-bound artifacts with site/device/origin/parameter/runtime checks, atomic manifests, writer locks and prior-version retention; legacy unverified pickles never loaded. Nine focused artifact/publication tests passed. Input/model clocks, strict publication schemas, bounded prediction-only latest reads and eligible-timestamp retraining implemented. Official Python SDK local demo read/publication passed (45.20 s) after loading project rules with a bounded 60 s setup timeout; initial missing-index/10 s setup failures retained. No remote project or real credentials used. API/UI validation is next.
-- [ ] Schema-validated publication, model version/training/validation metadata and stale input/model/results behavior in API/UI.
+- [x] Schema-validated publication and backend canonical-first consumer with separate source/model/publication clocks, identity/parameter/validation/origin checks. Actual Python model fixtures and official SDK readback pass six backend regressions, including RTDB-omitted empty/null normalization. Forecast UI displays version/training/source/held-out metrics and expires current power at valid_until. Narrow lint and typecheck passed; browser behavior remains for E2E.
 - [ ] Drift/retraining checks and documented offline/scheduled validation workflow.
-- [ ] Current-conditions estimates only until a verified site/weather provider is configured; no fabricated confidence intervals or horizon extrapolations.
+- [x] Current-condition estimate only: unsupported horizon/confidence keys null, current engineering fallback uses fresh valid primary daylight inputs with explicit assumptions. Hourly sample view stays within current IST day, keeps recorded zero/missing gaps and discloses 2,000-row limit. No weather provider/site accuracy verified.
 - [ ] Phase gate and tag; real-data accuracy remains unverified until a reviewed export exists.
 
 ## Phase 7 — commerce

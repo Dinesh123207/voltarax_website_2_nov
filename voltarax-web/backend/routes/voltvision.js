@@ -31,26 +31,8 @@ router.get('/panels', protect, requireSite, dashboardValidation('get', '/panels'
 router.get('/forecast', protect, requireSite, dashboardValidation('get', '/forecast'), async (req, res) => {
   try {
     const ai = await getAiForecast();
-    if (ai) {
-      const kw = ai.predicted_power_mw / 1e6;
-      return res.json({
-        forecast_1h_kw: Number(kw.toFixed(3)),
-        forecast_6h_kwh: Number((kw * 6).toFixed(3)),
-        forecast_24h_kwh: Number((kw * 8).toFixed(3)),
-        forecast_7d_kwh: Number((kw * 8 * 7).toFixed(3)),
-        confidence: null,
-        dataQuality: 'estimated', confidence_type: 'Unavailable: no validated confidence interval', horizon_note: 'Estimate from current conditions, not a weather-ahead forecast',
-        model_version: 'ai-engine:forecast_gbr',
-        model_metadata: ai.model_metadata,
-        generated_at: new Date(ai.updated_at * 1000).toISOString(),
-        recommendation: 'Current-condition estimator trained on hardware history.',
-      });
-    }
-    const rows = await SolarTelemetry.find({ site_id: SITE_ID }).sort({ ts: -1 }).limit(60).lean();
-    const daylight = rows.filter(r => Number(r.light_lux) > 2000 && r.power_mw != null && Number.isFinite(Number(r.power_mw)));
-    if (!daylight.length) return res.json({ success: false, dataQuality: 'unavailable', message: 'Not enough daylight telemetry for an estimate.' });
-    const avgKw = daylight.length ? daylight.reduce((s, r) => s + Number(r.power_mw || 0), 0) / daylight.length / 1e6 : 0;
-    res.json({ forecast_1h_kw: Number(avgKw.toFixed(3)), forecast_6h_kwh: Number((avgKw * 6).toFixed(3)), forecast_24h_kwh: Number((avgKw * 8).toFixed(3)), forecast_7d_kwh: Number((avgKw * 8 * 7).toFixed(3)), confidence: null, dataQuality:'estimated', confidence_type:'Unavailable: no validated confidence interval', horizon_note:'Estimate from current conditions, not a weather-ahead forecast', model_version: 'baseline-live-average', generated_at: new Date().toISOString(), recommendation: 'Baseline estimate based on recent daylight readings.' });
+    const reading = ai ? null : await SolarTelemetry.latest(SITE_ID);
+    res.json(require('../services/forecast').currentEstimate(ai, reading));
   } catch (err) { res.status(500).json({ success: false, message: 'Forecast unavailable.' }); }
 });
 
@@ -63,9 +45,9 @@ router.get('/ai/status', protect, requireSite, dashboardValidation('get', '/ai/s
       getAiForecast(), getAiAnomaly(), getAiHealth(), getAiStatus(),
     ]);
     res.json({
-      forecast: forecast || { status: 'not_enough_data' },
-      anomaly: anomaly || { status: 'not_enough_data' },
-      health: health || { status: 'not_enough_data' },
+      forecast: forecast || { status: 'model_unavailable', dataQuality: 'Unavailable' },
+      anomaly: anomaly || { status: 'model_unavailable', dataQuality: 'Unavailable' },
+      health: health || { status: 'model_unavailable', dataQuality: 'Unavailable' },
       pipeline: status,
     });
   } catch (err) { res.status(500).json({ success: false, message: 'AI engine status unavailable.' }); }
@@ -73,11 +55,9 @@ router.get('/ai/status', protect, requireSite, dashboardValidation('get', '/ai/s
 
 router.get('/forecast/hourly', protect, requireSite, dashboardValidation('get', '/forecast/hourly'), async (req, res) => {
   try {
-    const rows = await SolarTelemetry.find({ site_id: SITE_ID }).sort({ ts: -1 }).limit(120).lean();
-    const byHour = {};
-    for (const r of rows) { if (r.power_mw == null || !Number.isFinite(Number(r.power_mw))) continue; const h = Number(new Intl.DateTimeFormat('en-GB', { hour: '2-digit', hourCycle: 'h23', timeZone: 'Asia/Kolkata' }).format(new Date(Number(r.ts) * 1000))); byHour[h] = byHour[h] || []; byHour[h].push(Number(r.power_mw) / 1e6); }
-    const hourly = Object.entries(byHour).sort((a,b) => Number(a[0])-Number(b[0])).map(([hour, vals]) => ({ hour: `${String(hour).padStart(2,'0')}:00`, kw: Number((vals.reduce((a,b)=>a+b,0)/vals.length).toFixed(3)) }));
-    res.json(hourly);
+    const now = Math.floor(Date.now() / 1000), start = periodStartsIST(new Date(now * 1000)).day;
+    const rows = await SolarTelemetry.find({ site_id: SITE_ID, ts: { $gte: start, $lte: now } }).sort({ ts: -1 }).limit(2000).lean();
+    res.json(require('../services/forecast').hourlyReadings(rows, { now }));
   } catch (err) { res.status(500).json({ success: false, message: 'Forecast history unavailable.' }); }
 });
 

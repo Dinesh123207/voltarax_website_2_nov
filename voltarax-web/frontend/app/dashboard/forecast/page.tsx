@@ -1,106 +1,99 @@
-// app/dashboard/forecast/page.tsx
 'use client';
 import { useEffect, useState } from 'react';
-import { TrendingUp, RefreshCw, ExternalLink } from 'lucide-react';
+import { RefreshCw } from 'lucide-react';
 import DataQualityBadge from '@/components/ui/DataQualityBadge';
 
+type Metrics = { mae_mw: number; rmse_mw: number; r2: number | null };
+type Metadata = { trained_at: number; validation: { model?: Metrics; baseline?: Metrics; split?: { train_rows: number; test_rows: number } } };
+type Estimate = { estimated_current_power_kw: number | null; dataQuality: 'Estimated' | 'Unavailable'; reason: string;
+  source_as_of: number | null; generated_at: number | null; valid_until: number | null; model_version: string | null; data_origin: string | null; model_metadata: Metadata | null; horizon_note: string };
+type Hour = { hour: string; date_ist: string; kw: number; samples: number; dataQuality: string };
+type ModelInfo = { model_version: string | null; trained_at: number | null; load_state: string; validation_status: string | null };
+type Pipeline = { model_states: Record<string, string>; model_info: Record<string, ModelInfo> };
+const ist = (stamp?: number | null) => stamp ? new Date(stamp * 1000).toLocaleString('en-IN', { timeZone: 'Asia/Kolkata', hour12: false }) + ' IST' : 'Unavailable';
+const number = (value?: number | null, digits = 3) => typeof value === 'number' && Number.isFinite(value) ? value.toFixed(digits) : 'Unavailable';
 
 export default function ForecastPage() {
-  const [data, setData]     = useState<any>(null);
-  const [hourly, setHourly] = useState<any[]>([]);
+  const [data, setData] = useState<Estimate | null>(null);
+  const [hourly, setHourly] = useState<Hour[]>([]);
+  const [pipeline, setPipeline] = useState<Pipeline | null>(null);
   const [loading, setLoading] = useState(true);
-
+  const [error, setError] = useState('');
   const load = async () => {
-    setLoading(true);
+    setLoading(true); setError(''); setData(null); setPipeline(null); setHourly([]);
     try {
-      const token = null;
-      const h: Record<string, string> = token ? { 'x-voltarax-request': '1' } : {};
-      const [f, hr] = await Promise.all([
-        fetch(`/api/forecast`, { headers: h }).then(r => r.json()),
-        fetch(`/api/forecast/hourly`, { headers: h }).then(r => r.json()),
-      ]);
-      setData(f?.success === false ? null : f); setHourly(Array.isArray(hr) ? hr : (hr?.profile || []));
-    } catch { }
+      const responses = await Promise.all(['/api/forecast', '/api/forecast/hourly', '/api/ai/status'].map(path => fetch(path, { cache: 'no-store' })));
+      if (responses.some(response => !response.ok)) throw Error('Current estimates could not be loaded. Check your connection and site access.');
+      const [estimate, hours, status] = await Promise.all(responses.map(response => response.json()));
+      setData(estimate); setHourly(Array.isArray(hours) ? hours : []); setPipeline(status.pipeline || null);
+    } catch (failure) { setError(failure instanceof Error ? failure.message : 'Estimates unavailable.'); }
     finally { setLoading(false); }
   };
-
-  useEffect(() => { load(); }, []);
-
-  const kpis = data ? [
-    { label:'Current estimate',  value: data.forecast_1h_kw,   unit:'kW',  conf: data.confidence?.[0] },
-    { label:'6-hour scenario',  value: data.forecast_6h_kwh,  unit:'kWh', conf: data.confidence?.[1] },
-    { label:'8-hour daylight scenario',    value: data.forecast_24h_kwh, unit:'kWh', conf: data.confidence?.[2] },
-    { label:'7-day scenario',value: data.forecast_7d_kwh,  unit:'kWh', conf: data.confidence?.[3] },
-  ] : [];
-
+  useEffect(() => { void load(); }, []);
+  useEffect(() => {
+    if (!data?.valid_until) return;
+    const timer = setTimeout(() => setData(previous => previous ? { ...previous, estimated_current_power_kw: null, dataQuality: 'Unavailable', valid_until: null, reason: 'Input or model expired. Refresh to check for a new estimate.' } : null), Math.max(0, data.valid_until * 1000 - Date.now()));
+    return () => clearTimeout(timer);
+  }, [data?.valid_until]);
+  const validation = data?.model_metadata?.validation;
   return (
     <div className="space-y-6">
-      <div className="flex items-center justify-between">
-        <h1 className="text-2xl font-bold text-white">AI Energy Forecast</h1>
-        <div className="flex gap-2">
-          <a href={`/api/forecast`} target="_blank" rel="noopener noreferrer" className="btn-outline py-2 px-3 text-xs"><ExternalLink size={12}/> API</a>
-          <button onClick={load} disabled={loading} className="btn-green py-2 px-3 text-xs disabled:opacity-60"><RefreshCw size={12} className={loading?'animate-spin':''}/> Refresh</button>
-        </div>
+      <div className="flex flex-wrap gap-3 items-center justify-between">
+        <h1 className="text-2xl font-bold text-white">Power estimates</h1>
+        <button onClick={() => void load()} disabled={loading} className="btn-green py-2 px-3 text-sm disabled:opacity-60">
+          <RefreshCw size={14} aria-hidden="true" className={loading ? 'animate-spin' : ''}/> Refresh
+        </button>
       </div>
-      <p className="text-sm text-amber-300">Estimate from current conditions, not a weather-ahead forecast. No validated confidence interval is available. Longer-period figures are scenarios that assume unchanged conditions and eight daylight hours per day.</p>
-      <DataQualityBadge quality={data ? 'Estimated' : 'Unavailable'} />
-
-      <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-        {loading ? Array.from({length:4}).map((_,i) => <div key={i} className="stat-card"><div className="shimmer h-16 rounded"/></div>)
-        : kpis.map(k => (
-          <div key={k.label} className="stat-card">
-            <div className="text-xs text-slate-500 mb-1">{k.label}</div>
-            <div className="text-2xl font-counter font-bold text-green-400">{k.value}<span className="text-base text-slate-500 ml-1">{k.unit}</span></div>
-            {k.conf && <div className="text-xs text-slate-600 mt-1">Confidence: {(k.conf*100).toFixed(0)}%</div>}
-          </div>
-        ))}
-      </div>
-
-      {data?.recommendation && (
-        <div className="stat-card border border-green-500/20 bg-green-500/5">
-          <div className="text-xs text-green-500 font-mono font-bold mb-2">AI RECOMMENDATION</div>
-          <p className="text-slate-300 text-sm leading-relaxed">{data.recommendation}</p>
-          <div className="text-xs text-slate-600 mt-2 font-mono">Model: {data.model_version} · {data.generated_at && new Date(data.generated_at).toLocaleTimeString('en-IN', { timeZone: 'Asia/Kolkata' })}</div>
-        </div>
-      )}
-
-      {/* Hourly bar chart (CSS only) */}
-      {hourly.length > 0 && (
-        <div className="stat-card">
-          <div className="text-sm font-semibold text-white mb-4">Recent hourly averages · Calculated from readings</div>
-          <div className="flex items-end gap-0.5 h-32">
-            {hourly.map((h: any) => {
-              const maxKw = Math.max(...hourly.map((x:any) => x.kw));
-              const pct   = maxKw > 0 ? (h.kw / maxKw) * 100 : 0;
-              return (
-                <div key={h.hour} className="flex-1 flex flex-col items-center gap-1 group relative">
-                  <div className="absolute bottom-6 left-1/2 -translate-x-1/2 bg-[#111a14] border border-green-900/40 rounded px-1.5 py-0.5 text-[9px] text-green-400 opacity-0 group-hover:opacity-100 whitespace-nowrap z-10 font-mono">
-                    {h.hour}: {h.kw} kW
-                  </div>
-                  <div
-                    className={`w-full rounded-t transition-all ${h.is_forecast ? 'bg-blue-500/40' : 'bg-green-500/60'}`}
-                    style={{ height: `${Math.max(pct, 2)}%` }}
-                  />
-                  {Number.parseInt(String(h.hour).slice(0, 2), 10) % 4 === 0 && <div className="text-[8px] text-slate-600 font-mono">{h.hour}</div>}
-                </div>
-              );
-            })}
-          </div>
-          <div className="flex gap-4 mt-2 text-xs text-slate-600">
-            <span><span className="text-green-500">■</span> Actual</span>
-            <span><span className="text-blue-500">■</span> Forecast</span>
-          </div>
-        </div>
-      )}
-
-      {!data && !loading && (
-        <div className="ai-placeholder">
-          <TrendingUp size={32} className="text-green-500/40"/>
-          <div className="text-white font-semibold">Forecast unavailable</div>
-          <div className="text-slate-600 text-sm">Collect hardware telemetry to enable a current-condition estimate</div>
-          <a href={`/api/forecast`} target="_blank" rel="noopener noreferrer" className="btn-outline py-2 px-4 text-xs mt-2">Try API directly</a>
-        </div>
-      )}
+      <p className="text-sm text-amber-300">Current conditions only. Future weather forecasts and validated confidence intervals are unavailable.</p>
+      {error && <p role="alert" className="text-red-300">{error}</p>}
+      {data?.data_origin === 'synthetic-test-inputs' && <p className="text-amber-300">Synthetic test inputs · these results do not establish real-site accuracy.</p>}
+      <section className="stat-card space-y-3" aria-busy={loading}>
+        <h2 className="text-lg font-semibold text-white">Estimated current power</h2>
+        <DataQualityBadge quality={data?.dataQuality || 'Unavailable'} />
+        <p className="text-3xl text-green-400">{loading ? 'Loading…' : number(data?.estimated_current_power_kw, 6)}{data?.estimated_current_power_kw != null && ' kW'}</p>
+        <p className="text-sm text-slate-300">{data?.reason || 'No current estimate loaded.'}</p>
+        <dl className="text-sm text-slate-400 space-y-1">
+          <div><dt className="inline">Input as of: </dt><dd className="inline">{ist(data?.source_as_of)}</dd></div>
+          <div><dt className="inline">Result published: </dt><dd className="inline">{ist(data?.generated_at)}</dd></div>
+          <div><dt className="inline">Model: </dt><dd className="inline break-all">{data?.model_version || 'Unavailable'}</dd></div>
+          <div><dt className="inline">Model trained: </dt><dd className="inline">{ist(data?.model_metadata?.trained_at)}</dd></div>
+        </dl>
+      </section>
+      <section className="stat-card space-y-3">
+        <h2 className="text-lg text-white font-semibold">Future energy · Unavailable</h2>
+        <p className="text-sm text-slate-300">{data?.horizon_note || 'A verified site and suitable forecast weather are required.'}</p>
+        <p className="text-sm text-slate-400">No six-hour, daily or seven-day values are calculated from unchanged current conditions.</p>
+      </section>
+      {validation?.model && <section className="stat-card space-y-3">
+        <h2 className="text-lg text-white font-semibold">Chronological validation</h2>
+        <p className="text-sm text-slate-300">Oldest 80% training, newest 20% held out. Metrics describe recorded training inputs; device calibration and field accuracy remain unverified.</p>
+        <div className="overflow-x-auto"><table className="w-full text-sm text-left">
+          <caption className="sr-only">Current-power errors compared with the training-only engineering baseline</caption>
+          <thead><tr className="text-slate-300"><th scope="col">Metric</th><th scope="col">Model</th><th scope="col">Engineering baseline</th></tr></thead>
+          <tbody className="text-slate-400">{(['mae_mw', 'rmse_mw', 'r2'] as const).map(key => <tr key={key}>
+            <th scope="row" className="py-2">{key === 'mae_mw' ? 'MAE (mW)' : key === 'rmse_mw' ? 'RMSE (mW)' : 'R²'}</th>
+            <td>{number(validation.model?.[key])}</td><td>{number(validation.baseline?.[key])}</td>
+          </tr>)}</tbody>
+        </table></div>
+        <p className="text-sm text-slate-400">Training rows: {validation.split?.train_rows ?? 'Unavailable'} · Held-out rows: {validation.split?.test_rows ?? 'Unavailable'}</p>
+      </section>}
+      <section className="stat-card space-y-3">
+        <h2 className="text-lg text-white font-semibold">Model availability</h2>
+        <p className="text-sm text-slate-400">A recent publication cannot refresh an old input or expired model. Unusual patterns are estimates, not confirmed faults; physical health remains unavailable.</p>
+        {pipeline ? <ul className="space-y-3 text-sm text-slate-300">{Object.entries(pipeline.model_states).map(([name, state]) => <li key={name}>
+          <span className="font-semibold capitalize">{name}: </span>{state.replaceAll('_', ' ')}
+          <span className="block text-slate-400 break-all">{pipeline.model_info[name]?.model_version || 'No validated version'} · Trained {ist(pipeline.model_info[name]?.trained_at)}</span>
+        </li>)}</ul> : <p className="text-sm text-slate-400">No fresh validated pipeline status available.</p>}
+      </section>
+      <section className="stat-card space-y-3">
+        <h2 className="text-lg text-white font-semibold">Today’s recorded hourly averages (IST)</h2>
+        <p className="text-sm text-slate-400">Calculated from up to the latest 2,000 readings within today. Missing intervals stay absent; sample averages are not time-weighted energy or a forecast.</p>
+        {hourly.length ? <div className="overflow-x-auto"><table className="w-full text-left text-sm">
+          <caption className="sr-only">Available recorded samples by hour, in Indian Standard Time</caption>
+          <thead className="text-slate-300"><tr><th scope="col">Date / hour IST</th><th scope="col">Average kW</th><th scope="col">Samples</th><th scope="col">Quality</th></tr></thead>
+          <tbody className="text-slate-400">{hourly.map(row => <tr key={row.hour}><th scope="row" className="py-2">{row.date_ist} {row.hour}</th><td>{number(row.kw, 6)}</td><td>{row.samples}</td><td>{row.dataQuality}</td></tr>)}</tbody>
+        </table></div> : <p className="text-sm text-slate-400">{loading ? 'Loading…' : 'No valid readings available for today.'}</p>}
+      </section>
     </div>
   );
 }

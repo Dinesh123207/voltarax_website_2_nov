@@ -1,0 +1,241 @@
+{
+  "now": 1736510401,
+  "payloads": {
+    "forecast": {
+      "source_ts": 1736510400,
+      "data_origin": "synthetic-test-inputs",
+      "status": "ok",
+      "predicted_power_mw": 6424.9,
+      "model_metadata": {
+        "schema_version": 2,
+        "model": "forecast_gbr",
+        "site_id": "solar_site",
+        "device_id": "nodemcu-01",
+        "trained_at": 1736510401,
+        "library_versions": {
+          "python": "3.13.15",
+          "numpy": "2.5.4",
+          "pandas": "3.1.0",
+          "sklearn": "1.9.1",
+          "joblib": "1.6.0"
+        },
+        "training_parameters": {
+          "pmax_w": 10.0,
+          "temp_coeff": -0.004,
+          "noct_c": 45.0,
+          "lux_per_wm2": 120.0,
+          "daylight_lux_threshold": 2000.0,
+          "feature_schema": "current-conditions-ist-v2"
+        },
+        "model_version": "current-gbr-v2-0636ae9648d88f24",
+        "validation": {
+          "method_version": "power-evaluation-v2",
+          "status": "evaluated",
+          "accepted": true,
+          "model": {
+            "mae_mw": 76.97425059038429,
+            "rmse_mw": 98.50990963162602,
+            "r2": 0.9970652435897305
+          },
+          "baseline": {
+            "mae_mw": 123.5250326252492,
+            "rmse_mw": 161.75839754416546,
+            "r2": 0.9920869139134498
+          },
+          "baseline_pr": 0.9934598419455515,
+          "baseline_method": "Training-only 90th-percentile performance ratio, clipped to 0.4\u20131.0; configured panel/lux/temperature assumptions are unverified.",
+          "acceptance_policy": "Finite held-out error, nonnegative R2 when defined, RMSE no more than 5% above the engineering baseline. This policy is not field accuracy assurance.",
+          "split": {
+            "method": "chronological_holdout",
+            "train_rows": 1076,
+            "test_rows": 269,
+            "train_start_ts": 1735711800,
+            "train_end_ts": 1736341800,
+            "test_start_ts": 1736342100,
+            "test_end_ts": 1736510400
+          },
+          "feature_columns": [
+            "light_lux",
+            "temp_c",
+            "humidity_pct",
+            "dust_ugm3",
+            "hour_sin",
+            "hour_cos",
+            "is_daylight"
+          ],
+          "imputation": "Medians fitted on training rows only; entirely missing training features excluded.",
+          "horizon": "Current conditions only; not a weather-ahead forecast",
+          "units": "Power errors in milliwatts; R2 dimensionless and Unavailable for a constant target."
+        },
+        "data_origin": "synthetic-test-inputs",
+        "source_window_end_ts": 1736510400,
+        "rows_used": 1076,
+        "total_rows_at_train": 2737,
+        "val_mae_mw": 76.97425059038429,
+        "feature_columns": [
+          "light_lux",
+          "temp_c",
+          "humidity_pct",
+          "dust_ugm3",
+          "hour_sin",
+          "hour_cos",
+          "is_daylight"
+        ],
+        "horizon_note": "Same-conditions estimate from the latest reading, not a weather-ahead forecast \u2014 there is no forecast weather feed.",
+        "artifact_sha256": "39b5029f2c555caf120d434702f7ff0a9bc7f94f8fc25d7d0122389a065de80b"
+      },
+      "schema_version": 2,
+      "site_id": "solar_site",
+      "device_id": "nodemcu-01",
+      "dataQuality": "Estimated",
+      "updated_at": 1736510401
+    },
+    "anomaly": {
+      "source_ts": 1736510400,
+      "data_origin": "synthetic-test-inputs",
+      "status": "ok",
+      "is_anomaly": false,
+      "score": 0.0731,
+      "model_metadata": {
+        "schema_version": 2,
+        "model": "anomaly_isolation_forest",
+        "site_id": "solar_site",
+        "device_id": "nodemcu-01",
+        "trained_at": 1736510401,
+        "library_versions": {
+          "python": "3.13.15",
+          "numpy": "2.5.4",
+          "pandas": "3.1.0",
+          "sklearn": "1.9.1",
+          "joblib": "1.6.0"
+        },
+        "training_parameters": {
+          "pmax_w": 10.0,
+          "temp_coeff": -0.004,
+          "noct_c": 45.0,
+          "lux_per_wm2": 120.0,
+          "daylight_lux_threshold": 2000.0,
+          "feature_schema": "current-conditions-ist-v2"
+        },
+        "rows_used": 1345,
+        "feature_columns": [
+          "voltage_v",
+          "current_ma",
+          "power_mw",
+          "light_lux",
+          "temp_c",
+          "dust_ugm3"
+        ],
+        "total_rows_at_train": 2737,
+        "source_window_end_ts": 1736510400,
+        "data_origin": "synthetic-test-inputs",
+        "validation": {
+          "status": "unsupervised",
+          "precision": null,
+          "recall": null,
+          "note": "No verified fault labels; an unusual pattern is not a confirmed fault."
+        },
+        "model_version": "anomaly_isolation_forest-v2-2ac1b4082748a3a1",
+        "artifact_sha256": "3b046a09d41aab48217a22f995b249072e27b117b35ea9fa246b22d7677c1b6d"
+      },
+      "schema_version": 2,
+      "site_id": "solar_site",
+      "device_id": "nodemcu-01",
+      "dataQuality": "Estimated",
+      "updated_at": 1736510401
+    },
+    "health": {
+      "source_ts": 1736510400,
+      "data_origin": "synthetic-test-inputs",
+      "status": "ok",
+      "baseline_pr": 0.993,
+      "physical_health": null,
+      "model_metadata": {
+        "schema_version": 2,
+        "model": "health_baseline",
+        "site_id": "solar_site",
+        "device_id": "nodemcu-01",
+        "trained_at": 1736510401,
+        "library_versions": {
+          "python": "3.13.15",
+          "numpy": "2.5.4",
+          "pandas": "3.1.0",
+          "sklearn": "1.9.1",
+          "joblib": "1.6.0"
+        },
+        "training_parameters": {
+          "pmax_w": 10.0,
+          "temp_coeff": -0.004,
+          "noct_c": 45.0,
+          "lux_per_wm2": 120.0,
+          "daylight_lux_threshold": 2000.0,
+          "feature_schema": "current-conditions-ist-v2"
+        },
+        "rows_used": 1127,
+        "total_rows_at_train": 2737,
+        "source_window_end_ts": 1736510400,
+        "data_origin": "synthetic-test-inputs",
+        "validation": {
+          "status": "engineering_reference",
+          "physical_health": null,
+          "note": "Training-history reference only; physical health and calibration are unverified."
+        },
+        "percentile": 90,
+        "median_pr_observed": 0.964,
+        "model_version": "health_baseline-v2-77911f638de10700",
+        "artifact_sha256": "638e9c609e6319c773786ccc92ac648100d07946d307c61474cfd61ee2f3058f"
+      },
+      "schema_version": 2,
+      "site_id": "solar_site",
+      "device_id": "nodemcu-01",
+      "dataQuality": "Estimated",
+      "updated_at": 1736510401
+    },
+    "status": {
+      "source_ts": 1736510400,
+      "data_origin": "synthetic-test-inputs",
+      "status": "ok",
+      "total_rows": 2737,
+      "trained_models": [
+        "forecast_gbr",
+        "anomaly_isolation_forest",
+        "health_baseline"
+      ],
+      "skipped_models": [],
+      "model_states": {
+        "forecast": "ok",
+        "anomaly": "ok",
+        "health": "ok"
+      },
+      "model_info": {
+        "forecast": {
+          "model_version": "current-gbr-v2-0636ae9648d88f24",
+          "trained_at": 1736510401,
+          "load_state": "ready",
+          "validation_status": "evaluated",
+          "data_origin": "synthetic-test-inputs"
+        },
+        "anomaly": {
+          "model_version": "anomaly_isolation_forest-v2-2ac1b4082748a3a1",
+          "trained_at": 1736510401,
+          "load_state": "ready",
+          "validation_status": "unsupervised",
+          "data_origin": "synthetic-test-inputs"
+        },
+        "health": {
+          "model_version": "health_baseline-v2-77911f638de10700",
+          "trained_at": 1736510401,
+          "load_state": "ready",
+          "validation_status": "engineering_reference",
+          "data_origin": "synthetic-test-inputs"
+        }
+      },
+      "schema_version": 2,
+      "site_id": "solar_site",
+      "device_id": "nodemcu-01",
+      "dataQuality": "Estimated",
+      "updated_at": 1736510401
+    }
+  },
+  "notice": "Synthetic generated inputs only; no field accuracy"
+}

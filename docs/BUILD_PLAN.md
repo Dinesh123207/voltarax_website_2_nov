@@ -4,6 +4,8 @@
 
 ## Active roadmap
 
+Phase 6 API/UI task passed six actual-contract/backend tests, narrow lint and typecheck. Future horizon scenarios are removed; current estimates expire and expose validation/source/model information. Drift/retraining checks and full phase gate remain.
+
 Phase 6 artifacts/publication task: nine focused tests and official Python SDK demo read/publication passed. API/UI validation and drift checks remain before the gate. Minute inference/hour training schedules stay disabled pending separate operator setup; see AI README.
 
 1. Baseline, source inventory, authorization, IST energy/carbon corrections, truthful UI/claims, efficient Firebase queries, secure configuration and tests.

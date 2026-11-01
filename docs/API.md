@@ -6,7 +6,15 @@ The existing Express API is proxied by Next.js at `/api`. Dashboard endpoints ar
 
 JSON objects include a `dataQuality` classification and a separate `quality` map. Nested field paths use dots (for example `latest.temp_c`). Values are Measured, Estimated, Calculated or Unavailable. Existing domain maps such as sensor flags and SHAP values are not modified by metadata. Empty array responses retain their array shape and carry `X-Data-Quality: Unavailable`; nonempty object rows receive metadata. Error responses are Unavailable. User-record `toJSON` redaction runs before annotation.
 
-Measured denotes a device-reported reading; it does not certify calibration. Calculated denotes an arithmetic or rule-based result. Estimated includes site-level allocation, performance ratios and carbon conversion. The panel grid is estimated from one site reading. Forecast figures are current-condition/scenario estimates; confidence intervals are unavailable. Missing tariff/tree methodology values are unavailable.
+Measured denotes a device-reported reading; it does not certify calibration. Calculated denotes an arithmetic or rule-based result. Estimated includes site-level allocation, performance ratios and carbon conversion. The panel grid is estimated from one site reading. Power estimates use current conditions only; future horizons and confidence intervals are unavailable. Missing tariff/tree methodology values are unavailable.
+
+## Phase 6 current-power contract
+
+GET /api/forecast returns estimated_current_power_kw or null, source_as_of/generated_at/valid_until (Unix seconds), model_version/model_metadata, data_origin and a reason. Legacy forecast_1h_kw/6h/24h/7d keys and confidence are null: current kW is no longer multiplied into unsupported future energy. Fresh validated model output is preferred; otherwise fresh primary daylight inputs can produce an explicitly unverified engineering estimate. Calibration, future weather and real-site accuracy remain unverified. The browser suppresses the displayed power at valid_until.
+
+The backend reads canonical /sites/{site}/ai sections first; only an absent default-site canonical section may read legacy /solar_site/ai. Invalid canonical output never falls back to older data. Schema 2, site/device, finite values, model identity/parameters/validation, source-input age, model age, publication age and origin are checked separately. Schema 1 and remote synthetic results remain unavailable. RTDB-omitted nulls/empty lists normalize without inventing metrics. GET /api/ai/status exposes only validated/fresh status; missing results are model_unavailable, not a claim of insufficient training rows.
+
+GET /api/forecast/hourly returns available sample averages for the current IST calendar day from at most the latest 2,000 primary-device records, with date_ist/hour/kw/samples/dataQuality. Failed measurements and other dates/devices are excluded, recorded zero retained, missing hours absent. This bounded sample view is not a complete-day energy total or weather forecast.
 
 ## Telemetry storage and migration
 

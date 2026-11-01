@@ -4,6 +4,7 @@ from pathlib import Path
 import sys
 import tempfile
 import time
+import json
 
 if os.environ.get('FIREBASE_DATABASE_EMULATOR_HOST') != '127.0.0.1:9000' or os.environ.get('FIREBASE_PROJECT_ID') != 'demo-voltarax' or os.environ.get('NODE_ENV') != 'test':
     raise SystemExit('Requires the isolated localhost demo emulator')
@@ -44,6 +45,9 @@ try:
     assert value['schema_version'] == 2 and value['status'] == 'not_enough_data' and value['source_ts'] == stamp
     assert value['dataQuality'] == 'Unavailable' and 'predicted_power_mw' not in value
     assert db.reference('/solar_site/ai', app=app).get() is None
+    contract = {'now': int(time.time()), 'payloads': db.reference('/sites/solar_site/ai', app=app).get()}
+    output = cfg.ROOT.parents[1] / 'docs/test-results/phase06-sdk-contract-fixture.json'
+    output.write_text(json.dumps(contract, indent=2, allow_nan=False) + '\n', encoding='utf-8')
     try:
         publish('health', {'status': 'ok', 'source_ts': stamp, 'data_origin': 'synthetic-test-inputs', 'baseline_pr': float('nan')})
         raise AssertionError('Invalid payload was accepted')
