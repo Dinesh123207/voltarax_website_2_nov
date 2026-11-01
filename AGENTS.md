@@ -15,7 +15,9 @@ Work directly in `voltarax-web/`, preserving the existing Firebase telemetry, Ex
 9. India map using verified licensed boundaries.
 10. End-to-end testing, CI, deployment, backups and monitoring.
 
-One phase at a time; start the next only on the user's instruction. Preserve data, never push, send real messages, run live payments, deploy externally or publish private material without explicit authorization.
+Autopilot: proceed continuously through phases 1–10 without waiting for another instruction. Keep `docs/PROGRESS.md` current after each task, including a `RESUME HERE` line. Create each next phase branch from the previous phase branch; never touch `main`. Run and record phase gates before marking a phase done or tagging it. If real credentials, hardware, data, legal review or paid accounts are needed, document exact manual steps and continue independent work. Commit completed tasks on the phase branch. Preserve data, never push, send real messages, run live payments, deploy externally or publish private material without explicit authorization.
+
+Use the 23 downloaded archives as read-only references under gitignored `reference/`. Review licenses before adaptation, retain notices for permissive code, and never copy copyleft or source-available code into the product. Keep source provenance in `docs/SOURCES.md`. The complete detailed autopilot task list is retained in `docs/PROGRESS.md` and the user's latest prompt; it supersedes any older phase-order or approval instructions.
 
 
 ## Safety and defaults

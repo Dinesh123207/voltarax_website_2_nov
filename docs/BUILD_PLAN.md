@@ -15,7 +15,7 @@
 9. India map using verified licensed boundaries; supplied GeoJSON is an LFS pointer.
 10. End-to-end testing, CI, Docker, deployment instructions, backups and monitoring.
 
-Preserve Firebase and hardware data, use real measurements or clear unavailable states, and proceed to a later phase only when instructed.
+Preserve Firebase and hardware data, use real measurements or clear unavailable states, and proceed continuously through phases under the user's autopilot instruction. Detailed task and gate status lives in `PROGRESS.md`.
 
 ### Phase 1 status
 

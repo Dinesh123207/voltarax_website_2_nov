@@ -1,6 +1,6 @@
 # Autopilot progress
 
-RESUME HERE: Phase 1 — complete source extraction and validate stabilization changes
+RESUME HERE: Phase 1 — validate the Next.js upgrade and complete stabilization
 
 Status key: [ ] todo; [~] in progress; [x] done and verified as stated; [!] skipped with a reason. A phase is done only after its full gate passes.
 
@@ -8,13 +8,13 @@ Status key: [ ] todo; [~] in progress; [x] done and verified as stated; [!] skip
 
 - [x] Prior baseline, source inventory, initial auth/energy/data-honesty fixes and synthetic tests; see `DECISIONS.md` for scope and limitations.
 - [x] Adopt continuous in-place autopilot and create progress tracking.
-- [~] Extract and catalog 23 reference archives, inspect licenses and record source provenance.
-- [ ] Complete public/dashboard capability claims audit and corrections.
+- [x] Extract and catalog 23 reference archives, inspect root licenses and record preliminary source provenance. Symlinks were omitted; nested licenses still need review before any reuse.
+- [~] Capability copy reviewed and several unverified affiliation, patent, sustainability and sample-savings claims removed. Full sentence-level claims inventory and final review remain.
 - [~] Shared data-quality type, overview/panel/forecast/carbon badges and dashboard/telemetry API quality metadata added; remaining sections and API responses still need labels and verification. Quality unit test passed.
 - [~] Route inventory recorded and operator authorization added to inactive command stubs; backend test passed for their unauthenticated/viewer/operator/admin statuses and for user-list access. Full protected-group tests and site isolation remain.
 - [x] Correct subscriber creation/reactivation and ID-based Firebase update; focused tests passed without a live database.
 - [ ] Bounded site-aware Firebase reads, compatible writers, migration tooling, rules and tests.
-- [~] Security advisories identify 14.x as affected by issues patched in 15.5.x or later; 15.5.28 installation and initial dependency audit running. Hook/font warning fixes are pending verification.
+- [~] Security advisories identify 14.x as affected by issues patched in 15.5.x or later; 15.5.28 installation is running and hook/font warning fixes are pending verification. Initial audit: frontend 21 findings (1 critical, 9 high, 11 moderate); backend 13 (2 high, 11 moderate). These are findings from the pre-upgrade state, not verified exploitability.
 - [ ] Complete env descriptions, secret exclusions, gate and phase tag.
 
 ## Phase 2 — security and accounts
