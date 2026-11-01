@@ -74,3 +74,38 @@ export const inspections = pgTable('inspections', {
   index('inspections_latest_area').on(t.siteId, t.kind, t.areaKey, t.observedAt.desc(), t.createdAt.desc(), t.id.desc()),
   check('inspection_kind', sql`${t.kind} in ('camera','coating')`),
   check('inspection_condition', sql`${t.condition} in ('clean','dusty','cracked','peeling','other','unknown')`)]);
+
+// Commerce is one-time and test-only. No prices, customers or plans are seeded.
+export const commercePlans = pgTable('commerce_plans', {
+  id: text('id').primaryKey(), name: text('name').notNull(), description: text('description').notNull(),
+  pricePaise: integer('price_paise'), active: boolean('active').notNull().default(false),
+  version: integer('version').notNull().default(1), createdAt: date('created_at').notNull(), updatedAt: date('updated_at').notNull(),
+}, t => [check('plan_price', sql`${t.pricePaise} is null or ${t.pricePaise} between 100 and 1000000000`)]);
+export const commerceOrders = pgTable('commerce_orders', {
+  id: text('id').primaryKey(), userId: text('user_id').notNull(), planId: text('plan_id').notNull().references(() => commercePlans.id),
+  requestKey: text('request_key').notNull(), planSnapshot: jsonb('plan_snapshot').notNull(), amountPaise: integer('amount_paise').notNull(),
+  currency: text('currency').notNull().default('INR'), status: text('status').notNull().default('creating'),
+  gatewayOrderId: text('gateway_order_id').unique(), callbackPaymentId: text('callback_payment_id'), callbackVerifiedAt: date('callback_verified_at'),
+  createdAt: date('created_at').notNull(), updatedAt: date('updated_at').notNull(), paidAt: date('paid_at'),
+}, t => [uniqueIndex('order_user_request').on(t.userId, t.requestKey), index('order_user_created').on(t.userId, t.createdAt),
+  check('order_amount', sql`${t.amountPaise} between 100 and 1000000000`), check('order_currency', sql`${t.currency} = 'INR'`),
+  check('order_status', sql`${t.status} in ('creating','creation_unknown','pending','paid','refunded','review_required')`)]);
+export const commercePayments = pgTable('commerce_payments', {
+  id: text('id').primaryKey(), orderId: text('order_id').notNull().unique().references(() => commerceOrders.id),
+  amountPaise: integer('amount_paise').notNull(), currency: text('currency').notNull(), capturedAt: date('captured_at').notNull(),
+  refundedPaise: integer('refunded_paise').notNull().default(0),
+}, t => [check('payment_amount', sql`${t.amountPaise} between 100 and 1000000000 and ${t.refundedPaise} between 0 and ${t.amountPaise}`)]);
+export const commerceEvents = pgTable('commerce_events', {
+  digest: text('digest').primaryKey(), eventId: text('event_id').unique(), event: text('event').notNull(),
+  orderId: text('order_id'), result: text('result').notNull(), receivedAt: date('received_at').notNull(),
+});
+export const commerceInvoices = pgTable('commerce_invoices', {
+  id: text('id').primaryKey(), orderId: text('order_id').notNull().unique().references(() => commerceOrders.id),
+  evidence: jsonb('evidence').notNull(), pdfBase64: text('pdf_base64').notNull(), sha256: text('sha256').notNull(), createdAt: date('created_at').notNull(),
+});
+export const commerceRefunds = pgTable('commerce_refunds', {
+  id: text('id').primaryKey(), orderId: text('order_id').notNull().references(() => commerceOrders.id), paymentId: text('payment_id').notNull().references(() => commercePayments.id),
+  amountPaise: integer('amount_paise').notNull(), note: text('note').notNull(), status: text('status').notNull().default('requested'),
+  gatewayRefundId: text('gateway_refund_id').unique(), createdBy: text('created_by').notNull(), createdAt: date('created_at').notNull(), processedAt: date('processed_at'),
+}, t => [index('refund_order').on(t.orderId), check('refund_amount', sql`${t.amountPaise} between 1 and 1000000000`),
+  check('refund_status', sql`${t.status} in ('requested','submitted','processed','rejected')`)]);

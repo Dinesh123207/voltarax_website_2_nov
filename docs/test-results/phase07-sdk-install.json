@@ -1,0 +1,12 @@
+{
+  "command": [
+    "npm.cmd",
+    "install",
+    "--save-exact",
+    "razorpay@2.9.8",
+    "--ignore-scripts"
+  ],
+  "cwd": "voltarax-web/backend",
+  "exit_code": 0,
+  "seconds": 15.0
+}

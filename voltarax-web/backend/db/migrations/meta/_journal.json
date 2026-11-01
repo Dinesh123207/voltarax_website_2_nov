@@ -22,6 +22,13 @@
       "when": 1793541790812,
       "tag": "0002_inspection-index",
       "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "7",
+      "when": 1793555681900,
+      "tag": "0003_commerce",
+      "breakpoints": true
     }
   ]
 }

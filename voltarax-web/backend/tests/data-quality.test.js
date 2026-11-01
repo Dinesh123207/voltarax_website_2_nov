@@ -30,4 +30,6 @@ test('response annotation honors record redaction and labels empty array respons
   res.json({ password: 'test-secret', toJSON() { return { name: 'Test' }; } });
   assert.equal(output.password, undefined); assert.equal(output.name, 'Test');
   res.json([]); assert.equal(headers['X-Data-Quality'], 'Unavailable');
+  res.json({ dataQuality: 'Unavailable', estimated_current_power_kw: null });
+  assert.equal(headers['X-Data-Quality'], 'Unavailable'); assert.equal(output.dataQuality, 'Unavailable');
 });

@@ -1,6 +1,6 @@
 # Autopilot progress
 
-RESUME HERE: Phase 7 — persist unpriced plans/orders and test-only payment policy; implement signed idempotent payments/invoices/UI, then gate
+RESUME HERE: Phase 7 — signed raw-body payment/webhook lifecycle, invoice/refund records and HTTP/UI integration, then gate
 
 Status key: [ ] todo; [~] in progress; [x] done and verified as stated; [!] skipped with a reason. A phase is done only after its full gate passes.
 
@@ -73,9 +73,9 @@ Status key: [ ] todo; [~] in progress; [x] done and verified as stated; [!] skip
 - [x] Local gate: 55 backend tests, 28 AI tests, full frontend lint/typecheck/build (85.76 s), production audits and diff check passed. Final scan: 593 files/no matches. Audits frontend 0/backend 8 moderate/no high-critical. Initial backend gate failed because one legacy test expected unvalidated fresh output and an auth fake omitted the new drift reader; corrected expectations/fake, nine focused cases and full 55-case retry passed. Evidence retained. Tag: phase-06-done; real-data accuracy remains unverified.
 
 ## Phase 7 — commerce
-- [~] Read MIT Razorpay/SaaSify references and official Orders/Checkout/webhook docs; registry confirms Razorpay 2.9.8 MIT. No source copied, sample card/subscription data will not ship.
-- [ ] PostgreSQL plans with explicit unset price, administrator edits/versioning, no invented seeded products or recurring billing.
-- [ ] Persist owner-scoped one-time orders, payment events/invoices and manual refund requests; test-only disabled-by-default gateway policy.
+- [x] Read MIT Razorpay/SaaSify references and official Orders/Checkout/webhook docs; registry confirms Razorpay 2.9.8 MIT. Exact SDK install passed (15 s); no source copied, sample card/subscription data will not ship.
+- [x] PostgreSQL plans with explicit unset price, transactional administrator version checks and immutable one-time order snapshots. No seeded products/prices. Generated SQL migration and two actual-PGlite order tests passed, including concurrent request-key deduplication, buyer isolation and unknown-create preservation. Actual PostgreSQL remains manual.
+- [x] Six commerce tables prepared for owner-scoped orders, payments, event deduplication, invoices/refunds; no runtime automatic migration. Disabled-by-default test-key policy, constant-time raw HMAC and private ten-second/no-redirect pinned SDK adapter. Five focused policy/data-quality tests passed; availability headers now honor explicit Unavailable bodies.
 - [ ] Raw-body HMAC webhook, server-stored order signature verification, amount/currency checks, replay/concurrency/idempotency and unknown-create reconciliation.
 - [ ] Public plans/pricing, authenticated test Checkout/order/invoice pages and administrator plan/order/refund screens.
 - [ ] Fake gateway/local SQL/HTTP tests, invoice PDF review and honest test/no-GST labels; real test-account checkout remains manual.

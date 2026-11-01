@@ -1,0 +1,26 @@
+
+> voltarax-backend@2.0.0 db:generate
+> drizzle-kit generate --name commerce
+
+No config path provided, using default 'drizzle.config.ts'
+Reading config file 'C:\Users\JARVIS\Desktop\VOLTARAX\voltarax-web\backend\drizzle.config.ts'
+17 tables
+alert_events 7 columns 1 indexes 1 fks
+alert_signals 5 columns 1 indexes 1 fks
+alerts 15 columns 1 indexes 0 fks
+audit_events 10 columns 1 indexes 0 fks
+commerce_events 6 columns 0 indexes 0 fks
+commerce_invoices 6 columns 0 indexes 1 fks
+commerce_orders 14 columns 2 indexes 1 fks
+commerce_payments 6 columns 0 indexes 1 fks
+commerce_plans 8 columns 0 indexes 0 fks
+commerce_refunds 10 columns 1 indexes 2 fks
+inspection_photos 10 columns 1 indexes 0 fks
+inspections 11 columns 2 indexes 1 fks
+notification_outbox 8 columns 1 indexes 0 fks
+esg_reports 9 columns 1 indexes 0 fks
+site_operation_state 2 columns 0 indexes 0 fks
+work_order_events 7 columns 1 indexes 1 fks
+work_orders 15 columns 1 indexes 1 fks
+
+[✓] Your SQL migration file ➜ db\migrations\0003_commerce.sql 🚀

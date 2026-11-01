@@ -1,5 +1,13 @@
 # Manual steps and external verification
 
+## Phase 7 commerce configuration (in progress; not enabled)
+
+Keep PAYMENTS_ENABLED=false, PAYMENTS_MODE=test and GST_ENABLED=false. No product prices have been supplied or seeded. Administrators must enter reviewed plan descriptions and integer-paise prices later; null prices block checkout. GST-enabled checkout is blocked until real legal/tax details and an invoice tax implementation are reviewed; do not treat a test receipt as a tax invoice.
+
+After the phase gate, apply the generated commerce migration only to an operator-selected non-production PostgreSQL database using the existing explicit migration guard; verify backups first. Actual PostgreSQL/process concurrency remain unverified by the local PGlite tests. No existing Firebase or SQL user data is modified by this run.
+
+Order creation marked creation_unknown or left creating after a crash requires receipt-based administrator reconciliation in the Razorpay TEST dashboard; never retry with a fresh request key or assume creation failed. Full signed event/HTTP/UI reconciliation steps will be recorded as that task is implemented. No live key, account, order or refund is used here.
+
 ## Phase 6 artifact/publication operator checks
 
 After local gates, run check_drift.py on a bounded reviewed local export with a fresh output path under artifacts/drift; it makes no network request with --input and refuses --publish in that mode. Review missing references/new-row counts first. In separately configured test scheduling, run check_drift.py --publish before hourly run_once.py, and predict_once.py each minute, nonoverlapping ten-minute limits. Both remote/publication flags stay false in this run. PSI 0.2/50–500 new daylight samples is an initial heuristic requiring site calibration; it is not a launch accuracy criterion. Test drift and model expiry with the actual non-production project before any operational schedule.

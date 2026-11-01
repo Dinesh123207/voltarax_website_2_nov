@@ -4,6 +4,8 @@
 
 ## Active roadmap
 
+Phase 7 foundation: six commerce tables/migration, unpriced/versioned plans, buyer-scoped one-time order snapshots, request-key deduplication and preserved ambiguous creation are implemented. Two actual SQL tests and five policy/quality tests passed. Continue signed capture/refund/invoice lifecycle and HTTP/UI; no phase tag yet.
+
 Phase 6 is locally gated/tagged: 55 backend/28 AI tests, lint/typecheck/build, audits, scan and diff passed. Continue on phase-07-commerce from this phase branch. Real-data/weather/manual-service limitations remain explicit; no live deployment or main/push changes.
 
 Phase 6 drift task: four Python drift cases, seven backend cross-contract cases, offline CLI and UI lint/typecheck passed. Full gate is next; no phase tag until it passes. Real-site accuracy and weather-ahead forecasting remain manual/skipped due absent reviewed inputs/provider.

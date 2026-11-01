@@ -37,7 +37,7 @@ function responseQuality(req, res, next) {
     const safe = JSON.parse(JSON.stringify(body ?? null));
     const simulated = require('../config/testMode').simulatorAllowed();
     const base = simulated || req.path.includes('/panels') || (req.path.includes('/forecast') && !req.path.includes('/hourly')) ? QUALITY.ESTIMATED : QUALITY.CALCULATED;
-    res.set('X-Data-Quality', safe == null || (Array.isArray(safe) && !safe.length) || safe?.success === false ? QUALITY.UNAVAILABLE : base);
+    res.set('X-Data-Quality', safe == null || (Array.isArray(safe) && !safe.length) || safe?.success === false ? QUALITY.UNAVAILABLE : normalizeQuality(safe?.dataQuality, base));
     return send(annotate(safe, base, simulated));
   };
   next();

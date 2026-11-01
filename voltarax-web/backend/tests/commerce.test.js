@@ -1,0 +1,34 @@
+const test = require('node:test');
+const assert = require('node:assert/strict');
+const { open } = require('../db/client');
+const { createCommerce } = require('../services/commerce');
+const env = { PAYMENTS_ENABLED: 'true', RAZORPAY_KEY_ID: 'rzp_test_Synthetic', RAZORPAY_KEY_SECRET: 'synthetic-payment-secret', RAZORPAY_WEBHOOK_SECRET: 'synthetic-webhook-secret' };
+test('unpriced plans block checkout; snapshots, ownership and request-key idempotency persist in SQL', async t => {
+  const c = await open({ pglite: true, migrate: true }); t.after(() => c.close());
+  let calls = 0;
+  const service = createCommerce(c.db, { env, createRemoteOrder: async data => { calls++; return { ...data, id: 'order_Synthetic1', status: 'created' }; } });
+  assert.deepEqual(await service.plans(), []);
+  const plan = await service.savePlan({ name: 'Synthetic test plan', description: 'Test-only input', pricePaise: null, active: true }, 'admin');
+  const request = { planId: plan.id, planVersion: plan.version, requestKey: 'synthetic-request-1' };
+  await assert.rejects(service.createOrder(request, 'buyer'), error => error.status === 422); assert.equal(calls, 0);
+  const priced = await service.savePlan({ ...plan, pricePaise: 12345 }, 'admin', plan.id);
+  await assert.rejects(service.savePlan({ ...plan, pricePaise: 10000 }, 'admin', plan.id), error => error.status === 409);
+  request.planVersion = priced.version;
+  const [first, second] = await Promise.all([service.createOrder(request, 'buyer'), service.createOrder(request, 'buyer')]);
+  assert.equal(calls, 1); assert.equal(first.id, second.id);
+  const saved = await service.order(first.id, 'buyer'); assert.equal(saved.amountPaise, 12345); assert.equal(saved.status, 'pending');
+  await service.savePlan({ ...priced, pricePaise: 20000 }, 'admin', plan.id);
+  assert.equal((await service.order(first.id, 'buyer')).planSnapshot.pricePaise, 12345);
+  await assert.rejects(service.order(first.id, 'other'), error => error.status === 404);
+  assert.equal((await service.orders('other')).length, 0);
+  assert.equal((await service.orders('admin', true)).length, 1);
+});
+test('ambiguous order creation is retained and is never automatically repeated', async t => {
+  const c = await open({ pglite: true, migrate: true }); t.after(() => c.close()); let calls = 0;
+  const service = createCommerce(c.db, { env, createRemoteOrder: async () => { calls++; throw Error('Synthetic timeout after remote acceptance'); } });
+  const plan = await service.savePlan({ name: 'Synthetic plan', description: '', pricePaise: 100, active: true }, 'admin');
+  const data = { planId: plan.id, planVersion: plan.version, requestKey: 'synthetic-uncertain' };
+  await assert.rejects(service.createOrder(data, 'buyer'), error => error.status === 503);
+  assert.equal((await service.createOrder(data, 'buyer')).status, 'creation_unknown'); assert.equal(calls, 1);
+  await assert.rejects(createCommerce(c.db, { env: {} }).createOrder(data, 'buyer'), error => error.status === 503);
+});

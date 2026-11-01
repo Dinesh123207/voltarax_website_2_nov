@@ -190,6 +190,13 @@ Date: 2026-11-01. This is an internal project document. The internal project ref
 
 ## Phase 6 offline evaluation and environment
 
+## Phase 7 commerce foundation
+
+- [FOUND] MIT licenses read for downloaded Razorpay 2.9.8 and SaaSify references; official current registry confirms Razorpay 2.9.8/MIT. SDK installation passed in 15 seconds. Reference billing sample customer/card data is not product content; only layout patterns may inform original UI. No copied source.
+- [ASSUMED] Commerce is one-time INR only. No default plans/products/prices are seeded. Admin price policy accepts null (checkout blocked) or integer 100–1,000,000,000 paise; these are initial bounds, not a business price or provider guarantee. GST is off; requesting GST currently blocks checkout until reviewed tax configuration is implemented. No tax invoice/legal assertion is made.
+- [FOUND] Drizzle generated commerce migration and two actual-PGlite tests passed for unpriced blocking, transactional plan versions, immutable price snapshots, buyer isolation, concurrent request-key reuse and ambiguous gateway creation retained without automatic repeat. Five policy/label tests passed for test-only defaults, HMAC tamper refusal and consistent Unavailable response headers. Actual PostgreSQL/multi-process behavior remains an operator check.
+- [FOUND] Pinned SDK 2.9.8 exposes its own Axios adapter; original wrapper bounds its timeout to ten seconds, redirects to zero and body/response size to 100 KB, failing closed if that adapter changes. No global Axios state or real API call. Test-mode key prefix and PAYMENTS_MODE reject live configuration. Captured webhook/invoice/refund lifecycle and UI are next, not yet complete.
+
 - [FOUND] Phase 6 local gate passed: final 55 backend tests, 28 AI tests, full lint/typecheck, production build in 85.76 seconds, diff check and final 593-file secret scan/no matches. Production audits frontend 0/backend 8 moderate/no high-critical. Initial backend failure exposed obsolete fresh-but-unvalidated expectation and missing getAiDrift in the authorization fake; nine focused regressions and the full retry passed. No guard was relaxed. Tag phase-06-done; physical hardware, real-site accuracy, live Firebase, weather and browser E2E remain unverified as stated.
 
 - [ASSUMED] Drift uses original psi-quantile-v1 code, training-only light/temperature quantiles, half-count smoothing, at least 50 and at most 500 newer eligible rows, and an initial PSI >= 0.2 review threshold. This does not establish a site threshold, degradation, accuracy or fault. It does not bypass candidate validation or the default 100-new-eligible-row retraining gate. Forecast holdout rows do not enter its training reference.

@@ -1,0 +1,13 @@
+{
+  "command": [
+    "npm.cmd",
+    "run",
+    "db:generate",
+    "--",
+    "--name",
+    "commerce"
+  ],
+  "cwd": "voltarax-web/backend",
+  "exit_code": 0,
+  "seconds": 3.61
+}

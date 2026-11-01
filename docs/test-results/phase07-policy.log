@@ -1,0 +1,13 @@
+✔ missing values are unavailable and valid zero values retain their quality (1.6787ms)
+✔ nested API values receive quality without treating missing readings as zero (3.4127ms)
+✔ response annotation honors record redaction and labels empty array responses (2.4323ms)
+✔ checkout defaults disabled, rejects live mode and requires complete test-only configuration (1.8138ms)
+✔ payment and raw-body webhook HMAC checks reject tampering and malformed signatures (3.024ms)
+ℹ tests 5
+ℹ suites 0
+ℹ pass 5
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 235.2738
