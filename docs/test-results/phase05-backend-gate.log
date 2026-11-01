@@ -1,0 +1,60 @@
+
+> voltarax-backend@2.0.0 test
+> node --test --test-concurrency=1 tests/*.test.js
+
+✔ account lifecycle verifies email, scopes sites, rejects elevation and revokes cookie/native sessions (483.3289ms)
+✔ stale or undated AI output is unavailable (1.6611ms)
+✔ analysis excludes another site even when its legacy value is newer (1.8694ms)
+✔ admin-only endpoint rejects unauthenticated and viewer requests (3893.8004ms)
+✔ bootstrap is explicitly enabled, once only and never creates a verified/default account (9.551ms)
+✔ raster re-encoding removes JPEG metadata while preserving pixel dimensions (308.8243ms)
+✔ camera defaults unavailable and image sanitation rejects active/malformed/oversized input (215.992ms)
+✔ camera uses only a fixed URL, refuses redirects/offline/HTML and sanitizes an actual local test frame (446.0667ms)
+✔ stale or missing telemetry never becomes current zero power or offline panel counts (11.7193ms)
+✔ missing values are unavailable and valid zero values retain their quality (1.5623ms)
+✔ nested API values receive quality without treating missing readings as zero (3.1453ms)
+✔ response annotation honors record redaction and labels empty array responses (3.856ms)
+✔ ingest is idempotent, rejects conflicting replay/time skew and never rolls latest back (12.6222ms)
+✔ device registry hashes one-time keys, rejects duplicate registration, rotates and disables credentials (10.4713ms)
+✔ period starts follow India time across month and year boundaries (3.4642ms)
+✔ integrates milliwatts over seconds, clips periods and caps stale gaps (0.7544ms)
+✔ energy coverage distinguishes missing/faulted power from a recorded zero (2.5754ms)
+✔ timestamp range is pushed to Firebase without limiting before site filtering (13.4182ms)
+✔ HTTP boundary enforces origins, headers, validation, safe errors and scoped rate limits without logging inputs (610.177ms)
+✔ inspection API authorizes photo/record writes, protects images and proxies a bounded authenticated test stream (24791.3231ms)
+✔ inspection records preserve actual inputs, sanitize photos, isolate sites and group latest dated observations per area (14833.6535ms)
+✔ React Email renders both formats and mail defaults to disabled (78.9879ms)
+✔ offline migration is site scoped, preserves keys and is repeatable (4.9806ms)
+✔ notifications default disabled and reject incomplete/invalid/demo configuration (453.6039ms)
+✔ transactional outbox dispatch retries, skips duplicate delivery and preserves terminal failures with fake mail only (9024.7155ms)
+✔ operations HTTP enforces role/site/CSRF, validates assignees and preserves real history (10018.8612ms)
+✔ unconfigured storage returns an explicit unavailable result (32.6564ms)
+✔ relational lifecycle is site-scoped, atomic, persistent and safe against concurrent edits (9923.9184ms)
+✔ rule episodes deduplicate replay, preserve acknowledgement and require a cleared condition to recur (5681.442ms)
+✔ OTP is six digits, hashed at rest and consumed exactly once under concurrency (6.1472ms)
+✔ OTP expires after ten minutes, enforces five attempts and throttles resends (0.8883ms)
+✔ verification is purpose bound and never accepts an absent challenge (0.2772ms)
+✔ relay defaults disabled, serializes commands and requires a matching acknowledgement (3.1926ms)
+✔ late/mismatched/missing acknowledgements never become an applied command (1.001ms)
+✔ a server-timestamped acknowledgement received before the deadline survives a later reconciliation (0.3745ms)
+✔ reports enforce valid IST periods, coverage, real-data policy and explicit factor provenance (7.4782ms)
+✔ synthetic report layout is generated as an explicitly marked two-page test fixture (1487.5238ms)
+✔ report snapshots persist in SQL, preserve hash and enforce site isolation (12672.782ms)
+✔ simulator defaults to marked synthetic data and cannot send to production/unconfirmed targets (20.7704ms)
+✔ missing essential readings cannot result in a healthy score (2.7305ms)
+✔ analysis stays bound to its input timestamp and never invents a missing temperature (0.5196ms)
+✔ collector records offline observations without treating them as new measurements (15.9878ms)
+✔ new and inactive subscribers are persisted as active (246.5555ms)
+✔ pages past other sites, merges old and new history, and keeps tied timestamps (43.8991ms)
+✔ writes one atomic compatibility update and validates site paths (2.2335ms)
+✔ migration marker disables legacy reads only for that site (2.8601ms)
+✔ primary device filtering pages past secondary rows before applying a limit (0.781ms)
+✔ user repository reserves a normalized email once and atomically revokes sessions with sensitive changes (1500.9686ms)
+ℹ tests 48
+ℹ suites 0
+ℹ pass 48
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 118847.765

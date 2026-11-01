@@ -48,8 +48,6 @@ POST /carbon/report takes {start,end}, inclusive calendar dates YYYY-MM-DD in IS
 
 GET /carbon/reports (limit 1–100, default 50) lists metadata; /carbon/reports/:id returns evidence/hash; /carbon/reports/:id/pdf streams the authenticated attachment. All are site scoped. Coverage, energy and record counts are Calculated, carbon/factor Estimated, physical uptime Unavailable. A real-data issuance or applicable factor was not verified in this run; the layout fixture is clearly synthetic.
 
-## Recorded energy, panel allocation and simulator limits
-
 ## Camera and manual observations (Phase 5)
 All routes below require verified site membership; mutations also require operator/admin and the browser request header. Camera configuration is server-only and disabled by default. GET /camera/status reports configuration, not online status; online/captureTime remain Unavailable. GET /camera/stream proxies only the fixed configured stream, never caller-supplied addresses. Streams cap at two total/one per account and sixty seconds/twenty MB; clients reopen deliberately. Redirects are refused.
 
@@ -59,7 +57,7 @@ All routes below require verified site membership; mutations also require operat
 - POST /inspections takes kind (camera/coating), area, condition (clean/dusty/cracked/peeling/other/unknown), actual observedAt (ISO offset date-time), photoId and factual notes. Its photo must belong to the same site. Records are append-only and audited. GET /inspections accepts kind and limit 1–200, sorted by observation time.
 - GET /coating returns the latest dated manual observation per normalized named area (up to 500, explicit truncated flag), visible categorical rules and counts by IST calendar date for the current day plus preceding 89 days. Counts are observations, not panels or prevalence. Categories expire after INSPECTION_MAX_AGE_DAYS (default 30); older status is Unavailable. score remains null. There is no ML/coating-material/repair certification.
 
-## Recorded energy, panel allocation and simulator limits (continued)
+## Recorded energy, panel allocation and simulator limits
 Dashboard energy and carbon totals integrate only valid recorded power intervals, capped at fifteen minutes per adjacent pair. No covered interval returns null/Unavailable; a covered interval with measured zero power returns zero. Dashboard energy_coverage_pct describes coverage of the elapsed IST day; carbon responses expose covered seconds by period. Gaps are not extrapolated and partial totals are not full-period yield claims. Carbon remains an estimate using the configured emission factor; its source must be reviewed before an ESG report is issued.
 
 The panel grid is a virtual equal allocation of the primary site's reading only when SOLAR_PANEL_COUNT is explicitly configured. An unset count returns an empty list. Labels are virtual positions, not registered panel IDs. Per-panel health, voltage and temperature remain Unavailable; site_sensor_temp_c is the actual site sensor reading and panel_temp_avg_c remains null. No default count or inferred healthy/fault count is published.

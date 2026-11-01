@@ -1,6 +1,6 @@
 # Autopilot progress
 
-RESUME HERE: Phase 5 — full local gate and operator documentation, then Phase 6 AI validation
+RESUME HERE: Phase 6 — time-split evaluation, leakage-free preprocessing and stale-input/model checks
 
 Status key: [ ] todo; [~] in progress; [x] done and verified as stated; [!] skipped with a reason. A phase is done only after its full gate passes.
 
@@ -59,11 +59,15 @@ Status key: [ ] todo; [~] in progress; [x] done and verified as stated; [!] skip
 - [x] Backend fixed-URL camera proxy and authorized saved snapshots, disabled default, bounded stream/capture/image decoding, metadata removal and explicit offline state. Three camera/metadata tests and two focused API/authorization tests passed, using only localhost fixture cameras. Hardware remains unverified.
 - [x] Persistent photo/manual inspection schema/migration and actual observation time/area/condition/photo/notes, site checks and audit. One actual-PGlite test passed for photo isolation, time validation, latest dated area observations, stale categories and IST trends.
 - [x] Camera/coating screens now capture/upload/select protected photos and save actual observations; visible rules, latest per-area categories, stale states, IST trends and record history. Frontend typecheck/narrow lint passed. BFCI/CV placeholders no longer fabricate aggregate scores/losses; numerical coating score and automatic ML classification remain explicitly Unavailable.
-- [~] Operator instructions and gate: full backend/frontend lint running. Add indexed latest-area lookup and IST calendar trend boundary to the final gate. Camera hardware and browser interaction verification remain manual; no phase tag yet.
+- [x] Local gate: 48 backend tests, 9 AI tests, full frontend lint, typecheck and production build passed (147.52 seconds). Production audits frontend 0/backend 8 moderate, no high/critical. Scan: 484 files/no matches; diff check passed. New migrations/index and IST trend boundary included. Tag: phase-05-done.
+- [!] Physical camera/coating verification, actual image interpretation, browser workflow and real PostgreSQL restore checks remain manual/E2E work. No real camera or live service used; MANUAL_STEPS.md records exact setup and checks.
 
 ## Phase 6 — AI validation
-- [ ] Time-split evaluation, transparent metrics and stale-result behavior.
-- [ ] Drift/retraining checks; weather-ahead forecasts only with a documented source; gate and phase tag.
+- [~] Time-split evaluation with train-only preprocessing, MAE/RMSE/R2, engineering baseline comparison and labelled-only anomaly metrics; synthetic tests and offline export CLI.
+- [ ] Schema-validated publication, model version/training/validation metadata and stale input/model/results behavior in API/UI.
+- [ ] Drift/retraining checks and documented offline/scheduled validation workflow.
+- [ ] Current-conditions estimates only until a verified site/weather provider is configured; no fabricated confidence intervals or horizon extrapolations.
+- [ ] Phase gate and tag; real-data accuracy remains unverified until a reviewed export exists.
 
 ## Phase 7 — commerce
 - [ ] Unpriced plans, test-mode Razorpay orders, verified signatures and idempotent webhook.
