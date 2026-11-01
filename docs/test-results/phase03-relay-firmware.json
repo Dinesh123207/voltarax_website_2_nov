@@ -1,0 +1,15 @@
+{
+  "command": [
+    "C:/Users/JARVIS/Desktop/VOLTARAX/.local-tools/platformio/Scripts/python.exe",
+    "-m",
+    "platformio",
+    "run",
+    "-e",
+    "compile_check",
+    "-j",
+    "2"
+  ],
+  "cwd": "voltarax-web/hardware/nodemcu",
+  "exit_code": 0,
+  "seconds": 39.38
+}

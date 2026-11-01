@@ -5,6 +5,11 @@ const { dashboard, panels, latest } = require('../services/dashboardData');
 const { getAiForecast, getAiAnomaly, getAiHealth, getAiStatus } = require('../services/aiPredictions');
 const SolarTelemetry = require('../models/SolarTelemetry');
 const SolarAnalysis = require('../models/SolarAnalysis');
+const { validate, z } = require('../middleware/validate');
+const verification = require('../services/accountVerification');
+const { getRegistry } = require('../services/devices');
+const { getRelayService } = require('../services/relay');
+const relayDevice = req => req.query.device_id || process.env.SOLAR_DEVICE_ID || 'nodemcu-01';
 
 const router = express.Router();
 const { dashboardValidation } = require('../middleware/dashboardValidation');
@@ -96,8 +101,29 @@ router.get('/cv', protect, requireSite, dashboardValidation('get', '/cv'), async
 router.get('/cv/summary', protect, requireSite, dashboardValidation('get', '/cv/summary'), async (req, res) => res.json({ total_panels: null, counts: { clean: null, dusty: null, cracked: null, bio_degraded: null }, dataQuality: 'Unavailable', note: 'Connect ESP32-CAM / CV pipeline to populate inspections.' }));
 router.post('/cv/scan', protect, requireOperator, requireSite, dashboardValidation('post', '/cv/scan'), async (req, res) => res.status(501).json({ success: false, message: 'Camera/CV pipeline is not connected yet.' }));
 
-router.get('/relay', protect, requireSite, dashboardValidation('get', '/relay'), async (req, res) => res.json({ battery_on: null, load_on: null, grid_export: null, spare_on: null, reason: 'Relay hardware not connected', commanded_by: 'system', commanded_at: null, source: 'not-connected' }));
-router.get('/relay/history', protect, requireSite, dashboardValidation('get', '/relay/history'), async (req, res) => res.json([]));
+router.get('/relay', protect, requireSite, dashboardValidation('get', '/relay'), async (req, res) => {
+  try {
+    const id = relayDevice(req), device = await getRegistry().get(id);
+    const command = device?.site_id === SITE_ID ? await getRelayService().read(id) : null;
+    res.json({ device_id: id, battery_on: null, load_on: null, grid_export: null, spare_on: null,
+      command, control_enabled: process.env.RELAY_CONTROL_ENABLED === 'true' && device?.enabled === true && device?.relayEnabled === true, physical_state: null, dataQuality: 'Calculated', source: 'command-acknowledgement',
+      reason: 'Physical relay contact feedback is unavailable. Acknowledgements describe the firmware GPIO action only.' });
+  } catch { res.status(500).json({ success: false, message: 'Relay status unavailable.' }); }
+});
+router.get('/relay/history', protect, requireSite, dashboardValidation('get', '/relay/history'), async (req, res) => {
+  try {
+    const id = relayDevice(req), device = await getRegistry().get(id);
+    res.json(device?.site_id === SITE_ID ? await getRelayService().history(id, req.query.limit || 50) : []);
+  } catch { res.status(500).json({ success: false, message: 'Relay history unavailable.' }); }
+});
+router.post('/relay/command', protect, requireAdmin, requireSite, validate({ body: z.object({ device_id: z.string().regex(/^[A-Za-z0-9_-]{1,64}$/), desired: z.boolean(), code: z.string().regex(/^\d{6}$/) }).strict() }), async (req, res, next) => {
+  try {
+    if (!verification.configured()) return res.status(503).json({ success: false, message: 'Email verification is not configured.' });
+    if (!(await verification.verify(req.user.email, req.body.code, verification.sensitivePurpose(req.user, 'relay-command', `${req.body.device_id}-${req.body.desired ? 'on' : 'off'}`)))) return res.status(401).json({ success: false, message: 'Invalid or expired verification.' });
+    const result = await getRelayService().issue(req.body.device_id, req.body.desired, req.user._id, req.id);
+    res.status(result.status).json({ success: !result.error, ...(result.error ? { message: result.error } : { command: result.command }) });
+  } catch (error) { next(error); }
+});
 
 router.get('/carbon', protect, requireSite, dashboardValidation('get', '/carbon'), async (req, res) => {
   try {

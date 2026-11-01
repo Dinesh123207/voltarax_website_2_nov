@@ -6,7 +6,7 @@ function mailConfigured(env = process.env) {
   return env.EMAIL_ENABLED === 'true' && !!(env.SMTP_HOST && env.SMTP_FROM && env.SMTP_USER && env.SMTP_PASS);
 }
 async function otpMessage({ code, purpose, expiresMinutes }) {
-  const action = purpose === 'registration' ? 'verify your email address' : 'confirm the requested account change';
+  const action = purpose === 'registration' ? 'verify your email address' : 'confirm the requested action';
   const html = await render(React.createElement('html', { lang: 'en' }, React.createElement('body', { style: { fontFamily: 'Arial, sans-serif', padding: '24px' } },
     React.createElement('h1', null, 'Voltarax verification'),
     React.createElement('p', null, `Use this code to ${action}:`),

@@ -1,0 +1,11 @@
+{
+  "command": [
+    "node",
+    "--test",
+    "tests/relay.test.js",
+    "tests/authorization.test.js"
+  ],
+  "cwd": "voltarax-web/backend",
+  "exit_code": 0,
+  "seconds": 2.98
+}

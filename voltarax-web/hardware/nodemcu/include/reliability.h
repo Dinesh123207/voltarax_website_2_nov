@@ -8,6 +8,9 @@ inline bool validReading(float value, float minimum, float maximum) {
   return isfinite(value) && value >= minimum && value <= maximum;
 }
 inline bool clockReady(uint32_t seconds) { return seconds >= 1700000000U; }
+inline bool commandCurrent(uint32_t now, uint32_t created, uint32_t expires) {
+  return clockReady(now) && expires > created && expires - created <= 30 && now >= created && now < expires;
+}
 struct Backoff {
   uint32_t last = 0, wait = 0;
   bool due(uint32_t now) const { return uint32_t(now - last) >= wait; }

@@ -1,0 +1,45 @@
+
+> voltarax-backend@2.0.0 test:rules
+> firebase emulators:exec --only database --project demo-voltarax --config ../firebase.test.json "node --test tests/firebase-rules.test.cjs"
+
+i  emulators: Starting emulators: database
+i  emulators: Detected demo project ID "demo-voltarax", emulated services will use a demo configuration and attempts to access non-emulated services for this project will fail.
+i  database: Database Emulator logging to database-debug.log
+i  Running script: node --test tests/firebase-rules.test.cjs
+[2026-11-01T08:09:10.992Z]  @firebase/database: FIREBASE WARNING: set at /readings/solar_site/wrong failed: permission_denied 
+[2026-11-01T08:09:11.058Z]  @firebase/database: FIREBASE WARNING: set at /readings/elsewhere/second failed: permission_denied 
+[2026-11-01T08:09:11.067Z]  @firebase/database: FIREBASE WARNING: set at /readings/solar_site/third failed: permission_denied 
+[2026-11-01T08:09:11.075Z]  @firebase/database: FIREBASE WARNING: set at /readings/solar_site/third failed: permission_denied 
+[2026-11-01T08:09:11.084Z]  @firebase/database: FIREBASE WARNING: set at /readings/solar_site/third failed: permission_denied 
+[2026-11-01T08:09:11.092Z]  @firebase/database: FIREBASE WARNING: set at /readings/solar_site/third failed: permission_denied 
+[2026-11-01T08:09:11.111Z]  @firebase/database: FIREBASE WARNING: set at /readings/solar_site/second failed: permission_denied 
+[2026-11-01T08:09:11.165Z]  @firebase/database: FIREBASE WARNING: set at /sites/solar_site/latest failed: permission_denied 
+[2026-11-01T08:09:11.175Z]  @firebase/database: FIREBASE WARNING: set at /users/forged failed: permission_denied 
+[2026-11-01T08:09:11.186Z]  @firebase/database: FIREBASE WARNING: set at /authChallenges/forged failed: permission_denied 
+[2026-11-01T08:09:11.195Z]  @firebase/database: FIREBASE WARNING: set at /auditLog/forged failed: permission_denied 
+[2026-11-01T08:09:11.205Z]  @firebase/database: FIREBASE WARNING: set at /userEmails/forged failed: permission_denied 
+[2026-11-01T08:09:11.213Z]  @firebase/database: FIREBASE WARNING: set at /access/forged failed: permission_denied 
+[2026-11-01T08:09:11.222Z]  @firebase/database: FIREBASE WARNING: set at /bootstrap/forged failed: permission_denied 
+[2026-11-01T08:09:11.231Z]  @firebase/database: FIREBASE WARNING: set at /content/forged failed: permission_denied 
+[2026-11-01T08:09:11.324Z]  @firebase/database: FIREBASE WARNING: set at /relayCommands/nodemcu-01 failed: permission_denied 
+[2026-11-01T08:09:11.332Z]  @firebase/database: FIREBASE WARNING: set at /relayAcks/nodemcu-01/command-current failed: permission_denied 
+[2026-11-01T08:09:11.346Z]  @firebase/database: FIREBASE WARNING: set at /relayAcks/nodemcu-01/command-current failed: permission_denied 
+[2026-11-01T08:09:11.398Z]  @firebase/database: FIREBASE WARNING: set at /relayAcks/nodemcu-01/command-current failed: permission_denied 
+[2026-11-01T08:09:11.476Z]  @firebase/database: FIREBASE WARNING: set at /readings/solar_site/impostor failed: permission_denied 
+[2026-11-01T08:09:11.549Z]  @firebase/database: FIREBASE WARNING: set at /readings/solar_site/disabled failed: permission_denied 
+[2026-11-01T08:09:11.556Z]  @firebase/database: FIREBASE WARNING: set at /relayAcks/nodemcu-01/expired-command failed: permission_denied 
+✔ RTDB rules isolate roles/sites/devices and reject client access to account secrets (2062.2379ms)
+ℹ tests 1
+ℹ suites 0
+ℹ pass 1
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 5031.5161
++  Script exited successfully (code 0)
+i  emulators: Shutting down emulators.
+i  database: Stopping Database Emulator
+!  Database Emulator has exited upon receiving signal: SIGINT
+i  hub: Stopping emulator hub
+i  logging: Stopping Logging Emulator

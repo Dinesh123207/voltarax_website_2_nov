@@ -22,6 +22,14 @@ void invalid_sensor_values_and_unsynced_time_are_not_measurements() {
   TEST_ASSERT_FALSE(voltarax::validReading(-1, 0, 100)); TEST_ASSERT_FALSE(voltarax::validReading(101, 0, 100));
   TEST_ASSERT_TRUE(voltarax::validReading(0, 0, 100)); TEST_ASSERT_FALSE(voltarax::clockReady(0)); TEST_ASSERT_TRUE(voltarax::clockReady(1700000000));
 }
+void relay_commands_require_synced_time_and_expire_before_execution() {
+  const uint32_t created = 1700000000U;
+  TEST_ASSERT_TRUE(voltarax::commandCurrent(created, created, created + 30));
+  TEST_ASSERT_FALSE(voltarax::commandCurrent(created - 1, created, created + 30));
+  TEST_ASSERT_FALSE(voltarax::commandCurrent(created + 30, created, created + 30));
+  TEST_ASSERT_FALSE(voltarax::commandCurrent(created, created, created + 31));
+  TEST_ASSERT_FALSE(voltarax::commandCurrent(0, created, created + 30));
+}
 int main() {
-  UNITY_BEGIN(); RUN_TEST(buffer_is_bounded_and_preserves_capture_order); RUN_TEST(retry_delays_are_bounded_and_handle_millis_wrap); RUN_TEST(invalid_sensor_values_and_unsynced_time_are_not_measurements); return UNITY_END();
+  UNITY_BEGIN(); RUN_TEST(buffer_is_bounded_and_preserves_capture_order); RUN_TEST(retry_delays_are_bounded_and_handle_millis_wrap); RUN_TEST(invalid_sensor_values_and_unsynced_time_are_not_measurements); RUN_TEST(relay_commands_require_synced_time_and_expire_before_execution); return UNITY_END();
 }

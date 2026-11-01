@@ -32,7 +32,7 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
   const [user,     setUser]     = useState<any>(null);
   const [sessionMessage, setSessionMessage] = useState('');
   const [siteAccess, setSiteAccess] = useState(false);
-  const sectionQuality: DataQuality = ['/dashboard/bfci', '/dashboard/cv', '/dashboard/relay', '/dashboard/work-orders'].includes(pathname)
+  const sectionQuality: DataQuality = ['/dashboard/bfci', '/dashboard/cv', '/dashboard/work-orders'].includes(pathname)
     ? 'Unavailable' : ['/dashboard/panels', '/dashboard/forecast', '/dashboard/carbon'].includes(pathname) ? 'Estimated' : 'Calculated';
 
   useEffect(() => {

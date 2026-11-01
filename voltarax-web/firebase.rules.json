@@ -7,8 +7,8 @@
         ],
         ".read": "auth != null && (auth.token.role === 'admin' || ((auth.token.role === 'viewer' || auth.token.role === 'operator') && root.child('access').child(auth.uid).child('sites').child($site).val() === true))",
         "$reading": {
-          ".write": "auth != null && auth.uid === 'PASTE_FIREBASE_DEVICE_UID_HERE' && $site === 'solar_site' && newData.exists()",
-          ".validate": "newData.hasChildren(['ts','site_id','device_id']) && newData.child('site_id').val() === $site && newData.child('device_id').val() === 'nodemcu-01'",
+          ".write": "(auth != null && ((auth.uid === 'PASTE_FIREBASE_DEVICE_UID_HERE' && newData.child('device_id').val() === 'nodemcu-01' && $site === 'solar_site' && root.child('devices').child(newData.child('device_id').val()).child('enabled').val() !== false) || (root.child('deviceAccess').child(auth.uid).child('enabled').val() === true && root.child('deviceAccess').child(auth.uid).child('device_id').val() === newData.child('device_id').val() && root.child('deviceAccess').child(auth.uid).child('site_id').val() === $site && root.child('devices').child(newData.child('device_id').val()).child('enabled').val() === true))) && newData.exists()",
+          ".validate": "newData.hasChildren(['ts','site_id','device_id']) && newData.child('site_id').val() === $site && newData.child('device_id').isString()",
           "ts": {
             ".validate": "newData.isNumber() && newData.val() > 0 && newData.val() <= now / 1000 + 300"
           },
@@ -75,8 +75,8 @@
       "$site": {
         "latest": {
           ".read": "auth != null && (auth.token.role === 'admin' || ((auth.token.role === 'viewer' || auth.token.role === 'operator') && root.child('access').child(auth.uid).child('sites').child($site).val() === true))",
-          ".write": "auth != null && auth.uid === 'PASTE_FIREBASE_DEVICE_UID_HERE' && $site === 'solar_site' && newData.exists()",
-          ".validate": "newData.hasChildren(['ts','site_id','device_id']) && newData.child('site_id').val() === $site && newData.child('device_id').val() === 'nodemcu-01'",
+          ".write": "(auth != null && ((auth.uid === 'PASTE_FIREBASE_DEVICE_UID_HERE' && newData.child('device_id').val() === 'nodemcu-01' && $site === 'solar_site' && root.child('devices').child(newData.child('device_id').val()).child('enabled').val() !== false) || (root.child('deviceAccess').child(auth.uid).child('enabled').val() === true && root.child('deviceAccess').child(auth.uid).child('device_id').val() === newData.child('device_id').val() && root.child('deviceAccess').child(auth.uid).child('site_id').val() === $site && root.child('devices').child(newData.child('device_id').val()).child('enabled').val() === true))) && newData.exists()",
+          ".validate": "newData.hasChildren(['ts','site_id','device_id']) && newData.child('site_id').val() === $site && newData.child('device_id').isString()",
           "ts": {
             ".validate": "newData.isNumber() && newData.val() > 0 && newData.val() <= now / 1000 + 300"
           },
@@ -146,8 +146,8 @@
     "solar_site": {
       "latest": {
         ".read": "auth != null && (auth.token.role === 'admin' || ((auth.token.role === 'viewer' || auth.token.role === 'operator') && root.child('access').child(auth.uid).child('sites').child('solar_site').val() === true))",
-        ".write": "auth != null && auth.uid === 'PASTE_FIREBASE_DEVICE_UID_HERE' && 'solar_site' === 'solar_site' && newData.exists()",
-        ".validate": "newData.hasChildren(['ts','site_id','device_id']) && newData.child('site_id').val() === 'solar_site' && newData.child('device_id').val() === 'nodemcu-01'",
+        ".write": "(auth != null && ((auth.uid === 'PASTE_FIREBASE_DEVICE_UID_HERE' && newData.child('device_id').val() === 'nodemcu-01' && 'solar_site' === 'solar_site' && root.child('devices').child(newData.child('device_id').val()).child('enabled').val() !== false) || (root.child('deviceAccess').child(auth.uid).child('enabled').val() === true && root.child('deviceAccess').child(auth.uid).child('device_id').val() === newData.child('device_id').val() && root.child('deviceAccess').child(auth.uid).child('site_id').val() === 'solar_site' && root.child('devices').child(newData.child('device_id').val()).child('enabled').val() === true))) && newData.exists()",
+        ".validate": "newData.hasChildren(['ts','site_id','device_id']) && newData.child('site_id').val() === 'solar_site' && newData.child('device_id').isString()",
         "ts": {
           ".validate": "newData.isNumber() && newData.val() > 0 && newData.val() <= now / 1000 + 300"
         },
@@ -209,14 +209,14 @@
         }
       },
       "history": {
-        ".read": "auth != null && (auth.token.role === 'admin' || ((auth.token.role === 'viewer' || auth.token.role === 'operator') && root.child('access').child(auth.uid).child('sites').child('solar_site').val() === true))",
+        ".read": "auth != null && auth.token.role === 'admin'",
         ".indexOn": [
           "ts",
           "site_id"
         ],
         "$reading": {
-          ".write": "auth != null && auth.uid === 'PASTE_FIREBASE_DEVICE_UID_HERE' && 'solar_site' === 'solar_site' && newData.exists()",
-          ".validate": "newData.hasChildren(['ts','site_id','device_id']) && newData.child('site_id').val() === 'solar_site' && newData.child('device_id').val() === 'nodemcu-01'",
+          ".write": "(auth != null && ((auth.uid === 'PASTE_FIREBASE_DEVICE_UID_HERE' && newData.child('device_id').val() === 'nodemcu-01' && newData.child('site_id').val() === 'solar_site' && root.child('devices').child(newData.child('device_id').val()).child('enabled').val() !== false) || (root.child('deviceAccess').child(auth.uid).child('enabled').val() === true && root.child('deviceAccess').child(auth.uid).child('device_id').val() === newData.child('device_id').val() && root.child('deviceAccess').child(auth.uid).child('site_id').val() === newData.child('site_id').val() && root.child('devices').child(newData.child('device_id').val()).child('enabled').val() === true))) && newData.exists()",
+          ".validate": "newData.hasChildren(['ts','site_id','device_id']) && newData.child('site_id').isString() && newData.child('device_id').isString()",
           "ts": {
             ".validate": "newData.isNumber() && newData.val() > 0 && newData.val() <= now / 1000 + 300"
           },
@@ -279,15 +279,15 @@
         }
       },
       "analysis": {
-        ".read": "auth != null && (auth.token.role === 'admin' || ((auth.token.role === 'viewer' || auth.token.role === 'operator') && root.child('access').child(auth.uid).child('sites').child('solar_site').val() === true))",
+        ".read": "auth != null && auth.token.role === 'admin'",
         ".write": false
       },
       "analysis_history": {
-        ".read": "auth != null && (auth.token.role === 'admin' || ((auth.token.role === 'viewer' || auth.token.role === 'operator') && root.child('access').child(auth.uid).child('sites').child('solar_site').val() === true))",
+        ".read": "auth != null && auth.token.role === 'admin'",
         ".write": false
       },
       "ai": {
-        ".read": "auth != null && (auth.token.role === 'admin' || ((auth.token.role === 'viewer' || auth.token.role === 'operator') && root.child('access').child(auth.uid).child('sites').child('solar_site').val() === true))",
+        ".read": "auth != null && auth.token.role === 'admin'",
         ".write": false
       }
     },
@@ -342,6 +342,69 @@
     "deviceAccess": {
       ".read": false,
       ".write": false
+    },
+    "devices": {
+      ".read": false,
+      ".write": false,
+      "$device": {
+        "enabled": {
+          ".read": "auth != null && ((auth.uid === 'PASTE_FIREBASE_DEVICE_UID_HERE' && $device === 'nodemcu-01' && root.child('devices').child($device).child('site_id').val() === 'solar_site' && root.child('devices').child($device).child('enabled').val() !== false) || (root.child('deviceAccess').child(auth.uid).child('enabled').val() === true && root.child('deviceAccess').child(auth.uid).child('device_id').val() === $device && root.child('deviceAccess').child(auth.uid).child('site_id').val() === root.child('devices').child($device).child('site_id').val() && root.child('devices').child($device).child('enabled').val() === true))"
+        },
+        "relayEnabled": {
+          ".read": "auth != null && ((auth.uid === 'PASTE_FIREBASE_DEVICE_UID_HERE' && $device === 'nodemcu-01' && root.child('devices').child($device).child('site_id').val() === 'solar_site' && root.child('devices').child($device).child('enabled').val() !== false) || (root.child('deviceAccess').child(auth.uid).child('enabled').val() === true && root.child('deviceAccess').child(auth.uid).child('device_id').val() === $device && root.child('deviceAccess').child(auth.uid).child('site_id').val() === root.child('devices').child($device).child('site_id').val() && root.child('devices').child($device).child('enabled').val() === true))"
+        }
+      }
+    },
+    "relayCommands": {
+      ".read": false,
+      ".write": false,
+      ".indexOn": [
+        "status"
+      ],
+      "$device": {
+        ".read": "auth != null && ((auth.uid === 'PASTE_FIREBASE_DEVICE_UID_HERE' && $device === 'nodemcu-01' && root.child('devices').child($device).child('site_id').val() === 'solar_site' && root.child('devices').child($device).child('enabled').val() !== false) || (root.child('deviceAccess').child(auth.uid).child('enabled').val() === true && root.child('deviceAccess').child(auth.uid).child('device_id').val() === $device && root.child('deviceAccess').child(auth.uid).child('site_id').val() === root.child('devices').child($device).child('site_id').val() && root.child('devices').child($device).child('enabled').val() === true))"
+      }
+    },
+    "relayHistory": {
+      ".read": false,
+      ".write": false,
+      "$device": {
+        ".indexOn": [
+          "created_at"
+        ]
+      }
+    },
+    "relayAcks": {
+      ".read": false,
+      ".write": false,
+      "$device": {
+        "$command": {
+          ".read": "auth != null && ((auth.uid === 'PASTE_FIREBASE_DEVICE_UID_HERE' && $device === 'nodemcu-01' && root.child('devices').child($device).child('site_id').val() === 'solar_site' && root.child('devices').child($device).child('enabled').val() !== false) || (root.child('deviceAccess').child(auth.uid).child('enabled').val() === true && root.child('deviceAccess').child(auth.uid).child('device_id').val() === $device && root.child('deviceAccess').child(auth.uid).child('site_id').val() === root.child('devices').child($device).child('site_id').val() && root.child('devices').child($device).child('enabled').val() === true))",
+          ".write": "(auth != null && ((auth.uid === 'PASTE_FIREBASE_DEVICE_UID_HERE' && $device === 'nodemcu-01' && root.child('devices').child($device).child('site_id').val() === 'solar_site' && root.child('devices').child($device).child('enabled').val() !== false) || (root.child('deviceAccess').child(auth.uid).child('enabled').val() === true && root.child('deviceAccess').child(auth.uid).child('device_id').val() === $device && root.child('deviceAccess').child(auth.uid).child('site_id').val() === root.child('devices').child($device).child('site_id').val() && root.child('devices').child($device).child('enabled').val() === true))) && !data.exists() && newData.exists() && root.child('relayCommands').child($device).child('id').val() === $command && root.child('relayCommands').child($device).child('status').val() === 'pending' && now / 1000 < root.child('relayCommands').child($device).child('expires_at').val()",
+          ".validate": "newData.hasChildren(['command_id','ts','received_at','success','reason']) && (newData.child('success').val() === false || (newData.hasChild('output') && newData.child('output').val() === root.child('relayCommands').child($device).child('desired').val()))",
+          "command_id": {
+            ".validate": "newData.val() === $command"
+          },
+          "ts": {
+            ".validate": "newData.isNumber() && newData.val() >= root.child('relayCommands').child($device).child('created_at').val() && newData.val() < root.child('relayCommands').child($device).child('expires_at').val()"
+          },
+          "received_at": {
+            ".validate": "newData.isNumber() && newData.val() === now"
+          },
+          "success": {
+            ".validate": "newData.isBoolean()"
+          },
+          "output": {
+            ".validate": "newData.isBoolean()"
+          },
+          "reason": {
+            ".validate": "newData.isString() && (newData.val() === 'none' || newData.val() === 'disabled' || newData.val() === 'expired' || newData.val() === 'output-mismatch' || newData.val() === 'unsupported-channel')"
+          },
+          "$other": {
+            ".validate": false
+          }
+        }
+      }
     }
   }
 }

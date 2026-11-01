@@ -14,6 +14,15 @@
 #else
 #error "Copy secrets.example.h to local secrets.h before a device build"
 #endif
+#ifndef RELAY_ENABLED
+#define RELAY_ENABLED 0
+#endif
+#ifndef RELAY_PIN
+#define RELAY_PIN D6
+#endif
+#ifndef RELAY_ACTIVE_HIGH
+#define RELAY_ACTIVE_HIGH 1
+#endif
 
 #define DHT_PIN D3
 #define DUST_LED_PIN D5
@@ -41,6 +50,13 @@ bool uploadHistory(const Sample &s);
 voltarax::Ring<Sample, 12> historyBuffer;
 bool inaStarted = false, lightStarted = false;
 uint32_t lastSample = 0, lastHistory = 0, lastLatest = 0;
+uint32_t lastRelayPoll = 0, lastRelayPermission = 0, lastAckTime = 0;
+String lastExecutedCommand;
+bool lastAckStored = false, lastAckSuccess = false, lastAckOutput = false, lastAckHasOutput = false;
+const char *lastAckReason = "none";
+void relayFailSafe() {
+  if (RELAY_ENABLED && uint32_t(millis() - lastRelayPermission) > 15000) digitalWrite(RELAY_PIN, RELAY_ACTIVE_HIGH ? LOW : HIGH);
+}
 
 bool present(uint8_t address) {
   Wire.beginTransmission(address);
@@ -108,9 +124,59 @@ bool uploadHistory(const Sample &s) {
   if (ok) ok = Firebase.RTDB.setJSON(&fbdo, legacy.c_str(), &j);
   return ok; // Keep the sample until both compatibility writes succeed.
 }
+void pollRelay() {
+  if (uint32_t(millis() - lastRelayPoll) < 5000) return;
+  lastRelayPoll = millis();
+  bool allowed = false;
+  if (RELAY_ENABLED) {
+    bool deviceEnabled = false, permission = false;
+    String root = String("/devices/") + DEVICE_ID;
+    bool ok = Firebase.RTDB.getBool(&fbdo, (root + "/enabled").c_str(), &deviceEnabled); relayFailSafe();
+    if (ok && deviceEnabled) { ok = Firebase.RTDB.getBool(&fbdo, (root + "/relayEnabled").c_str(), &permission); relayFailSafe(); }
+    allowed = ok && deviceEnabled && permission;
+    if (allowed) lastRelayPermission = millis(); else digitalWrite(RELAY_PIN, RELAY_ACTIVE_HIGH ? LOW : HIGH);
+  }
+  FirebaseJson json; FirebaseJsonData data;
+  String path = String("/relayCommands/") + DEVICE_ID;
+  if (!Firebase.RTDB.getJSON(&fbdo, path.c_str(), &json)) { relayFailSafe(); return; }
+  relayFailSafe();
+  json.get(data, "status"); if (!data.success || data.to<String>() != "pending") return;
+  json.get(data, "id"); if (!data.success) return; String id = data.to<String>();
+  if (id.length() != 32) return;
+  for (unsigned int n = 0; n < id.length(); n++) if (!isxdigit((unsigned char)id[n])) return;
+  json.get(data, "device_id"); if (!data.success || data.to<String>() != DEVICE_ID) return;
+  json.get(data, "site_id"); if (!data.success || data.to<String>() != SITE_ID) return;
+  json.get(data, "created_at"); if (!data.success) return; uint32_t created = data.to<uint32_t>();
+  json.get(data, "expires_at"); if (!data.success) return; uint32_t expires = data.to<uint32_t>();
+  uint32_t stamp = uint32_t(time(nullptr)); if (!voltarax::commandCurrent(stamp, created, expires)) return;
+  json.get(data, "channel"); if (!data.success) return; String channel = data.to<String>();
+  json.get(data, "desired"); if (!data.success || data.typeNum != FirebaseJson::JSON_BOOL) return; bool wanted = data.to<bool>();
+  if (lastExecutedCommand != id) {
+    lastExecutedCommand = id; lastAckStored = false; lastAckTime = stamp; lastAckSuccess = false; lastAckHasOutput = false;
+    if (!RELAY_ENABLED || !allowed || uint32_t(millis() - lastRelayPermission) > 15000) lastAckReason = "disabled";
+    else if (channel != "load") lastAckReason = "unsupported-channel";
+    else {
+      if (!voltarax::commandCurrent(uint32_t(time(nullptr)), created, expires)) return;
+      digitalWrite(RELAY_PIN, wanted == bool(RELAY_ACTIVE_HIGH) ? HIGH : LOW);
+      lastAckOutput = digitalRead(RELAY_PIN) == (RELAY_ACTIVE_HIGH ? HIGH : LOW); lastAckHasOutput = true;
+      lastAckSuccess = lastAckOutput == wanted; lastAckReason = lastAckSuccess ? "none" : "output-mismatch";
+    }
+  }
+  if (lastAckStored) return;
+  String ackPath = String("/relayAcks/") + DEVICE_ID + "/" + id;
+  FirebaseJson existing;
+  if (Firebase.RTDB.getJSON(&fbdo, ackPath.c_str(), &existing)) {
+    existing.get(data, "command_id"); if (data.success && data.to<String>() == id) { lastAckStored = true; return; }
+  }
+  relayFailSafe();
+  FirebaseJson ack; ack.set("command_id", id); ack.set("ts", lastAckTime); ack.set("received_at/.sv", "timestamp");
+  ack.set("success", lastAckSuccess); ack.set("reason", lastAckReason); if (lastAckHasOutput) ack.set("output", lastAckOutput);
+  lastAckStored = Firebase.RTDB.setJSON(&fbdo, ackPath.c_str(), &ack); relayFailSafe();
+}
 void setup() {
   Serial.begin(115200); pinMode(DUST_LED_PIN, OUTPUT); digitalWrite(DUST_LED_PIN, HIGH);
   Wire.begin(D2, D1); dht.begin();
+  if (RELAY_ENABLED) { digitalWrite(RELAY_PIN, RELAY_ACTIVE_HIGH ? LOW : HIGH); pinMode(RELAY_PIN, OUTPUT); }
   WiFi.persistent(false); WiFi.mode(WIFI_STA); connectWifi();
   configTime(0, 0, "pool.ntp.org", "time.nist.gov");
   config.api_key = API_KEY; config.database_url = DATABASE_URL;
@@ -120,7 +186,7 @@ void setup() {
   Firebase.reconnectNetwork(false); Firebase.begin(&config, &auth);
 }
 void loop() {
-  connectWifi(); bool firebaseReady = Firebase.ready();
+  relayFailSafe(); connectWifi(); bool firebaseReady = Firebase.ready();
   uint32_t now = millis();
   if (uint32_t(now - lastSample) >= LATEST_MS) {
     lastSample = now; latestSample = readSensors();
@@ -129,6 +195,8 @@ void loop() {
       if (historyBuffer.dropped != dropped) Serial.println("History buffer full; oldest sample discarded");
     }
   }
+  if (WiFi.status() == WL_CONNECTED && firebaseReady && voltarax::clockReady(uint32_t(time(nullptr)))) pollRelay();
+  relayFailSafe();
   if (WiFi.status() == WL_CONNECTED && firebaseReady && voltarax::clockReady(latestSample.ts) && uploadRetry.due(now)) {
     bool ok = true;
     if (uint32_t(now - lastLatest) >= LATEST_MS) { ok = uploadLatest(latestSample); if (ok) lastLatest = now; }

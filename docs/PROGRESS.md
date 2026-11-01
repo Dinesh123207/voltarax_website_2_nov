@@ -1,6 +1,6 @@
 # Autopilot progress
 
-RESUME HERE: Phase 3 — relay commands/acknowledgement and device simulator
+RESUME HERE: Phase 3 — synthetic-only simulator and end-of-phase gate
 
 Status key: [ ] todo; [~] in progress; [x] done and verified as stated; [!] skipped with a reason. A phase is done only after its full gate passes.
 
@@ -38,7 +38,7 @@ Status key: [ ] todo; [~] in progress; [x] done and verified as stated; [!] skip
 - [x] Device-bound HTTP ingest, strict schema/identity checks, 24h/5min time window, deterministic replay handling and bridge repair. Primary-device dashboard/AI filtering and monotonic latest/analysis updates. Eight focused backend tests and one Python reader test passed. Live database behavior remains unverified.
 - [x] Reconnect/backoff, NTP gating, sensor presence/range checks, watchdog, 12-sample history buffer, firmware version and native helpers. Placeholder-only ESP8266 compilation passed; all three native reliability tests passed. Hardware/flash/live Firebase verification remains manual.
 - [x] Dashboard freshness suppression, honest unknown panel state, dust Estimated label and missing CV counts corrected. Focused backend tests and frontend typecheck passed.
-- [ ] Relay commands/acks with pending/applied/failed/timeout states, confirmation, admin-only server checks and audit.
+- [x] Relay command state machine/API, administrator confirmation and target/output-bound OTP, 30-second expiry, immutable server-dated acks, scoped device policies and audit. Firmware compiles, four native tests pass, five focused backend tests and rule emulator pass; frontend typecheck/lint pass. Physical contact feedback remains Unavailable and real switching is not verified.
 - [ ] Synthetic-only simulator and hardware/operator instructions.
 - [ ] Gate and phase tag.
 

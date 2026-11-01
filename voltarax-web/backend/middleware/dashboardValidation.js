@@ -4,7 +4,8 @@ function dashboardValidation(method, path) {
   const queries = {
     '/panels': { row: z.string().regex(/^(all|[A-Za-z0-9_-]{1,20})$/).optional() },
     '/alerts': { resolved: z.enum(['true', 'false']).optional(), limit },
-    '/relay/history': { limit },
+    '/relay': { device_id: id.optional() },
+    '/relay/history': { limit, device_id: id.optional() },
     '/carbon/monthly': { months: z.coerce.number().int().min(1).max(120).optional() },
     '/work-orders': { status: z.enum(['all', 'open', 'in_progress', 'closed']).optional() },
   };

@@ -16,3 +16,9 @@
 #define DEVICE_ID "nodemcu-01"
 // Site identifier matching the deployed rules and backend configuration.
 #define SITE_ID "solar_site"
+// Relay opt-in stays off until physical wiring/polarity and permissions are verified.
+#define RELAY_ENABLED 0
+// Load relay output pin; D6/GPIO12 is unused by the existing sensor wiring.
+#define RELAY_PIN D6
+// Set to 0 only for a verified active-low module. No contact feedback is assumed.
+#define RELAY_ACTIVE_HIGH 1

@@ -1,0 +1,12 @@
+✔ admin-only endpoint rejects unauthenticated and viewer requests (1576.0894ms)
+✔ relay defaults disabled, serializes commands and requires a matching acknowledgement (3.9635ms)
+✔ late/mismatched/missing acknowledgements never become an applied command (0.9572ms)
+✔ a server-timestamped acknowledgement received before the deadline survives a later reconciliation (0.5471ms)
+ℹ tests 4
+ℹ suites 0
+ℹ pass 4
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 2819.9907

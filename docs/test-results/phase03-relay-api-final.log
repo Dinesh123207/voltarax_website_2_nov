@@ -1,0 +1,13 @@
+✔ account lifecycle verifies email, scopes sites, rejects elevation and revokes cookie/native sessions (784.8861ms)
+✔ admin-only endpoint rejects unauthenticated and viewer requests (2174.1611ms)
+✔ relay defaults disabled, serializes commands and requires a matching acknowledgement (3.2912ms)
+✔ late/mismatched/missing acknowledgements never become an applied command (1.5268ms)
+✔ a server-timestamped acknowledgement received before the deadline survives a later reconciliation (1.1544ms)
+ℹ tests 5
+ℹ suites 0
+ℹ pass 5
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 4724.794

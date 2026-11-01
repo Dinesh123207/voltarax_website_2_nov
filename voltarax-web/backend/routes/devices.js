@@ -3,17 +3,25 @@ const { protect, requireAdmin } = require('../middleware/auth');
 const { validate, z } = require('../middleware/validate');
 const { getRegistry } = require('../services/devices');
 const verification = require('../services/accountVerification');
+const { createDeviceAuth } = require('../middleware/deviceAuth');
+const { getRelayService } = require('../services/relay');
 const code = z.string().regex(/^\d{6}$/);
 const id = z.string().regex(/^[A-Za-z0-9_-]{1,64}$/);
 const params = z.object({ id }).strict();
 const safe = fn => (req, res, next) => Promise.resolve(fn(req, res)).catch(next);
-function createDeviceRouter({ registry = getRegistry, otp = verification } = {}) {
+function createDeviceRouter({ registry = getRegistry, otp = verification, relay = getRelayService, deviceAuth = createDeviceAuth({ registry }) } = {}) {
   const router = express.Router();
   const sensitive = (action, target) => (req, res, next) => {
     if (!otp.configured()) return res.status(503).json({ success: false, message: 'Email verification is not configured.' });
     Promise.resolve(otp.verify(req.user.email, req.body.code, verification.sensitivePurpose(req.user, action, target(req)))).then(valid => valid ? next() : res.status(401).json({ success: false, message: 'Invalid or expired verification.' })).catch(next);
   };
   router.get('/', protect, requireAdmin, validate(), safe(async (req, res) => res.json({ success: true, devices: await registry().list(), limit: 200, note: 'Most recent 200 registered devices; keys are never returned.' })));
+  const ownDevice = (req, res, next) => req.device && !req.device.legacy && req.device.device_id === req.params.id && req.device.site_id === (process.env.SOLAR_SITE_ID || 'solar_site') ? next() : res.status(403).json({ success: false, message: 'Device access denied.' });
+  router.get('/:id/command', deviceAuth, validate({ params }), ownDevice, safe(async (req, res) => res.json({ success: true, command: await relay().pending(req.params.id) })));
+  router.post('/:id/relay-ack', deviceAuth, validate({ params, body: z.object({ command_id: id, ts: z.number().int().positive(), success: z.boolean(), output: z.boolean().optional(), reason: z.enum(['none', 'disabled', 'expired', 'output-mismatch', 'unsupported-channel']).default('none') }).strict().refine(value => !value.success || typeof value.output === 'boolean') }), ownDevice, safe(async (req, res) => {
+    const result = await relay().acknowledge(req.params.id, req.body);
+    res.status(result.status).json({ success: !result.error, ...(result.error ? { message: result.error } : { command: result.command, duplicate: result.duplicate || false }) });
+  }));
   router.get('/:id/history', protect, requireAdmin, validate({ params, query: z.object({ limit: z.coerce.number().int().min(1).max(1000).default(100) }).strict() }), safe(async (req, res) => {
     const device = await registry().get(req.params.id);
     if (!device || device.site_id !== (process.env.SOLAR_SITE_ID || 'solar_site')) return res.status(404).json({ success: false, message: 'Device not found.' });

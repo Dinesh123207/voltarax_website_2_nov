@@ -1,146 +1,62 @@
 'use client';
-import { useEffect, useState } from 'react';
-import { Battery, RefreshCw, ExternalLink } from 'lucide-react';
-
-
+import { FormEvent, useCallback, useEffect, useState } from 'react';
+import DataQualityBadge from '@/components/ui/DataQualityBadge';
+type Command = { id: string; status: string; desired: boolean; created_at: number; expires_at: number; reason?: string; acknowledgement?: { ts: number; output?: boolean } };
 export default function RelayPage() {
-  const [state,   setState]   = useState<any>(null);
-  const [history, setHistory] = useState<any[]>([]);
-  const [loading, setLoading] = useState(true);
-
-  const load = async () => {
-    setLoading(true);
+  const [state, setState] = useState<any>(null); const [history, setHistory] = useState<Command[]>([]);
+  const [device, setDevice] = useState(''); const [devices, setDevices] = useState<any[]>([]); const [admin, setAdmin] = useState(false);
+  const [desired, setDesired] = useState(''); const [code, setCode] = useState(''); const [confirmed, setConfirmed] = useState(false);
+  const [message, setMessage] = useState(''); const [busy, setBusy] = useState(false);
+  const load = useCallback(async () => {
     try {
-      const token = null;
-      const h: Record<string, string> = token ? { 'x-voltarax-request': '1' } : {};
-      const [s, hist] = await Promise.all([
-        fetch(`/api/relay`,         { headers: h }).then(r => r.json()),
-        fetch(`/api/relay/history?limit=15`, { headers: h }).then(r => r.json()),
-      ]);
-      setState(s);
-      setHistory(Array.isArray(hist) ? hist : []);
-    } catch {}
-    finally { setLoading(false); }
+      const suffix = device ? `?device_id=${encodeURIComponent(device)}` : '';
+      const [statusResponse, historyResponse] = await Promise.all([fetch(`/api/relay${suffix}`), fetch(`/api/relay/history${suffix}${suffix ? '&' : '?'}limit=15`)]);
+      if (!statusResponse.ok || !historyResponse.ok) { setState(null); setMessage('Relay data unavailable.'); return; }
+      const status = await statusResponse.json(); setState(status); const rows = await historyResponse.json(); setHistory(Array.isArray(rows) ? rows : []);
+      if (!device && status.device_id) setDevice(status.device_id);
+      setMessage(previous => previous === 'Relay data unavailable.' ? '' : previous);
+    } catch { setState(null); setMessage('Relay data unavailable.'); }
+  }, [device]);
+  useEffect(() => { load(); const timer = setInterval(load, 5000); return () => clearInterval(timer); }, [load]);
+  useEffect(() => { fetch('/api/auth/me').then(r => r.json()).then(async data => { if (data.user?.role === 'admin') { setAdmin(true); const response = await fetch('/api/devices'); if (response.ok) setDevices((await response.json()).devices || []); } }).catch(() => {}); }, []);
+  const requestCode = async () => {
+    setBusy(true); setMessage('');
+    try {
+      const response = await fetch('/api/auth/sensitive/request', { method: 'POST', headers: { 'Content-Type': 'application/json', 'x-voltarax-request': '1' }, body: JSON.stringify({ action: 'relay-command', target: `${device}-${desired}` }) });
+      const data = await response.json(); setMessage(data.message || 'Unable to request a code.');
+    } catch { setMessage('Server unavailable.'); } finally { setBusy(false); }
   };
-
-  useEffect(() => { load(); }, []);
-
-  const Dot = ({ on }: { on: boolean }) => (
-    <div className={`w-3 h-3 rounded-full flex-shrink-0 ${on ? 'bg-green-500 shadow-md shadow-green-500/50' : 'bg-slate-700'}`} />
-  );
-
-  return (
-    <div className="space-y-6">
-      <div className="flex items-center justify-between">
-        <div>
-          <h1 className="text-2xl font-bold text-white">Energy Management Relay</h1>
-          <p className="text-slate-500 text-sm mt-0.5">Relay control is not connected · Coming soon</p>
-        </div>
-        <div className="flex gap-2">
-          <a href={`/api/relay`} target="_blank" rel="noopener noreferrer"
-            className="btn-outline py-2 px-3 text-xs"><ExternalLink size={12} /> API</a>
-          <button onClick={load} disabled={loading}
-            className="btn-green py-2 px-3 text-xs disabled:opacity-60">
-            <RefreshCw size={12} className={loading ? 'animate-spin' : ''} /> Refresh
-          </button>
-        </div>
-      </div>
-
-      <div className="grid md:grid-cols-2 gap-6">
-        {/* Current state */}
-        <div className="stat-card">
-          <div className="flex items-center gap-2 mb-5">
-            <Battery size={15} className="text-blue-400" />
-            <div className="text-sm font-semibold text-white">Current Relay State</div>
-            {state && state.source !== 'not-connected' && <div className="live-dot ml-auto" />}
-          </div>
-          {loading ? (
-            <div className="space-y-3">
-              {Array.from({ length: 4 }).map((_, i) => (
-                <div key={i} className="shimmer h-8 rounded" />
-              ))}
-            </div>
-          ) : state ? (
-            <>
-              <div className="space-y-4">
-                {[
-                  { label: 'Battery Charging', on: state.battery_on,  gpio: 'GPIO 25' },
-                  { label: 'Load Supply',       on: state.load_on,     gpio: 'GPIO 26' },
-                  { label: 'Grid Export',       on: state.grid_export, gpio: 'GPIO 27' },
-                  { label: 'Spare Channel',     on: state.spare_on,    gpio: 'GPIO 14' },
-                ].map(({ label, on, gpio }) => (
-                  <div key={label} className="flex items-center justify-between py-2 border-b border-green-900/10 last:border-0">
-                    <div>
-                      <div className="text-slate-300 text-sm">{label}</div>
-                      <div className="text-slate-600 text-xs font-mono">{gpio}</div>
-                    </div>
-                    <div className="flex items-center gap-2">
-                      {on != null && <Dot on={on} />}
-                      <span className={`text-xs font-mono font-bold ${on ? 'text-green-400' : 'text-slate-600'}`}>
-                        {on == null ? 'Unavailable' : on ? 'ON' : 'OFF'}
-                      </span>
-                    </div>
-                  </div>
-                ))}
-              </div>
-              <div className="mt-4 p-3 rounded-lg bg-green-500/5 border border-green-500/10 text-xs text-slate-500 font-mono space-y-1">
-                <div>Reason: <span className="text-green-600">{state.reason}</span></div>
-                <div>Commanded by: <span className="text-slate-400">{state.commanded_by}</span></div>
-                {state.soc_pct && <div>SoC: <span className="text-blue-400">{state.soc_pct}%</span></div>}
-                <div>At: {state.commanded_at && new Date(state.commanded_at).toLocaleString('en-IN', { timeZone: 'Asia/Kolkata' })}</div>
-              </div>
-            </>
-          ) : (
-            <div className="ai-placeholder py-10">
-              <Battery size={28} className="text-green-500/30" />
-              <div className="text-slate-600 text-sm">Relay state unavailable</div>
-              <div className="text-slate-700 text-xs">Check the local hardware gateway</div>
-            </div>
-          )}
-        </div>
-
-        {/* History */}
-        <div className="stat-card">
-          <div className="text-sm font-semibold text-white mb-4">Command History</div>
-          <div className="space-y-2 overflow-auto max-h-72">
-            {loading ? (
-              Array.from({ length: 5 }).map((_, i) => (
-                <div key={i} className="shimmer h-10 rounded" />
-              ))
-            ) : history.length === 0 ? (
-              <div className="text-center py-8 text-slate-600 text-sm">No history</div>
-            ) : history.map((h, i) => (
-              <div key={i} className="flex items-center justify-between py-2 border-b border-green-900/10 text-xs">
-                <div className="text-slate-600 font-mono text-[10px]">
-                  {new Date(h.commanded_at).toLocaleTimeString('en-IN', { timeZone: 'Asia/Kolkata' })}
-                </div>
-                <div className="flex gap-1.5">
-                  {[
-                    { l: 'B', v: h.battery_on },
-                    { l: 'L', v: h.load_on },
-                    { l: 'G', v: h.grid_export },
-                  ].map(({ l, v }) => (
-                    <span key={l}
-                      className={`w-5 h-5 rounded flex items-center justify-center font-mono font-bold text-[10px] ${
-                        v ? 'bg-green-500/20 text-green-400' : 'bg-slate-800 text-slate-600'
-                      }`}>
-                      {l}
-                    </span>
-                  ))}
-                </div>
-                <div className="text-slate-600 truncate max-w-[90px]">{h.reason}</div>
-                <div className="text-slate-700 text-[10px]">{h.commanded_by}</div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </div>
-
-      {/* Info card */}
-      <div className="stat-card border border-green-500/10 bg-green-500/3">
-        <div className="text-xs text-green-600 font-mono font-bold mb-2">HARDWARE NOTE</div>
-        <p className="text-slate-400 text-sm leading-relaxed">Relay hardware and automated control are not connected yet. Coming soon.</p>
-      </div>
+  const submit = async (event: FormEvent) => {
+    event.preventDefault(); if (!confirmed || !desired) return; setBusy(true); setMessage('');
+    try {
+      const response = await fetch('/api/relay/command', { method: 'POST', headers: { 'Content-Type': 'application/json', 'x-voltarax-request': '1' }, body: JSON.stringify({ device_id: device, desired: desired === 'on', code }) });
+      const data = await response.json(); setMessage(data.message || (response.ok ? 'Command pending. Wait for the device acknowledgement.' : 'Command unavailable.'));
+      if (response.ok) { setCode(''); setConfirmed(false); await load(); }
+    } catch { setMessage('Server unavailable. Refresh status before retrying.'); } finally { setBusy(false); }
+  };
+  const canControl = admin && state?.device_id === device && state?.control_enabled === true && state?.command?.status !== 'pending';
+  const when = (seconds: number) => new Date(seconds * 1000).toLocaleString('en-IN', { timeZone: 'Asia/Kolkata' });
+  return <div className="space-y-6 text-slate-300">
+    <div className="flex justify-between gap-3"><h1 className="text-2xl text-white font-bold">Energy Management Relay</h1><button className="btn-outline" onClick={load}>Refresh</button></div>
+    <p className="text-sm">Commands expire after 30 seconds. An applied acknowledgement reports the device&apos;s GPIO action; physical contact feedback is Unavailable.</p>
+    <p role="status" className="text-sm">{message}</p>
+    <div className="stat-card space-y-3"><h2 className="font-semibold text-white">Physical relay state <DataQualityBadge quality="Unavailable" /></h2>
+      {['Battery Charging', 'Load Supply', 'Grid Export', 'Spare Channel'].map(label => <div key={label} className="flex justify-between gap-3 border-b border-green-900/20 py-2"><span>{label}</span><span>Unavailable{label === 'Load Supply' ? ' · contact feedback missing' : ' · Coming soon'}</span></div>)}
     </div>
-  );
+    <div className="stat-card space-y-3"><h2 className="font-semibold text-white">Latest command <DataQualityBadge quality={state?.command ? 'Calculated' : 'Unavailable'} /></h2>
+      {state?.command ? <><p>Status: {state.command.status}</p><p>Requested output: {state.command.desired ? 'ON' : 'OFF'}</p><p>Issued: {when(state.command.created_at)}</p>{state.command.acknowledgement && <p>GPIO acknowledgement: {state.command.acknowledgement.output == null ? 'Unavailable' : state.command.acknowledgement.output ? 'ON' : 'OFF'} at {when(state.command.acknowledgement.ts)}</p>}<p>{state.command.reason}</p></> : <p>Command data Unavailable.</p>}
+    </div>
+    {admin ? <form className="stat-card space-y-3" onSubmit={submit}>
+      <h2 className="text-white font-semibold">Request load output</h2>
+      <p className="text-sm">Control requires administrator permission and verified device setup. Confirm the target and output before sending. Current physical state remains unknown.</p>
+      <label className="block text-sm" htmlFor="relay-device">Device<select id="relay-device" className="input-dark mt-1" required value={device} onChange={e => { setDevice(e.target.value); setCode(''); setConfirmed(false); }}>{!devices.some(row => row.device_id === device) && <option value={device}>{device || 'Choose a device'}</option>}{devices.map(row => <option key={row.device_id} value={row.device_id}>{row.name} ({row.device_id})</option>)}</select></label>
+      <label className="block text-sm" htmlFor="relay-output">Requested output<select id="relay-output" required className="input-dark mt-1" value={desired} onChange={e => { setDesired(e.target.value); setCode(''); setConfirmed(false); }}><option value="">Choose output</option><option value="on">ON</option><option value="off">OFF</option></select></label>
+      {!state?.control_enabled && <p className="text-amber-300 text-sm">Control is disabled. Complete the device and server setup before issuing a command.</p>}
+      <button type="button" className="btn-outline" disabled={busy || !canControl || !desired} onClick={requestCode}>Email command confirmation code</button>
+      <label className="block text-sm" htmlFor="relay-code">Six-digit code<input id="relay-code" className="input-dark mt-1" inputMode="numeric" autoComplete="one-time-code" pattern="[0-9]{6}" maxLength={6} value={code} required onChange={e => setCode(e.target.value)} /></label>
+      <label className="block text-sm"><input type="checkbox" checked={confirmed} required onChange={e => setConfirmed(e.target.checked)} /> I confirm device {device || 'Unavailable'} and requested output {desired ? desired.toUpperCase() : 'Unavailable'}.</label>
+      <button className="btn-green" disabled={busy || !canControl || !confirmed || !desired}>Send command</button>
+    </form> : <p className="text-sm">Only administrators can issue relay commands.</p>}
+    <div className="stat-card space-y-3"><h2 className="font-semibold text-white">Command history <DataQualityBadge quality={history.length ? 'Calculated' : 'Unavailable'} /></h2>{history.length ? history.map(command => <div className="border-b border-green-900/20 py-2 text-sm" key={command.id}>{when(command.created_at)} · requested {command.desired ? 'ON' : 'OFF'} · {command.status}</div>) : <p>Command history Unavailable.</p>}</div>
+  </div>;
 }

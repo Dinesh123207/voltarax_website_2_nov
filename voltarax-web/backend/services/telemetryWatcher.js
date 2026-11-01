@@ -44,6 +44,7 @@ function startTelemetryWatcher() {
     const reading = snap.val();
     if (!reading || (reading.site_id || 'solar_site') !== SITE_ID || reading.device_id !== (process.env.SOLAR_DEVICE_ID || 'nodemcu-01') || Number(reading.ts) <= newestTs) return;
     newestTs = Number(reading.ts);
+    require('./devices').getRegistry().seen(reading.device_id, reading.firmware_version).catch(() => require('./logger').logger.error({ event: 'device-status-write-failed' }, 'Device status unavailable'));
     saveAnalysis(reading, readConfig()).catch((err) => {
       if (newestTs === Number(reading.ts)) newestTs = 0;
       require('./logger').logger.error({ event: 'analysis-write-failed' }, 'Analysis unavailable');

@@ -1,7 +1,7 @@
-async function audit({ actorId, action, targetId, requestId }) {
+async function audit({ actorId, action, targetId, requestId, commandId, desired }) {
   const { db } = require('../config/firebase');
-  // Only identifiers and enumerated actions; never email addresses, payloads or credentials.
-  await db.ref('auditLog').push({ actorId, action, targetId, requestId: requestId || null, at: new Date().toISOString() });
+  // Identifiers, enumerated actions and safe command intent; never raw payloads or credentials.
+  await db.ref('auditLog').push({ actorId, action, targetId, requestId: requestId || null, commandId: commandId || null, desired: typeof desired === 'boolean' ? desired : null, at: new Date().toISOString() });
 }
 async function listAudit(limit = 100) {
   const { db } = require('../config/firebase');
