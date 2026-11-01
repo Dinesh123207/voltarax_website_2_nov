@@ -1,0 +1,10 @@
+✔ checkout defaults disabled, rejects live mode and requires complete test-only configuration (321.9323ms)
+✔ payment and raw-body webhook HMAC checks reject tampering and malformed signatures (2.2044ms)
+ℹ tests 2
+ℹ suites 0
+ℹ pass 2
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 452.9237

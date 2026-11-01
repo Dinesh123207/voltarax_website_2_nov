@@ -1,0 +1,18 @@
+{
+  "command": [
+    "npx.cmd",
+    "eslint",
+    "components/commerce",
+    "lib/checkout.ts",
+    "lib/commerce.ts",
+    "lib/money.ts",
+    "app/pricing",
+    "app/account/orders",
+    "app/dashboard/commerce",
+    "components/ui/Navbar.tsx",
+    "app/dashboard/layout.tsx"
+  ],
+  "cwd": "voltarax-web/frontend",
+  "exit_code": 0,
+  "seconds": 15.65
+}

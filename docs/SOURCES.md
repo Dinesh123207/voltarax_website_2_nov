@@ -76,6 +76,8 @@ PostHog is not enabled; TimescaleDB is a design reference only. Boundary GeoJSON
 
 ## Phase 7 commerce references (2026-11-01)
 
+- Header override behavior verified against https://nextjs.org/docs/app/api-reference/config/next-config-js/headers . Original typed Checkout loader uses the fixed official https://checkout.razorpay.com/v1/checkout.js only after buyer action; provider network/iframe behavior awaits operator testing. No screenshot/template code, sample card data or third-party business facts were copied.
+
 - Verified raw-byte HMAC, duplicate event IDs and unordered delivery against https://razorpay.com/docs/webhooks/validate-test/ and payment entity docs at https://razorpay.com/docs/webhooks/payments/ . Original lifecycle code validates payment.captured/refund.processed and never treats Checkout callback/order fetch as captured confirmation. PDFKit is the already licensed MIT dependency; invoice layout/evidence are original and only synthetic English fixtures were reviewed.
 
 - Read reference/razorpay-node-master/razorpay-node-master/LICENCE.txt (MIT, Copyright 2019 Razorpay) and documents/order.md/paymentVerfication.md, plus SaaSify's root LICENSE (MIT, Copyright 2025 Ahmad JX) and frontend/src/app/dashboard/billing/page.tsx. Sample card/subscription rows were not copied. Only general plan/order layout patterns inform original implementation.

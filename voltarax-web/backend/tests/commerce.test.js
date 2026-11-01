@@ -30,5 +30,7 @@ test('ambiguous order creation is retained and is never automatically repeated',
   const data = { planId: plan.id, planVersion: plan.version, requestKey: 'synthetic-uncertain' };
   await assert.rejects(service.createOrder(data, 'buyer'), error => error.status === 503);
   assert.equal((await service.createOrder(data, 'buyer')).status, 'creation_unknown'); assert.equal(calls, 1);
+  await assert.rejects(service.createOrder({ ...data, requestKey: 'synthetic-new-key' }, 'buyer'), error => error.status === 409);
+  assert.equal(calls, 1); // Even a new caller key cannot duplicate an uncertain purchase.
   await assert.rejects(createCommerce(c.db, { env: {} }).createOrder(data, 'buyer'), error => error.status === 503);
 });

@@ -13,7 +13,7 @@ import {
 const NAV = [
   { label: 'Overview',       href: '/dashboard',              icon: LayoutDashboard },
   { label: 'Panels',         href: '/dashboard/panels',       icon: Sun },
-  { label: 'AI Forecast',    href: '/dashboard/forecast',     icon: Zap },
+  { label: 'Power estimates',    href: '/dashboard/forecast',     icon: Zap },
   { label: 'Coating inspections',   href: '/dashboard/bfci',         icon: TestTube },
   { label: 'Camera inspections',  href: '/dashboard/cv',           icon: Zap },
   { label: 'Alerts',         href: '/dashboard/alerts',       icon: Bell },
@@ -23,6 +23,8 @@ const NAV = [
   { label: 'Users',          href: '/dashboard/users',        icon: Users },
   { label: 'Devices',        href: '/dashboard/devices',      icon: Settings },
   { label: 'Settings',       href: '/dashboard/settings',     icon: Settings },
+  { label: 'My test orders', href: '/account/orders', icon: Settings },
+  { label: 'Commerce admin', href: '/dashboard/commerce', icon: Settings },
 ];
 
 export default function DashboardLayout({ children }: { children: React.ReactNode }) {
@@ -81,7 +83,7 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
 
         {/* Nav */}
         <nav className="flex-1 overflow-y-auto py-3 px-2 space-y-0.5">
-          {NAV.map(({ label, href, icon: Icon }) => (
+          {NAV.filter(item => item.href !== '/dashboard/commerce' || user.role === 'admin').map(({ label, href, icon: Icon }) => (
             <Link
               key={href}
               href={href}

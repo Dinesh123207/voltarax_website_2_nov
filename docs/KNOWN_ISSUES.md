@@ -1,5 +1,9 @@
 # Known issues and audit disposition
 
+## Commerce test-only limits (Phase 7)
+
+Actual Razorpay test account, staged webhook delivery, provider browser/CSP behavior, real PostgreSQL/process concurrency and refunds remain operator checks; only fake gateway/local SQL/HTTP were run. GST_ENABLED=true blocks checkout until reviewed seller/tax details and tax invoice implementation exist. Current receipt layout was checked in English only; Hindi/font coverage is part of Phase 8 review. This test-only build must not be presented as verified real payments or fulfilment. Unknown/review-required orders remain preserved for administrator investigation and cannot be bypassed by a fresh request key for that plan.
+
 ## Remaining dependency matches (2026-11-01)
 
 Frontend production audit: zero findings after non-breaking fixes and a PostCSS 8.5.26 override. Backend production has moderate Firebase Admin transitive findings; no high or critical findings remain in either production tree. Full raw results and commands are under test-results/.

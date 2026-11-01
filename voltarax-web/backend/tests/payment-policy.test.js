@@ -1,7 +1,7 @@
 const test = require('node:test');
 const assert = require('node:assert/strict');
 const { createHmac } = require('node:crypto');
-const { paymentPolicy, verifyHmac } = require('../services/paymentPolicy');
+const { paymentPolicy, verifyHmac, gateway } = require('../services/paymentPolicy');
 test('checkout defaults disabled, rejects live mode and requires complete test-only configuration', () => {
   assert.equal(paymentPolicy({}).enabled, false);
   assert.throws(() => paymentPolicy({ PAYMENTS_MODE: 'live' }));
@@ -10,6 +10,9 @@ test('checkout defaults disabled, rejects live mode and requires complete test-o
   assert.equal(paymentPolicy(env).enabled, true);
   assert.equal(paymentPolicy({ ...env, GST_ENABLED: 'true' }).enabled, false);
   assert.equal(paymentPolicy({ ...env, RAZORPAY_WEBHOOK_SECRET: '' }).enabled, false);
+  const adapter = gateway(env); // Constructor only; never sends a provider request.
+  assert.equal(adapter.api.rq.defaults.timeout, 10000);
+  assert.equal(adapter.api.rq.defaults.maxRedirects, 0);
 });
 test('payment and raw-body webhook HMAC checks reject tampering and malformed signatures', () => {
   const raw = Buffer.from('{ "synthetic": true }'), secret = 'synthetic-private-test-value';

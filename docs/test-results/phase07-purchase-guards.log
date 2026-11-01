@@ -1,0 +1,14 @@
+✔ unpriced plans block checkout; snapshots, ownership and request-key idempotency persist in SQL (4118.9794ms)
+✔ ambiguous order creation is retained and is never automatically repeated (2271.4051ms)
+✔ valid browser signature is only a hint; verified capture atomically creates one payment/invoice under replay (5141.6985ms)
+✔ signed mismatched amounts and unconfirmed events cannot mark an order paid (2859.0303ms)
+✔ out-of-order refunds retry, manual requests do not move funds and signed refunds have no second effect (2399.6521ms)
+✔ receipt-based test reconciliation binds an uncertain order but never invents payment confirmation (2393.5102ms)
+ℹ tests 6
+ℹ suites 0
+ℹ pass 6
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 21389.4093

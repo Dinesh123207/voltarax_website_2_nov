@@ -1,5 +1,5 @@
 const { randomUUID } = require('node:crypto');
-const { eq, and, desc } = require('drizzle-orm');
+const { eq, and, or, desc } = require('drizzle-orm');
 const s = require('../db/schema.ts');
 const { paymentPolicy, gateway } = require('./paymentPolicy');
 class CommerceError extends Error { constructor(status, message) { super(message); this.status = status; } }
@@ -43,6 +43,16 @@ function createCommerce(db, { env = process.env, createRemoteOrder = input => ga
         return { row: previous, created: false };
       }
       const plan = one(await tx.select().from(s.commercePlans).where(eq(s.commercePlans.id, data.planId)).for('update'));
+      // Recheck after the plan lock: a concurrent reservation may have committed
+      // while this transaction was waiting. A new key cannot bypass uncertainty.
+      const concurrent = one(await tx.select().from(s.commerceOrders).where(and(eq(s.commerceOrders.userId, userId), eq(s.commerceOrders.requestKey, data.requestKey))));
+      if (concurrent) {
+        if (concurrent.planId !== data.planId || concurrent.planSnapshot.version !== data.planVersion) fail(409, 'Request key belongs to a different plan selection.');
+        return { row: concurrent, created: false };
+      }
+      const open = one(await tx.select().from(s.commerceOrders).where(and(eq(s.commerceOrders.userId, userId), eq(s.commerceOrders.planId, data.planId),
+        or(eq(s.commerceOrders.status, 'creating'), eq(s.commerceOrders.status, 'creation_unknown'), eq(s.commerceOrders.status, 'pending'), eq(s.commerceOrders.status, 'review_required')))).limit(1));
+      if (open) fail(409, `Review the existing test order at /account/orders/${open.id} before starting another purchase of this plan.`);
       if (!plan || !plan.active) fail(422, 'Plan is unavailable.');
       if (plan.pricePaise == null) fail(422, 'Price is unset; checkout is blocked.');
       if (plan.version !== data.planVersion) fail(409, 'Plan changed. Review the current price.');

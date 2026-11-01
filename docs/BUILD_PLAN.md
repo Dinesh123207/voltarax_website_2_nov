@@ -4,6 +4,8 @@
 
 ## Active roadmap
 
+Phase 7 UI task verified by narrow lint/typecheck, exact currency conversion and six order/lifecycle regressions. Full phase gate is now required before phase-07-done. Next Phase 8 adds English/Hindi/SEO/legal/accessibility and reviews PDF font coverage; no browser/provider/hardware or tax claim is established.
+
 Phase 7 lifecycle/API task verified: four SQL lifecycle tests, raw-body HTTP integration and synthetic receipt PDF text/page/visual review passed. Buyer/admin UI and final full gate are next; actual gateway/PostgreSQL/tax remain manual. No phase tag yet.
 
 Phase 7 foundation: six commerce tables/migration, unpriced/versioned plans, buyer-scoped one-time order snapshots, request-key deduplication and preserved ambiguous creation are implemented. Two actual SQL tests and five policy/quality tests passed. Continue signed capture/refund/invoice lifecycle and HTTP/UI; no phase tag yet.

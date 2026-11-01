@@ -46,6 +46,7 @@ test('signed mismatched amounts and unconfirmed events cannot mark an order paid
   assert.equal((await service.order(order.id, 'buyer')).status, 'pending');
   assert.equal((await send(service, capture(order, { amount: order.amountPaise + 1 }), 'event_wrong_amount')).result, 'review_required');
   assert.equal((await service.order(order.id, 'buyer')).status, 'review_required');
+  await assert.rejects(service.createOrder({ planId: order.planId, planVersion: order.planSnapshot.version, requestKey: randomUUID() }, 'buyer'), error => error.status === 409);
   assert.equal((await c.db.select().from(s.commercePayments)).length, 0);
   assert.equal((await c.db.select().from(s.commerceInvoices)).length, 0);
   await assert.rejects(send(service, capture(order, { currency: 'USD' }), 'event_wrong_currency'), error => error.status === 422);

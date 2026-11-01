@@ -1,6 +1,6 @@
 # Autopilot progress
 
-RESUME HERE: Phase 7 — pricing/checkout, buyer orders/invoices and admin plan/order/refund UI, then full gate
+RESUME HERE: Phase 7 — full backend/frontend/AI/audit/scan gate, tag only if passing, then Phase 8
 
 Status key: [ ] todo; [~] in progress; [x] done and verified as stated; [!] skipped with a reason. A phase is done only after its full gate passes.
 
@@ -78,10 +78,10 @@ Status key: [ ] todo; [~] in progress; [x] done and verified as stated; [!] skip
 - [x] Six commerce tables prepared for owner-scoped orders, payments, event deduplication, invoices/refunds; no runtime automatic migration. Disabled-by-default test-key policy, constant-time raw HMAC and private ten-second/no-redirect pinned SDK adapter. Five focused policy/data-quality tests passed; availability headers now honor explicit Unavailable bodies.
 - [x] Raw-body HMAC before SQL and JSON parsing, server-stored order callback verification, captured-webhook source of truth, exact amount/currency checks and transactional digest/event/payment/invoice deduplication. Four lifecycle tests and actual HTTP integration passed (including boundary rerun); callback alone never marks paid, out-of-order refunds roll back for retry, duplicate captures/refunds have no second effect.
 - [x] Receipt-based uncertain-order reconciliation fetches only through guarded test adapter, never infers payment from an order fetch. Manual refund requests reserve remaining captured amounts and submitted references stay immutable; only signed processed events update refunded totals. No refund API is called. Immutable test invoice PDF/hash generated atomically with capture; one-page synthetic fixture text/page/visual review passed.
-- [ ] Public plans/pricing, authenticated test Checkout/order/invoice pages and administrator plan/order/refund screens.
-- [ ] Fake gateway/local SQL/HTTP tests, invoice PDF review and honest test/no-GST labels; real test-account checkout remains manual.
-- [ ] Unpriced plans, test-mode Razorpay orders, verified signatures and idempotent webhook.
-- [ ] Invoices, admin order/refund workflow, tests, gate and phase tag.
+- [x] Public pricing, buyer order/detail/test Checkout/invoice links and admin plan/version/order/reconciliation/manual-refund screens. Account pages remain outside site-scoped dashboard so verified buyers do not need site access. Unset/disabled/error/uncertain states explicit; Razorpay loads only on a guarded buyer click. Narrow lint/typecheck passed; real browser/provider flow remains E2E/manual.
+- [x] Exact decimal-INR to integer-paise conversion regression passed. Pinned SDK constructor-only test verifies ten-second/no-redirect adapter without a request. Six SQL order/lifecycle guard regressions passed; a fresh request key cannot bypass pending/uncertain/review-required purchase of the same plan. No live order/refund API was called.
+- [x] Fake gateway/local SQL/HTTP tests and one-page synthetic test receipt review passed as recorded; captured signatures, idempotence, owner isolation and test/non-GST labels implemented.
+- [ ] Full phase gate and tag. Real test-account checkout/PostgreSQL/browser behavior remain separate manual checks; GST invoices blocked until actual tax configuration/review.
 
 ## Phase 8 — public website
 - [ ] Verified claims, English/Hindi, SEO, legal drafts, accessibility, performance and IST clock.

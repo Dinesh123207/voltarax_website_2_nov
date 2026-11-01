@@ -1,0 +1,10 @@
+✔ unpriced plans block checkout; snapshots, ownership and request-key idempotency persist in SQL (4875.1146ms)
+✔ ambiguous order creation is retained and is never automatically repeated (2759.3322ms)
+ℹ tests 2
+ℹ suites 0
+ℹ pass 2
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 8778.3539
