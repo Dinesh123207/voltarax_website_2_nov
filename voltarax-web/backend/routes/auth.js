@@ -52,7 +52,7 @@ function createAuthRouter(deps = {}) {
     const token = sendSession(verified, res);
     res.json({ success: true, user: verified, ...(req.body.client === 'native' ? { token } : {}) });
   }));
-  router.get('/me', protect, validate(), (req, res) => res.json({ success: true, user: req.user }));
+  router.get('/me', protect, validate(), (req, res) => res.json({ success: true, user: req.user, siteAccess: req.user.role === 'admin' || !!req.user.siteIds?.includes(process.env.SOLAR_SITE_ID || 'solar_site') }));
   router.get('/audit', protect, requireAdmin, validate({ query: z.object({ limit: z.coerce.number().int().min(1).max(500).default(100) }).strict() }), safe(async (req, res) => {
     res.json({ success: true, events: await require('../services/auditLog').listAudit(req.query.limit) });
   }));

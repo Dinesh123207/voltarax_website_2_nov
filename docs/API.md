@@ -17,3 +17,13 @@ New readings use `readings/{site}/{key}` with an index on `ts`; current readings
 ## Unavailable features
 
 Persistent alert resolution, CV scans, work-order updates and ESG report generation currently return HTTP 501 after authentication and operator/admin checks. Their UI actions are disabled and marked coming soon. Empty lists are not evidence of a working inspection/maintenance pipeline.
+
+## Phase 2 API changes
+- Registration (POST /api/auth/register) takes name, email, password (12–72 characters and at most 72 UTF-8 bytes), optional company. It returns 202 after requesting verification, with no session. New users are viewers with no sites assigned.
+- Login and OTP resend take email/password; OTP verification also takes a six-digit string code. Browser responses use a cookie. Native callers explicitly set client:'native' to receive a token; store it only in local configuration.
+- GET /api/auth/me obtains the server-authoritative user. POST /api/auth/logout revokes all devices. Cookies are httpOnly/SameSite=Lax and secure in production, with an eight-hour default lifetime.
+- POST /api/auth/sensitive/request takes action ('password' or 'user-access') and target user ID. POST /api/auth/password takes password/code. PATCH /api/auth/users/:id/access (admin) takes role/siteIds/isActive/code. These codes are purpose/target bound and consumed once.
+- GET /api/auth/audit (admin) returns recent identifier-only audit events (limit 1–500, default 100). Attempts and completed access changes are separate events.
+- Browser mutations include X-Voltarax-Request:1 and use the same-origin API proxy. All endpoints reject unknown body/query fields. Request errors include field paths, never input values or stack traces.
+- New verified viewers receive 403 for site data until assigned. Administrators can access the configured site. The backend currently serves only SOLAR_SITE_ID; requested site overrides are rejected.
+- Rate limits default to one-process memory. REDIS_URL switches to shared counters and fails closed when unavailable. Limits: API 1000/15min, auth IP 30/15min, normalized email 10/15min, public forms/FAQ 10/15min, ingest 1200/15min. OTP resend cooldown is independently transactional.

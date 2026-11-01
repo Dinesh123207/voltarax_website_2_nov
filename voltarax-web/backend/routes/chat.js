@@ -12,7 +12,7 @@ router.post('/', validate({ body: z.object({ message: z.string().trim().min(1).m
   const hit = match(message);
   res.json({
     success: true,
-    reply: hit?.a || 'This assistant answers three questions â€” please choose one of the suggestions.',
+    reply: hit?.a || 'This assistant answers three questions — please choose one of the suggestions.',
     source: 'local-faq',
     chips: CHIPS,
   });

@@ -1,13 +1,14 @@
 {
   "name": "voltarax-backend",
   "version": "2.0.0",
-  "description": "Voltarax Private Limited — Firebase-backed corporate and solar monitoring API",
+  "description": "Voltarax Private Limited \u2014 Firebase-backed corporate and solar monitoring API",
   "main": "server.js",
   "scripts": {
     "start": "node server.js",
     "dev": "nodemon server.js",
     "seed": "node scripts/seed.js",
-    "test": "node --test tests/*.test.js"
+    "test": "node --test tests/*.test.js",
+    "test:rules": "firebase emulators:exec --only database --project demo-voltarax --config ../firebase.test.json \"node --test tests/firebase-rules.test.cjs\""
   },
   "dependencies": {
     "@react-email/render": "2.2.0",
@@ -17,11 +18,9 @@
     "dotenv": "^16.3.1",
     "express": "^4.18.2",
     "express-rate-limit": "8.7.2",
-    "express-validator": "^7.0.1",
     "firebase-admin": "^13.5.0",
     "helmet": "^7.1.0",
     "jsonwebtoken": "^9.0.2",
-    "morgan": "^1.10.0",
     "nodemailer": "10.3.1",
     "pino": "10.4.0",
     "rate-limit-redis": "6.0.2",
@@ -31,6 +30,14 @@
     "zod": "4.6.7"
   },
   "devDependencies": {
+    "@firebase/rules-unit-testing": "6.0.0",
+    "firebase": "13.1.0",
+    "firebase-tools": "15.34.2",
     "nodemon": "^3.0.2"
+  },
+  "overrides": {
+    "@firebase/firestore": {
+      "@grpc/grpc-js": "1.14.7"
+    }
   }
 }

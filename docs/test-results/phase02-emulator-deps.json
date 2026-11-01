@@ -1,0 +1,16 @@
+{
+  "command": [
+    "npm.cmd",
+    "install",
+    "--save-dev",
+    "--save-exact",
+    "@firebase/rules-unit-testing@6.0.0",
+    "firebase@13.1.0",
+    "firebase-tools@15.34.2",
+    "--no-audit",
+    "--no-fund"
+  ],
+  "cwd": "voltarax-web/backend",
+  "exit_code": 0,
+  "seconds": 289.69
+}

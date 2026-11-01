@@ -30,6 +30,7 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
   const [sideOpen, setSideOpen] = useState(false);
   const [user,     setUser]     = useState<any>(null);
   const [sessionMessage, setSessionMessage] = useState('');
+  const [siteAccess, setSiteAccess] = useState(false);
   const sectionQuality: DataQuality = ['/dashboard/bfci', '/dashboard/cv', '/dashboard/relay', '/dashboard/work-orders'].includes(pathname)
     ? 'Unavailable' : ['/dashboard/panels', '/dashboard/forecast', '/dashboard/carbon'].includes(pathname) ? 'Estimated' : 'Calculated';
 
@@ -40,7 +41,7 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
     fetch('/api/auth/me').then(async response => {
       if (!response.ok) { router.replace('/login'); return; }
       const data = await response.json();
-      if (active) setUser(data.user);
+      if (active) { setUser(data.user); setSiteAccess(data.siteAccess === true); }
     }).catch(() => router.replace('/login'));
     return () => { active = false; };
   }, [router]);
@@ -151,7 +152,7 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
             <span>Section data:</span><DataQualityBadge quality={sectionQuality} />
             <span>Individual readings are labelled where their quality differs. Missing data is unavailable.</span>
           </div>
-          {children}
+          {siteAccess || pathname === '/dashboard/settings' ? children : <p role="status" className="stat-card text-slate-300">Site data is Unavailable. Ask an administrator to assign access to this site. You can still manage your password in Settings.</p>}
         </main>
       </div>
     </div>

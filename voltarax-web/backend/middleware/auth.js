@@ -17,6 +17,7 @@ exports.protect = async (req, res, next) => {
 
   try {
     const decoded = jwt.verify(token, process.env.JWT_SECRET, { algorithms: ['HS256'], audience: 'voltarax-api', issuer: 'voltarax' });
+    if (typeof decoded.id !== 'string' || !/^[A-Za-z0-9_-]{1,128}$/.test(decoded.id)) throw new Error('Invalid account identifier');
     const user    = await User.findById(decoded.id).select('-password');
     if (!user || !user.isActive) {
       return res.status(401).json({ success: false, message: 'User not found or deactivated.' });

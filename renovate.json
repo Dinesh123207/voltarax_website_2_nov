@@ -1,0 +1,9 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "extends": ["config:recommended"],
+  "automerge": false,
+  "dependencyDashboard": true,
+  "rangeStrategy": "pin",
+  "ignorePaths": ["reference/**"],
+  "packageRules": [{ "matchUpdateTypes": ["major"], "labels": ["dependencies", "breaking-review"] }]
+}

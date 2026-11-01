@@ -1,0 +1,11 @@
+{
+  "command": [
+    "npm.cmd",
+    "audit",
+    "fix",
+    "--no-fund"
+  ],
+  "cwd": "voltarax-web/backend",
+  "exit_code": 1,
+  "seconds": 15.4
+}

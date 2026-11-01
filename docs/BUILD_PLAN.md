@@ -110,3 +110,6 @@ The blueprint proposes an alternative delivery order; `AGENTS.md` specifies the 
 - The new app does not exist yet; build, typecheck, lint, real Firebase/hardware, browser and deployment tests were not run.
 - The workspace is not a Git repository, so no phase branch or commit was made.
 - Missing `chatgpt-master-prompt.md` and LFS-backed boundary data are recorded in `DECISIONS.md`; neither blocks writing this plan.
+
+### Phase 2 verification scope
+The local account tests use fake Firebase repositories and a fake email sender. They cover default viewer registration, mandatory verification, cookie flags, replay, site access, privileged access changes and revocation. HTTP boundary tests cover CORS, headers, limits, safe errors, malformed JSON and sensitive-log omission. Repository tests cover concurrent email reservation and atomic sensitive changes. Production SMTP, email ownership in the real domain, reverse-proxy trust, TLS cookies, Firebase deployment and shared Redis counters remain separate operator checks.

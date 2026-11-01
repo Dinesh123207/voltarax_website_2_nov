@@ -1,0 +1,17 @@
+{
+  "command": [
+    "npx.cmd",
+    "firebase",
+    "emulators:exec",
+    "--only",
+    "database",
+    "--project",
+    "demo-voltarax",
+    "--config",
+    "../firebase.test.json",
+    "node --test tests/firebase-rules.test.cjs"
+  ],
+  "cwd": "voltarax-web/backend",
+  "exit_code": 0,
+  "seconds": 39.88
+}

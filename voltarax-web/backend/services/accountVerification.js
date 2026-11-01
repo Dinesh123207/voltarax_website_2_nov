@@ -10,5 +10,5 @@ function getService() {
     } } });
   return service;
 }
-function configured() { return mailConfigured() && typeof process.env.OTP_SECRET === 'string' && process.env.OTP_SECRET.length >= 32; }
+function configured() { return mailConfigured() && require('./session').validSecret(process.env.OTP_SECRET); }
 module.exports = { configured, issue: (...args) => getService().issue(...args), verify: (...args) => getService().verify(...args) };

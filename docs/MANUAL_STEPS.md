@@ -39,3 +39,20 @@ No real credentials or infrastructure actions are performed automatically. This 
 - For multiple API processes configure REDIS_URL. Run local Redis, test two processes share counters and stop Redis to confirm requests fail closed. This run tests the in-memory boundary; a Redis server was not running. Memory counters reset on process restart.
 - Review API and frontend response headers over actual HTTPS. API CSP is restrictive for JSON; frontend script/style requirements need their own policy. HSTS is enabled in production only. Do not enable HSTS for a domain until HTTPS is working.
 - Docker CLI exists but the Linux daemon is not running. Start Docker Desktop before the later compose integration checks; no daemon was started automatically.
+
+## Firebase role/device rules — local checks first
+- The default template pins the legacy device to UID PASTE_FIREBASE_DEVICE_UID_HERE, device_id nodemcu-01 and site solar_site. If your configured IDs differ, update a local ignored rules copy consistently before deployment. Do not weaken the UID check. Direct writes reject invalid fields, out-of-range values, future timestamps and deletion.
+- Browser API accounts use Express JWTs, not Firebase Authentication. They cannot use the Firebase client SDK directly. If you need direct Firebase reads for another trusted client, set its role custom claim through a privileged operator tool and write access/FIREBASE_UID/sites/SITE_ID=true in the console/Admin SDK. Role claims alone do not grant viewer/operator access. Never let clients edit role/membership nodes.
+- Run the isolated demo emulator from voltarax-web/backend: npx firebase emulators:exec --only database --project demo-voltarax --config ../firebase.test.json "node --test tests/firebase-rules.test.cjs". The config binds localhost, and the test refuses any non-local emulator target. This does not use the live database or deploy rules.
+- Review the template against real firmware identifiers and your real Auth project, then use the existing DEPLOY.md local-copy steps. Live deployment remains manual and was not performed.
+- Renovate configuration is prepared locally only. Connect/install the Renovate app on your repository yourself if desired. No remote repository, app installation or automatic merge was activated. CI may run python tools/audit-dependencies.py; moderate SDK advisories remain documented, high/critical or audit failure block the command.
+- Frontend CSP currently permits inline Next.js scripts/styles. Review a nonce-based policy with the rendering strategy before tightening it. External media, analytics, payment and map providers are not allow-listed automatically; add only verified providers when their features are integrated.
+- Legacy account emails may have been modified by the old express-validator email normalizer (for example Gmail dots/aliases). The new validator only trims and lowercases; if an existing address cannot sign in, an operator must reconcile it against the stored account instead of creating/promoting duplicates.
+- Review any previously seeded public post in your live database. The seed script no longer publishes sample content, but this run did not read, delete or unpublish existing live records.
+
+## Phase 2 Windows emulator cleanup
+Firebase CLI reported shutdown while its demo JVM kept port 9000 open on Windows. The run stopped only its verified demo emulator process. tools/run-check.py now contains each Windows command in a kill-on-close process job, so a finished/timed-out check cleans its own descendants. Use the wrapper from the workspace root for repeated rule checks:
+
+python tools/run-check.py --cwd voltarax-web/backend --name local-rules -- npm run test:rules
+
+Do not kill an unknown process occupying the configured port. Review it or use a separate documented test port. No database records were deleted by cleanup.

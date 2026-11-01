@@ -51,7 +51,7 @@ export default function UsersPage() {
       <div className="flex items-center justify-between">
         <div>
           <h1 className="text-2xl font-bold text-white">User Management</h1>
-          <p className="text-slate-500 text-sm mt-0.5">Admin-only Â· Voltarax RBAC</p>
+          <p className="text-slate-500 text-sm mt-0.5">Admin-only · Voltarax RBAC</p>
         </div>
         <div className="flex gap-2">
           <a href={`/api/users`} target="_blank" rel="noopener noreferrer"
@@ -67,7 +67,7 @@ export default function UsersPage() {
       <div className="stat-card border border-green-500/10 bg-green-500/3">
         <div className="flex items-center gap-2 mb-3">
           <Shield size={14} className="text-green-500" />
-          <div className="text-xs text-green-600 font-mono font-bold">RBAC â€” ROLE-BASED ACCESS CONTROL</div>
+          <div className="text-xs text-green-600 font-mono font-bold">RBAC — ROLE-BASED ACCESS CONTROL</div>
         </div>
         <div className="grid grid-cols-3 gap-3">
           {[
@@ -122,7 +122,7 @@ export default function UsersPage() {
               <tr>
                 <td colSpan={6} className="text-center py-12 text-slate-600">
                   <Users size={32} className="mx-auto mb-2 text-slate-700" />
-                  No users found â€” admin access required
+                  No users found — admin access required
                 </td>
               </tr>
             ) : users.map(u => (

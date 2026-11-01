@@ -45,7 +45,7 @@ function cleanPayload(body) {
   return out;
 }
 
-// POST /api/telemetry/ingest â€” ESP8266/other hardware writes here.
+// POST /api/telemetry/ingest — ESP8266/other hardware writes here.
 router.post('/ingest', deviceAuth, schema, async (req, res) => {
   try {
     const reading = await SolarTelemetry.create(cleanPayload(req.body));

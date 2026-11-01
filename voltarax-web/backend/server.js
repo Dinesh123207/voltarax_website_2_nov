@@ -3,7 +3,7 @@ const { createApp } = require('./app');
 const { logger } = require('./services/logger');
 const { createLimiters, connectRateStore } = require('./services/rateLimits');
 async function main() {
-  if (!process.env.JWT_SECRET || process.env.JWT_SECRET.length < 32) throw new Error('Configure a strong session secret');
+  if (!require('./services/session').validSecret(process.env.JWT_SECRET)) throw new Error('Configure a strong session secret');
   const client = await connectRateStore(process.env, logger);
   const limiters = createLimiters({ client });
   const routes = { auth: require('./routes/auth').createAuthRouter({ emailLimiter: limiters.authEmail }), content: require('./routes/content'), dashboard: require('./routes/voltvision'), telemetry: require('./routes/telemetry'), chat: require('./routes/chat') };

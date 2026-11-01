@@ -1,0 +1,35 @@
+
+> voltarax-backend@2.0.0 test
+> node --test tests/*.test.js
+
+✔ account lifecycle verifies email, scopes sites, rejects elevation and revokes cookie/native sessions (821.1424ms)
+✔ stale or undated AI output is unavailable (2.4088ms)
+✔ analysis excludes another site even when its legacy value is newer (7.627ms)
+✔ admin-only endpoint rejects unauthenticated and viewer requests (3686.6567ms)
+✔ bootstrap is explicitly enabled, once only and never creates a verified/default account (9.661ms)
+✔ missing values are unavailable and valid zero values retain their quality (1.9688ms)
+✔ nested API values receive quality without treating missing readings as zero (1.9961ms)
+✔ response annotation honors record redaction and labels empty array responses (0.756ms)
+✔ period starts follow India time across month and year boundaries (3.5765ms)
+✔ integrates milliwatts over seconds, clips periods and caps stale gaps (0.5336ms)
+✔ timestamp range is pushed to Firebase without limiting before site filtering (32.4578ms)
+✔ HTTP boundary enforces origins, headers, validation, safe errors and scoped rate limits without logging inputs (637.6668ms)
+✔ React Email renders both formats and mail defaults to disabled (159.4889ms)
+✔ offline migration is site scoped, preserves keys and is repeatable (8.2784ms)
+✔ OTP is six digits, hashed at rest and consumed exactly once under concurrency (10.6186ms)
+✔ OTP expires after ten minutes, enforces five attempts and throttles resends (20.8728ms)
+✔ verification is purpose bound and never accepts an absent challenge (0.541ms)
+✔ missing essential readings cannot result in a healthy score (1.8683ms)
+✔ new and inactive subscribers are persisted as active (481.9798ms)
+✔ pages past other sites, merges old and new history, and keeps tied timestamps (49.1054ms)
+✔ writes one atomic compatibility update and validates site paths (2.0176ms)
+✔ migration marker disables legacy reads only for that site (2.5428ms)
+✔ user repository reserves a normalized email once and atomically revokes sessions with sensitive changes (2441.565ms)
+ℹ tests 23
+ℹ suites 0
+ℹ pass 23
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 11531.9944

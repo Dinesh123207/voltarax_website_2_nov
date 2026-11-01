@@ -34,6 +34,7 @@ test('HTTP boundary enforces origins, headers, validation, safe errors and scope
   assert.equal((await send('/api/contact', {})).status, 200); assert.equal((await send('/api/contact', {})).status, 429);
   for (const status of [200, 200, 429]) assert.equal((await send('/api/telemetry/ingest', {})).status, status);
   response = await fetch(base + '/api/auth/login', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: '{' }); assert.equal(response.status, 400);
+  response = await fetch(base + '/api/auth/login', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ password: 'x'.repeat(11000) }) }); assert.equal(response.status, 413);
   logger.info({ password: 'synthetic-secret-password', code: 'synthetic-secret-code', token: 'synthetic-secret-token', req: { body: { email: 'synthetic-secret-email' } } }, 'redaction-test');
   assert.doesNotMatch(output, /synthetic-secret-|synthetic-sensitive-error|user@example.test/);
   assert.match(output, /requestId/);

@@ -9,7 +9,7 @@ const { protect, requireAdmin } = require('../middleware/auth');
 
 const router = express.Router();
 
-// â”€â”€ POST /api/contact â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+// ── POST /api/contact ─────────────────────────────────────────────────────────
 router.post('/contact', validate({ body: contactBody }), async (req, res) => {
 
   try {
@@ -23,7 +23,7 @@ router.post('/contact', validate({ body: contactBody }), async (req, res) => {
   }
 });
 
-// â”€â”€ POST /api/demo â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+// ── POST /api/demo ────────────────────────────────────────────────────────────
 router.post('/demo', validate({ body: demoBody }), async (req, res) => {
 
   try {
@@ -34,7 +34,7 @@ router.post('/demo', validate({ body: demoBody }), async (req, res) => {
   }
 });
 
-// â”€â”€ POST /api/subscribe â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+// ── POST /api/subscribe ───────────────────────────────────────────────────────
 router.post('/subscribe', validate({ body: z.object({ email, source: z.string().max(50).optional(), website: z.literal('').optional() }).strict() }), async (req, res) => {
 
   try {
@@ -50,7 +50,7 @@ router.post('/subscribe', validate({ body: z.object({ email, source: z.string().
   }
 });
 
-// â”€â”€ GET /api/posts â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+// ── GET /api/posts ─────────────────────────────────────────────────────────────
 router.get('/posts', validate({ query: z.object({ category: z.string().regex(/^[A-Za-z0-9_-]{1,50}$/).optional(), page: z.coerce.number().int().min(1).max(10000).default(1), limit: z.coerce.number().int().min(1).max(100).default(10) }).strict() }), async (req, res) => {
   try {
     const { category, limit = 10, page = 1 } = req.query;
@@ -63,7 +63,7 @@ router.get('/posts', validate({ query: z.object({ category: z.string().regex(/^[
       .skip((page - 1) * limit)
       .limit(Number(limit));
     // .select('-content') on the FirebaseQuery above is a no-op (see
-    // services/firebaseModel.js â€” select/populate are only accepted for
+    // services/firebaseModel.js — select/populate are only accepted for
     // Mongoose-style call-site compatibility, they don't actually project).
     // A list view returning every post's full body is wasted bandwidth, so
     // strip it here instead, explicitly.
@@ -75,7 +75,7 @@ router.get('/posts', validate({ query: z.object({ category: z.string().regex(/^[
   }
 });
 
-// â”€â”€ GET /api/posts/:slug â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+// ── GET /api/posts/:slug ──────────────────────────────────────────────────────
 router.get('/posts/:slug', validate({ params: z.object({ slug: z.string().regex(/^[a-z0-9-]{1,150}$/) }).strict() }), async (req, res) => {
   try {
     const post = await Post.findOneAndUpdate(
@@ -90,7 +90,7 @@ router.get('/posts/:slug', validate({ params: z.object({ slug: z.string().regex(
   }
 });
 
-// â”€â”€ Admin: GET /api/admin/contacts â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+// ── Admin: GET /api/admin/contacts ────────────────────────────────────────────
 router.get('/admin/contacts', protect, requireAdmin, validate(), async (req, res) => {
   try {
     const contacts = await Contact.find().sort({ createdAt: -1 }).limit(100);
@@ -100,7 +100,7 @@ router.get('/admin/contacts', protect, requireAdmin, validate(), async (req, res
   }
 });
 
-// â”€â”€ Admin: GET /api/admin/demos â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+// ── Admin: GET /api/admin/demos ───────────────────────────────────────────────
 router.get('/admin/demos', protect, requireAdmin, validate(), async (req, res) => {
   try {
     const demos = await DemoRequest.find().sort({ createdAt: -1 });
@@ -110,7 +110,7 @@ router.get('/admin/demos', protect, requireAdmin, validate(), async (req, res) =
   }
 });
 
-// â”€â”€ Admin: GET /api/admin/stats â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+// ── Admin: GET /api/admin/stats ───────────────────────────────────────────────
 router.get('/admin/stats', protect, requireAdmin, validate(), async (req, res) => {
   try {
     const [contacts, demos, subscribers, posts] = await Promise.all([

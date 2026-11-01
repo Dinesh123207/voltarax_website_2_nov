@@ -1,6 +1,6 @@
 # Autopilot progress
 
-RESUME HERE: Phase 2 — email verification, session security and request validation
+RESUME HERE: Phase 3 — device registry, reliable ingest and firmware
 
 Status key: [ ] todo; [~] in progress; [x] done and verified as stated; [!] skipped with a reason. A phase is done only after its full gate passes.
 
@@ -22,14 +22,16 @@ Status key: [ ] todo; [~] in progress; [x] done and verified as stated; [!] skip
 - [x] Phase 1 local gate passed: 15 backend tests, 9 Python tests, lint, production build (including final rerun), typecheck and secret scan. Evidence is under test-results/. Remaining moderate advisories are explicitly documented. Firmware/Firebase external checks are skipped with manual steps. Tag: phase-01-done.
 
 ## Phase 2 — security and accounts
-- [~] Email OTP, verified viewer registration, privileged bootstrap and tests.
+- [x] Email OTP, verified viewer registration, privileged bootstrap and tests.
 - [x] Implement transactional hashed OTP challenges (six digits, ten minutes, five attempts, single use and resend cooldown) with a fake sender; three focused tests passed including concurrent replay rejection.
 - [x] Wire registration/verification, purpose/target-bound sensitive action OTPs, disabled-by-default SMTP React Email templates and browser verification form. Focused account/template tests passed with fake mail only.
 - [x] Enforce verified accounts, cookie sessions with revocation, explicit site membership and one-time administrator bootstrap. Focused lifecycle/bootstrap tests passed. No bootstrap or SMTP used against live services; legacy accounts must verify and receive site access.
 - [x] IP/email rate limits with optional Redis store, structured redacted logs, request IDs, security headers and exact-origin CORS; focused HTTP tests passed. Redis server verification remains pending.
 - [x] Zod schemas on every current endpoint, safe central errors, configured-site authorization and sensitive admin audit events. Route-group/invalid-input tests passed; frontend account screens typecheck and production build passed.
-- [~] Firebase role/device rules and emulator tests; administrator access/password screens added.
-- [ ] Dependency automation, gate and phase tag.
+- [x] Firebase role/device rules passed the localhost demo emulator test (cross-site/device/role isolation, schema ranges and protected secrets). Live UID substitution/deployment stays manual. Administrator access/password screens are implemented; frontend gate checks recorded below.
+- [x] Renovate config (automerge off), CI-ready production audit script and service READMEs. Production audit: frontend 0, backend 8 moderate, no high/critical. Tooling-only full audit is being recorded separately.
+- [x] Phase 2 local gate: 23 backend tests, 9 Python tests, Firebase rule emulator (including rerun with patched test dependency), lint, final typecheck/build, diff check and secret scan passed. Frontend production audit 0; backend production 8 moderate, full tree 21 moderate; no high/critical. Evidence: test-results/phase02-*. Tag: phase-02-done.
+- [!] Actual SMTP delivery, shared Redis and target-host TLS/proxy behavior require operator configuration; MANUAL_STEPS.md records exact follow-up. No real emails, live database changes or external deployment performed.
 
 ## Phase 3 — hardware
 - [ ] Reconnect, time, sensor-fault handling, bounded buffer and firmware tests.

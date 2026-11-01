@@ -1,0 +1,11 @@
+{
+  "command": [
+    "npm.cmd",
+    "install",
+    "--no-audit",
+    "--no-fund"
+  ],
+  "cwd": "voltarax-web/backend",
+  "exit_code": 0,
+  "seconds": 8.68
+}

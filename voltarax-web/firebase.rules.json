@@ -2,49 +2,346 @@
   "rules": {
     "readings": {
       "$site": {
-        ".indexOn": ["ts"], ".read": false,
+        ".indexOn": [
+          "ts"
+        ],
+        ".read": "auth != null && (auth.token.role === 'admin' || ((auth.token.role === 'viewer' || auth.token.role === 'operator') && root.child('access').child(auth.uid).child('sites').child($site).val() === true))",
         "$reading": {
-          ".write": "auth != null && auth.uid === 'PASTE_FIREBASE_DEVICE_UID_HERE' && $site === 'solar_site'",
-          ".validate": "newData.hasChildren(['ts', 'site_id', 'device_id']) && newData.child('site_id').val() === $site && newData.child('ts').isNumber()"
+          ".write": "auth != null && auth.uid === 'PASTE_FIREBASE_DEVICE_UID_HERE' && $site === 'solar_site' && newData.exists()",
+          ".validate": "newData.hasChildren(['ts','site_id','device_id']) && newData.child('site_id').val() === $site && newData.child('device_id').val() === 'nodemcu-01'",
+          "ts": {
+            ".validate": "newData.isNumber() && newData.val() > 0 && newData.val() <= now / 1000 + 300"
+          },
+          "site_id": {
+            ".validate": "newData.isString()"
+          },
+          "device_id": {
+            ".validate": "newData.isString()"
+          },
+          "firmware_version": {
+            ".validate": "newData.isString() && newData.val().length <= 64"
+          },
+          "sensors_ok": {
+            "ina219": {
+              ".validate": "newData.isBoolean()"
+            },
+            "bh1750": {
+              ".validate": "newData.isBoolean()"
+            },
+            "dht11": {
+              ".validate": "newData.isBoolean()"
+            },
+            "dust": {
+              ".validate": "newData.isBoolean()"
+            },
+            "$other": {
+              ".validate": false
+            }
+          },
+          "$other": {
+            ".validate": false
+          },
+          "voltage_v": {
+            ".validate": "newData.isNumber() && newData.val() >= 0 && newData.val() <= 1000"
+          },
+          "current_ma": {
+            ".validate": "newData.isNumber() && newData.val() >= 0 && newData.val() <= 1000000000.0"
+          },
+          "power_mw": {
+            ".validate": "newData.isNumber() && newData.val() >= 0 && newData.val() <= 1000000000000.0"
+          },
+          "light_lux": {
+            ".validate": "newData.isNumber() && newData.val() >= 0 && newData.val() <= 200000"
+          },
+          "temp_c": {
+            ".validate": "newData.isNumber() && newData.val() >= -50 && newData.val() <= 150"
+          },
+          "humidity_pct": {
+            ".validate": "newData.isNumber() && newData.val() >= 0 && newData.val() <= 100"
+          },
+          "dust_ugm3": {
+            ".validate": "newData.isNumber() && newData.val() >= 0 && newData.val() <= 1000000.0"
+          },
+          "rssi": {
+            ".validate": "newData.isNumber() && newData.val() >= -150 && newData.val() <= 0"
+          },
+          "uptime_s": {
+            ".validate": "newData.isNumber() && newData.val() >= 0 && newData.val() <= 1000000000000.0"
+          }
         }
       }
     },
     "sites": {
       "$site": {
         "latest": {
-          ".read": false,
-          ".write": "auth != null && auth.uid === 'PASTE_FIREBASE_DEVICE_UID_HERE' && $site === 'solar_site'",
-          ".validate": "newData.child('site_id').val() === $site && newData.child('ts').isNumber()"
+          ".read": "auth != null && (auth.token.role === 'admin' || ((auth.token.role === 'viewer' || auth.token.role === 'operator') && root.child('access').child(auth.uid).child('sites').child($site).val() === true))",
+          ".write": "auth != null && auth.uid === 'PASTE_FIREBASE_DEVICE_UID_HERE' && $site === 'solar_site' && newData.exists()",
+          ".validate": "newData.hasChildren(['ts','site_id','device_id']) && newData.child('site_id').val() === $site && newData.child('device_id').val() === 'nodemcu-01'",
+          "ts": {
+            ".validate": "newData.isNumber() && newData.val() > 0 && newData.val() <= now / 1000 + 300"
+          },
+          "site_id": {
+            ".validate": "newData.isString()"
+          },
+          "device_id": {
+            ".validate": "newData.isString()"
+          },
+          "firmware_version": {
+            ".validate": "newData.isString() && newData.val().length <= 64"
+          },
+          "sensors_ok": {
+            "ina219": {
+              ".validate": "newData.isBoolean()"
+            },
+            "bh1750": {
+              ".validate": "newData.isBoolean()"
+            },
+            "dht11": {
+              ".validate": "newData.isBoolean()"
+            },
+            "dust": {
+              ".validate": "newData.isBoolean()"
+            },
+            "$other": {
+              ".validate": false
+            }
+          },
+          "$other": {
+            ".validate": false
+          },
+          "voltage_v": {
+            ".validate": "newData.isNumber() && newData.val() >= 0 && newData.val() <= 1000"
+          },
+          "current_ma": {
+            ".validate": "newData.isNumber() && newData.val() >= 0 && newData.val() <= 1000000000.0"
+          },
+          "power_mw": {
+            ".validate": "newData.isNumber() && newData.val() >= 0 && newData.val() <= 1000000000000.0"
+          },
+          "light_lux": {
+            ".validate": "newData.isNumber() && newData.val() >= 0 && newData.val() <= 200000"
+          },
+          "temp_c": {
+            ".validate": "newData.isNumber() && newData.val() >= -50 && newData.val() <= 150"
+          },
+          "humidity_pct": {
+            ".validate": "newData.isNumber() && newData.val() >= 0 && newData.val() <= 100"
+          },
+          "dust_ugm3": {
+            ".validate": "newData.isNumber() && newData.val() >= 0 && newData.val() <= 1000000.0"
+          },
+          "rssi": {
+            ".validate": "newData.isNumber() && newData.val() >= -150 && newData.val() <= 0"
+          },
+          "uptime_s": {
+            ".validate": "newData.isNumber() && newData.val() >= 0 && newData.val() <= 1000000000000.0"
+          }
+        },
+        "analysis": {
+          ".read": "auth != null && (auth.token.role === 'admin' || ((auth.token.role === 'viewer' || auth.token.role === 'operator') && root.child('access').child(auth.uid).child('sites').child($site).val() === true))",
+          ".write": false
         }
       }
     },
     "solar_site": {
       "latest": {
-        ".read": false,
-        ".write": "auth != null && auth.uid === 'PASTE_FIREBASE_DEVICE_UID_HERE'"
+        ".read": "auth != null && (auth.token.role === 'admin' || ((auth.token.role === 'viewer' || auth.token.role === 'operator') && root.child('access').child(auth.uid).child('sites').child('solar_site').val() === true))",
+        ".write": "auth != null && auth.uid === 'PASTE_FIREBASE_DEVICE_UID_HERE' && 'solar_site' === 'solar_site' && newData.exists()",
+        ".validate": "newData.hasChildren(['ts','site_id','device_id']) && newData.child('site_id').val() === 'solar_site' && newData.child('device_id').val() === 'nodemcu-01'",
+        "ts": {
+          ".validate": "newData.isNumber() && newData.val() > 0 && newData.val() <= now / 1000 + 300"
+        },
+        "site_id": {
+          ".validate": "newData.isString()"
+        },
+        "device_id": {
+          ".validate": "newData.isString()"
+        },
+        "firmware_version": {
+          ".validate": "newData.isString() && newData.val().length <= 64"
+        },
+        "sensors_ok": {
+          "ina219": {
+            ".validate": "newData.isBoolean()"
+          },
+          "bh1750": {
+            ".validate": "newData.isBoolean()"
+          },
+          "dht11": {
+            ".validate": "newData.isBoolean()"
+          },
+          "dust": {
+            ".validate": "newData.isBoolean()"
+          },
+          "$other": {
+            ".validate": false
+          }
+        },
+        "$other": {
+          ".validate": false
+        },
+        "voltage_v": {
+          ".validate": "newData.isNumber() && newData.val() >= 0 && newData.val() <= 1000"
+        },
+        "current_ma": {
+          ".validate": "newData.isNumber() && newData.val() >= 0 && newData.val() <= 1000000000.0"
+        },
+        "power_mw": {
+          ".validate": "newData.isNumber() && newData.val() >= 0 && newData.val() <= 1000000000000.0"
+        },
+        "light_lux": {
+          ".validate": "newData.isNumber() && newData.val() >= 0 && newData.val() <= 200000"
+        },
+        "temp_c": {
+          ".validate": "newData.isNumber() && newData.val() >= -50 && newData.val() <= 150"
+        },
+        "humidity_pct": {
+          ".validate": "newData.isNumber() && newData.val() >= 0 && newData.val() <= 100"
+        },
+        "dust_ugm3": {
+          ".validate": "newData.isNumber() && newData.val() >= 0 && newData.val() <= 1000000.0"
+        },
+        "rssi": {
+          ".validate": "newData.isNumber() && newData.val() >= -150 && newData.val() <= 0"
+        },
+        "uptime_s": {
+          ".validate": "newData.isNumber() && newData.val() >= 0 && newData.val() <= 1000000000000.0"
+        }
       },
       "history": {
-        ".indexOn": ["ts", "site_id"],
-        ".read": false,
-        ".write": "auth != null && auth.uid === 'PASTE_FIREBASE_DEVICE_UID_HERE'"
+        ".read": "auth != null && (auth.token.role === 'admin' || ((auth.token.role === 'viewer' || auth.token.role === 'operator') && root.child('access').child(auth.uid).child('sites').child('solar_site').val() === true))",
+        ".indexOn": [
+          "ts",
+          "site_id"
+        ],
+        "$reading": {
+          ".write": "auth != null && auth.uid === 'PASTE_FIREBASE_DEVICE_UID_HERE' && 'solar_site' === 'solar_site' && newData.exists()",
+          ".validate": "newData.hasChildren(['ts','site_id','device_id']) && newData.child('site_id').val() === 'solar_site' && newData.child('device_id').val() === 'nodemcu-01'",
+          "ts": {
+            ".validate": "newData.isNumber() && newData.val() > 0 && newData.val() <= now / 1000 + 300"
+          },
+          "site_id": {
+            ".validate": "newData.isString()"
+          },
+          "device_id": {
+            ".validate": "newData.isString()"
+          },
+          "firmware_version": {
+            ".validate": "newData.isString() && newData.val().length <= 64"
+          },
+          "sensors_ok": {
+            "ina219": {
+              ".validate": "newData.isBoolean()"
+            },
+            "bh1750": {
+              ".validate": "newData.isBoolean()"
+            },
+            "dht11": {
+              ".validate": "newData.isBoolean()"
+            },
+            "dust": {
+              ".validate": "newData.isBoolean()"
+            },
+            "$other": {
+              ".validate": false
+            }
+          },
+          "$other": {
+            ".validate": false
+          },
+          "voltage_v": {
+            ".validate": "newData.isNumber() && newData.val() >= 0 && newData.val() <= 1000"
+          },
+          "current_ma": {
+            ".validate": "newData.isNumber() && newData.val() >= 0 && newData.val() <= 1000000000.0"
+          },
+          "power_mw": {
+            ".validate": "newData.isNumber() && newData.val() >= 0 && newData.val() <= 1000000000000.0"
+          },
+          "light_lux": {
+            ".validate": "newData.isNumber() && newData.val() >= 0 && newData.val() <= 200000"
+          },
+          "temp_c": {
+            ".validate": "newData.isNumber() && newData.val() >= -50 && newData.val() <= 150"
+          },
+          "humidity_pct": {
+            ".validate": "newData.isNumber() && newData.val() >= 0 && newData.val() <= 100"
+          },
+          "dust_ugm3": {
+            ".validate": "newData.isNumber() && newData.val() >= 0 && newData.val() <= 1000000.0"
+          },
+          "rssi": {
+            ".validate": "newData.isNumber() && newData.val() >= -150 && newData.val() <= 0"
+          },
+          "uptime_s": {
+            ".validate": "newData.isNumber() && newData.val() >= 0 && newData.val() <= 1000000000000.0"
+          }
+        }
       },
       "analysis": {
-        ".read": false,
+        ".read": "auth != null && (auth.token.role === 'admin' || ((auth.token.role === 'viewer' || auth.token.role === 'operator') && root.child('access').child(auth.uid).child('sites').child('solar_site').val() === true))",
         ".write": false
       },
       "analysis_history": {
-        ".read": false,
+        ".read": "auth != null && (auth.token.role === 'admin' || ((auth.token.role === 'viewer' || auth.token.role === 'operator') && root.child('access').child(auth.uid).child('sites').child('solar_site').val() === true))",
         ".write": false
       },
       "ai": {
-        ".read": false,
+        ".read": "auth != null && (auth.token.role === 'admin' || ((auth.token.role === 'viewer' || auth.token.role === 'operator') && root.child('access').child(auth.uid).child('sites').child('solar_site').val() === true))",
         ".write": false
       }
     },
-    "users": { ".read": false, ".write": false },
-    "content": { ".read": false, ".write": false,
-      "subscribers": { ".indexOn": ["email", "isActive"] },
-      "posts": { ".indexOn": ["published", "slug", "category", "publishedAt"] }
+    "users": {
+      ".read": false,
+      ".write": false,
+      ".indexOn": [
+        "email",
+        "role"
+      ]
+    },
+    "content": {
+      ".read": false,
+      ".write": false,
+      "subscribers": {
+        ".indexOn": [
+          "email",
+          "isActive"
+        ]
+      },
+      "posts": {
+        ".indexOn": [
+          "published",
+          "slug",
+          "category",
+          "publishedAt"
+        ]
+      }
+    },
+    ".read": false,
+    ".write": false,
+    "access": {
+      ".read": false,
+      ".write": false
+    },
+    "authChallenges": {
+      ".read": false,
+      ".write": false
+    },
+    "userEmails": {
+      ".read": false,
+      ".write": false
+    },
+    "bootstrap": {
+      ".read": false,
+      ".write": false
+    },
+    "auditLog": {
+      ".read": false,
+      ".write": false
+    },
+    "deviceAccess": {
+      ".read": false,
+      ".write": false
     }
   }
 }

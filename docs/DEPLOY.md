@@ -25,3 +25,12 @@ npx firebase-tools deploy --only database --project YOUR_PROJECT_ID --config fir
 ```
 
 Both local files are ignored by Git. The deploy command is not run automatically.
+
+## Phase 2 service operation
+Configure the variables described in backend/.env.example. EMAIL_ENABLED defaults to false and requires deliberate operator enablement. The browser accesses the API through Next.js; direct cross-origin cookies are not the supported default. Password registration needs email verification before access, and site data needs an administrator assignment.
+
+Use one API process with the in-memory rate limiter, or configure Redis for shared counters. A configured Redis connection fails startup or requests when unavailable; it does not silently fall back. Request logs omit input values and use generated IDs.
+
+Audit events remain in RTDB until the relational phase. The API records admin access-change attempts/completions and bootstrap identifiers. Apply a retention/access policy and export logs through a trusted operator path. Do not expose the entire database to any browser client.
+
+For production, do not install dev tooling in the backend image (npm ci --omit=dev). Firebase CLI/test SDK dependencies are local/CI tools, not server dependencies. The CI-ready production audit command fails on high/critical advisories or registry/audit failure; existing moderate Firebase SDK findings require the documented follow-up.

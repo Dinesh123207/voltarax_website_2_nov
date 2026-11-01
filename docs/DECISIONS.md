@@ -87,3 +87,18 @@ Date: 2026-11-01. This is an internal project document. The internal project ref
 - [FOUND] Request logs contain generated request IDs, registered route templates, status and duration, with no raw URLs, bodies, headers, email, OTP or error messages. Parser errors expose no stack. Focused tests assert redaction and reject unapproved origins.
 - [FOUND] Password/access changes atomically update the account and increment its session version in one transaction, avoiding a login window between mutation and revocation. Administrator access changes log attempt/applied events; failed partial work is distinguishable.
 - [FOUND] Docker CLI is installed but its Linux daemon is unavailable. PostgreSQL/Redis container integration will require starting Docker Desktop or another local server; independent tests continue.
+
+## Phase 2 rules and dependency tools
+- [FOUND] The localhost demo Firebase emulator passed the role/site/device rules test. It checks unauthenticated reads, membership isolation, admin role reads, wrong device/site/ID, invalid sensor values, future timestamps, unknown fields, deletes and protected account/audit nodes. It did not deploy or use a live Firebase project.
+- [ASSUMED] The preserved legacy hardware identity is nodemcu-01 at solar_site. The template pins that identity to the manually substituted device UID; operators must match their actual firmware configuration in a local copy before deployment.
+- [FOUND] Renovate config is prepared with automatic merge disabled. No app was connected or remote change made. Production audit tooling rejects high/critical findings and failed audit requests; moderate Firebase SDK findings remain tracked.
+- [FOUND] Frontend security headers allow inline script/style required by the current Next.js static output. This is a documented CSP limitation; a nonce-based stricter policy requires a separate rendering change. API CSP uses default-src none. Both forbid framing and objects, and production enables HSTS.
+
+## Phase 2 audit follow-up
+- [FOUND] Installing local Firebase emulator tooling introduced five inherited high-severity matches through the test client's pinned Firestore gRPC package (production remained free of high/critical). Non-breaking npm audit fix did not resolve the pin and suggested a disruptive downgrade of Firebase/test tooling.
+- [FOUND] Official advisories GHSA-m9gg-hp2v-232j and GHSA-f596-whhp-79r4 identify server certificate/error-message problems in gRPC versions before 1.13.6 / 1.14.5. This app does not run a gRPC server. A scoped @firebase/firestore override to verified current 1.14.7 is being tested instead of downgrading Firebase; the RTDB emulator test will be rerun.
+
+## Phase 2 local gate complete (2026-11-01)
+- [FOUND] Backend: 23 isolated tests passed. Python AI: 9 tests passed. Frontend: lint, final typecheck and final production build passed. The localhost demo RTDB rule test passed before and after the scoped gRPC patch. Repeated rule checks under the Windows process job left port 9000 free.
+- [FOUND] Final backend all-dependency audit: 21 moderate, zero high/critical. Production frontend: zero findings; backend: eight moderate. Existing moderate SDK/dev advisories and exact suggested remediations remain in KNOWN_ISSUES.md. The scoped test-client gRPC override removed all five new inherited high findings.
+- [FOUND] Source scan and diff whitespace check passed; scan limitations remain documented. Real SMTP, Redis and production TLS/proxy behavior are operator checks, not claimed verified. Phase 2 local gate is complete; proceed to Phase 3 without touching main or pushing.

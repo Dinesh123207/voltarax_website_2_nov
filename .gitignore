@@ -23,3 +23,8 @@ reference/
 *.zip
 firebase.local.json
 firebase.local.rules.json
+
+# Local Firebase emulator diagnostics/cache
+*-debug.log
+*-debug.*.log
+.firebase/
