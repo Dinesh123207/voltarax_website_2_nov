@@ -1,0 +1,285 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap');
+
+/* ── Custom cursor ────────────────────────────────────────────────────────── */
+*, *::before, *::after { cursor: none !important; }
+
+#cursor-dot {
+  position: fixed;
+  width: 8px; height: 8px;
+  background: #22c55e;
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 99999;
+  transform: translate(-50%, -50%);
+  transition: width 0.2s, height 0.2s, background 0.2s;
+  box-shadow: 0 0 12px rgba(34,197,94,0.8);
+}
+
+#cursor-ring {
+  position: fixed;
+  width: 36px; height: 36px;
+  border: 1.5px solid rgba(34,197,94,0.6);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 99998;
+  transform: translate(-50%, -50%);
+  transition: width 0.3s ease, height 0.3s ease, border-color 0.3s;
+}
+
+#cursor-dot.hover  { width: 12px; height: 12px; background: #4ade80; }
+#cursor-ring.hover { width: 56px; height: 56px; border-color: rgba(34,197,94,0.9); }
+#cursor-dot.click  { transform: translate(-50%, -50%) scale(0.7); }
+
+/* ── Root variables ─────────────────────────────────────────────────────────── */
+:root {
+  --green:      #22c55e;
+  --green-dim:  #16a34a;
+  --green-glow: rgba(34,197,94,0.15);
+  --bg:         #0a0f0d;
+  --surface:    #111a14;
+  --surface2:   #172010;
+  --border:     #1e3020;
+  --text:       #e2e8f0;
+  --muted:      #64748b;
+}
+
+/* ── Base ────────────────────────────────────────────────────────────────────── */
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'Inter', system-ui, sans-serif;
+  overflow-x: hidden;
+}
+
+/* ── Selection ───────────────────────────────────────────────────────────────── */
+::selection { background: rgba(34,197,94,0.3); color: #fff; }
+
+/* ── Scrollbar ───────────────────────────────────────────────────────────────── */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: var(--bg); }
+::-webkit-scrollbar-thumb { background: var(--green-dim); border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: var(--green); }
+
+/* ── Glass card ──────────────────────────────────────────────────────────────── */
+.glass {
+  background: rgba(17, 26, 20, 0.7);
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(34, 197, 94, 0.12);
+}
+
+/* ── Green glow button ───────────────────────────────────────────────────────── */
+.btn-green {
+  background: var(--green);
+  color: #000;
+  font-weight: 700;
+  padding: 0.75rem 1.75rem;
+  border-radius: 8px;
+  transition: all 0.2s ease;
+  border: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+.btn-green:hover {
+  background: #4ade80;
+  box-shadow: 0 0 24px rgba(34,197,94,0.5);
+  transform: translateY(-1px);
+}
+
+.btn-outline {
+  background: transparent;
+  color: var(--green);
+  border: 1px solid var(--green);
+  font-weight: 600;
+  padding: 0.75rem 1.75rem;
+  border-radius: 8px;
+  transition: all 0.2s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+.btn-outline:hover {
+  background: var(--green-glow);
+  box-shadow: 0 0 16px rgba(34,197,94,0.25);
+}
+
+/* ── Stat card ───────────────────────────────────────────────────────────────── */
+.stat-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 1.5rem;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+.stat-card:hover {
+  border-color: rgba(34,197,94,0.4);
+  box-shadow: 0 0 20px rgba(34,197,94,0.08);
+}
+
+/* ── Section title ───────────────────────────────────────────────────────────── */
+.section-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.25rem 0.875rem;
+  background: rgba(34,197,94,0.1);
+  border: 1px solid rgba(34,197,94,0.3);
+  border-radius: 20px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--green);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  margin-bottom: 1rem;
+}
+
+/* ── Live dot ────────────────────────────────────────────────────────────────── */
+.live-dot {
+  width: 8px; height: 8px;
+  background: var(--green);
+  border-radius: 50%;
+  animation: pulse-dot 2s infinite;
+  box-shadow: 0 0 6px var(--green);
+}
+@keyframes pulse-dot {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50%       { opacity: 0.4; transform: scale(0.8); }
+}
+
+/* ── Grid bg ──────────────────────────────────────────────────────────────────── */
+.bg-grid {
+  background-image:
+    linear-gradient(rgba(34,197,94,0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(34,197,94,0.05) 1px, transparent 1px);
+  background-size: 60px 60px;
+}
+
+/* ── Gradient text ────────────────────────────────────────────────────────────── */
+.gradient-text {
+  background: linear-gradient(135deg, #22c55e 0%, #4ade80 50%, #86efac 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* ── Number counter font ──────────────────────────────────────────────────────── */
+.font-counter {
+  font-family: 'JetBrains Mono', monospace;
+  font-weight: 700;
+}
+
+/* ── Input ────────────────────────────────────────────────────────────────────── */
+.input-dark {
+  background: var(--surface2);
+  border: 1px solid var(--border);
+  color: var(--text);
+  border-radius: 8px;
+  padding: 0.75rem 1rem;
+  width: 100%;
+  outline: none;
+  transition: border-color 0.2s;
+  font-size: 0.875rem;
+}
+.input-dark:focus { border-color: var(--green); }
+.input-dark::placeholder { color: var(--muted); }
+
+/* ── Dashboard sidebar ────────────────────────────────────────────────────────── */
+.nav-link {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.625rem 1rem;
+  border-radius: 8px;
+  color: #94a3b8;
+  font-size: 0.875rem;
+  font-weight: 500;
+  transition: all 0.15s;
+  border-left: 3px solid transparent;
+}
+.nav-link:hover { background: var(--green-glow); color: var(--text); }
+.nav-link.active {
+  background: var(--green-glow);
+  color: var(--green);
+  border-left-color: var(--green);
+}
+
+/* ── AI placeholder card ─────────────────────────────────────────────────────── */
+.ai-placeholder {
+  border: 1px dashed rgba(34,197,94,0.3);
+  border-radius: 12px;
+  background: rgba(34,197,94,0.02);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 3rem 2rem;
+  text-align: center;
+  gap: 0.75rem;
+}
+
+/* ── Shimmer loading ──────────────────────────────────────────────────────────── */
+.shimmer {
+  background: linear-gradient(90deg, var(--surface) 25%, var(--surface2) 50%, var(--surface) 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+}
+@keyframes shimmer {
+  0%   { background-position: -200% 0; }
+  100% { background-position:  200% 0; }
+}
+
+/* ── Particle canvas ─────────────────────────────────────────────────────────── */
+#particles { position: fixed; inset: 0; pointer-events: none; z-index: 0; }
+
+/* ── Premium renewable-energy hero ───────────────────────────────────────── */
+.renewable-hero { background: #06100a; }
+.hero-mesh {
+  background:
+    radial-gradient(circle at 76% 45%, rgba(34,197,94,.14), transparent 25%),
+    radial-gradient(circle at 55% 80%, rgba(16,185,129,.08), transparent 28%);
+}
+.hero-stat {
+  background: rgba(10,24,15,.72);
+  border: 1px solid rgba(134,239,172,.12);
+  border-radius: 14px;
+  padding: 1rem;
+  backdrop-filter: blur(14px);
+  transition: transform .2s ease, border-color .2s ease, background .2s ease;
+}
+.hero-stat:hover { transform: translateY(-3px); border-color: rgba(134,239,172,.3); background: rgba(14,32,20,.84); }
+
+.wind-turbine-wrap {
+  position: absolute;
+  right: -3vw;
+  bottom: -7rem;
+  width: min(61vw, 760px);
+  height: min(88vw, 820px);
+  pointer-events: none;
+  opacity: .92;
+}
+.wind-turbine { position: absolute; right: 3%; bottom: 0; width: 86%; height: 100%; overflow: visible; }
+.wind-horizon {
+  position: absolute;
+  right: -15%;
+  bottom: 0;
+  width: 125%;
+  height: 35%;
+  background: radial-gradient(ellipse at center bottom, rgba(34,197,94,.12), transparent 67%);
+  filter: blur(18px);
+}
+.turbine-rotor { transform-origin: 310px 282px; animation: turbine-spin 18s linear infinite; }
+@keyframes turbine-spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+
+@media (max-width: 900px) {
+  .wind-turbine-wrap { right: -28%; bottom: -4rem; width: 78vw; opacity: .42; }
+}
+@media (max-width: 640px) {
+  .wind-turbine-wrap { right: -48%; bottom: 0; width: 95vw; opacity: .24; }
+  .renewable-hero { min-height: 720px; }
+}

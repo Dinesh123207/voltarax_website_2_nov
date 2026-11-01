@@ -1,0 +1,28 @@
+{
+  "rules": {
+    "solar_site": {
+      "latest": {
+        ".read": false,
+        ".write": "auth != null && auth.uid === 'PASTE_FIREBASE_DEVICE_UID_HERE'"
+      },
+      "history": {
+        ".read": false,
+        ".write": "auth != null && auth.uid === 'PASTE_FIREBASE_DEVICE_UID_HERE'"
+      },
+      "analysis": {
+        ".read": false,
+        ".write": false
+      },
+      "analysis_history": {
+        ".read": false,
+        ".write": false
+      },
+      "ai": {
+        ".read": false,
+        ".write": false
+      }
+    },
+    "users": { ".read": false, ".write": false },
+    "content": { ".read": false, ".write": false }
+  }
+}
