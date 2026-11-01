@@ -26,9 +26,13 @@ const SolarAnalysis = {
     const next = { ...current, site_id: site };
     if (update?.$inc) for (const [k,v] of Object.entries(update.$inc)) next[k] = Number(next[k] || 0) + Number(v);
     for (const [k,v] of Object.entries(update || {})) if (!k.startsWith('$')) next[k] = v;
-    const value = clone(next); const stamp = Date.now();
-    await db.ref().update({ [`sites/${site}/analysis`]: value, [`sites/${site}/analysis_history/${stamp}`]: value,
-      ...(site === DEFAULT_SITE ? { 'solar_site/analysis': value, [`solar_site/analysis_history/${stamp}`]: value } : {}) });
+    const value = clone(next); const stamp = String(value.ts || Date.now());
+    const advance = previous => previous && Number(previous.ts) > Number(value.ts) ? undefined : value;
+    const result = await db.ref(`sites/${site}/analysis`).transaction(advance);
+    if (!result.committed) return clone(result.snapshot.val());
+    await db.ref().update({ [`sites/${site}/analysis_history/${stamp}`]: value,
+      ...(site === 'solar_site' ? { [`solar_site/analysis_history/${stamp}`]: value } : {}) });
+    if (site === 'solar_site') await db.ref('solar_site/analysis').transaction(advance);
     return clone(next);
   },
 };

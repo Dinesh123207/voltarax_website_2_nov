@@ -39,16 +39,19 @@ function startTelemetryWatcher() {
   if (started) return;
   started = true;
 
-  const ref = db.ref('/solar_site/latest');
-  ref.on('value', (snap) => {
+  let newestTs = 0;
+  const consume = (snap) => {
     const reading = snap.val();
-    if (!reading || (reading.site_id || 'solar_site') !== SITE_ID) return;
+    if (!reading || (reading.site_id || 'solar_site') !== SITE_ID || reading.device_id !== (process.env.SOLAR_DEVICE_ID || 'nodemcu-01') || Number(reading.ts) <= newestTs) return;
+    newestTs = Number(reading.ts);
     saveAnalysis(reading, readConfig()).catch((err) => {
+      if (newestTs === Number(reading.ts)) newestTs = 0;
       require('./logger').logger.error({ event: 'analysis-write-failed' }, 'Analysis unavailable');
     });
-  }, (err) => {
-    require('./logger').logger.error({ event: 'watcher-disconnected' }, 'Telemetry connection unavailable');
-  });
+  };
+  const disconnected = () => require('./logger').logger.error({ event: 'watcher-disconnected' }, 'Telemetry connection unavailable');
+  db.ref(`/sites/${SITE_ID}/latest`).on('value', consume, disconnected);
+  db.ref('/solar_site/latest').on('value', consume, disconnected);
 
   console.log('📡 Telemetry watcher attached to /solar_site/latest (works for direct-from-hardware writes too)');
 }

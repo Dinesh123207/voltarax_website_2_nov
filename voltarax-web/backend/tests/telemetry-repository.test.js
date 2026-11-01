@@ -45,3 +45,10 @@ test('migration marker disables legacy reads only for that site', async () => {
   const rows = await createTelemetryRepository(db).find({ site_id: 'a' }).limit(1);
   assert.equal(rows.length, 1); assert.deepEqual(db.calls.map(c => c.path), ['readings/a']);
 });
+test('primary device filtering pages past secondary rows before applying a limit', async () => {
+  const db = fakeDb({ 'readings/solar_site': { first: { ts: 1, device_id: 'primary' }, later: { ts: 2, device_id: 'secondary' }, newest: { ts: 3, device_id: 'secondary' } }, 'sites/solar_site/latest': { ts: 3, device_id: 'secondary' } });
+  const repo = createTelemetryRepository(db, { primaryDevice: 'primary', pageSize: 1 });
+  const rows = await repo.find().sort({ ts: -1 }).limit(1);
+  assert.equal(rows[0].ts, 1); assert.equal(await repo.latest(), null);
+  assert.equal((await repo.find({ device_id: 'secondary' }).limit(1))[0].ts, 3);
+});

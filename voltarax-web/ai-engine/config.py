@@ -14,6 +14,9 @@ ARTIFACTS_DIR = ROOT / "artifacts"
 ARTIFACTS_DIR.mkdir(exist_ok=True)
 
 SITE_ID = os.environ.get("SOLAR_SITE_ID", "solar_site")
+DEVICE_ID = os.environ.get('SOLAR_DEVICE_ID', 'nodemcu-01')
+if not re.fullmatch(r'[A-Za-z0-9_-]{1,64}', DEVICE_ID):
+    raise ValueError('SOLAR_DEVICE_ID must be a valid device identifier')
 if not re.fullmatch(r'[A-Za-z0-9_-]{1,64}', SITE_ID):
     raise ValueError('SOLAR_SITE_ID must be a valid site identifier')
 

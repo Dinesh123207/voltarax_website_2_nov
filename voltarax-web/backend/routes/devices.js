@@ -14,6 +14,12 @@ function createDeviceRouter({ registry = getRegistry, otp = verification } = {})
     Promise.resolve(otp.verify(req.user.email, req.body.code, verification.sensitivePurpose(req.user, action, target(req)))).then(valid => valid ? next() : res.status(401).json({ success: false, message: 'Invalid or expired verification.' })).catch(next);
   };
   router.get('/', protect, requireAdmin, validate(), safe(async (req, res) => res.json({ success: true, devices: await registry().list(), limit: 200, note: 'Most recent 200 registered devices; keys are never returned.' })));
+  router.get('/:id/history', protect, requireAdmin, validate({ params, query: z.object({ limit: z.coerce.number().int().min(1).max(1000).default(100) }).strict() }), safe(async (req, res) => {
+    const device = await registry().get(req.params.id);
+    if (!device || device.site_id !== (process.env.SOLAR_SITE_ID || 'solar_site')) return res.status(404).json({ success: false, message: 'Device not found.' });
+    const history = await require('../models/SolarTelemetry').find({ site_id: device.site_id, device_id: req.params.id }).sort({ ts: -1 }).limit(req.query.limit).lean();
+    res.json({ success: true, history });
+  }));
   router.post('/', protect, requireAdmin, validate({ body: z.object({ device_id: id, site_id: id, name: z.string().trim().min(2).max(100), code }).strict() }), sensitive('device-register', req => req.body.device_id), safe(async (req, res) => {
     if (req.body.site_id !== (process.env.SOLAR_SITE_ID || 'solar_site')) return res.status(422).json({ success: false, message: 'This server supports only its configured site.' });
     const result = await registry().create(req.body, req.user._id);

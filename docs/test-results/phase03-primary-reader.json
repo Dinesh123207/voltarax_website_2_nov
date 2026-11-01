@@ -1,0 +1,14 @@
+{
+  "command": [
+    "python",
+    "-m",
+    "pytest",
+    "tests/test_partition_reader.py",
+    "-q",
+    "-p",
+    "no:cacheprovider"
+  ],
+  "cwd": "voltarax-web/ai-engine",
+  "exit_code": 0,
+  "seconds": 4.64
+}

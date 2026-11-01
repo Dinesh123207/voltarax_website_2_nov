@@ -1,0 +1,15 @@
+✔ analysis excludes another site even when its legacy value is newer (2.4927ms)
+✔ admin-only endpoint rejects unauthenticated and viewer requests (1750.9912ms)
+✔ ingest is idempotent, rejects conflicting replay/time skew and never rolls latest back (7.4907ms)
+✔ pages past other sites, merges old and new history, and keeps tied timestamps (47.1914ms)
+✔ writes one atomic compatibility update and validates site paths (3.0263ms)
+✔ migration marker disables legacy reads only for that site (2.678ms)
+✔ primary device filtering pages past secondary rows before applying a limit (0.9098ms)
+ℹ tests 7
+ℹ suites 0
+ℹ pass 7
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 3091.7966

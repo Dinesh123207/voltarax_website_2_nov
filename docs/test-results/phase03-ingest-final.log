@@ -1,0 +1,16 @@
+✔ analysis excludes another site even when its legacy value is newer (4.3888ms)
+✔ admin-only endpoint rejects unauthenticated and viewer requests (1655.342ms)
+✔ ingest is idempotent, rejects conflicting replay/time skew and never rolls latest back (4.9384ms)
+✔ device registry hashes one-time keys, rejects duplicate registration, rotates and disables credentials (32.0572ms)
+✔ pages past other sites, merges old and new history, and keeps tied timestamps (31.3526ms)
+✔ writes one atomic compatibility update and validates site paths (2.1926ms)
+✔ migration marker disables legacy reads only for that site (2.1177ms)
+✔ primary device filtering pages past secondary rows before applying a limit (0.7017ms)
+ℹ tests 8
+ℹ suites 0
+ℹ pass 8
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 2644.6954

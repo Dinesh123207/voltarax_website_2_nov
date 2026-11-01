@@ -1,0 +1,14 @@
+{
+  "command": [
+    "node",
+    "--test",
+    "tests/device-ingest.test.js",
+    "tests/telemetry-repository.test.js",
+    "tests/analysis-site.test.js",
+    "tests/authorization.test.js",
+    "tests/devices.test.js"
+  ],
+  "cwd": "voltarax-web/backend",
+  "exit_code": 0,
+  "seconds": 2.98
+}

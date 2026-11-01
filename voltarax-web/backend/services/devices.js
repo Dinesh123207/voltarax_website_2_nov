@@ -29,7 +29,7 @@ function createDeviceRegistry({ store, audit, now = Date.now, generateKey = () =
       const row = await store.get(id);
       const stored = Buffer.from(row?.keyHash || '0'.repeat(64), 'hex'), supplied = Buffer.from(digest(key), 'hex');
       const valid = stored.length === supplied.length && timingSafeEqual(stored, supplied);
-      return valid && row?.enabled ? publicDevice(row) : null;
+      return valid && row?.enabled === true ? publicDevice(row) : null;
     },
     get: async id => publicDevice(await store.get(id)),
     list: async () => (await store.list()).map(publicDevice),

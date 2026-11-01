@@ -73,7 +73,7 @@ def _default_reader() -> dict:
         raise RuntimeError('Legacy history exceeds safe compatibility window; migrate and verify per-site history before training')
     merged = {}
     for key, row in {**legacy, **current}.items():
-        if isinstance(row, dict) and row.get('site_id', 'solar_site') == cfg.SITE_ID:
+        if isinstance(row, dict) and row.get('site_id', 'solar_site') == cfg.SITE_ID and row.get('device_id') == cfg.DEVICE_ID:
             merged[(row.get('device_id', ''), row.get('ts'))] = (key, row)
     return dict(merged.values())
 

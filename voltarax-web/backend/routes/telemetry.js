@@ -1,6 +1,8 @@
 const express = require('express');
 const { validate, z } = require('../middleware/validate');
-const { createHash, timingSafeEqual } = require('node:crypto');
+const { createDeviceAuth } = require('../middleware/deviceAuth');
+const { ingestReading } = require('../services/deviceIngest');
+const { getRegistry } = require('../services/devices');
 const SolarTelemetry = require('../models/SolarTelemetry');
 const SolarAnalysis = require('../models/SolarAnalysis');
 const { saveAnalysis } = require('../services/solarAnalytics');
@@ -9,16 +11,7 @@ const { QUALITY, qualityOf } = require('../services/dataQuality');
 
 const router = express.Router();
 const SITE_ID = process.env.SOLAR_SITE_ID || 'solar_site';
-const DEVICE_KEY = process.env.HARDWARE_API_KEY || '';
-
-function deviceAuth(req, res, next) {
-  if (!DEVICE_KEY) return res.status(503).json({ success: false, message: 'Hardware ingestion is not configured.' });
-  const supplied = req.get('x-device-key') || req.body?.device_key;
-  if (typeof supplied !== 'string' || !timingSafeEqual(createHash('sha256').update(supplied).digest(), createHash('sha256').update(DEVICE_KEY).digest())) {
-    return res.status(401).json({ success: false, message: 'Invalid device key.' });
-  }
-  next();
-}
+const deviceAuth = createDeviceAuth();
 
 const measurements = {
   voltage_v: z.number().min(0).max(1000).optional(), current_ma: z.number().min(0).max(1e9).optional(),
@@ -27,11 +20,11 @@ const measurements = {
   dust_ugm3: z.number().min(0).max(1e6).optional(), rssi: z.number().int().min(-150).max(0).optional(), uptime_s: z.number().int().min(0).optional(),
 };
 const schema = validate({ body: z.object({ ...measurements, ts: z.number().int().positive().optional(),
-  device_id: z.string().regex(/^[A-Za-z0-9_-]{1,64}$/).optional(), device_key: z.string().max(256).optional(),
+  device_id: z.string().regex(/^[A-Za-z0-9_-]{1,64}$/).optional(), site_id: z.string().regex(/^[A-Za-z0-9_-]{1,64}$/).optional(), firmware_version: z.string().min(1).max(64).optional(), device_key: z.string().max(256).optional(),
   sensors_ok: z.object({ ina219: z.boolean().optional(), bh1750: z.boolean().optional(), dht11: z.boolean().optional(), dust: z.boolean().optional() }).strict().optional(),
-}).strict().refine(data => ['voltage_v', 'current_ma', 'power_mw', 'light_lux', 'temp_c', 'humidity_pct', 'dust_ugm3'].some(k => data[k] !== undefined)) });
+}).strict().refine(data => ['voltage_v', 'current_ma', 'power_mw', 'light_lux', 'temp_c', 'humidity_pct', 'dust_ugm3'].some(k => data[k] !== undefined) || Object.values(data.sensors_ok || {}).includes(false)) });
 
-function cleanPayload(body) {
+function cleanPayload(body, device) {
   const fields = ['voltage_v','current_ma','power_mw','light_lux','temp_c','humidity_pct','dust_ugm3','rssi','uptime_s'];
   const out = {};
   for (const key of fields) if (body[key] !== undefined && Number.isFinite(Number(body[key]))) out[key] = Number(body[key]);
@@ -40,17 +33,25 @@ function cleanPayload(body) {
     if (typeof body.sensors_ok?.[sensor] === 'boolean') out.sensors_ok[sensor] = body.sensors_ok[sensor];
   }
   out.ts = body.ts ? Number(body.ts) : Math.floor(Date.now() / 1000);
-  out.device_id = String(body.device_id || 'nodemcu-01').slice(0, 64);
-  out.site_id = SITE_ID;
+  const sensorFields = { ina219: ['voltage_v', 'current_ma', 'power_mw'], bh1750: ['light_lux'], dht11: ['temp_c', 'humidity_pct'], dust: ['dust_ugm3'] };
+  for (const [sensor, fields] of Object.entries(sensorFields)) if (out.sensors_ok[sensor] === false) for (const field of fields) delete out[field];
+  out.device_id = device.device_id;
+  out.site_id = device.site_id;
+  if (body.firmware_version) out.firmware_version = body.firmware_version;
   return out;
 }
 
 // POST /api/telemetry/ingest — ESP8266/other hardware writes here.
 router.post('/ingest', deviceAuth, schema, async (req, res) => {
   try {
-    const reading = await SolarTelemetry.create(cleanPayload(req.body));
-    const readingData = reading.toObject ? reading.toObject() : reading;
-    const analysis = await saveAnalysis(readingData, {
+    if (req.device.site_id !== SITE_ID || (req.body.device_id && req.body.device_id !== req.device.device_id) || (req.body.site_id && req.body.site_id !== req.device.site_id)) return res.status(422).json({ success: false, message: 'Device identity does not match its credential.' });
+    if (!req.device.legacy && !req.body.ts) return res.status(422).json({ success: false, message: 'Device timestamp is required.' });
+    const result = await ingestReading(cleanPayload(req.body, req.device));
+    if (result.error) return res.status(result.status).json({ success: false, message: result.error });
+    const readingData = result.reading;
+    if (!req.device.legacy) await getRegistry().seen(req.device.device_id, req.body.firmware_version);
+    const previous = result.latestUpdated ? await SolarAnalysis.findOne({ site_id: SITE_ID }).lean() : null;
+    const analysis = result.latestUpdated && (!previous || Number(previous.ts) < readingData.ts) ? await saveAnalysis(readingData, {
       siteId: SITE_ID,
       panelPmaxW: process.env.SOLAR_PANEL_PMAX_W,
       tempCoeff: process.env.SOLAR_TEMP_COEFF,
@@ -58,8 +59,8 @@ router.post('/ingest', deviceAuth, schema, async (req, res) => {
       baselinePr: process.env.SOLAR_BASELINE_PR,
       luxPerWm2: process.env.SOLAR_LUX_PER_WM2,
       dustHigh: process.env.SOLAR_DUST_HIGH,
-    });
-    res.status(201).json({ success: true, data: { accepted_at: new Date().toISOString(), latest: readingData, analysis } });
+    }) : previous;
+    res.status(result.status).json({ success: true, duplicate: result.duplicate, outOfOrder: result.outOfOrder, data: { accepted_at: new Date().toISOString(), accepted_reading: readingData, latest: await SolarTelemetry.latest(SITE_ID), analysis } });
   } catch (err) {
     require('../services/logger').logger.error({ event: 'telemetry-write-failed', requestId: req.id }, 'Telemetry unavailable');
     res.status(500).json({ success: false, message: 'Unable to store telemetry.' });

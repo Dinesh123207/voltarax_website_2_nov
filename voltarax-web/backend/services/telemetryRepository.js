@@ -4,12 +4,14 @@ function validSite(site) {
   if (!SITE_PATTERN.test(site)) throw new Error('Invalid site identifier');
   return site;
 }
-function createTelemetryRepository(db, { defaultSite = 'solar_site', pageSize = 500, maxRows = 50000 } = {}) {
+function createTelemetryRepository(db, { defaultSite = 'solar_site', pageSize = 500, maxRows = 50000, primaryDevice = null } = {}) {
   validSite(defaultSite);
-  async function scan(path, site, range, limit, legacy) {
+  if (primaryDevice) validSite(primaryDevice);
+  async function scan(path, site, range, limit, legacy, device) {
     let cursor = null;
     const result = [];
     const seen = new Set();
+    let scanned = 0;
     while (true) {
       let q = db.ref(path).orderByChild('ts');
       if (range.$gte != null) q = q.startAt(Number(range.$gte));
@@ -19,10 +21,13 @@ function createTelemetryRepository(db, { defaultSite = 'solar_site', pageSize = 
       const batch = [];
       snap.forEach(child => { batch.push({ key: child.key, value: child.val() }); });
       if (!batch.length) break;
+      scanned += batch.length;
+      if (scanned > maxRows + pageSize) throw new Error('History scan exceeds safe limit; migrate or request a smaller period');
       for (const { key, value } of batch.slice().reverse()) {
         if (!value || !Number.isFinite(Number(value.ts))) continue;
         const rowSite = value.site_id || (legacy ? 'solar_site' : site);
         if (rowSite !== site) continue;
+        if (device && value.device_id !== device) continue;
         if (range.$gt != null && Number(value.ts) <= Number(range.$gt)) continue;
         if (range.$lt != null && Number(value.ts) >= Number(range.$lt)) continue;
         const identity = `${value.device_id || ''}:${Number(value.ts)}`;
@@ -47,8 +52,9 @@ function createTelemetryRepository(db, { defaultSite = 'solar_site', pageSize = 
     // Ascending queries must collect the range before taking its earliest rows.
     const scanLimit = !ascending && requested ? Math.min(requested, maxRows + 1) : maxRows + 1;
     const migrated = (await db.ref(`migrations/site_history/${site}/complete`).get()).val() === true;
-    const current = await scan(`readings/${site}`, site, range, scanLimit, false);
-    const old = migrated ? [] : await scan('solar_site/history', site, range, scanLimit, true);
+    const device = filter.device_id || primaryDevice;
+    const current = await scan(`readings/${site}`, site, range, scanLimit, false, device);
+    const old = migrated ? [] : await scan('solar_site/history', site, range, scanLimit, true, device);
     const byReading = new Map();
     for (const row of [...old, ...current]) byReading.set(`${row.device_id || ''}:${Number(row.ts)}`, row);
     const rows = [...byReading.values()].sort((a, b) => Number(a.ts) - Number(b.ts) || a._id.localeCompare(b._id));
@@ -79,7 +85,7 @@ function createTelemetryRepository(db, { defaultSite = 'solar_site', pageSize = 
       validSite(site);
       const current = (await db.ref(`sites/${site}/latest`).get()).val();
       const old = (await db.ref('solar_site/latest').get()).val();
-      return [current, old && (old.site_id || 'solar_site') === site ? old : null].filter(row => row && (row.site_id || site) === site)
+      return [current, old && (old.site_id || 'solar_site') === site ? old : null].filter(row => row && (row.site_id || site) === site && (!primaryDevice || row.device_id === primaryDevice))
         .sort((a, b) => Number(b.ts) - Number(a.ts))[0] || null;
     },
   };

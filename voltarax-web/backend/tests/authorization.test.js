@@ -5,6 +5,7 @@ const express = require('express');
 
 process.env.JWT_SECRET = 'test-only-session-secret-with-32-characters';
 process.env.HARDWARE_API_KEY = 'test-device-key';
+process.env.ALLOW_LEGACY_DEVICE_KEY = 'true';
 const userPath = require.resolve('../models/User');
 require.cache[userPath] = { id: userPath, filename: userPath, loaded: true, exports: {
   findById: id => ({ select: async () => ({ _id: id, email: `${id}@example.test`, role: id, isActive: true, emailVerified: true, siteIds: id === 'unassigned' ? [] : ['solar_site'] }) }),
@@ -18,6 +19,8 @@ mock('../services/dashboardData', { dashboard: async () => ({}), panels: async (
 mock('../services/aiPredictions', { getAiForecast: async () => null, getAiAnomaly: async () => null, getAiHealth: async () => null, getAiStatus: async () => null });
 mock('../models/SolarTelemetry', { find: chain, latest: async () => null, create: async data => data });
 mock('../models/SolarAnalysis', { findOne: () => ({ lean: async () => null }) });
+mock('../services/deviceIngest', { ingestReading: async reading => ({ reading, status: 201, latestUpdated: false, duplicate: false, outOfOrder: false }) });
+mock('../services/devices', { getRegistry: () => ({ authenticate: async (id, key) => id === 'registered-device' && key === 'synthetic-registered-key' ? { device_id: id, site_id: 'solar_site' } : null, seen: async () => {} }) });
 mock('../services/solarAnalytics', { saveAnalysis: async () => ({}) });
 const contentModel = { find: chain, countDocuments: async () => 0 };
 mock('../models/Content', { Contact: contentModel, DemoRequest: contentModel, Subscriber: contentModel, Post: contentModel });
@@ -77,5 +80,9 @@ test('admin-only endpoint rejects unauthenticated and viewer requests', async t 
   const viewer = jwt.sign({ id: 'viewer', ver: 0 }, process.env.JWT_SECRET, { audience: 'voltarax-api', issuer: 'voltarax' });
   for (const path of ['/panels?row[x]=a', '/alerts?resolved=no', '/forecast?site_id=other', '/telemetry/history?limit=999999', '/work-orders?status=bad']) assert.equal((await fetch(url.replace('/users', path), { headers: { Authorization: `Bearer ${viewer}` } })).status, 422);
   assert.equal((await fetch(url.replace('/users', '/telemetry/ingest'), { method: 'POST' })).status, 401);
+  const registeredHeaders = { 'Content-Type': 'application/json', 'x-device-id': 'registered-device', 'x-device-key': 'synthetic-registered-key' };
+  for (const [payload, status] of [[{ power_mw: 1000 }, 422], [{ ts: 2000000000, power_mw: 1000, device_id: 'impostor' }, 422], [{ ts: 2000000000, power_mw: 1000, site_id: 'elsewhere' }, 422], [{ ts: 2000000000, power_mw: 1000, sensors_ok: { ina219: 'yes' } }, 422], [{ ts: 2000000000, power_mw: 1000 }, 201]]) {
+    assert.equal((await fetch(url.replace('/users', '/telemetry/ingest'), { method: 'POST', headers: registeredHeaders, body: JSON.stringify(payload) })).status, status);
+  }
   assert.equal((await fetch(url.replace('/users', '/telemetry/ingest'), { method: 'POST', headers: { 'x-device-key': process.env.HARDWARE_API_KEY, 'Content-Type': 'application/json' }, body: JSON.stringify({ power_mw: 1000 }) })).status, 201);
 });

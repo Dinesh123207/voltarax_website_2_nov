@@ -34,3 +34,8 @@ Persistent alert resolution, CV scans, work-order updates and ESG report generat
 - POST /api/devices/:id/rotate-key: administrator, body {code}, sensitive action:'device-key-rotate'. Previous key stops authenticating immediately.
 - PATCH /api/devices/:id: administrator, body {enabled,relayEnabled,code}, sensitive action:'device-configure'. No self-service device enrollment or public credential recovery.
 - Device list metadata includes last_seen and firmware_version; these remain null/Unavailable until accepted device traffic is wired. Relay permission defaults false and does not itself issue a command.
+
+## Registered-device ingest
+POST /api/telemetry/ingest uses X-Device-ID and X-Device-Key. Send an integer Unix timestamp in seconds, optional matching device_id/site_id, firmware_version, numeric sensor fields and strict boolean sensors_ok flags. Identity is derived from the authenticated device. Timestamps may be at most 24 hours old or five minutes ahead. Responses are 201 for a new sample, 200 for an exact duplicate, 409 for a conflicting replay and 422 for invalid data/time/identity. data.accepted_reading is the accepted sample; data.latest is the actual primary site latest and may differ for delayed/secondary samples. Failed sensor flags remove their numeric fields. No client-supplied keys are stored with telemetry.
+
+GET /api/devices/:id/history is administrator-only and accepts limit 1–1000. Dashboard/AI history defaults to SOLAR_DEVICE_ID; explicit secondary history is separate. The old shared HTTP key is disabled unless ALLOW_LEGACY_DEVICE_KEY=true; it binds to configured site/primary device and is a temporary migration path, not per-device authorization.

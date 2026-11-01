@@ -30,7 +30,7 @@ function security(app, { env = process.env, logger }) {
     if (origin && !allowed.includes(origin)) return res.status(403).json({ success: false, message: 'Origin not allowed.' });
     next();
   });
-  app.use(cors({ origin: allowed, credentials: true, allowedHeaders: ['Content-Type', 'Authorization', 'X-Voltarax-Request', 'X-Device-Key'], methods: ['GET', 'POST', 'PUT', 'PATCH', 'OPTIONS'] }));
+  app.use(cors({ origin: allowed, credentials: true, allowedHeaders: ['Content-Type', 'Authorization', 'X-Voltarax-Request', 'X-Device-Key', 'X-Device-ID'], methods: ['GET', 'POST', 'PUT', 'PATCH', 'OPTIONS'] }));
 }
 function errorHandler(logger) {
   return (err, req, res, next) => {

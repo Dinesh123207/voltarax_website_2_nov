@@ -1,6 +1,6 @@
 # Autopilot progress
 
-RESUME HERE: Phase 3 — device-bound ingest, replay handling and firmware reliability
+RESUME HERE: Phase 3 — firmware reliability, relay commands and simulator
 
 Status key: [ ] todo; [~] in progress; [x] done and verified as stated; [!] skipped with a reason. A phase is done only after its full gate passes.
 
@@ -35,7 +35,7 @@ Status key: [ ] todo; [~] in progress; [x] done and verified as stated; [!] skip
 
 ## Phase 3 — hardware
 - [x] Device registry with one-time hashed keys, rotation/disable, admin screen and target-bound OTP. Three focused backend tests, device/layout lint and frontend typecheck passed. No live device registration performed.
-- [ ] Device-bound ingest schemas, timestamp sanity, duplicate/out-of-order handling and integration tests.
+- [x] Device-bound HTTP ingest, strict schema/identity checks, 24h/5min time window, deterministic replay handling and bridge repair. Primary-device dashboard/AI filtering and monotonic latest/analysis updates. Eight focused backend tests and one Python reader test passed. Live database behavior remains unverified.
 - [ ] Reconnect/backoff, NTP, sensor faults, watchdog, bounded firmware buffer, version and native logic tests.
 - [ ] Relay commands/acks with pending/applied/failed/timeout states, confirmation, admin-only server checks and audit.
 - [ ] Synthetic-only simulator and hardware/operator instructions.

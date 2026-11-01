@@ -8,8 +8,9 @@ from data import ingest
 
 
 def test_partition_reader_bounds_queries_and_prefers_partition(monkeypatch):
+    monkeypatch.setattr(cfg, 'DEVICE_ID', 'd')
     values = {
-        '/readings/solar_site': {'new': {'ts': 2, 'device_id': 'd', 'site_id': 'solar_site', 'power_mw': 3}},
+        '/readings/solar_site': {'new': {'ts': 2, 'device_id': 'd', 'site_id': 'solar_site', 'power_mw': 3}, 'secondary': {'ts': 4, 'device_id': 'secondary', 'site_id': 'solar_site', 'power_mw': 999}},
         '/solar_site/history': {'old': {'ts': 2, 'device_id': 'd', 'site_id': 'solar_site', 'power_mw': 1}, 'foreign': {'ts': 3, 'site_id': 'other'}},
     }
     calls = []
