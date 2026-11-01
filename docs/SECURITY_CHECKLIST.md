@@ -6,7 +6,7 @@
 - Before sharing any real Firebase service-account credentials, device passwords, Wi-Fi credentials, API keys, JWT secrets, SMTP credentials, or firmware `secrets.h`, keep them out of Git. **Must be rotated if ever shared** or exposed in Git history.
 - Check actual local configuration and any external repositories separately before deployment or sharing. Never paste real values into logs or issue reports.
 
-## Route access inventory (updated Phase 3)
+## Route access inventory (updated Phase 4)
 
 The dashboard router is mounted both at `/api` and `/api/voltvision`; entries below apply to both prefixes. The public health check is `/health`.
 
@@ -27,7 +27,10 @@ The dashboard router is mounted both at `/api` and `/api/voltvision`; entries be
 | POST `/api/relay/command` | Verified administrator + site access + output/device-bound OTP | Server/device permissions, explicit confirmation, 30-second expiry; intent/GPIO acknowledgement separate from physical state. |
 | GET `/api/telemetry/latest`, `/history`, `/analysis` | Verified JWT + configured-site membership | Admin global access; viewer/operator must have explicit siteIds. No query may override site. |
 | GET `/dashboard`, `/panels`, `/alerts`, `/forecast`, `/forecast/hourly`, `/ai/status`, `/bfci`, `/bfci/shap/:id`, `/cv`, `/cv/summary`, `/relay`, `/relay/history`, `/carbon`, `/carbon/monthly`, `/work-orders`, `/system`, `/health` | Verified JWT + configured-site membership | Several are unavailable stubs. Every route validates inputs; current server serves one configured site. |
-| PUT `/alerts/:id/resolve`, `/work-orders/:id`; PATCH `/work-orders/:id`; POST `/cv/scan`, `/carbon/report` | JWT | Admin or operator; currently return 501, no persistent action. |
+| GET `/alerts/:id`, `/work-orders/:id`, `/carbon/reports`, `/carbon/reports/:id`, `/carbon/reports/:id/pdf` | Verified JWT + configured-site membership | Persistent site-scoped records; report PDF/evidence/hash never publicly exposed. |
+| POST `/alerts`, `/work-orders`, `/work-orders/:id/comments`, `/carbon/report`; PUT `/alerts/:id/acknowledge`, `/alerts/:id/resolve`, `/work-orders/:id`; PATCH `/work-orders/:id` | Verified JWT + operator/admin + site | Strict schema, validated assignment, event/audit transaction, version conflict check and explicit report sufficiency policy. |
+| GET `/work-orders/assignees` | Verified JWT + operator/admin + site | Eligible verified account IDs/names only; bounded directory. |
+| POST `/cv/scan` | Verified JWT + operator/admin + site | Camera pipeline remains 501 until Phase 5. |
 | GET `/users` | JWT | Admin. |
 
 All browser mutations with a cookie require the X-Voltarax-Request header. Exact-origin CORS rejects unapproved origins. JSON-only parsing prevents ordinary cross-origin form login. Native bearer clients remain supported. HTTPS/proxy handling must be verified on the target host.
@@ -35,3 +38,5 @@ All browser mutations with a cookie require the X-Voltarax-Request header. Exact
 Express sessions and Firebase Authentication are separate trust systems. The web app accesses RTDB through the authorized server. Direct Firebase role-based reads require trusted custom role claims and access/{firebaseUid}/sites/{siteId}=true set by an operator; clients cannot grant either. Passwords, challenges and audit nodes deny all client reads/writes, including Firebase admin-role clients. The Admin SDK bypasses rules and depends on server checks.
 
 Simulator writes require an explicitly enabled, non-production demo project on the loopback database emulator. The CLI also verifies local API health before sending and refuses redirects. SMTP is disabled in demo mode. Tests use fake mail and generated short-lived credentials, never a real account or database.
+
+Relational tables are queried with the server's configured site; caller site overrides are rejected. SQL migrations/imports need explicit CLI flags and are never applied on API startup. Notification recipients come from reviewed server configuration, never from alert bodies; logs contain no message body, OTP, email or Redis credentials. Template rendering escapes text. Missing Redis/SMTP switches cleanly disable delivery; configured queue errors are logged without provider details. Report generation rejects synthetic/demo data and unverified factors; the saved synthetic PDF is only a test fixture.

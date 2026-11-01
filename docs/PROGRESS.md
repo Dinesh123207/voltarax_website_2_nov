@@ -1,6 +1,6 @@
 # Autopilot progress
 
-RESUME HERE: Phase 4 — relational audit import, notifications, ESG reports and gate
+RESUME HERE: Phase 4 — final post-tooling-patch backend gate, then tag and begin Phase 5
 
 Status key: [ ] todo; [~] in progress; [x] done and verified as stated; [!] skipped with a reason. A phase is done only after its full gate passes.
 
@@ -49,7 +49,10 @@ Status key: [ ] todo; [~] in progress; [x] done and verified as stated; [!] skip
 - [x] Persistent alert create/acknowledge/resolve/history; 30-second primary-telemetry collector records rule episodes and offline observations. Reading timestamps preserved in analysis, missing sensor estimates remain absent. Six focused API/analysis/authorization tests passed.
 - [x] Work orders from alerts, validated assignment, status, comments, due dates in IST, list/detail UI and history. Frontend typecheck and narrow lint passed. Real database/server and browser interaction checks remain pending.
 - [x] Relational audit adapter and explicit offline legacy audit import; focused actual-SQL test passed (1), including identifier-only redaction and duplicate import with no second effect. Dry-run is the default; no live export/import performed.
-- [ ] Queued notifications, real-data ESG PDF, backup instructions, gate and phase tag.
+- [x] BullMQ transactional outbox, capped exponential retries, retained/reconciled dead letters and disabled defaults; three focused notification/template tests passed with fake queue/mail and actual PGlite. No real mail/Redis execution.
+- [x] Evidence-backed ESG PDF generation and immutable snapshots/hash, IST periods, coverage/factor/synthetic refusal, authenticated review/download UI. Three focused tests and frontend typecheck passed; synthetic two-page fixture visually inspected and text/page-count checked. Actual real-data report verification remains manual.
+- [x] pgBackRest/Firebase backup and isolated restore instructions prepared in DEPLOY.md; live service setup, encryption/retention choices and restore drills are operator tasks and were not run.
+- [~] Local gate: initial 43 backend tests, frontend full lint/typecheck/build and 9 AI tests passed. Compose config and patched schema generation passed. Production audits frontend 0/backend 8 moderate; patched full backend audit 21 moderate, no high/critical. Scan: 443 files/no matches, diff check passed. Final backend rerun after the scoped schema-tool patch is running; no phase tag yet.
 
 ## Phase 5 — camera and coating
 - [ ] Authenticated camera proxy and real manual inspection records; gate and phase tag.

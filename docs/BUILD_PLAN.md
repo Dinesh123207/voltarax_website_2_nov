@@ -97,7 +97,7 @@ The blueprint proposes an alternative delivery order; `AGENTS.md` specifies the 
 
 ## Migration and release safeguards
 
-Current in-place implementation and verification are tracked in PROGRESS.md. The original isolation/new-app/no-Git notes below are historical and superseded by AGENTS.md and the final autopilot request. Phase 3 now includes a verified demo-only simulator, cold-cache RTDB transaction regression fix, recorded energy coverage and virtual-panel semantics. The end-of-phase gate must pass before Phase 4 relational work begins.
+Current in-place implementation and verification are tracked in PROGRESS.md. The original isolation/new-app/no-Git notes below are historical and superseded by AGENTS.md and the final autopilot request. Phase 3's local gate passed. Phase 4 implements relational lifecycle/audit/outbox/report persistence with PGlite tests, operator screens, qualified reports and backup runbooks. Its remaining gate results must pass before Phase 5 camera/coating work starts; real services/data remain manual checks.
 
 1. Keep the legacy application and Firebase data untouched; inventory the live schema, rules and backup/restore procedure before migration.
 2. Create the new application in isolation. Use test credentials only; never send real messages or run live payments in development.

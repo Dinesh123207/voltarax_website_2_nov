@@ -13,6 +13,7 @@ test('operations HTTP enforces role/site/CSRF, validates assignees and preserves
   const service = createOperations(c.db);
   const app = express(); app.use(express.json(), require('cookie-parser')()); app.use(require('../services/dataQuality').responseQuality);
   app.use(createOperationsRouter({ operations: async () => service, users }));
+  app.use(require('../routes/reports').createReportsRouter({ reports: async () => require('../services/reports').createReports(c.db, { env: {}, readReadings: async () => [], now: () => Date.parse('2026-11-01T00:00:00Z') }) }));
   app.use(require('../middleware/security').errorHandler({ error() {} }));
   const server = app.listen(0, '127.0.0.1'); await new Promise(resolve => server.once('listening', resolve)); t.after(() => new Promise(resolve => server.close(resolve)));
   const base = `http://127.0.0.1:${server.address().port}`;
@@ -43,6 +44,12 @@ test('operations HTTP enforces role/site/CSRF, validates assignees and preserves
   assert.equal((await (await request(`/alerts/${alert.id}`, 'viewer')).json()).history.length, 3);
   assert.equal((await (await request(`/work-orders/${order.id}`, 'viewer')).json()).history.length, 4);
   assert.equal((await request('/work-orders?status=bad', 'viewer')).status, 422);
+  assert.equal((await request('/carbon/reports')).status, 401);
+  assert.equal((await request('/carbon/reports', 'unassigned')).status, 403);
+  assert.equal((await request('/carbon/reports', 'viewer')).status, 200);
+  assert.equal((await request('/carbon/report', 'viewer', 'POST', { start: '2026-10-01', end: '2026-10-01' })).status, 403);
+  assert.equal((await request('/carbon/report', 'operator', 'POST', { start: '2026-10-01', end: '2026-10-01' })).status, 422);
+  assert.equal((await request('/carbon/reports/missing/pdf', 'viewer')).status, 404);
 });
 test('unconfigured storage returns an explicit unavailable result', async t => {
   const app = express(); app.use(createOperationsRouter({ operations: async () => { throw new OperationError(503, 'Alert and maintenance storage is not configured.'); } }));

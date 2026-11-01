@@ -16,6 +16,7 @@
   "dependencies": {
     "@react-email/render": "2.2.0",
     "bcryptjs": "^2.4.3",
+    "bullmq": "6.5.3",
     "cookie-parser": "1.4.7",
     "cors": "^2.8.5",
     "dotenv": "^16.3.1",
@@ -26,6 +27,7 @@
     "helmet": "^7.1.0",
     "jsonwebtoken": "^9.0.2",
     "nodemailer": "10.3.1",
+    "pdfkit": "0.20.2",
     "pg": "8.23.1",
     "pino": "10.4.0",
     "rate-limit-redis": "6.0.2",
@@ -45,6 +47,9 @@
   "overrides": {
     "@firebase/firestore": {
       "@grpc/grpc-js": "1.14.7"
+    },
+    "@esbuild-kit/core-utils": {
+      "esbuild": "0.28.2"
     }
   }
 }

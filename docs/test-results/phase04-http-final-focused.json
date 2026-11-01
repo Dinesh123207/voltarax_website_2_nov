@@ -1,0 +1,13 @@
+{
+  "command": [
+    "node",
+    "--test",
+    "--test-concurrency=1",
+    "tests/authorization.test.js",
+    "tests/operations-api.test.js",
+    "tests/solar-analytics.test.js"
+  ],
+  "cwd": "voltarax-web/backend",
+  "exit_code": 0,
+  "seconds": 19.87
+}

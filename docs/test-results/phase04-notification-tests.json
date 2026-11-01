@@ -1,0 +1,11 @@
+{
+  "command": [
+    "node",
+    "--test",
+    "tests/notifications.test.js",
+    "tests/mailer.test.js"
+  ],
+  "cwd": "voltarax-web/backend",
+  "exit_code": 0,
+  "seconds": 16.56
+}

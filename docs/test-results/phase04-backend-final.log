@@ -1,0 +1,55 @@
+
+> voltarax-backend@2.0.0 test
+> node --test --test-concurrency=1 tests/*.test.js
+
+✔ account lifecycle verifies email, scopes sites, rejects elevation and revokes cookie/native sessions (458.7021ms)
+✔ stale or undated AI output is unavailable (2.0957ms)
+✔ analysis excludes another site even when its legacy value is newer (4.9091ms)
+✔ admin-only endpoint rejects unauthenticated and viewer requests (5540.1997ms)
+✔ bootstrap is explicitly enabled, once only and never creates a verified/default account (9.4747ms)
+✔ stale or missing telemetry never becomes current zero power or offline panel counts (12.953ms)
+✔ missing values are unavailable and valid zero values retain their quality (1.6804ms)
+✔ nested API values receive quality without treating missing readings as zero (3.6939ms)
+✔ response annotation honors record redaction and labels empty array responses (3.7606ms)
+✔ ingest is idempotent, rejects conflicting replay/time skew and never rolls latest back (7.3893ms)
+✔ device registry hashes one-time keys, rejects duplicate registration, rotates and disables credentials (10.9781ms)
+✔ period starts follow India time across month and year boundaries (3.628ms)
+✔ integrates milliwatts over seconds, clips periods and caps stale gaps (0.6876ms)
+✔ energy coverage distinguishes missing/faulted power from a recorded zero (1.7804ms)
+✔ timestamp range is pushed to Firebase without limiting before site filtering (11.922ms)
+✔ HTTP boundary enforces origins, headers, validation, safe errors and scoped rate limits without logging inputs (496.7619ms)
+✔ React Email renders both formats and mail defaults to disabled (109.3098ms)
+✔ offline migration is site scoped, preserves keys and is repeatable (3.3676ms)
+✔ notifications default disabled and reject incomplete/invalid/demo configuration (503.614ms)
+✔ transactional outbox dispatch retries, skips duplicate delivery and preserves terminal failures with fake mail only (12010.2873ms)
+✔ operations HTTP enforces role/site/CSRF, validates assignees and preserves real history (20124.8951ms)
+✔ unconfigured storage returns an explicit unavailable result (77.9107ms)
+✔ relational lifecycle is site-scoped, atomic, persistent and safe against concurrent edits (25626.8346ms)
+✔ rule episodes deduplicate replay, preserve acknowledgement and require a cleared condition to recur (8842.0341ms)
+✔ OTP is six digits, hashed at rest and consumed exactly once under concurrency (10.1183ms)
+✔ OTP expires after ten minutes, enforces five attempts and throttles resends (2.4026ms)
+✔ verification is purpose bound and never accepts an absent challenge (1.3158ms)
+✔ relay defaults disabled, serializes commands and requires a matching acknowledgement (5.1524ms)
+✔ late/mismatched/missing acknowledgements never become an applied command (1.3631ms)
+✔ a server-timestamped acknowledgement received before the deadline survives a later reconciliation (1.094ms)
+✔ reports enforce valid IST periods, coverage, real-data policy and explicit factor provenance (5.3058ms)
+✔ synthetic report layout is generated as an explicitly marked two-page test fixture (587.8978ms)
+✔ report snapshots persist in SQL, preserve hash and enforce site isolation (22122.7918ms)
+✔ simulator defaults to marked synthetic data and cannot send to production/unconfirmed targets (23.0583ms)
+✔ missing essential readings cannot result in a healthy score (2.2189ms)
+✔ analysis stays bound to its input timestamp and never invents a missing temperature (0.459ms)
+✔ collector records offline observations without treating them as new measurements (12.1312ms)
+✔ new and inactive subscribers are persisted as active (451.0721ms)
+✔ pages past other sites, merges old and new history, and keeps tied timestamps (53.5357ms)
+✔ writes one atomic compatibility update and validates site paths (2.9575ms)
+✔ migration marker disables legacy reads only for that site (8.132ms)
+✔ primary device filtering pages past secondary rows before applying a limit (1.2513ms)
+✔ user repository reserves a normalized email once and atomically revokes sessions with sensitive changes (2118.9038ms)
+ℹ tests 43
+ℹ suites 0
+ℹ pass 43
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 122161.3456

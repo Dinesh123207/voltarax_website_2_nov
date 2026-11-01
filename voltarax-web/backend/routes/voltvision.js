@@ -126,7 +126,6 @@ router.get('/carbon', protect, requireSite, dashboardValidation('get', '/carbon'
   } catch (err) { res.status(500).json({ success:false,message:'Carbon analytics unavailable.'}); }
 });
 router.get('/carbon/monthly', protect, requireSite, dashboardValidation('get', '/carbon/monthly'), async (req,res)=>res.json({ months: [] }));
-router.post('/carbon/report', protect, requireOperator, requireSite, dashboardValidation('post', '/carbon/report'), async (req,res)=>res.status(501).json({success:false,message:'ESG report generation is coming soon.'}));
 
 router.get('/users', protect, requireAdmin, requireSite, dashboardValidation('get', '/users'), async (req,res)=>{
   try { const User=require('../models/User'); const users=await User.find({}, {password:0,resetToken:0,resetTokenExpiry:0}).lean(); res.json({data:users}); }

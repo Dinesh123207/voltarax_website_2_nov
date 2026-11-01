@@ -1,0 +1,8 @@
+{
+  "file": "phase04-esg-layout-fixture.pdf",
+  "pages": 2,
+  "text_checks": "passed with bundled pypdf; kerning whitespace normalized",
+  "fixture": "synthetic only; not a real ESG statement",
+  "visual_review": "both rendered page PNGs inspected; no clipping or overlapping content",
+  "renderer_notes": "Poppler reported fallback Symbol/ArialUnicode font warnings; inspected pages render correctly using Helvetica"
+}

@@ -1,0 +1,11 @@
+✔ reports enforce valid IST periods, coverage, real-data policy and explicit factor provenance (15.018ms)
+✔ synthetic report layout is generated as an explicitly marked two-page test fixture (1685.672ms)
+✔ report snapshots persist in SQL, preserve hash and enforce site isolation (39757.2343ms)
+ℹ tests 3
+ℹ suites 0
+ℹ pass 3
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 45668.5087

@@ -1,0 +1,13 @@
+{
+  "command": [
+    "docker",
+    "compose",
+    "--env-file",
+    ".env.example",
+    "config",
+    "--quiet"
+  ],
+  "cwd": "voltarax-web",
+  "exit_code": 0,
+  "seconds": 4.05
+}

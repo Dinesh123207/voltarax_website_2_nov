@@ -61,9 +61,11 @@ function evaluate(reading, config = {}) {
     score = null;
     alerts.unshift('Insufficient power, light or temperature readings for health analysis');
   }
-  if (age > 60) {
+  const maximumAge = Number(config.maximumAgeSeconds ?? process.env.MAX_TELEMETRY_AGE_SECONDS ?? 120);
+  if (!Number.isFinite(maximumAge) || maximumAge < 5 || maximumAge > 86400) throw new Error('Invalid telemetry freshness policy');
+  if (age > maximumAge) {
     status = 'OFFLINE';
-    alerts.unshift('No data for over 60 s - check NodeMCU / WiFi');
+    alerts.unshift(`No data for over ${maximumAge} s - check NodeMCU / WiFi`);
   }
 
   return {

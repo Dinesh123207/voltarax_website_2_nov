@@ -2,6 +2,7 @@
 import { useEffect, useState } from 'react';
 import { Leaf, RefreshCw, ExternalLink, Globe, TrendingUp } from 'lucide-react';
 import DataQualityBadge from '@/components/ui/DataQualityBadge';
+import Reports from '@/components/operations/Reports';
 
 
 export default function CarbonPage() {
@@ -20,7 +21,7 @@ export default function CarbonPage() {
       ]);
       setData(c?.success === false ? null : c);
       setMonthly(Array.isArray(m) ? m : (m?.months || []));
-    } catch {}
+    } catch { setData(null); setMonthly([]); }
     finally { setLoading(false); }
   };
 
@@ -109,10 +110,10 @@ export default function CarbonPage() {
             </div>
             <div className="space-y-3">
               {[
-                { label: 'Today Generation',  value: `${data.today_kwh} kWh` },
+                { label: 'Recorded Generation Today', value: data.today_kwh == null ? 'Unavailable' : `${data.today_kwh} kWh` },
                 { label: 'Grid Saved (Year)', value: data.grid_saved_inr == null ? 'Unavailable' : `₹${data.grid_saved_inr.toLocaleString('en-IN')}` },
-                { label: 'Emission Factor',   value: `${data.emission_factor} kg/kWh` },
-                { label: 'Monthly kWh',       value: `${data.month_kwh} kWh` },
+                { label: 'Emission Factor', value: data.emission_factor == null ? 'Unavailable' : `${data.emission_factor} kg/kWh` },
+                { label: 'Recorded Monthly kWh', value: data.month_kwh == null ? 'Unavailable' : `${data.month_kwh} kWh` },
               ].map(({ label, value }) => (
                 <div key={label} className="flex items-center justify-between py-1.5 border-b border-green-900/10 last:border-0">
                   <div className="text-slate-400 text-sm">{label}</div>
@@ -120,13 +121,11 @@ export default function CarbonPage() {
                 </div>
               ))}
             </div>
-            <button disabled
-              className="btn-green w-full justify-center py-2.5 text-sm mt-auto disabled:opacity-60">
-              <TrendingUp size={14} /> ESG report coming soon
-            </button>
+            <a href="#saved-reports" className="btn-green w-full justify-center py-2.5 text-sm mt-auto"><TrendingUp size={14} /> Review saved reports</a>
           </div>
         )}
       </div>
+      <Reports />
     </div>
   );
 }

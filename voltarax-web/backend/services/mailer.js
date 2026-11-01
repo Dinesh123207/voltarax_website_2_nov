@@ -16,6 +16,9 @@ async function otpMessage({ code, purpose, expiresMinutes }) {
   return { subject: 'Voltarax verification code', html, text: toPlainText(html) };
 }
 async function sendOtp(data) {
+  return sendMessage({ to: data.email, message: await otpMessage(data) });
+}
+async function sendMessage({ to, message, messageId }) {
   if (!mailConfigured()) throw new Error('Email verification is not configured');
   const port = Number(process.env.SMTP_PORT || 587);
   if (![465, 587].includes(port)) throw new Error('SMTP requires a TLS port');
@@ -23,6 +26,7 @@ async function sendOtp(data) {
     requireTLS: true, auth: { user: process.env.SMTP_USER, pass: process.env.SMTP_PASS },
     disableFileAccess: true, disableUrlAccess: true, logger: false, debug: false,
     connectionTimeout: 10000, socketTimeout: 15000 });
-  await transport.sendMail({ from: process.env.SMTP_FROM, to: data.email, ...(await otpMessage(data)) });
+  try { await transport.sendMail({ from: process.env.SMTP_FROM, to, ...message, ...(messageId ? { messageId } : {}) }); }
+  finally { transport.close(); }
 }
-module.exports = { mailConfigured, otpMessage, sendOtp };
+module.exports = { mailConfigured, otpMessage, sendOtp, sendMessage };

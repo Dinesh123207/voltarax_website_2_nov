@@ -16,7 +16,7 @@ New readings use `readings/{site}/{key}` with an index on `ts`; current readings
 
 ## Unavailable features
 
-Persistent alert resolution, CV scans, work-order updates and ESG report generation currently return HTTP 501 after authentication and operator/admin checks. Their UI actions are disabled and marked coming soon. Empty lists are not evidence of a working inspection/maintenance pipeline.
+CV scans remain HTTP 501 until Phase 5. Persistent alerts/work orders and ESG reports now have the Phase 4 contracts below; without configured/migrated SQL storage they return 503. Empty lists are not evidence of fault-free equipment or a working camera pipeline.
 
 ## Phase 2 API changes
 - Registration (POST /api/auth/register) takes name, email, password (12–72 characters and at most 72 UTF-8 bytes), optional company. It returns 202 after requesting verification, with no session. New users are viewers with no sites assigned.
@@ -35,8 +35,6 @@ Persistent alert resolution, CV scans, work-order updates and ESG report generat
 - PATCH /api/devices/:id: administrator, body {enabled,relayEnabled,code}, sensitive action:'device-configure'. No self-service device enrollment or public credential recovery.
 - Device list metadata includes last_seen and firmware_version; these remain null/Unavailable until accepted device traffic is received. Relay permission defaults false and does not itself issue a command.
 
-## Recorded energy, panel allocation and simulator limits
-
 ## Persistent operations (Phase 4)
 The same routes are mounted at /api and /api/voltvision. They require configured/migrated PostgreSQL; missing storage returns 503 rather than an empty success. Verified site members read; operator/admin mutations also require the browser request header. Records use camelCase field names and ISO timestamps; displays use IST.
 
@@ -45,6 +43,12 @@ The same routes are mounted at /api and /api/voltvision. They require configured
 - GET /work-orders/:id returns a detail/history. PUT or PATCH /work-orders/:id takes version,note and at least one of status,priority,assigneeId,dueAt. Stale versions return 409. Status flow is open → in_progress → closed; closed records are read-only, with additional comments supported by POST /work-orders/:id/comments {note}.
 - The telemetry rule collector runs every 30 seconds when storage is configured. It deduplicates active rule episodes, observes offline age, and preserves resolved records until a cleared condition recurs. No alert record or empty list proves equipment safety or repair.
 
+## ESG report snapshots (Phase 4)
+POST /carbon/report takes {start,end}, inclusive calendar dates YYYY-MM-DD in IST, with operator/admin authorization. It accepts only completed periods of one to thirty-one days, sufficient recorded-power coverage (minimum 90%), an explicit positive operator-verified factor/source and no synthetic readings. Inadequate evidence returns 422; missing storage returns 503. It stores immutable evidence/PDF/hash plus audit and returns the ID, evidence and SHA-256.
+
+GET /carbon/reports (limit 1–100, default 50) lists metadata; /carbon/reports/:id returns evidence/hash; /carbon/reports/:id/pdf streams the authenticated attachment. All are site scoped. Coverage, energy and record counts are Calculated, carbon/factor Estimated, physical uptime Unavailable. A real-data issuance or applicable factor was not verified in this run; the layout fixture is clearly synthetic.
+
+## Recorded energy, panel allocation and simulator limits
 Dashboard energy and carbon totals integrate only valid recorded power intervals, capped at fifteen minutes per adjacent pair. No covered interval returns null/Unavailable; a covered interval with measured zero power returns zero. Dashboard energy_coverage_pct describes coverage of the elapsed IST day; carbon responses expose covered seconds by period. Gaps are not extrapolated and partial totals are not full-period yield claims. Carbon remains an estimate using the configured emission factor; its source must be reviewed before an ESG report is issued.
 
 The panel grid is a virtual equal allocation of the primary site's reading only when SOLAR_PANEL_COUNT is explicitly configured. An unset count returns an empty list. Labels are virtual positions, not registered panel IDs. Per-panel health, voltage and temperature remain Unavailable; site_sensor_temp_c is the actual site sensor reading and panel_temp_avg_c remains null. No default count or inferred healthy/fault count is published.

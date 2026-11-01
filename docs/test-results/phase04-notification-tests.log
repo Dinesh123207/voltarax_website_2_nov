@@ -1,0 +1,11 @@
+✔ React Email renders both formats and mail defaults to disabled (153.0608ms)
+✔ notifications default disabled and reject incomplete/invalid/demo configuration (427.0458ms)
+✔ transactional outbox dispatch retries, skips duplicate delivery and preserves terminal failures with fake mail only (11220.4014ms)
+ℹ tests 3
+ℹ suites 0
+ℹ pass 3
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 16154.4

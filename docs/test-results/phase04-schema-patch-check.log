@@ -1,0 +1,14 @@
+No config path provided, using default 'drizzle.config.ts'
+Reading config file 'C:\Users\JARVIS\Desktop\VOLTARAX\voltarax-web\backend\drizzle.config.ts'
+9 tables
+alert_events 7 columns 1 indexes 1 fks
+alert_signals 5 columns 1 indexes 1 fks
+alerts 15 columns 1 indexes 0 fks
+audit_events 10 columns 1 indexes 0 fks
+notification_outbox 8 columns 1 indexes 0 fks
+esg_reports 9 columns 1 indexes 0 fks
+site_operation_state 2 columns 0 indexes 0 fks
+work_order_events 7 columns 1 indexes 1 fks
+work_orders 15 columns 1 indexes 1 fks
+
+No schema changes, nothing to migrate 😴
