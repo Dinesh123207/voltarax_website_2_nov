@@ -1,0 +1,9 @@
+{
+  "command": [
+    "python",
+    "tools/audit-dependencies.py"
+  ],
+  "cwd": ".",
+  "exit_code": 0,
+  "seconds": 24.84
+}

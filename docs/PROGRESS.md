@@ -1,6 +1,6 @@
 # Autopilot progress
 
-RESUME HERE: Phase 7 — full backend/frontend/AI/audit/scan gate, tag only if passing, then Phase 8
+RESUME HERE: Phase 8 — verify public claims/clock, then English-Hindi routing/messages, SEO/legal drafts, accessibility/performance and gate
 
 Status key: [ ] todo; [~] in progress; [x] done and verified as stated; [!] skipped with a reason. A phase is done only after its full gate passes.
 
@@ -81,9 +81,14 @@ Status key: [ ] todo; [~] in progress; [x] done and verified as stated; [!] skip
 - [x] Public pricing, buyer order/detail/test Checkout/invoice links and admin plan/version/order/reconciliation/manual-refund screens. Account pages remain outside site-scoped dashboard so verified buyers do not need site access. Unset/disabled/error/uncertain states explicit; Razorpay loads only on a guarded buyer click. Narrow lint/typecheck passed; real browser/provider flow remains E2E/manual.
 - [x] Exact decimal-INR to integer-paise conversion regression passed. Pinned SDK constructor-only test verifies ten-second/no-redirect adapter without a request. Six SQL order/lifecycle guard regressions passed; a fresh request key cannot bypass pending/uncertain/review-required purchase of the same plan. No live order/refund API was called.
 - [x] Fake gateway/local SQL/HTTP tests and one-page synthetic test receipt review passed as recorded; captured signatures, idempotence, owner isolation and test/non-GST labels implemented.
-- [ ] Full phase gate and tag. Real test-account checkout/PostgreSQL/browser behavior remain separate manual checks; GST invoices blocked until actual tax configuration/review.
+- [x] Local gate: 65 backend tests, 28 AI tests, full lint/typecheck and production build (48.66 s) passed. Production audits frontend 0/backend 8 moderate/no high-critical. Scan: 651 files/no matches; diff passed. Evidence: test-results/phase07-gate-*. Tag: phase-07-done. Browser/provider test checkout, real PostgreSQL and GST/legal/tax remain manual, never claimed complete.
 
 ## Phase 8 — public website
+- [ ] Current capability/content and metadata review, remove unsupported remaining claims; responsive navigation and IST header clock.
+- [ ] next-intl English/Hindi routing/messages/switcher; preserve existing app/auth/hardware paths and localize public/core workflows.
+- [ ] Metadata, next-sitemap, Open Graph and Organization/Product structured data without invented business facts; indexing off until configured/reviewed.
+- [ ] Privacy/Terms/Refund drafts with current official India sources and explicit legal review; no invented retention/contact/seller tax facts.
+- [ ] Accessibility/360 px, form spam/performance checks and PDF Hindi/font coverage review; run actual checks and record any limits.
 - [ ] Verified claims, English/Hindi, SEO, legal drafts, accessibility, performance and IST clock.
 - [ ] Gate and phase tag.
 

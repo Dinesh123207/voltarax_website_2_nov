@@ -1,0 +1,55 @@
+
+> voltarax-frontend@1.0.0 build
+> next build
+
+   ▲ Next.js 15.5.28
+   - Experiments (use with caution):
+     · cpus: 1
+
+   Creating an optimized production build ...
+ ✓ Compiled successfully in 10.1s
+   Linting and checking validity of types ...
+   Collecting page data ...
+   Generating static pages (0/25) ...
+   Generating static pages (6/25) 
+   Generating static pages (12/25) 
+   Generating static pages (18/25) 
+ ✓ Generating static pages (25/25)
+   Finalizing page optimization ...
+   Collecting build traces ...
+
+Route (app)                                 Size  First Load JS
+┌ ○ /                                    4.66 kB         111 kB
+├ ○ /_not-found                            995 B         104 kB
+├ ○ /about                               2.46 kB         109 kB
+├ ○ /account/orders                      3.37 kB         110 kB
+├ ƒ /account/orders/[id]                 2.23 kB         112 kB
+├ ○ /contact                                5 kB         117 kB
+├ ○ /dashboard                           4.41 kB         107 kB
+├ ○ /dashboard/alerts                    2.45 kB         109 kB
+├ ○ /dashboard/bfci                        119 B         107 kB
+├ ○ /dashboard/carbon                     4.8 kB         108 kB
+├ ○ /dashboard/commerce                  1.83 kB         112 kB
+├ ○ /dashboard/cv                          119 B         107 kB
+├ ○ /dashboard/devices                   2.23 kB         105 kB
+├ ○ /dashboard/forecast                  3.67 kB         106 kB
+├ ○ /dashboard/panels                    3.38 kB         106 kB
+├ ○ /dashboard/relay                     2.57 kB         105 kB
+├ ○ /dashboard/settings                  2.75 kB         106 kB
+├ ○ /dashboard/users                     3.62 kB         106 kB
+├ ○ /dashboard/work-orders                2.5 kB         109 kB
+├ ƒ /dashboard/work-orders/[id]          2.57 kB         109 kB
+├ ○ /login                               1.75 kB         108 kB
+├ ○ /pricing                             3.99 kB         110 kB
+├ ○ /products                            2.15 kB         108 kB
+├ ○ /sustainability                      2.15 kB         108 kB
+└ ○ /technology                          2.14 kB         108 kB
++ First Load JS shared by all             103 kB
+  ├ chunks/255-b1e2483a7e02feee.js       46.6 kB
+  ├ chunks/4bd1b696-c023c6e3521b1417.js  54.2 kB
+  └ other shared chunks (total)          1.99 kB
+
+
+○  (Static)   prerendered as static content
+ƒ  (Dynamic)  server-rendered on demand
+

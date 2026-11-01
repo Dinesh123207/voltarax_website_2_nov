@@ -4,6 +4,8 @@
 
 ## Active roadmap
 
+Phase 7 is locally gated/tagged (65 backend, 28 AI, full lint/typecheck/build/audit/scan/diff passed). Continue Phase 8 on its own branch. Real commerce/provider/PostgreSQL/tax checks remain explicit manual limits, not verified capabilities.
+
 Phase 7 UI task verified by narrow lint/typecheck, exact currency conversion and six order/lifecycle regressions. Full phase gate is now required before phase-07-done. Next Phase 8 adds English/Hindi/SEO/legal/accessibility and reviews PDF font coverage; no browser/provider/hardware or tax claim is established.
 
 Phase 7 lifecycle/API task verified: four SQL lifecycle tests, raw-body HTTP integration and synthetic receipt PDF text/page/visual review passed. Buyer/admin UI and final full gate are next; actual gateway/PostgreSQL/tax remain manual. No phase tag yet.
