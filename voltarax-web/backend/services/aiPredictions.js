@@ -13,11 +13,13 @@
 const { db } = require('../config/firebase');
 
 const SITE_ID = process.env.SOLAR_SITE_ID || 'solar_site';
+const MAX_AGE_SECONDS = Number(process.env.AI_MAX_AGE_SECONDS || 7200);
 
 async function readSection(section) {
   const snap = await db.ref(`/${SITE_ID}/ai/${section}`).get();
   const value = snap.exists() ? snap.val() : null;
-  return value && value.status === 'ok' ? value : null;
+  const age = Math.floor(Date.now() / 1000) - Number(value?.updated_at);
+  return value && value.status === 'ok' && Number.isFinite(age) && age >= 0 && age <= MAX_AGE_SECONDS ? value : null;
 }
 
 const getAiForecast = () => readSection('forecast');

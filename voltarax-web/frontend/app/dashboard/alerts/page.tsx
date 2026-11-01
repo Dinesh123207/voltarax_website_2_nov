@@ -29,18 +29,6 @@ export default function AlertsPage() {
 
   useEffect(() => { load(); }, [resolved]);
 
-  const resolve = async (id: number) => {
-    const token = localStorage.getItem('vv_token');
-    try {
-      await fetch(`/api/alerts/${id}/resolve`, {
-        method: 'PUT',
-        headers: { 'Content-Type':'application/json', Authorization: `Bearer ${token}` },
-        body: JSON.stringify({ resolved: true }),
-      });
-      load();
-    } catch { }
-  };
-
   const displayed = sevFilter === 'all' ? alerts : alerts.filter(a => a.severity === sevFilter);
 
   return (

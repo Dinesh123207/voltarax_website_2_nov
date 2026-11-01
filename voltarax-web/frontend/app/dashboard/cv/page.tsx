@@ -15,7 +15,6 @@ export default function CVPage() {
   const [detections, setDetections] = useState<any[]>([]);
   const [summary,    setSummary]    = useState<any>(null);
   const [loading,    setLoading]    = useState(true);
-  const [scanning,   setScanning]   = useState(false);
   const [clsFilter,  setClsFilter]  = useState('all');
 
   const load = async () => {
@@ -33,20 +32,6 @@ export default function CVPage() {
     finally { setLoading(false); }
   };
 
-  const triggerScan = async () => {
-    setScanning(true);
-    try {
-      const token = localStorage.getItem('vv_token');
-      await fetch(`/api/cv/scan`, {
-        method: 'POST',
-        headers: { 'Content-Type':'application/json', Authorization: `Bearer ${token}` },
-        body: JSON.stringify({ panel_ids: null }),
-      });
-      setTimeout(load, 3000);
-    } catch {}
-    finally { setScanning(false); }
-  };
-
   useEffect(() => { load(); }, []);
 
   const filtered = clsFilter === 'all' ? detections : detections.filter(d => d.cv_class === clsFilter);
@@ -61,8 +46,8 @@ export default function CVPage() {
         </div>
         <div className="flex gap-2">
           <a href={`/api/cv/summary`} target="_blank" rel="noopener noreferrer" className="btn-outline py-2 px-3 text-xs"><ExternalLink size={12}/> API</a>
-          <button onClick={triggerScan} disabled={scanning} className="btn-outline py-2 px-3 text-xs text-green-400 border-green-500/40 disabled:opacity-60">
-            <Play size={12} className={scanning?'animate-pulse':''}/> {scanning?'Scanning…':'Trigger Scan'}
+          <button disabled className="btn-outline py-2 px-3 text-xs text-green-400 border-green-500/40 disabled:opacity-60">
+            <Play size={12} /> Scan coming soon
           </button>
           <button onClick={load} disabled={loading} className="btn-green py-2 px-3 text-xs disabled:opacity-60">
             <RefreshCw size={12} className={loading?'animate-spin':''}/> Refresh

@@ -25,16 +25,6 @@ export default function CarbonPage() {
 
   useEffect(() => { load(); }, []);
 
-  const genReport = async () => {
-    try {
-      const token = localStorage.getItem('vv_token');
-      const h: Record<string, string> = token ? { Authorization: `Bearer ${token}` } : {};
-      const r = await fetch(`/api/carbon/report`, { method: 'POST', headers: h });
-      const d = await r.json();
-      alert(d.message || 'Report queued!');
-    } catch { alert('Could not generate report'); }
-  };
-
   return (
     <div className="space-y-6">
       <div className="flex items-center justify-between">
@@ -128,9 +118,9 @@ export default function CarbonPage() {
                 </div>
               ))}
             </div>
-            <button onClick={genReport}
-              className="btn-green w-full justify-center py-2.5 text-sm mt-auto">
-              <TrendingUp size={14} /> Generate ESG Report
+            <button disabled
+              className="btn-green w-full justify-center py-2.5 text-sm mt-auto disabled:opacity-60">
+              <TrendingUp size={14} /> ESG report coming soon
             </button>
           </div>
         )}

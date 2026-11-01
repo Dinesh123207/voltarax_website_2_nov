@@ -57,9 +57,9 @@ export default function UsersPage() {
         </div>
         <div className="grid grid-cols-3 gap-3">
           {[
-            { role: 'admin',    perms: 'Full access — users, relay, settings, all data' },
-            { role: 'operator', perms: 'Dashboard, alerts, work orders, relay override' },
-            { role: 'viewer',   perms: 'Read-only dashboard — no relay, no settings' },
+            { role: 'admin',    perms: 'Access to the user list and admin content.' },
+            { role: 'operator', perms: 'Authenticated dashboard access.' },
+            { role: 'viewer',   perms: 'Authenticated dashboard access.' },
           ].map(({ role, perms }) => (
             <div key={role} className={`rounded-lg border px-3 py-2 ${ROLE_COL[role]}`}>
               <div className="font-bold text-xs uppercase font-mono mb-1">{role}</div>
