@@ -35,12 +35,10 @@ function cleanPayload(body) {
   const fields = ['voltage_v','current_ma','power_mw','light_lux','temp_c','humidity_pct','dust_ugm3','rssi','uptime_s'];
   const out = {};
   for (const key of fields) if (body[key] !== undefined && Number.isFinite(Number(body[key]))) out[key] = Number(body[key]);
-  out.sensors_ok = {
-    ina219: body.sensors_ok?.ina219 !== false,
-    bh1750: body.sensors_ok?.bh1750 !== false,
-    dht11: body.sensors_ok?.dht11 !== false,
-    dust: body.sensors_ok?.dust !== false,
-  };
+  out.sensors_ok = {};
+  for (const sensor of ['ina219', 'bh1750', 'dht11', 'dust']) {
+    if (typeof body.sensors_ok?.[sensor] === 'boolean') out.sensors_ok[sensor] = body.sensors_ok[sensor];
+  }
   out.ts = body.ts ? Number(body.ts) : Math.floor(Date.now() / 1000);
   out.device_id = String(body.device_id || 'nodemcu-01').slice(0, 64);
   out.site_id = SITE_ID;

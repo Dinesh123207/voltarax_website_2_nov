@@ -9,7 +9,7 @@ type Msg = { id: number; role: 'user' | 'bot'; text: string; chips?: string[] };
 const QUESTIONS = ['What is VoltVision?', 'How does the coating work?', 'What can the AI do?'];
 const ANSWERS: Record<string, string> = {
   'what is voltvision?': "VoltVision AI is Voltarax's renewable-energy intelligence platform for bio-coated solar panels. It displays site readings and calculated health when telemetry is available.",
-  'how does the coating work?': 'The bio-fluorescent coating is made from fruit-peel waste. It converts UV light into visible light that solar cells can use, while the platform tracks panel and coating health.',
+  'how does the coating work?': 'The bio-fluorescent coating is made from fruit-peel waste and is intended to convert UV light into visible light. Coating health monitoring is planned.',
   'what can the ai do?': 'VoltVision supports site telemetry and rule-based analysis, with data-driven estimates when sufficient history is available. Camera inspection and automated controls are planned.',
 };
 

@@ -9,7 +9,7 @@ const ENTRIES = [
   { id: 'what', kws: ['what', 'voltvision', 'platform', 'product', 'voltarax'],
     a: "VoltVision AI is Voltarax's renewable-energy intelligence platform for bio-coated solar panels. It displays site readings and calculated health when telemetry is available." },
   { id: 'coating', kws: ['coating', 'bio', 'fluorescent', 'peel', 'organic', 'waste'],
-    a: 'The bio-fluorescent coating is made from fruit-peel waste. It converts UV light into visible light that solar cells can use, while the platform tracks panel and coating health.' },
+    a: 'The bio-fluorescent coating is made from fruit-peel waste and is intended to convert UV light into visible light. Coating health monitoring is planned.' },
   { id: 'ai', kws: ['ai', 'can do', 'capability', 'capabilities', 'feature'],
     a: 'VoltVision supports site telemetry and rule-based analysis, with data-driven estimates when sufficient history is available. Camera inspection and automated controls are planned.' },
 ];

@@ -54,6 +54,12 @@ function evaluate(reading, config = {}) {
 
   score = Math.max(0, Math.min(100, Math.round(score)));
   let status = score >= 80 ? 'OK' : score >= 50 ? 'WARNING' : 'FAULT';
+  const missingRequired = ['power_mw', 'light_lux'].some(key => reading[key] == null || !Number.isFinite(Number(reading[key])));
+  if (missingRequired) {
+    status = 'UNAVAILABLE';
+    score = null;
+    alerts.unshift('Insufficient power or light readings for health analysis');
+  }
   if (age > 60) {
     status = 'OFFLINE';
     alerts.unshift('No data for over 60 s - check NodeMCU / WiFi');
