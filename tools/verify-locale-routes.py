@@ -76,6 +76,16 @@ def request(path, cookie=None, binary=False):
         return response.url, body if binary else body.decode('utf-8'), response.headers
 
 
+def run_browser(layouts_only=False):
+    browser_env = {**environment, 'E2E_BASE_URL': f'http://localhost:{port}', 'E2E_LABEL': label + '-browser', 'E2E_DEV': 'false' if production else 'true'}
+    command = [shutil.which('npm.cmd' if os.name == 'nt' else 'npm'), 'run']
+    grep = '@public 360px' if os.environ.get('FRONTEND_CHECK_LANGUAGE_ONLY') == 'true' else '@public (360px|Hindi role)'
+    command += ['test:e2e', '--', '--grep', grep] if layouts_only else ['test:e2e:public']
+    browser = subprocess.run(command, cwd=frontend, env=browser_env, timeout=300)
+    if browser.returncode:
+        raise RuntimeError('Browser checks failed; inspect the saved browser result')
+
+
 with log_path.open('w', encoding='utf-8') as log:
     process = subprocess.Popen([shutil.which('node'), str(frontend / 'node_modules/next/dist/bin/next'), 'start' if production else 'dev', '--hostname', 'localhost', '--port', str(port)],
                                cwd=frontend, env=environment, stdout=log, stderr=subprocess.STDOUT,
@@ -98,6 +108,12 @@ with log_path.open('w', encoding='utf-8') as log:
                 if time.monotonic() > deadline:
                     raise RuntimeError('Local Next routing startup timed out')
                 time.sleep(1)
+        if os.environ.get('FRONTEND_CHECK_BROWSER_LAYOUTS_ONLY') == 'true':
+            run_browser(layouts_only=True)
+            result = {'browser_workflow': 'Focused 360px checks passed against owned loopback fixtures', 'full_http_smoke': 'Not run by this focused command'}
+            (root / f'docs/test-results/{label}-fixture.json').write_text(json.dumps(result, indent=2) + '\n', encoding='utf-8')
+            print(json.dumps(result))
+            sys.exit(0)
         _, hindi, _ = request('/hi')
         assert '<html lang="en"' in english and '<html lang="hi"' in hindi, 'Locale document language missing'
         assert 'मुख्य पृष्ठ' in hindi and 'उत्पाद' in hindi, 'Hindi navigation not rendered'
@@ -135,10 +151,7 @@ with log_path.open('w', encoding='utf-8') as log:
                   'hindi_legal_draft_noindex': True,
                   'backend': 'Owned loopback synthetic fixture only', 'browser_workflow': 'Not run by this HTTP smoke test'}
         if os.environ.get('FRONTEND_CHECK_BROWSER') == 'true':
-            browser_env = {**environment, 'E2E_BASE_URL': f'http://localhost:{port}', 'E2E_LABEL': label + '-browser'}
-            browser = subprocess.run([shutil.which('npm.cmd' if os.name == 'nt' else 'npm'), 'run', 'test:e2e:public'], cwd=frontend, env=browser_env, timeout=300)
-            if browser.returncode:
-                raise RuntimeError('Browser checks failed; inspect the saved browser result')
+            run_browser()
             result['browser_workflow'] = 'Five local synthetic UI checks passed; no real services or backend authentication verification'
         (root / f'docs/test-results/{label}-fixture.json').write_text(json.dumps(result, indent=2) + '\n', encoding='utf-8')
         print(json.dumps(result))

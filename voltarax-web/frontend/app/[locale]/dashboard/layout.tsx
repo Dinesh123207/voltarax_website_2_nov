@@ -130,7 +130,7 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
       ))}
 
       {/* Main */}
-      <div className="flex-1 lg:ml-60 flex flex-col min-h-screen">
+      <div className="flex-1 min-w-0 lg:ml-60 flex flex-col min-h-screen">
 
         {/* Top bar */}
         <header className="min-h-14 py-2 bg-[#111a14]/80 backdrop-blur border-b border-green-900/20 flex items-center gap-3 px-4 sticky top-0 z-20">

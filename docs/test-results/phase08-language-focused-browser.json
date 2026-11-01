@@ -1,0 +1,173 @@
+{
+  "config": {
+    "argv": [
+      "C:\\Program Files\\nodejs\\node.exe",
+      "C:\\Users\\JARVIS\\Desktop\\VOLTARAX\\voltarax-web\\frontend\\node_modules\\@playwright\\test\\cli.js",
+      "test",
+      "--grep",
+      "@public 360px"
+    ],
+    "configFile": "C:\\Users\\JARVIS\\Desktop\\VOLTARAX\\voltarax-web\\frontend\\playwright.config.ts",
+    "rootDir": "C:/Users/JARVIS/Desktop/VOLTARAX/voltarax-web/frontend/tests/e2e",
+    "failOnFlakyTests": false,
+    "forbidOnly": false,
+    "fullyParallel": false,
+    "globalSetup": null,
+    "globalTeardown": null,
+    "globalTimeout": 0,
+    "grep": {},
+    "grepInvert": null,
+    "maxFailures": 0,
+    "metadata": {
+      "actualWorkers": 1
+    },
+    "preserveOutput": "always",
+    "projects": [
+      {
+        "outputDir": "C:/Users/JARVIS/Desktop/VOLTARAX/.local-tools/playwright/phase08-language-focused-browser",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 1
+        },
+        "id": "",
+        "name": "",
+        "testDir": "C:/Users/JARVIS/Desktop/VOLTARAX/voltarax-web/frontend/tests/e2e",
+        "testIgnore": [],
+        "testMatch": [
+          "**/*.@(spec|test).?(c|m)[jt]s?(x)"
+        ],
+        "timeout": 90000
+      }
+    ],
+    "filteredProjects": [
+      {
+        "grep": {},
+        "grepInvert": null,
+        "outputDir": "C:\\Users\\JARVIS\\Desktop\\VOLTARAX\\.local-tools\\playwright\\phase08-language-focused-browser",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 1
+        },
+        "name": "",
+        "testDir": "C:\\Users\\JARVIS\\Desktop\\VOLTARAX\\voltarax-web\\frontend\\tests\\e2e",
+        "snapshotDir": "C:\\Users\\JARVIS\\Desktop\\VOLTARAX\\voltarax-web\\frontend\\tests\\e2e",
+        "testIgnore": [],
+        "testMatch": "**/*.@(spec|test).?(c|m)[jt]s?(x)",
+        "timeout": 90000,
+        "use": {
+          "baseURL": "http://localhost:38473",
+          "browserName": "chromium",
+          "channel": "msedge",
+          "headless": true,
+          "viewport": {
+            "width": 360,
+            "height": 800
+          },
+          "reducedMotion": "reduce",
+          "locale": "en-IN",
+          "timezoneId": "Asia/Kolkata",
+          "serviceWorkers": "block",
+          "trace": "retain-on-failure",
+          "screenshot": "only-on-failure",
+          "launchOptions": {
+            "args": [
+              "--disable-background-networking",
+              "--disable-component-update",
+              "--no-first-run"
+            ]
+          }
+        },
+        "dependencies": [],
+        "ignoreSnapshots": false,
+        "__projectId": ""
+      }
+    ],
+    "quiet": false,
+    "reporter": [
+      [
+        "list",
+        null
+      ],
+      [
+        "json",
+        {
+          "outputFile": "C:\\Users\\JARVIS\\Desktop\\VOLTARAX\\docs\\test-results\\phase08-language-focused-browser.json"
+        }
+      ]
+    ],
+    "reportSlowTests": {
+      "max": 5,
+      "threshold": 300000
+    },
+    "shard": null,
+    "tags": [],
+    "updateSnapshots": "default",
+    "updateSourceMethod": "patch",
+    "version": "1.64.1",
+    "workers": 1,
+    "webServer": null
+  },
+  "suites": [
+    {
+      "title": "public.spec.ts",
+      "file": "public.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [
+        {
+          "title": "@public 360px language switch, native cursor, keyboard skip and navigation",
+          "ok": true,
+          "tags": [
+            "public"
+          ],
+          "tests": [
+            {
+              "timeout": 90000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 13908,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-01T23:22:40.232Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "muted-text-contrast-against-page-background",
+                      "contentType": "application/json",
+                      "body": "eyJzYW1wbGVzIjo0OCwibWluaW11bSI6OS41NDMyOTgyNzQ3Mzc0NjUsImxpbWl0YXRpb24iOiJTb2xpZCBwYWdlIGJhY2tncm91bmQ7IG5vdCBhIGZ1bGwgV0NBRyBvciBpbWFnZS9ncmFkaWVudCBhdWRpdCJ9"
+                    }
+                  ]
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "349fc90c6061c792a808-4b92ce5cb876e3960a74",
+          "file": "public.spec.ts",
+          "line": 23,
+          "column": 5
+        }
+      ]
+    }
+  ],
+  "errors": [],
+  "stats": {
+    "startTime": "2026-11-01T23:22:39.166Z",
+    "duration": 25150.409,
+    "expected": 1,
+    "skipped": 0,
+    "unexpected": 0,
+    "flaky": 0
+  }
+}

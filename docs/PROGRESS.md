@@ -1,8 +1,8 @@
 # Autopilot progress
 
-RESUME HERE: Phase 8 — run final gate: serial full backend/AI checks, fixture-owned production build, generated-route typecheck, production HTTP plus five browser checks, audits/scan; fix failures before tag
+RESUME HERE: Phase 8 — rebuild production after the verified mobile fix, rerun generated types and full production HTTP/five-browser gate, final scan/diff, then tag; backend 74/AI 28 already passed on unchanged code
 
-Current checkpoint: 1015/1015 active source phrases translated. Accessibility/performance changes and guarded public browser checks are implemented; discovery finds five tests, actual browser execution still pending. Narrow form/HTTP checks (2), payment/report checks (7), PDF font check (1), localization (4), lint/types passed. One-page Unicode-name fallback receipt text/page/render review passed. Hindi PDF font rendering remains unavailable with explicit UI/PDF notice and original name preserved. Next: stable production gate, not dev compilation; tools/verify-locale-routes.py --build owns a fake backend at 127.0.0.1:38475, production checks assert that exact build rewrite before any request.
+Current checkpoint: 1015/1015 active phrases translated. Full backend 74 and AI 28 pass; first production build passed (176.06 s), generated types passed. First production web run passed HTTP checks and three browser cases; URL test wrongly omitted the intentionally preserved fragment, and dashboard min-width caused real 360px overflow. Fixed both; dashboard focused case passes, separate focused language/keyboard/contrast case passes (41.09 s outer run). Narrow source types/lint and four language checks pass. Rebuild/retry all five against production before tagging. Production audits: frontend 0/backend 8 moderate; full frontend 18 moderate tooling/no high-critical. Scan 861 files/no matches. Hindi PDF remains explicitly partial/manual; original names preserved.
 
 Status key: [ ] todo; [~] in progress; [x] done and verified as stated; [!] skipped with a reason. A phase is done only after its full gate passes.
 
@@ -103,6 +103,7 @@ Status key: [ ] todo; [~] in progress; [x] done and verified as stated; [!] skip
 - [x] PDF font review: base-font receipts remain English/ASCII, with explicit unavailable label for Hindi/emoji/control-containing plan names; original order/evidence name stays unchanged, identifiers/INR validated. One regression and seven payment/report checks pass; synthetic one-page PDF text/page/render visual review passed. Full Hindi PDF output is unavailable pending licensed embedding/shaping review, recorded in MANUAL_STEPS/KNOWN_ISSUES. No OS fonts redistributed.
 - [ ] Verified claims, English/Hindi, SEO, legal drafts, accessibility, performance and IST clock.
 - [ ] Gate and phase tag.
+- [x] Browser-discovered mobile regression fixed: main flex column can shrink; user-page controls wrap and role explanations stack on narrow screens. Corrected the URL assertion to require the preserved #main-content fragment. Dashboard focused case and isolated language/keyboard/solid-background contrast case passed. Cold development compilation needed a development-only longer wait; production timeouts remain unchanged. Final two captions no longer suggest a validated coating sensor/score or hardware readiness. Four language regressions pass; full production browser retry remains pending.
 
 ## Phase 9 — India map
 - [ ] Verify licensed boundary data, build real-data join and missing-data state, gate and phase tag.

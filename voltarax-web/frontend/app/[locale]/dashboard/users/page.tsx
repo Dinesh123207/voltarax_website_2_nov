@@ -51,7 +51,7 @@ export default function UsersPage() {
 
   return (
     <div className="space-y-6">
-      <div className="flex items-center justify-between">
+      <div className="flex flex-wrap gap-3 items-center justify-between">
         <div>
           <h1 className="text-2xl font-bold text-white">{copyText("User Management")}</h1>
           <p className="text-slate-500 text-sm mt-0.5">{copyText("Admin-only · Voltarax RBAC")}</p>
@@ -71,7 +71,7 @@ export default function UsersPage() {
           <Shield size={14} className="text-green-500" />
           <div className="text-xs text-green-600 font-mono font-bold">{copyText("RBAC — ROLE-BASED ACCESS CONTROL")}</div>
         </div>
-        <div className="grid grid-cols-3 gap-3">
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
           {[
             { role: 'admin',    perms: 'Access to the user list and admin content.' },
             { role: 'operator', perms: 'Dashboard access to assigned sites.' },

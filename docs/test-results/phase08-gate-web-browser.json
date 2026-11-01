@@ -1,0 +1,391 @@
+{
+  "config": {
+    "argv": [
+      "C:\\Program Files\\nodejs\\node.exe",
+      "C:\\Users\\JARVIS\\Desktop\\VOLTARAX\\voltarax-web\\frontend\\node_modules\\@playwright\\test\\cli.js",
+      "test",
+      "--grep",
+      "@public"
+    ],
+    "configFile": "C:\\Users\\JARVIS\\Desktop\\VOLTARAX\\voltarax-web\\frontend\\playwright.config.ts",
+    "rootDir": "C:/Users/JARVIS/Desktop/VOLTARAX/voltarax-web/frontend/tests/e2e",
+    "failOnFlakyTests": false,
+    "forbidOnly": false,
+    "fullyParallel": false,
+    "globalSetup": null,
+    "globalTeardown": null,
+    "globalTimeout": 0,
+    "grep": {},
+    "grepInvert": null,
+    "maxFailures": 0,
+    "metadata": {
+      "actualWorkers": 1
+    },
+    "preserveOutput": "always",
+    "projects": [
+      {
+        "outputDir": "C:/Users/JARVIS/Desktop/VOLTARAX/.local-tools/playwright/phase08-gate-web-browser",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 1
+        },
+        "id": "",
+        "name": "",
+        "testDir": "C:/Users/JARVIS/Desktop/VOLTARAX/voltarax-web/frontend/tests/e2e",
+        "testIgnore": [],
+        "testMatch": [
+          "**/*.@(spec|test).?(c|m)[jt]s?(x)"
+        ],
+        "timeout": 45000
+      }
+    ],
+    "filteredProjects": [
+      {
+        "grep": {},
+        "grepInvert": null,
+        "outputDir": "C:\\Users\\JARVIS\\Desktop\\VOLTARAX\\.local-tools\\playwright\\phase08-gate-web-browser",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 1
+        },
+        "name": "",
+        "testDir": "C:\\Users\\JARVIS\\Desktop\\VOLTARAX\\voltarax-web\\frontend\\tests\\e2e",
+        "snapshotDir": "C:\\Users\\JARVIS\\Desktop\\VOLTARAX\\voltarax-web\\frontend\\tests\\e2e",
+        "testIgnore": [],
+        "testMatch": "**/*.@(spec|test).?(c|m)[jt]s?(x)",
+        "timeout": 45000,
+        "use": {
+          "baseURL": "http://localhost:38473",
+          "browserName": "chromium",
+          "channel": "msedge",
+          "headless": true,
+          "viewport": {
+            "width": 360,
+            "height": 800
+          },
+          "reducedMotion": "reduce",
+          "locale": "en-IN",
+          "timezoneId": "Asia/Kolkata",
+          "serviceWorkers": "block",
+          "trace": "retain-on-failure",
+          "screenshot": "only-on-failure",
+          "launchOptions": {
+            "args": [
+              "--disable-background-networking",
+              "--disable-component-update",
+              "--no-first-run"
+            ]
+          }
+        },
+        "dependencies": [],
+        "ignoreSnapshots": false,
+        "__projectId": ""
+      }
+    ],
+    "quiet": false,
+    "reporter": [
+      [
+        "list",
+        null
+      ],
+      [
+        "json",
+        {
+          "outputFile": "C:\\Users\\JARVIS\\Desktop\\VOLTARAX\\docs\\test-results\\phase08-gate-web-browser.json"
+        }
+      ]
+    ],
+    "reportSlowTests": {
+      "max": 5,
+      "threshold": 300000
+    },
+    "shard": null,
+    "tags": [],
+    "updateSnapshots": "default",
+    "updateSourceMethod": "patch",
+    "version": "1.64.1",
+    "workers": 1,
+    "webServer": null
+  },
+  "suites": [
+    {
+      "title": "public.spec.ts",
+      "file": "public.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [
+        {
+          "title": "@public 360px language switch, native cursor, keyboard skip and navigation",
+          "ok": false,
+          "tags": [
+            "public"
+          ],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "failed",
+                  "duration": 8345,
+                  "error": {
+                    "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mpage\u001b[39m\u001b[2m).\u001b[22mtoHaveURL\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m failed\n\nExpected pattern: \u001b[32m/\\/hi$/\u001b[39m\nReceived string:  \u001b[31m\"http://localhost:38473/hi#main-content\"\u001b[39m\nTimeout: 5000ms\n\nCall log:\n\u001b[2m  - Expect \"toHaveURL\" with timeout 5000ms\u001b[22m\n\u001b[2m    2 × locator resolved to <html lang=\"en\" class=\"dark\">…</html>\u001b[22m\n\u001b[2m      - unexpected value \"http://localhost:38473/#main-content\"\u001b[22m\n\u001b[2m    11 × locator resolved to <html lang=\"hi\" class=\"dark\">…</html>\u001b[22m\n\u001b[2m       - unexpected value \"http://localhost:38473/hi#main-content\"\u001b[22m\n",
+                    "stack": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mpage\u001b[39m\u001b[2m).\u001b[22mtoHaveURL\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m failed\n\nExpected pattern: \u001b[32m/\\/hi$/\u001b[39m\nReceived string:  \u001b[31m\"http://localhost:38473/hi#main-content\"\u001b[39m\nTimeout: 5000ms\n\nCall log:\n\u001b[2m  - Expect \"toHaveURL\" with timeout 5000ms\u001b[22m\n\u001b[2m    2 × locator resolved to <html lang=\"en\" class=\"dark\">…</html>\u001b[22m\n\u001b[2m      - unexpected value \"http://localhost:38473/#main-content\"\u001b[22m\n\u001b[2m    11 × locator resolved to <html lang=\"hi\" class=\"dark\">…</html>\u001b[22m\n\u001b[2m       - unexpected value \"http://localhost:38473/hi#main-content\"\u001b[22m\n\n    at C:\\Users\\JARVIS\\Desktop\\VOLTARAX\\voltarax-web\\frontend\\tests\\e2e\\public.spec.ts:32:22",
+                    "location": {
+                      "file": "C:\\Users\\JARVIS\\Desktop\\VOLTARAX\\voltarax-web\\frontend\\tests\\e2e\\public.spec.ts",
+                      "column": 22,
+                      "line": 32
+                    },
+                    "snippet": "  30 |   await page.keyboard.press('Escape'); await expect(page.getByRole('button', { name: 'Open navigation', exact: true })).toBeFocused();\n  31 |   await page.getByRole('combobox', { name: 'Language' }).selectOption('hi');\n> 32 |   await expect(page).toHaveURL(/\\/hi$/); await expect(page.locator('html')).toHaveAttribute('lang', 'hi');\n     |                      ^\n  33 |   await expect(page.getByRole('heading', { level: 1 })).toContainText('स्वच्छ ऊर्जा के लिए बुद्धिमान तकनीक।');\n  34 |   expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true);\n  35 |   const contrasts = await page.locator('.text-slate-500, .text-slate-600, .text-green-700, .text-emerald-700').evaluateAll(nodes => {"
+                  },
+                  "errors": [
+                    {
+                      "location": {
+                        "file": "C:\\Users\\JARVIS\\Desktop\\VOLTARAX\\voltarax-web\\frontend\\tests\\e2e\\public.spec.ts",
+                        "column": 22,
+                        "line": 32
+                      },
+                      "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mpage\u001b[39m\u001b[2m).\u001b[22mtoHaveURL\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m failed\n\nExpected pattern: \u001b[32m/\\/hi$/\u001b[39m\nReceived string:  \u001b[31m\"http://localhost:38473/hi#main-content\"\u001b[39m\nTimeout: 5000ms\n\nCall log:\n\u001b[2m  - Expect \"toHaveURL\" with timeout 5000ms\u001b[22m\n\u001b[2m    2 × locator resolved to <html lang=\"en\" class=\"dark\">…</html>\u001b[22m\n\u001b[2m      - unexpected value \"http://localhost:38473/#main-content\"\u001b[22m\n\u001b[2m    11 × locator resolved to <html lang=\"hi\" class=\"dark\">…</html>\u001b[22m\n\u001b[2m       - unexpected value \"http://localhost:38473/hi#main-content\"\u001b[22m\n\n\n  30 |   await page.keyboard.press('Escape'); await expect(page.getByRole('button', { name: 'Open navigation', exact: true })).toBeFocused();\n  31 |   await page.getByRole('combobox', { name: 'Language' }).selectOption('hi');\n> 32 |   await expect(page).toHaveURL(/\\/hi$/); await expect(page.locator('html')).toHaveAttribute('lang', 'hi');\n     |                      ^\n  33 |   await expect(page.getByRole('heading', { level: 1 })).toContainText('स्वच्छ ऊर्जा के लिए बुद्धिमान तकनीक।');\n  34 |   expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true);\n  35 |   const contrasts = await page.locator('.text-slate-500, .text-slate-600, .text-green-700, .text-emerald-700').evaluateAll(nodes => {\n    at C:\\Users\\JARVIS\\Desktop\\VOLTARAX\\voltarax-web\\frontend\\tests\\e2e\\public.spec.ts:32:22"
+                    }
+                  ],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-01T23:15:42.927Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "screenshot",
+                      "contentType": "image/png",
+                      "path": "C:\\Users\\JARVIS\\Desktop\\VOLTARAX\\.local-tools\\playwright\\phase08-gate-web-browser\\public--public-360px-langu-7d050-eyboard-skip-and-navigation\\test-failed-1.png"
+                    },
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "C:\\Users\\JARVIS\\Desktop\\VOLTARAX\\.local-tools\\playwright\\phase08-gate-web-browser\\public--public-360px-langu-7d050-eyboard-skip-and-navigation\\error-context.md"
+                    },
+                    {
+                      "name": "trace",
+                      "contentType": "application/zip",
+                      "path": "C:\\Users\\JARVIS\\Desktop\\VOLTARAX\\.local-tools\\playwright\\phase08-gate-web-browser\\public--public-360px-langu-7d050-eyboard-skip-and-navigation\\trace.zip"
+                    }
+                  ],
+                  "errorLocation": {
+                    "file": "C:\\Users\\JARVIS\\Desktop\\VOLTARAX\\voltarax-web\\frontend\\tests\\e2e\\public.spec.ts",
+                    "column": 22,
+                    "line": 32
+                  }
+                }
+              ],
+              "status": "unexpected"
+            }
+          ],
+          "id": "349fc90c6061c792a808-4b92ce5cb876e3960a74",
+          "file": "public.spec.ts",
+          "line": 23,
+          "column": 5
+        },
+        {
+          "title": "@public clock crosses IST midnight, pauses on visibility event and has stable reduced-motion text",
+          "ok": true,
+          "tags": [
+            "public"
+          ],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 3447,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-01T23:15:54.864Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "349fc90c6061c792a808-5ab657a94a54901fbc1a",
+          "file": "public.spec.ts",
+          "line": 44,
+          "column": 5
+        },
+        {
+          "title": "@public prepared assistant preserves entered Hindi text and returns keyboard focus",
+          "ok": true,
+          "tags": [
+            "public"
+          ],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 2595,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-01T23:15:59.546Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "349fc90c6061c792a808-5e8bccaf4b62c8774f94",
+          "file": "public.spec.ts",
+          "line": 58,
+          "column": 5
+        },
+        {
+          "title": "@public Hindi draft metadata, form labels and synthetic submission only",
+          "ok": true,
+          "tags": [
+            "public"
+          ],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 4849,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-01T23:16:02.200Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "349fc90c6061c792a808-36104de94683af9984b0",
+          "file": "public.spec.ts",
+          "line": 68,
+          "column": 5
+        },
+        {
+          "title": "@public Hindi role labels retain API values and closed mobile sidebar stays hidden",
+          "ok": false,
+          "tags": [
+            "public"
+          ],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "failed",
+                  "duration": 2324,
+                  "error": {
+                    "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBe\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // Object.is equality\u001b[22m\n\nExpected: \u001b[32mtrue\u001b[39m\nReceived: \u001b[31mfalse\u001b[39m",
+                    "stack": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBe\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // Object.is equality\u001b[22m\n\nExpected: \u001b[32mtrue\u001b[39m\nReceived: \u001b[31mfalse\u001b[39m\n    at C:\\Users\\JARVIS\\Desktop\\VOLTARAX\\voltarax-web\\frontend\\tests\\e2e\\public.spec.ts:92:89",
+                    "location": {
+                      "file": "C:\\Users\\JARVIS\\Desktop\\VOLTARAX\\voltarax-web\\frontend\\tests\\e2e\\public.spec.ts",
+                      "column": 89,
+                      "line": 92
+                    },
+                    "snippet": "  90 |   const select = page.locator('#access-role'); await select.selectOption('operator');\n  91 |   await expect(select).toHaveValue('operator'); await expect(select.locator('option:checked')).toHaveText('संचालक');\n> 92 |   expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true);\n     |                                                                                         ^\n  93 | });\n  94 |"
+                  },
+                  "errors": [
+                    {
+                      "location": {
+                        "file": "C:\\Users\\JARVIS\\Desktop\\VOLTARAX\\voltarax-web\\frontend\\tests\\e2e\\public.spec.ts",
+                        "column": 89,
+                        "line": 92
+                      },
+                      "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBe\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // Object.is equality\u001b[22m\n\nExpected: \u001b[32mtrue\u001b[39m\nReceived: \u001b[31mfalse\u001b[39m\n\n  90 |   const select = page.locator('#access-role'); await select.selectOption('operator');\n  91 |   await expect(select).toHaveValue('operator'); await expect(select.locator('option:checked')).toHaveText('संचालक');\n> 92 |   expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true);\n     |                                                                                         ^\n  93 | });\n  94 |\n    at C:\\Users\\JARVIS\\Desktop\\VOLTARAX\\voltarax-web\\frontend\\tests\\e2e\\public.spec.ts:92:89"
+                    }
+                  ],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-01T23:16:07.086Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "screenshot",
+                      "contentType": "image/png",
+                      "path": "C:\\Users\\JARVIS\\Desktop\\VOLTARAX\\.local-tools\\playwright\\phase08-gate-web-browser\\public--public-Hindi-role--6b332-mobile-sidebar-stays-hidden\\test-failed-1.png"
+                    },
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "C:\\Users\\JARVIS\\Desktop\\VOLTARAX\\.local-tools\\playwright\\phase08-gate-web-browser\\public--public-Hindi-role--6b332-mobile-sidebar-stays-hidden\\error-context.md"
+                    },
+                    {
+                      "name": "trace",
+                      "contentType": "application/zip",
+                      "path": "C:\\Users\\JARVIS\\Desktop\\VOLTARAX\\.local-tools\\playwright\\phase08-gate-web-browser\\public--public-Hindi-role--6b332-mobile-sidebar-stays-hidden\\trace.zip"
+                    }
+                  ],
+                  "errorLocation": {
+                    "file": "C:\\Users\\JARVIS\\Desktop\\VOLTARAX\\voltarax-web\\frontend\\tests\\e2e\\public.spec.ts",
+                    "column": 89,
+                    "line": 92
+                  }
+                }
+              ],
+              "status": "unexpected"
+            }
+          ],
+          "id": "349fc90c6061c792a808-5de8619f81feed63c6b1",
+          "file": "public.spec.ts",
+          "line": 86,
+          "column": 5
+        }
+      ]
+    }
+  ],
+  "errors": [],
+  "stats": {
+    "startTime": "2026-11-01T23:15:42.251Z",
+    "duration": 29384.935999999998,
+    "expected": 3,
+    "skipped": 0,
+    "unexpected": 2,
+    "flaky": 0
+  }
+}

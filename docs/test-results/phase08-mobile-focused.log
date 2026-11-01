@@ -1,0 +1,62 @@
+
+> voltarax-frontend@1.0.0 test:e2e
+> playwright test --grep @public (360px|Hindi role)
+
+
+Running 2 tests using 1 worker
+
+(node:17228) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  x  1 tests\e2e\public.spec.ts:23:5 › @public 360px language switch, native cursor, keyboard skip and navigation (37.8s)
+(node:11376) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ok 2 tests\e2e\public.spec.ts:86:5 › @public Hindi role labels retain API values and closed mobile sidebar stays hidden (28.9s)
+
+
+  1) tests\e2e\public.spec.ts:23:5 › @public 360px language switch, native cursor, keyboard skip and navigation 
+
+    Error: expect(page).toHaveURL(expected) failed
+
+    Expected pattern: /\/hi#main-content$/
+    Received string:  "http://localhost:38473/#main-content"
+    Timeout: 5000ms
+
+    Call log:
+      - Expect "toHaveURL" with timeout 5000ms
+        10 × locator resolved to <html lang="en" class="dark">…</html>
+           - unexpected value "http://localhost:38473/#main-content"
+
+
+      30 |   await page.keyboard.press('Escape'); await expect(page.getByRole('button', { name: 'Open navigation', exact: true })).toBeFocused();
+      31 |   await page.getByRole('combobox', { name: 'Language' }).selectOption('hi');
+    > 32 |   await expect(page).toHaveURL(/\/hi#main-content$/); await expect(page.locator('html')).toHaveAttribute('lang', 'hi');
+         |                      ^
+      33 |   await expect(page.getByRole('heading', { level: 1 })).toContainText('स्वच्छ ऊर्जा के लिए बुद्धिमान तकनीक।');
+      34 |   expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true);
+      35 |   const contrasts = await page.locator('.text-slate-500, .text-slate-600, .text-green-700, .text-emerald-700').evaluateAll(nodes => {
+        at C:\Users\JARVIS\Desktop\VOLTARAX\voltarax-web\frontend\tests\e2e\public.spec.ts:32:22
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    ..\..\.local-tools\playwright\phase08-mobile-focused-browser\public--public-360px-langu-7d050-eyboard-skip-and-navigation\test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: ..\..\.local-tools\playwright\phase08-mobile-focused-browser\public--public-360px-langu-7d050-eyboard-skip-and-navigation\error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    ..\..\.local-tools\playwright\phase08-mobile-focused-browser\public--public-360px-langu-7d050-eyboard-skip-and-navigation\trace.zip
+    Usage:
+
+        npx playwright show-trace ..\..\.local-tools\playwright\phase08-mobile-focused-browser\public--public-360px-langu-7d050-eyboard-skip-and-navigation\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  1 failed
+    tests\e2e\public.spec.ts:23:5 › @public 360px language switch, native cursor, keyboard skip and navigation 
+  1 passed (1.6m)
+Traceback (most recent call last):
+  File "C:\Users\JARVIS\Desktop\VOLTARAX\tools\verify-locale-routes.py", line 111, in <module>
+    run_browser(layouts_only=True)
+    ~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\JARVIS\Desktop\VOLTARAX\tools\verify-locale-routes.py", line 85, in run_browser
+    raise RuntimeError('Browser checks failed; inspect the saved browser result')
+RuntimeError: Browser checks failed; inspect the saved browser result

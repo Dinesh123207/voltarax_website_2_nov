@@ -29,7 +29,7 @@ test('@public 360px language switch, native cursor, keyboard skip and navigation
   await expect(page.getByRole('navigation', { name: 'Mobile navigation', exact: true })).toBeVisible();
   await page.keyboard.press('Escape'); await expect(page.getByRole('button', { name: 'Open navigation', exact: true })).toBeFocused();
   await page.getByRole('combobox', { name: 'Language' }).selectOption('hi');
-  await expect(page).toHaveURL(/\/hi$/); await expect(page.locator('html')).toHaveAttribute('lang', 'hi');
+  await expect(page).toHaveURL(/\/hi#main-content$/); await expect(page.locator('html')).toHaveAttribute('lang', 'hi');
   await expect(page.getByRole('heading', { level: 1 })).toContainText('स्वच्छ ऊर्जा के लिए बुद्धिमान तकनीक।');
   expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true);
   const contrasts = await page.locator('.text-slate-500, .text-slate-600, .text-green-700, .text-emerald-700').evaluateAll(nodes => {
@@ -90,4 +90,5 @@ test('@public Hindi role labels retain API values and closed mobile sidebar stay
   const select = page.locator('#access-role'); await select.selectOption('operator');
   await expect(select).toHaveValue('operator'); await expect(select.locator('option:checked')).toHaveText('संचालक');
   expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true);
+  await page.screenshot({ path: path.resolve('../../docs/test-results/phase08-users-hi-360.png'), fullPage: true });
 });

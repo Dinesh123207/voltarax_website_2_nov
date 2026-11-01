@@ -1,0 +1,94 @@
+
+> voltarax-frontend@1.0.0 test:e2e:public
+> playwright test --grep @public
+
+
+Running 5 tests using 1 worker
+
+(node:13444) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  x  1 tests\e2e\public.spec.ts:23:5 › @public 360px language switch, native cursor, keyboard skip and navigation (8.3s)
+(node:4204) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ok 2 tests\e2e\public.spec.ts:44:5 › @public clock crosses IST midnight, pauses on visibility event and has stable reduced-motion text (3.4s)
+  ok 3 tests\e2e\public.spec.ts:58:5 › @public prepared assistant preserves entered Hindi text and returns keyboard focus (2.6s)
+  ok 4 tests\e2e\public.spec.ts:68:5 › @public Hindi draft metadata, form labels and synthetic submission only (4.8s)
+  x  5 tests\e2e\public.spec.ts:86:5 › @public Hindi role labels retain API values and closed mobile sidebar stays hidden (2.3s)
+
+
+  1) tests\e2e\public.spec.ts:23:5 › @public 360px language switch, native cursor, keyboard skip and navigation 
+
+    Error: expect(page).toHaveURL(expected) failed
+
+    Expected pattern: /\/hi$/
+    Received string:  "http://localhost:38473/hi#main-content"
+    Timeout: 5000ms
+
+    Call log:
+      - Expect "toHaveURL" with timeout 5000ms
+        2 × locator resolved to <html lang="en" class="dark">…</html>
+          - unexpected value "http://localhost:38473/#main-content"
+        11 × locator resolved to <html lang="hi" class="dark">…</html>
+           - unexpected value "http://localhost:38473/hi#main-content"
+
+
+      30 |   await page.keyboard.press('Escape'); await expect(page.getByRole('button', { name: 'Open navigation', exact: true })).toBeFocused();
+      31 |   await page.getByRole('combobox', { name: 'Language' }).selectOption('hi');
+    > 32 |   await expect(page).toHaveURL(/\/hi$/); await expect(page.locator('html')).toHaveAttribute('lang', 'hi');
+         |                      ^
+      33 |   await expect(page.getByRole('heading', { level: 1 })).toContainText('स्वच्छ ऊर्जा के लिए बुद्धिमान तकनीक।');
+      34 |   expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true);
+      35 |   const contrasts = await page.locator('.text-slate-500, .text-slate-600, .text-green-700, .text-emerald-700').evaluateAll(nodes => {
+        at C:\Users\JARVIS\Desktop\VOLTARAX\voltarax-web\frontend\tests\e2e\public.spec.ts:32:22
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    ..\..\.local-tools\playwright\phase08-gate-web-browser\public--public-360px-langu-7d050-eyboard-skip-and-navigation\test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: ..\..\.local-tools\playwright\phase08-gate-web-browser\public--public-360px-langu-7d050-eyboard-skip-and-navigation\error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    ..\..\.local-tools\playwright\phase08-gate-web-browser\public--public-360px-langu-7d050-eyboard-skip-and-navigation\trace.zip
+    Usage:
+
+        npx playwright show-trace ..\..\.local-tools\playwright\phase08-gate-web-browser\public--public-360px-langu-7d050-eyboard-skip-and-navigation\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  2) tests\e2e\public.spec.ts:86:5 › @public Hindi role labels retain API values and closed mobile sidebar stays hidden 
+
+    Error: expect(received).toBe(expected) // Object.is equality
+
+    Expected: true
+    Received: false
+
+      90 |   const select = page.locator('#access-role'); await select.selectOption('operator');
+      91 |   await expect(select).toHaveValue('operator'); await expect(select.locator('option:checked')).toHaveText('संचालक');
+    > 92 |   expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true);
+         |                                                                                         ^
+      93 | });
+      94 |
+        at C:\Users\JARVIS\Desktop\VOLTARAX\voltarax-web\frontend\tests\e2e\public.spec.ts:92:89
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    ..\..\.local-tools\playwright\phase08-gate-web-browser\public--public-Hindi-role--6b332-mobile-sidebar-stays-hidden\test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: ..\..\.local-tools\playwright\phase08-gate-web-browser\public--public-Hindi-role--6b332-mobile-sidebar-stays-hidden\error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    ..\..\.local-tools\playwright\phase08-gate-web-browser\public--public-Hindi-role--6b332-mobile-sidebar-stays-hidden\trace.zip
+    Usage:
+
+        npx playwright show-trace ..\..\.local-tools\playwright\phase08-gate-web-browser\public--public-Hindi-role--6b332-mobile-sidebar-stays-hidden\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  2 failed
+    tests\e2e\public.spec.ts:23:5 › @public 360px language switch, native cursor, keyboard skip and navigation 
+    tests\e2e\public.spec.ts:86:5 › @public Hindi role labels retain API values and closed mobile sidebar stays hidden 
+  3 passed (29.4s)
+Traceback (most recent call last):
+  File "C:\Users\JARVIS\Desktop\VOLTARAX\tools\verify-locale-routes.py", line 141, in <module>
+    raise RuntimeError('Browser checks failed; inspect the saved browser result')
+RuntimeError: Browser checks failed; inspect the saved browser result
