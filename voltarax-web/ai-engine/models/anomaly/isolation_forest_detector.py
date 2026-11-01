@@ -34,7 +34,10 @@ class AnomalyModel(BaseModel):
 
         self.estimator = model
         self._stamp_metadata(rows_used=int(len(X)), feature_columns=ANOMALY_FEATURE_COLUMNS,
-                              total_rows_at_train=int(len(df)))
+                              total_rows_at_train=int(len(df)), source_window_end_ts=int(df['ts'].max()),
+                              data_origin='synthetic-test-inputs' if 'simulated' in df and bool(df['simulated'].fillna(False).any()) else 'device-history-unverified-calibration',
+                              validation={'status': 'unsupervised', 'precision': None, 'recall': None,
+                                          'note': 'No verified fault labels; an unusual pattern is not a confirmed fault.'})
         return self
 
     def score_latest(self, latest_row) -> dict:

@@ -1,0 +1,21 @@
+........F....                                                            [100%]
+================================== FAILURES ===================================
+________________ test_reports_not_enough_data_with_no_history _________________
+
+    def test_reports_not_enough_data_with_no_history():
+        from pipeline.orchestrator import run
+        writer = FakeWriter()
+        result = run(reader=lambda: {}, writer=writer)
+    
+        assert result.total_rows == 0
+        assert result.trained == []
+        assert writer.store["/sites/solar_site/ai/forecast"]["status"] == "not_enough_data"
+        assert writer.store["/sites/solar_site/ai/anomaly"]["status"] == "not_enough_data"
+        assert writer.store["/sites/solar_site/ai/health"]["status"] == "not_enough_data"
+>       assert "0/" in writer.store["/sites/solar_site/ai/forecast"]["reason"]
+E       AssertionError: assert '0/' in 'not_enough_data'
+
+tests\test_pipeline_synthetic.py:95: AssertionError
+=========================== short test summary info ===========================
+FAILED tests/test_pipeline_synthetic.py::test_reports_not_enough_data_with_no_history
+1 failed, 12 passed, 3 deselected in 22.00s

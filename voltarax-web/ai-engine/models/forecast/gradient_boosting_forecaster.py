@@ -25,7 +25,7 @@ class ForecastModel(BaseModel):
         self._stamp_metadata(
             schema_version=2, model_version=f'current-gbr-v2-{identity}', validation=validation,
             data_origin='synthetic-test-inputs' if 'simulated' in df and bool(df['simulated'].fillna(False).any()) else 'device-history-unverified-calibration',
-            training_source_end_ts=int(df['ts'].max()),
+            source_window_end_ts=int(df['ts'].max()),
             rows_used=validation['split']['train_rows'],
             total_rows_at_train=int(len(df)),
             val_mae_mw=validation['model']['mae_mw'],

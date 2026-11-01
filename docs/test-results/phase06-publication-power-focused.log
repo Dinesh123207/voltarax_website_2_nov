@@ -1,0 +1,31 @@
+.F.                                                                      [100%]
+================================== FAILURES ===================================
+_____________ test_second_run_skips_retraining_on_small_new_data ______________
+
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x000001C6FD9EA190>
+
+    def test_second_run_skips_retraining_on_small_new_data(monkeypatch):
+        """Simulates an hourly cron: after the first successful training run,
+        a follow-up run with only a few new rows should NOT retrain — proves
+        MIN_NEW_ROWS_TO_RETRAIN actually gates retraining rather than the
+        pipeline blindly retraining on every scheduled tick."""
+        from pipeline.orchestrator import run
+    
+        raw = make_synthetic_history(days=10)
+        first = run(reader=lambda: raw, writer=FakeWriter())
+        assert "forecast_gbr" in first.trained
+    
+        extra = make_synthetic_history(days=1, seed=99, start_day=10)  # genuinely new timestamps, small batch
+        small_addition = dict(list(extra.items())[:20])
+        raw_plus_a_little = {**raw, **{f"new-{k}": v for k, v in small_addition.items()}}
+    
+        second = run(reader=lambda: raw_plus_a_little, writer=FakeWriter())
+        assert "forecast_gbr" not in second.trained
+>       assert any("already trained" in reason for _, reason in second.skipped)
+E       assert False
+E        +  where False = any(<generator object test_second_run_skips_retraining_on_small_new_data.<locals>.<genexpr> at 0x000001C6FDA8B6B0>)
+
+tests\test_pipeline_synthetic.py:200: AssertionError
+=========================== short test summary info ===========================
+FAILED tests/test_pipeline_synthetic.py::test_second_run_skips_retraining_on_small_new_data
+1 failed, 2 passed, 5 deselected in 88.86s (0:01:28)

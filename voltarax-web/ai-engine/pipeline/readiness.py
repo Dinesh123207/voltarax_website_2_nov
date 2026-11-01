@@ -8,7 +8,7 @@ from dataclasses import dataclass
 import pandas as pd
 
 import config as cfg
-from data.features import daylight_only
+from data.features import daylight_only, build_forecast_dataset, build_anomaly_dataset
 
 
 @dataclass
@@ -21,7 +21,14 @@ class Readiness:
 
 def check(df: pd.DataFrame, model, min_total_rows: int, min_daylight_rows: int) -> Readiness:
     total = len(df)
-    daylight = len(daylight_only(df))
+    if model.name == 'forecast_gbr':
+        eligible = df.loc[build_forecast_dataset(df)[0].index] if total else df
+    elif model.name == 'anomaly_isolation_forest':
+        eligible = df.loc[build_anomaly_dataset(df).index] if total else df
+    else:
+        from models.health.performance_ratio_model import _performance_ratio
+        eligible = df.loc[_performance_ratio(daylight_only(df)).index] if total else df
+    daylight = len(eligible)
 
     if total < min_total_rows:
         return Readiness(False, f"waiting for hardware data ({total}/{min_total_rows} readings)", total, daylight)
@@ -31,8 +38,9 @@ def check(df: pd.DataFrame, model, min_total_rows: int, min_daylight_rows: int) 
     # Compare against how many rows EXISTED at last training time, not how many of
     # them survived this model's own filtering (rows_used) — those are different
     # units and comparing them makes the gate always look like a huge jump.
-    last_total = (model.metadata or {}).get("total_rows_at_train", 0)
-    if model.is_trained() and (total - last_total) < cfg.MIN_NEW_ROWS_TO_RETRAIN:
-        return Readiness(False, f"already trained on recent data ({total - last_total} new rows)", total, daylight)
+    watermark = (model.metadata or {}).get('source_window_end_ts', 0)
+    new_rows = len(eligible[eligible['ts'] > watermark])
+    if model.is_trained() and new_rows < cfg.MIN_NEW_ROWS_TO_RETRAIN:
+        return Readiness(False, f"already trained on recent data ({new_rows} new daylight rows)", total, daylight)
 
     return Readiness(True, "ready to train", total, daylight)

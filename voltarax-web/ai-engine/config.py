@@ -43,6 +43,14 @@ MIN_NEW_ROWS_TO_RETRAIN = int(os.environ.get("AI_MIN_NEW_ROWS_TO_RETRAIN", 100))
 # ---- History pull limits -----------------------------------------------------
 MAX_HISTORY_ROWS = int(os.environ.get("AI_MAX_HISTORY_ROWS", 50000))  # safety cap
 
+# Separate input/model/publication clocks. No implicit remote reads or writes.
+MAX_INPUT_AGE_SECONDS = int(os.environ.get('AI_MAX_INPUT_AGE_SECONDS', 120))
+MAX_MODEL_AGE_SECONDS = int(os.environ.get('AI_MAX_MODEL_AGE_SECONDS', 2592000))
+REMOTE_ACCESS_ENABLED = os.environ.get('AI_REMOTE_ACCESS_ENABLED') == 'true'
+PUBLISH_ENABLED = os.environ.get('AI_PUBLISH_ENABLED') == 'true'
+if not 5 <= MAX_INPUT_AGE_SECONDS <= 3600 or not 3600 <= MAX_MODEL_AGE_SECONDS <= 31536000:
+    raise ValueError('Invalid AI input/model age policy')
+
 # Panel spec, mirrors backend/.env.example — used by the health baseline model.
 PANEL_PMAX_W = float(os.environ.get("SOLAR_PANEL_PMAX_W", 10))
 TEMP_COEFF = float(os.environ.get("SOLAR_TEMP_COEFF", -0.004))

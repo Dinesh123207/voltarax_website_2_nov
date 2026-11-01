@@ -1,0 +1,14 @@
+{
+  "command": [
+    "python",
+    "tools/run-local-database.py",
+    "--log",
+    "docs/test-results/phase06-python-demo-java.log",
+    "--",
+    "C:/Users/JARVIS/Desktop/VOLTARAX/.local-tools/ai-python/Scripts/python.exe",
+    "voltarax-web/ai-engine/tests/ai_emulator_check.py"
+  ],
+  "cwd": ".",
+  "exit_code": 1,
+  "seconds": 118.56
+}

@@ -4,6 +4,8 @@
 
 ## Active roadmap
 
+Phase 6 artifacts/publication task: nine focused tests and official Python SDK demo read/publication passed. API/UI validation and drift checks remain before the gate. Minute inference/hour training schedules stay disabled pending separate operator setup; see AI README.
+
 1. Baseline, source inventory, authorization, IST energy/carbon corrections, truthful UI/claims, efficient Firebase queries, secure configuration and tests.
 2. Security/accounts: email OTP, rate limits, logging, headers, rules, audit and validation.
 3. Hardware reliability, device registration, simulator, tests and verified relay control.

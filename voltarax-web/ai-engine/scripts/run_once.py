@@ -24,7 +24,7 @@ def main():
     try:
         result = run()
     except Exception:
-        log.exception("Pipeline run failed")
+        log.error("Pipeline run failed; review mode, input, model and service configuration without logging credentials")
         return 1
 
     log.info("Rows seen: %d", result.total_rows)
@@ -36,7 +36,7 @@ def main():
     if result.errors:
         for key, msg in result.errors.items():
             log.error("%s: %s", key, msg)
-    return 0
+    return 1 if result.errors else 0
 
 
 if __name__ == "__main__":

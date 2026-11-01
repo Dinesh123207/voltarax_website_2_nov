@@ -1,0 +1,30 @@
+Traceback (most recent call last):
+  File "C:\Users\JARVIS\Desktop\VOLTARAX\.local-tools\ai-python\Lib\site-packages\firebase_admin\db.py", line 928, in request
+    return super().request(method, url, **kwargs)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\JARVIS\Desktop\VOLTARAX\.local-tools\ai-python\Lib\site-packages\firebase_admin\_http_client.py", line 136, in request
+    resp.raise_for_status()
+    ~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\JARVIS\Desktop\VOLTARAX\.local-tools\ai-python\Lib\site-packages\requests\models.py", line 1167, in raise_for_status
+    raise HTTPError(http_error_msg, response=self)
+requests.exceptions.HTTPError: 400 Client Error: Bad Request for url: http://127.0.0.1:9000/readings/solar_site.json?limitToLast=50000&orderBy=%22ts%22&ns=demo-voltarax
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\JARVIS\Desktop\VOLTARAX\voltarax-web\ai-engine\tests\ai_emulator_check.py", line 35, in <module>
+    result = run()
+  File "C:\Users\JARVIS\Desktop\VOLTARAX\voltarax-web\ai-engine\pipeline\orchestrator.py", line 45, in run
+    df = fetch_history(reader=reader)
+  File "C:\Users\JARVIS\Desktop\VOLTARAX\voltarax-web\ai-engine\data\ingest.py", line 186, in fetch_history
+    raw = (reader or _default_reader)()
+  File "C:\Users\JARVIS\Desktop\VOLTARAX\voltarax-web\ai-engine\data\ingest.py", line 94, in _default_reader
+    current = db.reference(f"/readings/{cfg.SITE_ID}", app=app).order_by_child('ts').limit_to_last(cfg.MAX_HISTORY_ROWS).get() or {}
+              ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\JARVIS\Desktop\VOLTARAX\.local-tools\ai-python\Lib\site-packages\firebase_admin\db.py", line 620, in get
+    result = self._client.body('get', self._pathurl, params=self._querystr)
+  File "C:\Users\JARVIS\Desktop\VOLTARAX\.local-tools\ai-python\Lib\site-packages\firebase_admin\_http_client.py", line 148, in body
+    resp = self.request(method, url, **kwargs)
+  File "C:\Users\JARVIS\Desktop\VOLTARAX\.local-tools\ai-python\Lib\site-packages\firebase_admin\db.py", line 930, in request
+    raise _Client.handle_rtdb_error(error)
+firebase_admin.exceptions.InvalidArgumentError: Index not defined, add ".indexOn": "ts", for path "/readings/solar_site", to the rules

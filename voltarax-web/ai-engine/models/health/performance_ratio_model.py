@@ -28,6 +28,8 @@ class HealthBaselineModel(BaseModel):
 
     def fit(self, df):
         total_rows = len(df)
+        source_end = int(df['ts'].max())
+        origin = 'synthetic-test-inputs' if 'simulated' in df and bool(df['simulated'].fillna(False).any()) else 'device-history-unverified-calibration'
         df = daylight_only(df)
         pr = _performance_ratio(df)
         if len(pr) < 10:
@@ -42,6 +44,9 @@ class HealthBaselineModel(BaseModel):
         self._stamp_metadata(
             rows_used=int(len(pr)),
             total_rows_at_train=total_rows,
+            source_window_end_ts=source_end, data_origin=origin,
+            validation={'status': 'engineering_reference', 'physical_health': None,
+                        'note': 'Training-history reference only; physical health and calibration are unverified.'},
             percentile=PERCENTILE,
             median_pr_observed=round(float(np.median(pr)), 3),
         )

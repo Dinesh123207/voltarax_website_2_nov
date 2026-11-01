@@ -38,13 +38,29 @@ def _get_firebase_app():
     """Lazy singleton so importing this module never requires credentials
     (needed for tests and for `--dry-run` style CLI usage)."""
     global _app
+    from pipeline.mode import require_remote_access, demo_emulator
+    require_remote_access()
+    import os
+    demo = demo_emulator()
+    project = os.environ.get('FIREBASE_PROJECT_ID', '')
+    expected_url = f'http://{os.environ["FIREBASE_DATABASE_EMULATOR_HOST"]}/?ns={project}' if demo else cfg.FIREBASE_DATABASE_URL
     if _app is not None:
+        if _app.options.get('databaseURL') != expected_url:
+            raise RuntimeError('Restart the AI process before changing Firebase mode/project')
         return _app
     import firebase_admin
     from firebase_admin import credentials
 
-    if firebase_admin._apps:
-        _app = firebase_admin.get_app()
+    try:
+        _app = firebase_admin.get_app('ai-engine')
+        if _app.options.get('databaseURL') != expected_url:
+            raise RuntimeError('Existing AI Firebase app has a different mode/project')
+        return _app
+    except ValueError:
+        pass
+
+    if demo:
+        _app = firebase_admin.initialize_app(options={'projectId': project, 'databaseURL': expected_url}, name='ai-engine')
         return _app
 
     if not cfg.FIREBASE_DATABASE_URL:
@@ -85,6 +101,17 @@ def _default_reader() -> dict:
         if isinstance(row, dict) and row.get('site_id', 'solar_site') == cfg.SITE_ID and row.get('device_id') == cfg.DEVICE_ID:
             merged[(row.get('device_id', ''), row.get('ts'))] = (key, row)
     return dict(merged.values())
+
+
+def latest_reader() -> dict:
+    """Bounded current-input read for minute-level inference, not a history scan."""
+    from firebase_admin import db
+    app = _get_firebase_app()
+    candidates = [db.reference(f'/sites/{cfg.SITE_ID}/latest', app=app).get()]
+    if cfg.SITE_ID == 'solar_site':
+        candidates.append(db.reference('/solar_site/latest', app=app).get())
+    rows = [row for row in candidates if isinstance(row, dict) and row.get('site_id', 'solar_site') == cfg.SITE_ID and row.get('device_id') == cfg.DEVICE_ID and isinstance(row.get('ts'), (int, float)) and not isinstance(row.get('ts'), bool) and np.isfinite(row['ts'])]
+    return {'latest': max(rows, key=lambda row: row['ts'])} if rows else {}
 
 
 def raw_history_to_frame(raw: dict) -> pd.DataFrame:

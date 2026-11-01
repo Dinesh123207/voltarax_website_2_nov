@@ -1,29 +1,20 @@
-"""
-This is the one thing you schedule (cron/systemd — see scripts/schedule_cron.md).
-Every run: pull history -> for each model, check readiness -> train if
-warranted -> predict from the latest reading -> publish to Firebase.
-
-Nothing here requires the hardware to be connected today. Before any real
-telemetry exists, every run simply publishes "not_enough_data" for each
-model and exits 0 — the moment `/solar_site/history` starts filling up (the
-NodeMCU writing directly, per hardware/README.md, needs zero changes on this
-side), the next scheduled run sees enough rows, trains, and starts
-publishing real predictions automatically. That hand-off is the point of
-this file.
-"""
+"""Train only eligible candidates and publish schema-validated current-input results."""
 import logging
+import math
+from numbers import Real
+import time
 from dataclasses import dataclass, field
 from typing import Callable, Optional
 
 import config as cfg
 from data.features import add_time_features
-from data.ingest import fetch_history
+from data.ingest import fetch_history, latest_reader as default_latest_reader
 from models.anomaly.isolation_forest_detector import AnomalyModel
 from models.forecast.gradient_boosting_forecaster import ForecastModel
 from models.health.performance_ratio_model import HealthBaselineModel
 from pipeline import publish, readiness
 
-log = logging.getLogger("ai_engine.orchestrator")
+log = logging.getLogger('ai_engine.orchestrator')
 
 
 @dataclass
@@ -35,84 +26,94 @@ class RunResult:
     errors: dict = field(default_factory=dict)
 
 
+def _source(df):
+    origin = 'synthetic-test-inputs' if len(df) and bool(df['simulated'].fillna(False).any()) else 'device-history-unverified-calibration'
+    if not len(df):
+        return {'source_ts': None, 'data_origin': origin}, 'not_enough_data'
+    stamp = int(df.iloc[-1]['ts']); age = int(time.time()) - stamp
+    state = 'invalid_input' if age < -300 else 'stale_input' if age > cfg.MAX_INPUT_AGE_SECONDS else 'ok'
+    return {'source_ts': stamp, 'data_origin': origin}, state
+
+
+def _complete(row, fields):
+    return all(isinstance(row.get(key), Real) and not isinstance(row[key], bool) and math.isfinite(float(row[key])) for key in fields)
+
+
 def run(reader: Optional[Callable[[], dict]] = None,
-        writer: Optional[Callable[[str, dict], None]] = None) -> RunResult:
+        writer: Optional[Callable[[str, dict], None]] = None,
+        *, train=True, latest_reader=None) -> RunResult:
     df = fetch_history(reader=reader)
     result = RunResult(total_rows=len(df))
-    log.info("Pulled %d history rows from Firebase", len(df))
-
-    forecast = ForecastModel(); forecast.load()
-    anomaly = AnomalyModel(); anomaly.load()
-    health = HealthBaselineModel(); health.load()
-
-    _run_model(forecast, df, cfg.MIN_DAYLIGHT_ROWS_FORECAST, cfg.MIN_DAYLIGHT_ROWS_FORECAST, result)
-    _run_model(anomaly, df, cfg.MIN_ROWS_ANOMALY, 10, result)
-    _run_model(health, df, cfg.MIN_ROWS_HEALTH_BASELINE, cfg.MIN_ROWS_HEALTH_BASELINE, result)
-
-    latest = df.tail(1)
-    latest_features = add_time_features(latest) if len(latest) else latest
-
-    # ---- forecast ----------------------------------------------------------
-    if forecast.is_trained() and len(latest_features):
-        try:
-            pred_mw = forecast.predict_from_latest(latest_features)
-            result.published["forecast"] = publish.publish("forecast", {
-                "status": "ok",
-                "predicted_power_mw": round(pred_mw, 1),
-                "model_metadata": forecast.metadata,
-            }, writer)
-        except Exception as e:  # noqa: BLE001 - deliberately broad: one model's
-            log.exception("forecast prediction failed")            # bad input must never
-            result.errors["forecast_predict"] = str(e)              # take down the others
+    context, source_state = _source(df)
+    models = {'forecast': ForecastModel(origin=context['data_origin']), 'anomaly': AnomalyModel(origin=context['data_origin']), 'health': HealthBaselineModel(origin=context['data_origin'])}
+    for model in models.values():
+        model.load()
+    thresholds = {'forecast': (cfg.MIN_DAYLIGHT_ROWS_FORECAST, cfg.MIN_DAYLIGHT_ROWS_FORECAST),
+                  'anomaly': (cfg.MIN_ROWS_ANOMALY, 10), 'health': (cfg.MIN_ROWS_HEALTH_BASELINE, cfg.MIN_ROWS_HEALTH_BASELINE)}
+    if train and source_state == 'ok':
+        for section, model in models.items():
+            _run_model(model, df, *thresholds[section], result)
     else:
-        r = readiness.check(df, forecast, cfg.MIN_DAYLIGHT_ROWS_FORECAST, cfg.MIN_DAYLIGHT_ROWS_FORECAST)
-        result.published["forecast"] = publish.not_enough_data("forecast", r.reason, r, writer)
-
-    # ---- anomaly -------------------------------------------------------------
-    if anomaly.is_trained() and len(latest):
-        try:
-            score = anomaly.score_latest(latest)
-            result.published["anomaly"] = publish.publish("anomaly", {
-                "status": "ok", **score, "model_metadata": anomaly.metadata,
-            }, writer)
-        except Exception as e:  # noqa: BLE001
-            log.exception("anomaly scoring failed")
-            result.errors["anomaly_predict"] = str(e)
+        result.skipped.extend((model.name, source_state if train else 'prediction_only') for model in models.values())
+    if latest_reader is not None or reader is None:
+        current = fetch_history(reader=latest_reader or default_latest_reader, max_rows=1)
     else:
-        r = readiness.check(df, anomaly, cfg.MIN_ROWS_ANOMALY, 10)
-        result.published["anomaly"] = publish.not_enough_data("anomaly", r.reason, r, writer)
-
-    # ---- health baseline -------------------------------------------------
-    if health.is_trained():
-        result.published["health"] = publish.publish("health", {
-            "status": "ok",
-            "baseline_pr": round(health.baseline_pr(), 3),
-            "model_metadata": health.metadata,
-        }, writer)
-    else:
-        r = readiness.check(df, health, cfg.MIN_ROWS_HEALTH_BASELINE, cfg.MIN_ROWS_HEALTH_BASELINE)
-        result.published["health"] = publish.not_enough_data("health", r.reason, r, writer)
-
-    publish.publish("status", {
-        "total_rows": len(df),
-        "trained_models": result.trained,
-        "skipped_models": [s[0] for s in result.skipped],
-    }, writer)
-
+        current = df
+    context, source_state = _source(current)
+    latest = current.tail(1)
+    row = latest.iloc[0] if len(latest) else None
+    features = add_time_features(latest) if len(latest) else latest
+    for section, model in models.items():
+        state = source_state
+        if state == 'ok' and f'{model.name}_train' in result.errors:
+            state = 'validation_failed'
+        if state == 'ok' and not model.is_trained():
+            state = 'model_expired' if model.load_state == 'expired' else 'not_enough_data'
+        if state == 'ok' and model.metadata.get('data_origin') != context['data_origin']:
+            state = 'model_unavailable'
+        if state == 'ok' and context['source_ts'] < model.metadata.get('source_window_end_ts', 0):
+            state = 'model_unavailable'
+        required = ['light_lux', 'temp_c', 'power_mw']
+        if section == 'anomaly':
+            required += ['voltage_v', 'current_ma', 'dust_ugm3']
+        if state == 'ok' and not _complete(row, required):
+            state = 'invalid_input'
+        if state == 'ok' and section in {'forecast', 'anomaly'} and row['light_lux'] <= cfg.DAYLIGHT_LUX_THRESHOLD:
+            state = 'not_enough_daylight'
+        values = {}
+        if state == 'ok':
+            try:
+                if section == 'forecast':
+                    values = {'predicted_power_mw': round(model.predict_from_latest(features), 1)}
+                elif section == 'anomaly':
+                    values = model.score_latest(latest)
+                else:
+                    values = {'baseline_pr': round(model.baseline_pr(), 3), 'physical_health': None}
+            except Exception:
+                state = 'invalid_input'; result.errors[f'{section}_predict'] = 'prediction_failed'
+                log.error('Current-input model prediction unavailable')
+        payload = {**context, 'status': state}
+        if state == 'ok':
+            payload.update(values); payload['model_metadata'] = model.metadata
+        else:
+            payload.update({'reason': state, 'total_rows': len(df), 'daylight_rows': int((df['light_lux'] > cfg.DAYLIGHT_LUX_THRESHOLD).sum())})
+        result.published[section] = publish.publish(section, payload, writer)
+    info = {section: {'model_version': model.metadata.get('model_version'), 'trained_at': model.metadata.get('trained_at'),
+                      'load_state': model.load_state, 'validation_status': model.metadata.get('validation', {}).get('status'),
+                      'data_origin': model.metadata.get('data_origin')} for section, model in models.items()}
+    publish.publish('status', {**context, 'status': source_state if source_state != 'ok' else ('validation_failed' if result.errors else 'ok'),
+        'total_rows': len(df), 'trained_models': result.trained, 'skipped_models': [item[0] for item in result.skipped],
+        'model_states': {section: value['status'] for section, value in result.published.items()}, 'model_info': info}, writer)
     return result
 
 
-def _run_model(model, df, min_total_rows, min_daylight_rows, result: RunResult):
-    r = readiness.check(df, model, min_total_rows, min_daylight_rows)
-    if not r.ready:
-        result.skipped.append((model.name, r.reason))
-        log.info("%s: skipped — %s", model.name, r.reason)
-        return
+def _run_model(model, df, min_total_rows, min_daylight_rows, result):
+    status = readiness.check(df, model, min_total_rows, min_daylight_rows)
+    if not status.ready:
+        result.skipped.append((model.name, status.reason)); return
     try:
-        model.fit(df)
-        model.save()
-        result.trained.append(model.name)
-        log.info("%s: trained on %d rows", model.name, r.total_rows)
-    except Exception as e:  # noqa: BLE001 - one model failing to train must
-        log.exception("%s: training failed", model.name)          # never stop the others
-        result.errors[f"{model.name}_train"] = str(e)
+        model.fit(df); model.save(); result.trained.append(model.name)
+        log.info('Validated model candidate saved')
+    except Exception:
+        result.errors[f'{model.name}_train'] = 'training_or_validation_failed'
+        log.error('Model training or validation unavailable; previous artifact preserved')

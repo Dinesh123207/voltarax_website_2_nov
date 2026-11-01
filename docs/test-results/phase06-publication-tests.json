@@ -1,0 +1,15 @@
+{
+  "command": [
+    "C:/Users/JARVIS/Desktop/VOLTARAX/.local-tools/ai-python/Scripts/python.exe",
+    "-m",
+    "pytest",
+    "tests/test_publication.py",
+    "tests/test_model_artifacts.py",
+    "-q",
+    "-p",
+    "no:cacheprovider"
+  ],
+  "cwd": "voltarax-web/ai-engine",
+  "exit_code": 0,
+  "seconds": 10.9
+}

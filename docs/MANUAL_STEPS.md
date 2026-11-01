@@ -1,5 +1,11 @@
 # Manual steps and external verification
 
+## Phase 6 artifact/publication operator checks
+
+Keep AI_REMOTE_ACCESS_ENABLED=false and AI_PUBLISH_ENABLED=false during this run. Before separate non-production setup, install requirements.lock.txt into Python 3.13 and review site/device/physical parameters and private artifact permissions. Never load untrusted joblib files. Legacy unverified files remain ignored: train a validated candidate from reviewed inputs instead. Prior hash versions require operator-reviewed retention/rollback with matching runtime/metadata; no user artifacts are deleted automatically.
+
+Canonical output is /sites/{site}/ai/*. Schema-1 results must stay unavailable, never be re-dated without validation. After the local gate, use least-privilege credentials in an operator-selected test project; check input/model age and foreign/synthetic refusal. No remote read/publication, schedule or field accuracy was verified here. Real export/weather/calibration checks remain required.
+
 No real credentials or infrastructure actions are performed automatically. This document will be updated as work progresses.
 
 1. Firebase device UID and firmware secrets: follow `docs/DEPLOY.md`; verify rules and indexes in an emulator before deploying, then validate on the real device.

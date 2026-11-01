@@ -9,6 +9,7 @@ Run: cd ai-engine && pytest tests/ -v
 import math
 import random
 import sys
+import time
 from pathlib import Path
 
 import pytest
@@ -25,12 +26,15 @@ def make_synthetic_history(days=10, seed=7, start_day=0):
     real, checkable pattern instead of fitting to pure noise.
     start_day offsets the timestamp range so a second "more history arrived"
     batch doesn't collide (and get deduplicated) with an earlier batch."""
+    global _synthetic_now
     random.seed(seed)
     raw = {}
     t0 = 1_735_689_600  # 2025-01-01T00:00:00Z
     i = 0
     for day in range(start_day, start_day + days):
         for minute in range(0, 24 * 60, 5):  # deliberately downsampled five-minute test history
+            if day == start_day + days - 1 and minute > 12 * 60:
+                break  # the latest fixture is a real daylight input, not a night extrapolation
             ts = t0 + day * 86400 + minute * 60
             hour = (minute / 60) % 24
             daylight = max(0.0, math.sin(math.pi * (hour - 6) / 12)) if 6 <= hour <= 18 else 0.0
@@ -54,6 +58,7 @@ def make_synthetic_history(days=10, seed=7, start_day=0):
                 "sensors_ok": {"ina219": True, "bh1750": True},
             }
             i += 1
+    _synthetic_now = max(row['ts'] for row in raw.values()) + 1
     return raw
 
 
@@ -70,6 +75,9 @@ class FakeWriter:
 def isolated_artifacts(tmp_path, monkeypatch):
     """Each test gets its own empty artifacts/ dir — tests must never depend
     on run order or leave trained models behind for the next test."""
+    global _synthetic_now
+    _synthetic_now = 1735689600
+    monkeypatch.setattr(time, 'time', lambda: _synthetic_now)
     monkeypatch.setattr(cfg, "ARTIFACTS_DIR", tmp_path)
     tmp_path.mkdir(exist_ok=True)
 
@@ -81,10 +89,11 @@ def test_reports_not_enough_data_with_no_history():
 
     assert result.total_rows == 0
     assert result.trained == []
-    assert writer.store["/solar_site/ai/forecast"]["status"] == "not_enough_data"
-    assert writer.store["/solar_site/ai/anomaly"]["status"] == "not_enough_data"
-    assert writer.store["/solar_site/ai/health"]["status"] == "not_enough_data"
-    assert "0/" in writer.store["/solar_site/ai/forecast"]["reason"]
+    assert writer.store["/sites/solar_site/ai/forecast"]["status"] == "not_enough_data"
+    assert writer.store["/sites/solar_site/ai/anomaly"]["status"] == "not_enough_data"
+    assert writer.store["/sites/solar_site/ai/health"]["status"] == "not_enough_data"
+    assert writer.store['/sites/solar_site/ai/forecast']['reason'] == 'not_enough_data'
+    assert writer.store['/sites/solar_site/ai/forecast']['total_rows'] == 0
 
 
 def test_reports_not_enough_data_below_threshold():
@@ -98,7 +107,7 @@ def test_reports_not_enough_data_below_threshold():
     assert result.total_rows == len(raw)
     assert result.trained == []
     for section in ("forecast", "anomaly", "health"):
-        assert writer.store[f"/solar_site/ai/{section}"]["status"] == "not_enough_data"
+        assert writer.store[f"/sites/solar_site/ai/{section}"]["status"] == "not_enough_data"
 
 
 def test_trains_and_publishes_once_enough_data_exists():
@@ -110,21 +119,21 @@ def test_trains_and_publishes_once_enough_data_exists():
     assert set(result.trained) == {"forecast_gbr", "anomaly_isolation_forest", "health_baseline"}
     assert result.errors == {}
 
-    fc = writer.store["/solar_site/ai/forecast"]
+    fc = writer.store["/sites/solar_site/ai/forecast"]
     assert fc["status"] == "ok"
     assert fc["predicted_power_mw"] >= 0
     assert fc["model_metadata"]["rows_used"] > 0
     assert "horizon_note" in fc["model_metadata"]
 
-    an = writer.store["/solar_site/ai/anomaly"]
+    an = writer.store["/sites/solar_site/ai/anomaly"]
     assert an["status"] == "ok"
     assert isinstance(an["is_anomaly"], bool)
 
-    he = writer.store["/solar_site/ai/health"]
+    he = writer.store["/sites/solar_site/ai/health"]
     assert he["status"] == "ok"
     assert 0.4 <= he["baseline_pr"] <= 1.0
 
-    status = writer.store["/solar_site/ai/status"]
+    status = writer.store["/sites/solar_site/ai/status"]
     assert status["total_rows"] == len(raw)
 
 
@@ -139,7 +148,7 @@ def test_forecast_tracks_daylight_not_flat():
     raw = make_synthetic_history(days=10)
     run(reader=lambda: raw, writer=FakeWriter())
 
-    model = ForecastModel()
+    model = ForecastModel(origin='synthetic-test-inputs')
     assert model.load(), "model should have been saved by the pipeline run above"
 
     import pandas as pd
@@ -162,7 +171,7 @@ def test_anomaly_model_flags_a_real_fault():
     raw = make_synthetic_history(days=10)
     run(reader=lambda: raw, writer=FakeWriter())
 
-    model = AnomalyModel()
+    model = AnomalyModel(origin='synthetic-test-inputs')
     assert model.load()
 
     import pandas as pd
@@ -186,6 +195,8 @@ def test_second_run_skips_retraining_on_small_new_data(monkeypatch):
     extra = make_synthetic_history(days=1, seed=99, start_day=10)  # genuinely new timestamps, small batch
     small_addition = dict(list(extra.items())[:20])
     raw_plus_a_little = {**raw, **{f"new-{k}": v for k, v in small_addition.items()}}
+    # The caller supplied only the early subset, not the factory's later noon row.
+    monkeypatch.setattr(time, 'time', lambda: max(row['ts'] for row in raw_plus_a_little.values()) + 1)
 
     second = run(reader=lambda: raw_plus_a_little, writer=FakeWriter())
     assert "forecast_gbr" not in second.trained
