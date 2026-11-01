@@ -1,6 +1,6 @@
 # Autopilot progress
 
-RESUME HERE: Phase 3 — final local gate after simulator, transaction and coverage corrections
+RESUME HERE: Phase 4 — PostgreSQL/Drizzle storage, persistent alerts and work orders
 
 Status key: [ ] todo; [~] in progress; [x] done and verified as stated; [!] skipped with a reason. A phase is done only after its full gate passes.
 
@@ -42,10 +42,13 @@ Status key: [ ] todo; [~] in progress; [x] done and verified as stated; [!] skip
 - [x] Synthetic-only loopback/demo-project simulator, disabled SMTP and Estimated test-data banner. Actual local database integration passed registration/OTP/password/session revocation, device authentication/replay/order, relay acknowledgement and disable. No live credentials or hardware used.
 - [x] Fix conditional Firebase transactions on a cold SDK cache, exposed by the actual emulator (not by fakes). Seven focused regressions and the real-adapter integration passed.
 - [x] Remove remaining default panel counts, invented panel health counts, copied panel voltage/temperature and empty-history zero energy. Virtual allocation requires configured count; recorded zero remains zero; period coverage is disclosed. Eight focused tests and frontend typecheck passed.
-- [~] Final gate and phase tag. Final backend suite: 32 passed; frontend lint and final production build passed (298.03 seconds). Final separate typecheck, Python suite and production audits are running. Secret scan: 359 files, no matches. Earlier emulator CLI startup/build timeouts remain retained as failed evidence.
+- [x] Final local gate: 32 backend tests, 9 Python tests, lint, separate typecheck and production build (298.03 seconds) passed. New real-adapter integration, rule emulator, four native tests and placeholder firmware build passed as recorded above. Production audits: frontend 0, backend 8 moderate, no high/critical. Secret scan: 359 files, no matches; diff check passed. Earlier CLI/build timeouts remain saved failures. Tag: phase-03-done.
 
 ## Phase 4 — alerts, work orders and reports
-- [ ] PostgreSQL/Drizzle migrations, alert lifecycle, work orders and audit records.
+- [~] PostgreSQL/Drizzle migrations and local PGlite storage tests (Docker daemon unavailable).
+- [ ] Persistent alert create/acknowledge/resolve/history and actual rule-event ingestion.
+- [ ] Work orders from alerts, assignment, status, comments, due dates and list/detail UI.
+- [ ] Relational audit adapter and explicit offline legacy audit import (never run live).
 - [ ] Queued notifications, real-data ESG PDF, backup instructions, gate and phase tag.
 
 ## Phase 5 — camera and coating
