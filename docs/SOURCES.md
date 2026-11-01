@@ -102,3 +102,8 @@ PostHog is not enabled; TimescaleDB is a design reference only. Boundary GeoJSON
 - [next-intl metadata and language sitemap integration](https://next-intl.dev/docs/environments/actions-metadata-route-handlers): consulted for explicit locale metadata and alternate URLs; original integration, no source copied.
 - [next-sitemap official repository](https://github.com/iamvishnusankar/next-sitemap): consulted for server-side sitemap fields/alternateRefs. Installed/reference MIT license already reviewed; no library source copied.
 - Original Open Graph brand artwork is code-rendered through the installed Next ImageResponse API; no downloaded stock image, OS font redistribution or third-party brand mark.
+
+### Phase 8 legal primary sources (checked 2 November 2026 IST)
+- [India Code official Act listing](https://www.indiacode.nic.in/indiacode/handle/123456789/22037?view_type=browse): source location found; full PDF retrieval timed out, and the legacy MeitY Act link returned 404. Current consolidated Act/amendment review remains manual.
+- [Official Act commencement Gazette PDF, G.S.R. 843(E)](https://www.meity.gov.in/static/uploads/2025/11/c56ceae6c383460ca69577428d36828b.pdf): two pages read for phased commencement.
+- [Official 2025 Rules Gazette PDF, G.S.R. 846(E)](https://www.meity.gov.in/static/uploads/2025/11/53450e6e5dc0bfa85ebd78686cadad39.pdf): original bilingual PDF, English Rule 1 at page 24 checked. Recheck corrigenda and subsequent instruments with counsel. Product draft wording is original; no government text copied.

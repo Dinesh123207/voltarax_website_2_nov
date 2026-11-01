@@ -6,6 +6,7 @@ const FOOTER_LINKS = [
   { heading: 'Platform', links: [{ label: 'Monitoring', href: '/products' }, { label: 'Technology', href: '/technology' }, { label: 'Pricing', href: '/pricing' }] },
   { heading: 'Project', links: [{ label: 'About', href: '/about' }, { label: 'Contact', href: '/contact' }, { label: 'Sustainability', href: '/sustainability' }] },
   { heading: 'Account', links: [{ label: 'Sign in', href: '/login' }, { label: 'My test orders', href: '/account/orders' }] },
+  { heading: 'Legal drafts', links: [{ label: 'Privacy draft', href: '/privacy' }, { label: 'Terms draft', href: '/terms' }, { label: 'Refund and cancellation draft', href: '/refunds' }] },
 ];
 function publicHttps(value: string | undefined) {
   if (!value) return null;
@@ -20,7 +21,7 @@ export default function Footer() {
   ];
   return <footer className="relative border-t border-green-900/20 bg-[#0a0f0d]">
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-7 mb-7">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-6 gap-7 mb-7">
         <div className="lg:col-span-2 space-y-4">
           <Link href="/" className="flex items-center gap-2 text-xl font-bold text-white"><Zap size={20} aria-hidden="true"/>{copyText("Voltarax")}</Link>
           <p className="text-slate-300 text-sm max-w-xs">{copyText("Site telemetry, current-condition estimates and dated maintenance records. Hardware and service configuration required.")}</p>

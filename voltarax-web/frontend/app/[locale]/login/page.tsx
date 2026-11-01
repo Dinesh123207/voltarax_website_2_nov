@@ -41,6 +41,7 @@ export default function LoginPage() {
         <button className="btn-green w-full justify-center" disabled={busy} type="submit">{copyText(busy ? 'Please wait…' : verify ? 'Verify email' : register ? 'Create account' : 'Sign in')}</button>
       </form>
       <p role="status" className="text-sm text-slate-300">{copyText(message)}</p>
+      <Link href="/privacy" className="text-sm text-green-300 underline">{copyText('Privacy draft')}</Link>
       {copyText(verify ? <><button type="button" disabled={busy} className="text-green-400 text-sm" onClick={() => submit(undefined, true)}>{copyText("Resend code")}</button><button type="button" className="text-slate-300 text-sm block" onClick={() => { setVerify(false); setForm({ ...form, code: '' }); }}>{copyText("Change sign-in details")}</button></> : <button type="button" className="text-green-400 text-sm" onClick={() => { setRegister(!register); setMessage(''); }}>{copyText(register ? 'Already have an account? Sign in' : 'Create a viewer account')}</button>)}
     </main>
   </div>;

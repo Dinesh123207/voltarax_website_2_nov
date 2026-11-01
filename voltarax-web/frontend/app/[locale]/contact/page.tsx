@@ -5,6 +5,7 @@ import { Suspense, useState, FormEvent } from 'react';
 import { Mail, MapPin, Phone, Send, Calendar, CheckCircle } from 'lucide-react';
 import { useSearchParams } from 'next/navigation';
 import toast from 'react-hot-toast';
+import { Link } from '@/i18n/navigation';
 import { useCopy } from '@/i18n/copy';
 
 
@@ -68,6 +69,7 @@ function ContactForm() {
                 ? 'Schedule a personalised demo of VoltVision AI for your solar installation.'
                 : 'Submit an inquiry for the team to review.')}
             </p>
+            <Link className="text-green-300 underline text-sm" href="/privacy">{copyText('Privacy draft')}</Link>
           </div>
 
           <div className="grid lg:grid-cols-5 gap-10 max-w-5xl mx-auto">

@@ -146,3 +146,6 @@ Complete translatable headlines, public Hindi copy and source-preserving prepare
 
 ### Phase 8 public indexing
 SEO helpers/routes and original English brand PNG are implemented with indexing off, reviewed-origin language URLs and noindex private/draft pages. Two policy tests, lint/types pass; expanded HTTP smoke needs a complete rerun after a cold private-route timeout. No website was published, submitted to a search engine or externally deployed.
+
+### Phase 8 legal drafting checkpoint
+Bilingual noindex privacy, terms and refund/cancellation drafts are implemented, linked at public/account entry points and pass source/type/lint checks. LEGAL_REVIEW.md records primary-source checks, retrieval limits and the operator/counsel inputs still required. A draft does not establish a legally approved production policy. Accessibility/font and the stable HTTP/full gate remain.

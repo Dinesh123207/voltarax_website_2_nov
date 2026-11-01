@@ -34,6 +34,7 @@ export default function OrderDetail({ id, admin = false }: { id: string; admin?:
   return <div className="space-y-5">
     <h1 className="text-2xl font-bold text-white">{copyText("Test order")}</h1><DataQualityBadge quality={data ? 'Calculated' : 'Unavailable'} />
     <p className="text-amber-300">{copyText("Test mode only. No real funds, automatic site access or delivery established.")}</p>
+    <nav className="flex flex-wrap gap-4 text-green-300 underline text-sm" aria-label={copyText('Legal drafts')}><Link href="/terms">{copyText('Terms draft')}</Link><Link href="/privacy">{copyText('Privacy draft')}</Link><Link href="/refunds">{copyText('Refund and cancellation draft')}</Link></nav>
     <div className="flex flex-wrap gap-4"><Link href="/account/orders" className="text-green-300 underline">{copyText("My orders")}</Link><button onClick={() => void load()} disabled={busy} className="btn-outline disabled:opacity-50">{copyText("Refresh status")}</button></div>
     {copyText(error && <p role="alert" className="text-red-300">{copyText(error)}</p>)}{copyText(message && <p role="status" className="text-slate-300">{copyText(message)}</p>)}
     {data && <>

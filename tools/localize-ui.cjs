@@ -48,7 +48,7 @@ function parentComponent(node) {
 function analyze(file) {
   const relative = path.relative(root, file).replaceAll('\\', '/'), original = fs.readFileSync(file, 'utf8');
   // Original English brand artwork is a single shared image, not a UI flow.
-  if (relative.endsWith('/app/og.png/route.tsx')) return;
+  if (/\/route\.tsx?$/.test(relative)) return;
   const source = ts.createSourceFile(file, original, ts.ScriptTarget.Latest, true, file.endsWith('.tsx') ? ts.ScriptKind.TSX : ts.ScriptKind.JS);
   if (source.parseDiagnostics.length) throw Error('Invalid source syntax; localization batch preserved');
   const edits = [], scopes = new Set(), staticArrays = new Set();
