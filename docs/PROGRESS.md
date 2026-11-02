@@ -165,3 +165,5 @@ Checkpoint wording in older task rows is historical; the current summary and fin
 
 
 - [x] Final UI run passed ten cases/15-screen state matrix, 18 axe scans with 0 violations and 22 incomplete checks; actual-API four cases pass (50.85 s), generated types pass. Manual inspection of incomplete nodes then found a fixable Carbon missing-value overlap, unsupported aria-label on time and an empty device table without a body message. Corrected all three before final artifact generation: responsive Carbon values, native clock title, explicit empty row. Source types pass (8.12 s); refreshed build/browser confirmation is required. Remaining incomplete complex public contrast will stay honestly scoped/manual.
+
+- [x] Reviewed rerun passes 10 UI cases/18 axe scans, 0 violations. Incomplete entries fell from 22 to 3: two public gradient/overlay contrast contexts and a map legend name on an untyped div. Added the explicit group role to that legend; final release build/confirmation follows. Public complex contrast remains manual, with raw solid-role ratios saved.

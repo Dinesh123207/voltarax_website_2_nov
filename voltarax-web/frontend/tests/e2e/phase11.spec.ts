@@ -81,6 +81,7 @@ test('@phase11 data screens expose loading empty offline error states at 360px w
     phase='loading';release=[];await page.goto(screen,{waitUntil:'domcontentloaded'});await expect(page.locator('[data-screen-state="loading"]').first()).toBeVisible();
     phase='empty';release.splice(0).forEach(resolve=>resolve());await expect(page.locator('[data-screen-state="empty"]').first()).toBeVisible();
     expect(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth),'360px overflow at '+screen).toBe(true);
+    if(screen==='/dashboard/carbon')await page.screenshot({path:shot('carbon-empty-360')});
     await axe(page,screen.replaceAll('/','-').slice(1)+'-empty');
     await context.setOffline(true);await expect(page.locator('[data-screen-state="offline"]').first()).toBeVisible();await context.setOffline(false);
     phase='error';await page.reload({waitUntil:'domcontentloaded'});await expect(page.locator('[data-screen-state="error"]').first()).toBeVisible();

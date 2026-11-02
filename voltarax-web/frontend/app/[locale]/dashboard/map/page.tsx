@@ -34,7 +34,7 @@ export default function MapPage(){
       {!boundary?.available || !boundary.geojson ? <div role="status" className="card-dark p-6"><h2 className="font-bold">{c('Map data missing')}</h2><p>{c('Reviewed licensed boundaries must be installed and verified by the operator. No substitute outline is displayed.')}</p><DataQualityBadge quality="Unavailable"/></div>
         : <><StateMap geojson={boundary.geojson} states={metrics?.states || []}/><p className="text-sm text-slate-300">{boundary.attribution}</p></>}
       {!metrics?.assignmentMatched && <p>{c('Site-to-state boundary assignment is unverified or missing.')}</p>}
-      <div aria-label={c('Recorded energy legend')} className="flex flex-wrap gap-4 text-sm">
+      <div role="group" aria-label={c('Recorded energy legend')} className="flex flex-wrap gap-4 text-sm">
         {(['Unavailable','Recorded zero','Above zero to below 1 kWh','1 kWh or more'] as const).map((label,index)=><span key={label} className="flex gap-2 items-center"><span aria-hidden="true" className="w-5 h-5 border border-white" style={{backgroundColor:['#475569','#fef3c7','#fcd34d','#b45309'][index]}}/>{c(label)}</span>)}
       </div>
       <p className="text-sm text-slate-300">{c('Recorded valid-power intervals since IST midnight only. Missing periods are not extrapolated. Device counts are registry entries, not panel counts.')}</p>

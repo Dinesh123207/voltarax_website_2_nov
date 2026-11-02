@@ -1,0 +1,1371 @@
+{
+  "path": "/hi",
+  "viewport": {
+    "width": 360,
+    "height": 800
+  },
+  "version": "4.14.0",
+  "violations": [],
+  "incomplete": [
+    {
+      "id": "color-contrast",
+      "impact": "serious",
+      "tags": [
+        "cat.color",
+        "wcag2aa",
+        "wcag143",
+        "TTv5",
+        "TT13.c",
+        "EN-301-549",
+        "EN-9.1.4.3",
+        "ACT",
+        "RGAAv4",
+        "RGAA-3.2.1"
+      ],
+      "description": "Ensure the contrast between foreground and background colors meets WCAG 2 AA minimum contrast ratio thresholds",
+      "help": "Elements must meet minimum color contrast ratio thresholds",
+      "helpUrl": "https://dequeuniversity.com/rules/axe/4.14/color-contrast?application=axeAPI",
+      "nodes": [
+        {
+          "any": [
+            {
+              "id": "color-contrast",
+              "data": {
+                "contrastRatio": 0,
+                "fontSize": "13.5pt (18px)",
+                "fontWeight": "bold",
+                "messageKey": "bgGradient",
+                "expectedContrastRatio": "4.5:1"
+              },
+              "relatedNodes": [
+                {
+                  "html": "<div class=\"absolute inset-0 bg-gradient-to-r from-[#06100a] via-[#06100a]/90 to-transparent pointer-events-none\"></div>",
+                  "target": [
+                    ".from-\\[\\#06100a\\]"
+                  ]
+                }
+              ],
+              "impact": "serious",
+              "message": "Element's background color could not be determined due to a background gradient"
+            }
+          ],
+          "all": [],
+          "none": [],
+          "impact": "serious",
+          "html": "<span class=\"font-bold text-white text-lg tracking-tight\">Voltarax</span>",
+          "target": [
+            ".text-lg.tracking-tight.font-bold"
+          ],
+          "failureSummary": "Fix any of the following:\n  Element's background color could not be determined due to a background gradient"
+        },
+        {
+          "any": [
+            {
+              "id": "color-contrast",
+              "data": {
+                "contrastRatio": 0,
+                "fontSize": "7.5pt (10px)",
+                "fontWeight": "normal",
+                "messageKey": "bgGradient",
+                "expectedContrastRatio": "4.5:1"
+              },
+              "relatedNodes": [
+                {
+                  "html": "<div class=\"absolute inset-0 bg-gradient-to-r from-[#06100a] via-[#06100a]/90 to-transparent pointer-events-none\"></div>",
+                  "target": [
+                    ".from-\\[\\#06100a\\]"
+                  ]
+                }
+              ],
+              "impact": "serious",
+              "message": "Element's background color could not be determined due to a background gradient"
+            }
+          ],
+          "all": [],
+          "none": [],
+          "impact": "serious",
+          "html": "<time aria-live=\"off\" title=\"वर्तमान भारतीय मानक समय, इस उपकरण की घड़ी से गणना की गई\" data-quality=\"Calculated\" class=\"text-[10px] sm:text-xs text-slate-300 tabular-nums whitespace-nowrap\" datetime=\"2026-11-02T08:22:48.003Z\">02/11/2026, 13:52:48 IST</time>",
+          "target": [
+            "time"
+          ],
+          "failureSummary": "Fix any of the following:\n  Element's background color could not be determined due to a background gradient"
+        },
+        {
+          "any": [
+            {
+              "id": "color-contrast",
+              "data": {
+                "contrastRatio": 0,
+                "fontSize": "9.0pt (12px)",
+                "fontWeight": "normal",
+                "messageKey": "bgGradient",
+                "expectedContrastRatio": "4.5:1"
+              },
+              "relatedNodes": [
+                {
+                  "html": "<div class=\"inline-flex items-center gap-2 px-4 py-2 rounded-full border border-emerald-300/20 bg-emerald-300/5 text-emerald-200 text-xs font-semibold uppercase tracking-[.18em] mb-7\">",
+                  "target": [
+                    ".inline-flex"
+                  ]
+                },
+                {
+                  "html": "<div class=\"absolute inset-0 bg-gradient-to-r from-[#06100a] via-[#06100a]/90 to-transparent pointer-events-none\"></div>",
+                  "target": [
+                    ".from-\\[\\#06100a\\]"
+                  ]
+                }
+              ],
+              "impact": "serious",
+              "message": "Element's background color could not be determined due to a background gradient"
+            }
+          ],
+          "all": [],
+          "none": [],
+          "impact": "serious",
+          "html": "<div class=\"inline-flex items-center gap-2 px-4 py-2 rounded-full border border-emerald-300/20 bg-emerald-300/5 text-emerald-200 text-xs font-semibold uppercase tracking-[.18em] mb-7\">",
+          "target": [
+            ".inline-flex"
+          ],
+          "failureSummary": "Fix any of the following:\n  Element's background color could not be determined due to a background gradient"
+        },
+        {
+          "any": [
+            {
+              "id": "color-contrast",
+              "data": {
+                "contrastRatio": 0,
+                "fontSize": "36.0pt (48px)",
+                "fontWeight": "bold",
+                "messageKey": "bgGradient",
+                "expectedContrastRatio": "3:1"
+              },
+              "relatedNodes": [
+                {
+                  "html": "<span class=\"gradient-text\">स्वच्छ ऊर्जा के लिए बुद्धिमान तकनीक।</span>",
+                  "target": [
+                    "h1 > .gradient-text"
+                  ]
+                }
+              ],
+              "impact": "serious",
+              "message": "Element's background color could not be determined due to a background gradient"
+            }
+          ],
+          "all": [],
+          "none": [],
+          "impact": "serious",
+          "html": "<span class=\"gradient-text\">स्वच्छ ऊर्जा के लिए बुद्धिमान तकनीक।</span>",
+          "target": [
+            "h1 > .gradient-text"
+          ],
+          "failureSummary": "Fix any of the following:\n  Element's background color could not be determined due to a background gradient"
+        },
+        {
+          "any": [
+            {
+              "id": "color-contrast",
+              "data": {
+                "contrastRatio": 0,
+                "fontSize": "13.5pt (18px)",
+                "fontWeight": "normal",
+                "messageKey": "bgGradient",
+                "expectedContrastRatio": "4.5:1"
+              },
+              "relatedNodes": [
+                {
+                  "html": "<div class=\"absolute inset-0 bg-gradient-to-r from-[#06100a] via-[#06100a]/90 to-transparent pointer-events-none\"></div>",
+                  "target": [
+                    ".from-\\[\\#06100a\\]"
+                  ]
+                }
+              ],
+              "impact": "serious",
+              "message": "Element's background color could not be determined due to a background gradient"
+            }
+          ],
+          "all": [],
+          "none": [],
+          "impact": "serious",
+          "html": "<span aria-hidden=\"true\" class=\"text-emerald-300 font-semibold\">साइट की सेंसर रीडिंग।<span class=\"motion-safe:animate-pulse\">|</span></span>",
+          "target": [
+            ".text-emerald-300[aria-hidden=\"true\"]"
+          ],
+          "failureSummary": "Fix any of the following:\n  Element's background color could not be determined due to a background gradient"
+        },
+        {
+          "any": [
+            {
+              "id": "color-contrast",
+              "data": {
+                "contrastRatio": 0,
+                "fontSize": "12.0pt (16px)",
+                "fontWeight": "normal",
+                "messageKey": "bgGradient",
+                "expectedContrastRatio": "4.5:1"
+              },
+              "relatedNodes": [
+                {
+                  "html": "<div class=\"absolute inset-0 bg-gradient-to-r from-[#06100a] via-[#06100a]/90 to-transparent pointer-events-none\"></div>",
+                  "target": [
+                    ".from-\\[\\#06100a\\]"
+                  ]
+                }
+              ],
+              "impact": "serious",
+              "message": "Element's background color could not be determined due to a background gradient"
+            }
+          ],
+          "all": [],
+          "none": [],
+          "impact": "serious",
+          "html": "<p class=\"text-slate-400 text-base sm:text-lg max-w-2xl leading-relaxed mb-9\">साइट की रीडिंग देखें, निरीक्षण दर्ज करें और रखरखाव का रिकॉर्ड रखें। अनुमानों के लिए उपयुक्त इनपुट आवश्यक हैं। हर स्थापना के लिए हार्डवेयर और सेवाओं के सेटअप का सत्यापन आवश्यक है।</p>",
+          "target": [
+            ".sm\\:text-lg"
+          ],
+          "failureSummary": "Fix any of the following:\n  Element's background color could not be determined due to a background gradient"
+        },
+        {
+          "any": [
+            {
+              "id": "color-contrast",
+              "data": {
+                "contrastRatio": 0,
+                "fontSize": "12.0pt (16px)",
+                "fontWeight": "normal",
+                "messageKey": "bgGradient",
+                "expectedContrastRatio": "4.5:1"
+              },
+              "relatedNodes": [
+                {
+                  "html": "<div class=\"absolute inset-0 bg-gradient-to-r from-[#06100a] via-[#06100a]/90 to-transparent pointer-events-none\"></div>",
+                  "target": [
+                    ".from-\\[\\#06100a\\]"
+                  ]
+                }
+              ],
+              "impact": "serious",
+              "message": "Element's background color could not be determined due to a background gradient"
+            }
+          ],
+          "all": [],
+          "none": [],
+          "impact": "serious",
+          "html": "<a class=\"btn-outline text-base px-7 py-3.5\" href=\"/hi/contact?type=demo\">डेमो का अनुरोध करें</a>",
+          "target": [
+            ".btn-outline.px-7.py-3\\.5"
+          ],
+          "failureSummary": "Fix any of the following:\n  Element's background color could not be determined due to a background gradient"
+        },
+        {
+          "any": [
+            {
+              "id": "color-contrast",
+              "data": {
+                "contrastRatio": 0,
+                "fontSize": "18.0pt (24px)",
+                "fontWeight": "bold",
+                "messageKey": "bgGradient",
+                "expectedContrastRatio": "3:1"
+              },
+              "relatedNodes": [
+                {
+                  "html": "<div class=\"hero-stat\">",
+                  "target": [
+                    ".hero-stat:nth-child(1)"
+                  ]
+                },
+                {
+                  "html": "<div class=\"absolute inset-0 bg-gradient-to-r from-[#06100a] via-[#06100a]/90 to-transparent pointer-events-none\"></div>",
+                  "target": [
+                    ".from-\\[\\#06100a\\]"
+                  ]
+                }
+              ],
+              "impact": "serious",
+              "message": "Element's background color could not be determined due to a background gradient"
+            }
+          ],
+          "all": [],
+          "none": [],
+          "impact": "serious",
+          "html": "<div class=\"text-2xl font-bold text-white tracking-tight\">सेटअप</div>",
+          "target": [
+            ".hero-stat:nth-child(1) > .text-2xl.tracking-tight.font-bold"
+          ],
+          "failureSummary": "Fix any of the following:\n  Element's background color could not be determined due to a background gradient"
+        },
+        {
+          "any": [
+            {
+              "id": "color-contrast",
+              "data": {
+                "contrastRatio": 0,
+                "fontSize": "9.0pt (12px)",
+                "fontWeight": "normal",
+                "messageKey": "bgGradient",
+                "expectedContrastRatio": "4.5:1"
+              },
+              "relatedNodes": [
+                {
+                  "html": "<div class=\"hero-stat\">",
+                  "target": [
+                    ".hero-stat:nth-child(1)"
+                  ]
+                },
+                {
+                  "html": "<div class=\"absolute inset-0 bg-gradient-to-r from-[#06100a] via-[#06100a]/90 to-transparent pointer-events-none\"></div>",
+                  "target": [
+                    ".from-\\[\\#06100a\\]"
+                  ]
+                }
+              ],
+              "impact": "serious",
+              "message": "Element's background color could not be determined due to a background gradient"
+            }
+          ],
+          "all": [],
+          "none": [],
+          "impact": "serious",
+          "html": "<div class=\"text-xs text-slate-500 mt-1\">कॉन्फ़िगरेशन आवश्यक है</div>",
+          "target": [
+            ".hero-stat:nth-child(1) > .mt-1.text-xs.text-slate-500"
+          ],
+          "failureSummary": "Fix any of the following:\n  Element's background color could not be determined due to a background gradient"
+        },
+        {
+          "any": [
+            {
+              "id": "color-contrast",
+              "data": {
+                "contrastRatio": 0,
+                "fontSize": "18.0pt (24px)",
+                "fontWeight": "bold",
+                "messageKey": "bgGradient",
+                "expectedContrastRatio": "3:1"
+              },
+              "relatedNodes": [
+                {
+                  "html": "<div class=\"hero-stat\">",
+                  "target": [
+                    ".hero-stat:nth-child(2)"
+                  ]
+                },
+                {
+                  "html": "<div class=\"absolute inset-0 bg-gradient-to-r from-[#06100a] via-[#06100a]/90 to-transparent pointer-events-none\"></div>",
+                  "target": [
+                    ".from-\\[\\#06100a\\]"
+                  ]
+                }
+              ],
+              "impact": "serious",
+              "message": "Element's background color could not be determined due to a background gradient"
+            }
+          ],
+          "all": [],
+          "none": [],
+          "impact": "serious",
+          "html": "<div class=\"text-2xl font-bold text-white tracking-tight\">कृत्रिम बुद्धिमत्ता</div>",
+          "target": [
+            ".hero-stat:nth-child(2) > .text-2xl.tracking-tight.font-bold"
+          ],
+          "failureSummary": "Fix any of the following:\n  Element's background color could not be determined due to a background gradient"
+        },
+        {
+          "any": [
+            {
+              "id": "color-contrast",
+              "data": {
+                "contrastRatio": 0,
+                "fontSize": "9.0pt (12px)",
+                "fontWeight": "normal",
+                "messageKey": "bgGradient",
+                "expectedContrastRatio": "4.5:1"
+              },
+              "relatedNodes": [
+                {
+                  "html": "<div class=\"hero-stat\">",
+                  "target": [
+                    ".hero-stat:nth-child(2)"
+                  ]
+                },
+                {
+                  "html": "<div class=\"absolute inset-0 bg-gradient-to-r from-[#06100a] via-[#06100a]/90 to-transparent pointer-events-none\"></div>",
+                  "target": [
+                    ".from-\\[\\#06100a\\]"
+                  ]
+                }
+              ],
+              "impact": "serious",
+              "message": "Element's background color could not be determined due to a background gradient"
+            }
+          ],
+          "all": [],
+          "none": [],
+          "impact": "serious",
+          "html": "<div class=\"text-xs text-slate-500 mt-1\">विश्लेषण का सत्यापन जारी है</div>",
+          "target": [
+            ".hero-stat:nth-child(2) > .mt-1.text-xs.text-slate-500"
+          ],
+          "failureSummary": "Fix any of the following:\n  Element's background color could not be determined due to a background gradient"
+        },
+        {
+          "any": [
+            {
+              "id": "color-contrast",
+              "data": {
+                "contrastRatio": 0,
+                "fontSize": "18.0pt (24px)",
+                "fontWeight": "bold",
+                "messageKey": "bgGradient",
+                "expectedContrastRatio": "3:1"
+              },
+              "relatedNodes": [
+                {
+                  "html": "<div class=\"hero-stat\">",
+                  "target": [
+                    ".hero-stat:nth-child(3)"
+                  ]
+                },
+                {
+                  "html": "<div class=\"absolute inset-0 bg-gradient-to-r from-[#06100a] via-[#06100a]/90 to-transparent pointer-events-none\"></div>",
+                  "target": [
+                    ".from-\\[\\#06100a\\]"
+                  ]
+                }
+              ],
+              "impact": "serious",
+              "message": "Element's background color could not be determined due to a background gradient"
+            }
+          ],
+          "all": [],
+          "none": [],
+          "impact": "serious",
+          "html": "<div class=\"text-2xl font-bold text-white tracking-tight\">जुड़े हुए उपकरण</div>",
+          "target": [
+            ".hero-stat:nth-child(3) > .text-2xl.tracking-tight.font-bold"
+          ],
+          "failureSummary": "Fix any of the following:\n  Element's background color could not be determined due to a background gradient"
+        },
+        {
+          "any": [
+            {
+              "id": "color-contrast",
+              "data": {
+                "contrastRatio": 0,
+                "fontSize": "9.0pt (12px)",
+                "fontWeight": "normal",
+                "messageKey": "bgGradient",
+                "expectedContrastRatio": "4.5:1"
+              },
+              "relatedNodes": [
+                {
+                  "html": "<div class=\"hero-stat\">",
+                  "target": [
+                    ".hero-stat:nth-child(3)"
+                  ]
+                },
+                {
+                  "html": "<div class=\"absolute inset-0 bg-gradient-to-r from-[#06100a] via-[#06100a]/90 to-transparent pointer-events-none\"></div>",
+                  "target": [
+                    ".from-\\[\\#06100a\\]"
+                  ]
+                }
+              ],
+              "impact": "serious",
+              "message": "Element's background color could not be determined due to a background gradient"
+            }
+          ],
+          "all": [],
+          "none": [],
+          "impact": "serious",
+          "html": "<div class=\"text-xs text-slate-500 mt-1\">सेंसर की रीडिंग</div>",
+          "target": [
+            ".hero-stat:nth-child(3) > .mt-1.text-xs.text-slate-500"
+          ],
+          "failureSummary": "Fix any of the following:\n  Element's background color could not be determined due to a background gradient"
+        },
+        {
+          "any": [
+            {
+              "id": "color-contrast",
+              "data": {
+                "contrastRatio": 0,
+                "fontSize": "18.0pt (24px)",
+                "fontWeight": "bold",
+                "messageKey": "bgGradient",
+                "expectedContrastRatio": "3:1"
+              },
+              "relatedNodes": [
+                {
+                  "html": "<div class=\"hero-stat\">",
+                  "target": [
+                    ".hero-stat:nth-child(4)"
+                  ]
+                },
+                {
+                  "html": "<div class=\"absolute inset-0 bg-gradient-to-r from-[#06100a] via-[#06100a]/90 to-transparent pointer-events-none\"></div>",
+                  "target": [
+                    ".from-\\[\\#06100a\\]"
+                  ]
+                }
+              ],
+              "impact": "serious",
+              "message": "Element's background color could not be determined due to a background gradient"
+            }
+          ],
+          "all": [],
+          "none": [],
+          "impact": "serious",
+          "html": "<div class=\"text-2xl font-bold text-white tracking-tight\">रिकॉर्ड</div>",
+          "target": [
+            ".hero-stat:nth-child(4) > .text-2xl.tracking-tight.font-bold"
+          ],
+          "failureSummary": "Fix any of the following:\n  Element's background color could not be determined due to a background gradient"
+        },
+        {
+          "any": [
+            {
+              "id": "color-contrast",
+              "data": {
+                "contrastRatio": 0,
+                "fontSize": "9.0pt (12px)",
+                "fontWeight": "normal",
+                "messageKey": "bgGradient",
+                "expectedContrastRatio": "4.5:1"
+              },
+              "relatedNodes": [
+                {
+                  "html": "<div class=\"hero-stat\">",
+                  "target": [
+                    ".hero-stat:nth-child(4)"
+                  ]
+                },
+                {
+                  "html": "<div class=\"absolute inset-0 bg-gradient-to-r from-[#06100a] via-[#06100a]/90 to-transparent pointer-events-none\"></div>",
+                  "target": [
+                    ".from-\\[\\#06100a\\]"
+                  ]
+                }
+              ],
+              "impact": "serious",
+              "message": "Element's background color could not be determined due to a background gradient"
+            }
+          ],
+          "all": [],
+          "none": [],
+          "impact": "serious",
+          "html": "<div class=\"text-xs text-slate-500 mt-1\">मैनुअल निरीक्षण</div>",
+          "target": [
+            ".hero-stat:nth-child(4) > .mt-1.text-xs.text-slate-500"
+          ],
+          "failureSummary": "Fix any of the following:\n  Element's background color could not be determined due to a background gradient"
+        },
+        {
+          "any": [
+            {
+              "id": "color-contrast",
+              "data": {
+                "contrastRatio": 0,
+                "fontSize": "10.5pt (14px)",
+                "fontWeight": "normal",
+                "messageKey": "bgOverlap",
+                "expectedContrastRatio": "4.5:1"
+              },
+              "relatedNodes": [],
+              "impact": "serious",
+              "message": "Element's background color could not be determined because it is overlapped by another element"
+            }
+          ],
+          "all": [],
+          "none": [],
+          "impact": "serious",
+          "html": "<text x=\"85\" y=\"70\" text-anchor=\"middle\" fill=\"#f1f5f9\" font-size=\"14\" font-family=\"sans-serif\">सेंसर</text>",
+          "target": [
+            "svg[aria-labelledby=\"_R_18hdbrivb_\"] > g:nth-child(4) > text[x=\"85\"][y=\"70\"][fill=\"#f1f5f9\"]"
+          ],
+          "failureSummary": "Fix any of the following:\n  Element's background color could not be determined because it is overlapped by another element"
+        },
+        {
+          "any": [
+            {
+              "id": "color-contrast",
+              "data": {
+                "contrastRatio": 0,
+                "fontSize": "10.5pt (14px)",
+                "fontWeight": "normal",
+                "messageKey": "bgOverlap",
+                "expectedContrastRatio": "4.5:1"
+              },
+              "relatedNodes": [],
+              "impact": "serious",
+              "message": "Element's background color could not be determined because it is overlapped by another element"
+            }
+          ],
+          "all": [],
+          "none": [],
+          "impact": "serious",
+          "html": "<text x=\"275\" y=\"70\" text-anchor=\"middle\" fill=\"#f1f5f9\" font-size=\"14\" font-family=\"sans-serif\">Firebase</text>",
+          "target": [
+            "svg[aria-labelledby=\"_R_18hdbrivb_\"] > g:nth-child(5) > text[x=\"275\"][y=\"70\"][fill=\"#f1f5f9\"]"
+          ],
+          "failureSummary": "Fix any of the following:\n  Element's background color could not be determined because it is overlapped by another element"
+        },
+        {
+          "any": [
+            {
+              "id": "color-contrast",
+              "data": {
+                "contrastRatio": 0,
+                "fontSize": "10.5pt (14px)",
+                "fontWeight": "normal",
+                "messageKey": "bgOverlap",
+                "expectedContrastRatio": "4.5:1"
+              },
+              "relatedNodes": [],
+              "impact": "serious",
+              "message": "Element's background color could not be determined because it is overlapped by another element"
+            }
+          ],
+          "all": [],
+          "none": [],
+          "impact": "serious",
+          "html": "<text x=\"275\" y=\"210\" text-anchor=\"middle\" fill=\"#f1f5f9\" font-size=\"14\" font-family=\"sans-serif\">अधिकृत एपीआई</text>",
+          "target": [
+            "svg[aria-labelledby=\"_R_18hdbrivb_\"] > g:nth-child(6) > text[x=\"275\"][y=\"210\"][fill=\"#f1f5f9\"]"
+          ],
+          "failureSummary": "Fix any of the following:\n  Element's background color could not be determined because it is overlapped by another element"
+        },
+        {
+          "any": [
+            {
+              "id": "color-contrast",
+              "data": {
+                "contrastRatio": 0,
+                "fontSize": "10.5pt (14px)",
+                "fontWeight": "normal",
+                "messageKey": "bgOverlap",
+                "expectedContrastRatio": "4.5:1"
+              },
+              "relatedNodes": [],
+              "impact": "serious",
+              "message": "Element's background color could not be determined because it is overlapped by another element"
+            }
+          ],
+          "all": [],
+          "none": [],
+          "impact": "serious",
+          "html": "<text x=\"85\" y=\"210\" text-anchor=\"middle\" fill=\"#f1f5f9\" font-size=\"14\" font-family=\"sans-serif\">साइट दृश्य</text>",
+          "target": [
+            "svg[aria-labelledby=\"_R_18hdbrivb_\"] > g:nth-child(7) > text[x=\"85\"][y=\"210\"][fill=\"#f1f5f9\"]"
+          ],
+          "failureSummary": "Fix any of the following:\n  Element's background color could not be determined because it is overlapped by another element"
+        },
+        {
+          "any": [
+            {
+              "id": "color-contrast",
+              "data": {
+                "contrastRatio": 0,
+                "fontSize": "9.0pt (12px)",
+                "fontWeight": "normal",
+                "messageKey": "bgOverlap",
+                "expectedContrastRatio": "4.5:1"
+              },
+              "relatedNodes": [],
+              "impact": "serious",
+              "message": "Element's background color could not be determined because it is overlapped by another element"
+            }
+          ],
+          "all": [],
+          "none": [],
+          "impact": "serious",
+          "html": "<text x=\"180\" y=\"140\" text-anchor=\"middle\" fill=\"#cbd5e1\" font-size=\"12\" font-family=\"sans-serif\">चित्रण, लाइव डेटा नहीं</text>",
+          "target": [
+            "svg[aria-labelledby=\"_R_18hdbrivb_\"] > text[x=\"180\"][y=\"140\"][font-size=\"12\"]"
+          ],
+          "failureSummary": "Fix any of the following:\n  Element's background color could not be determined because it is overlapped by another element"
+        },
+        {
+          "any": [
+            {
+              "id": "color-contrast",
+              "data": {
+                "contrastRatio": 0,
+                "fontSize": "7.5pt (10px)",
+                "fontWeight": "normal",
+                "messageKey": "bgOverlap",
+                "expectedContrastRatio": "4.5:1"
+              },
+              "relatedNodes": [],
+              "impact": "serious",
+              "message": "Element's background color could not be determined because it is overlapped by another element"
+            }
+          ],
+          "all": [],
+          "none": [],
+          "impact": "serious",
+          "html": "<span class=\"text-[10px] tracking-[.25em] uppercase\">जानें</span>",
+          "target": [
+            ".tracking-\\[\\.25em\\]"
+          ],
+          "failureSummary": "Fix any of the following:\n  Element's background color could not be determined because it is overlapped by another element"
+        },
+        {
+          "any": [
+            {
+              "id": "color-contrast",
+              "data": {
+                "contrastRatio": 0,
+                "fontSize": "22.5pt (30px)",
+                "fontWeight": "bold",
+                "messageKey": "bgGradient",
+                "expectedContrastRatio": "3:1"
+              },
+              "relatedNodes": [
+                {
+                  "html": "<span class=\"gradient-text\">उपकरण के दर्ज व्यवहार को समझें।</span>",
+                  "target": [
+                    "#why > .max-w-6xl.sm\\:px-6.lg\\:px-8 > .mb-14.text-center.max-w-2xl > .text-3xl.sm\\:text-4xl.mt-3 > .gradient-text"
+                  ]
+                }
+              ],
+              "impact": "serious",
+              "message": "Element's background color could not be determined due to a background gradient"
+            }
+          ],
+          "all": [],
+          "none": [],
+          "impact": "serious",
+          "html": "<span class=\"gradient-text\">उपकरण के दर्ज व्यवहार को समझें।</span>",
+          "target": [
+            "#why > .max-w-6xl.sm\\:px-6.lg\\:px-8 > .mb-14.text-center.max-w-2xl > .text-3xl.sm\\:text-4xl.mt-3 > .gradient-text"
+          ],
+          "failureSummary": "Fix any of the following:\n  Element's background color could not be determined due to a background gradient"
+        },
+        {
+          "any": [
+            {
+              "id": "color-contrast",
+              "data": {
+                "contrastRatio": 0,
+                "fontSize": "36.0pt (48px)",
+                "fontWeight": "bold",
+                "messageKey": "bgGradient",
+                "expectedContrastRatio": "3:1"
+              },
+              "relatedNodes": [
+                {
+                  "html": "<div class=\"text-5xl font-black gradient-text mb-3\">पढ़ें</div>",
+                  "target": [
+                    ".py-10.text-center.stat-card:nth-child(1) > .text-5xl.font-black.gradient-text"
+                  ]
+                }
+              ],
+              "impact": "serious",
+              "message": "Element's background color could not be determined due to a background gradient"
+            }
+          ],
+          "all": [],
+          "none": [],
+          "impact": "serious",
+          "html": "<div class=\"text-5xl font-black gradient-text mb-3\">पढ़ें</div>",
+          "target": [
+            ".py-10.text-center.stat-card:nth-child(1) > .text-5xl.font-black.gradient-text"
+          ],
+          "failureSummary": "Fix any of the following:\n  Element's background color could not be determined due to a background gradient"
+        },
+        {
+          "any": [
+            {
+              "id": "color-contrast",
+              "data": {
+                "contrastRatio": 0,
+                "fontSize": "36.0pt (48px)",
+                "fontWeight": "bold",
+                "messageKey": "bgGradient",
+                "expectedContrastRatio": "3:1"
+              },
+              "relatedNodes": [
+                {
+                  "html": "<div class=\"text-5xl font-black gradient-text mb-3\">समीक्षा करें</div>",
+                  "target": [
+                    ".py-10.text-center.stat-card:nth-child(2) > .text-5xl.font-black.gradient-text"
+                  ]
+                }
+              ],
+              "impact": "serious",
+              "message": "Element's background color could not be determined due to a background gradient"
+            }
+          ],
+          "all": [],
+          "none": [],
+          "impact": "serious",
+          "html": "<div class=\"text-5xl font-black gradient-text mb-3\">समीक्षा करें</div>",
+          "target": [
+            ".py-10.text-center.stat-card:nth-child(2) > .text-5xl.font-black.gradient-text"
+          ],
+          "failureSummary": "Fix any of the following:\n  Element's background color could not be determined due to a background gradient"
+        },
+        {
+          "any": [
+            {
+              "id": "color-contrast",
+              "data": {
+                "contrastRatio": 0,
+                "fontSize": "36.0pt (48px)",
+                "fontWeight": "bold",
+                "messageKey": "bgGradient",
+                "expectedContrastRatio": "3:1"
+              },
+              "relatedNodes": [
+                {
+                  "html": "<div class=\"text-5xl font-black gradient-text mb-3\">नज़र रखें</div>",
+                  "target": [
+                    ".py-10.text-center.stat-card:nth-child(3) > .text-5xl.font-black.gradient-text"
+                  ]
+                }
+              ],
+              "impact": "serious",
+              "message": "Element's background color could not be determined due to a background gradient"
+            }
+          ],
+          "all": [],
+          "none": [],
+          "impact": "serious",
+          "html": "<div class=\"text-5xl font-black gradient-text mb-3\">नज़र रखें</div>",
+          "target": [
+            ".py-10.text-center.stat-card:nth-child(3) > .text-5xl.font-black.gradient-text"
+          ],
+          "failureSummary": "Fix any of the following:\n  Element's background color could not be determined due to a background gradient"
+        },
+        {
+          "any": [
+            {
+              "id": "color-contrast",
+              "data": {
+                "contrastRatio": 0,
+                "fontSize": "10.5pt (14px)",
+                "fontWeight": "normal",
+                "messageKey": "bgOverlap",
+                "expectedContrastRatio": "4.5:1"
+              },
+              "relatedNodes": [],
+              "impact": "serious",
+              "message": "Element's background color could not be determined because it is overlapped by another element"
+            }
+          ],
+          "all": [],
+          "none": [],
+          "impact": "serious",
+          "html": "<text x=\"85\" y=\"70\" text-anchor=\"middle\" fill=\"#f1f5f9\" font-size=\"14\" font-family=\"sans-serif\">सेंसर</text>",
+          "target": [
+            "svg[aria-labelledby=\"_R_3dbrivb_\"] > g:nth-child(4) > text[x=\"85\"][y=\"70\"][fill=\"#f1f5f9\"]"
+          ],
+          "failureSummary": "Fix any of the following:\n  Element's background color could not be determined because it is overlapped by another element"
+        },
+        {
+          "any": [
+            {
+              "id": "color-contrast",
+              "data": {
+                "contrastRatio": 0,
+                "fontSize": "10.5pt (14px)",
+                "fontWeight": "normal",
+                "messageKey": "bgOverlap",
+                "expectedContrastRatio": "4.5:1"
+              },
+              "relatedNodes": [],
+              "impact": "serious",
+              "message": "Element's background color could not be determined because it is overlapped by another element"
+            }
+          ],
+          "all": [],
+          "none": [],
+          "impact": "serious",
+          "html": "<text x=\"275\" y=\"70\" text-anchor=\"middle\" fill=\"#f1f5f9\" font-size=\"14\" font-family=\"sans-serif\">Firebase</text>",
+          "target": [
+            "svg[aria-labelledby=\"_R_3dbrivb_\"] > g:nth-child(5) > text[x=\"275\"][y=\"70\"][fill=\"#f1f5f9\"]"
+          ],
+          "failureSummary": "Fix any of the following:\n  Element's background color could not be determined because it is overlapped by another element"
+        },
+        {
+          "any": [
+            {
+              "id": "color-contrast",
+              "data": {
+                "contrastRatio": 0,
+                "fontSize": "10.5pt (14px)",
+                "fontWeight": "normal",
+                "messageKey": "bgOverlap",
+                "expectedContrastRatio": "4.5:1"
+              },
+              "relatedNodes": [],
+              "impact": "serious",
+              "message": "Element's background color could not be determined because it is overlapped by another element"
+            }
+          ],
+          "all": [],
+          "none": [],
+          "impact": "serious",
+          "html": "<text x=\"275\" y=\"210\" text-anchor=\"middle\" fill=\"#f1f5f9\" font-size=\"14\" font-family=\"sans-serif\">अधिकृत एपीआई</text>",
+          "target": [
+            "svg[aria-labelledby=\"_R_3dbrivb_\"] > g:nth-child(6) > text[x=\"275\"][y=\"210\"][fill=\"#f1f5f9\"]"
+          ],
+          "failureSummary": "Fix any of the following:\n  Element's background color could not be determined because it is overlapped by another element"
+        },
+        {
+          "any": [
+            {
+              "id": "color-contrast",
+              "data": {
+                "contrastRatio": 0,
+                "fontSize": "10.5pt (14px)",
+                "fontWeight": "normal",
+                "messageKey": "bgOverlap",
+                "expectedContrastRatio": "4.5:1"
+              },
+              "relatedNodes": [],
+              "impact": "serious",
+              "message": "Element's background color could not be determined because it is overlapped by another element"
+            }
+          ],
+          "all": [],
+          "none": [],
+          "impact": "serious",
+          "html": "<text x=\"85\" y=\"210\" text-anchor=\"middle\" fill=\"#f1f5f9\" font-size=\"14\" font-family=\"sans-serif\">साइट दृश्य</text>",
+          "target": [
+            "svg[aria-labelledby=\"_R_3dbrivb_\"] > g:nth-child(7) > text[x=\"85\"][y=\"210\"][fill=\"#f1f5f9\"]"
+          ],
+          "failureSummary": "Fix any of the following:\n  Element's background color could not be determined because it is overlapped by another element"
+        },
+        {
+          "any": [
+            {
+              "id": "color-contrast",
+              "data": {
+                "contrastRatio": 0,
+                "fontSize": "9.0pt (12px)",
+                "fontWeight": "normal",
+                "messageKey": "bgOverlap",
+                "expectedContrastRatio": "4.5:1"
+              },
+              "relatedNodes": [],
+              "impact": "serious",
+              "message": "Element's background color could not be determined because it is overlapped by another element"
+            }
+          ],
+          "all": [],
+          "none": [],
+          "impact": "serious",
+          "html": "<text x=\"180\" y=\"140\" text-anchor=\"middle\" fill=\"#cbd5e1\" font-size=\"12\" font-family=\"sans-serif\">चित्रण, लाइव डेटा नहीं</text>",
+          "target": [
+            "svg[aria-labelledby=\"_R_3dbrivb_\"] > text[x=\"180\"][y=\"140\"][font-size=\"12\"]"
+          ],
+          "failureSummary": "Fix any of the following:\n  Element's background color could not be determined because it is overlapped by another element"
+        },
+        {
+          "any": [
+            {
+              "id": "color-contrast",
+              "data": {
+                "contrastRatio": 0,
+                "fontSize": "22.5pt (30px)",
+                "fontWeight": "bold",
+                "messageKey": "bgGradient",
+                "expectedContrastRatio": "3:1"
+              },
+              "relatedNodes": [
+                {
+                  "html": "<span class=\"gradient-text\">वास्तविक अवलोकन दर्ज करें</span>",
+                  "target": [
+                    "#coating > .max-w-6xl.sm\\:px-6.lg\\:px-8 > .mb-14.text-center.max-w-2xl > .text-3xl.sm\\:text-4xl.mt-3 > .gradient-text"
+                  ]
+                }
+              ],
+              "impact": "serious",
+              "message": "Element's background color could not be determined due to a background gradient"
+            }
+          ],
+          "all": [],
+          "none": [],
+          "impact": "serious",
+          "html": "<span class=\"gradient-text\">वास्तविक अवलोकन दर्ज करें</span>",
+          "target": [
+            "#coating > .max-w-6xl.sm\\:px-6.lg\\:px-8 > .mb-14.text-center.max-w-2xl > .text-3xl.sm\\:text-4xl.mt-3 > .gradient-text"
+          ],
+          "failureSummary": "Fix any of the following:\n  Element's background color could not be determined due to a background gradient"
+        },
+        {
+          "any": [
+            {
+              "id": "color-contrast",
+              "data": {
+                "contrastRatio": 0,
+                "fontSize": "54.0pt (72px)",
+                "fontWeight": "bold",
+                "messageKey": "bgOverlap",
+                "expectedContrastRatio": "3:1"
+              },
+              "relatedNodes": [],
+              "impact": "serious",
+              "message": "Element's background color could not be determined because it is overlapped by another element"
+            }
+          ],
+          "all": [],
+          "none": [],
+          "impact": "serious",
+          "html": "<div class=\"absolute -right-2 -top-4 text-7xl font-black text-green-500/10 font-mono\">01</div>",
+          "target": [
+            ".stat-card.overflow-hidden.relative:nth-child(1) > .-right-2.-top-4.text-7xl"
+          ],
+          "failureSummary": "Fix any of the following:\n  Element's background color could not be determined because it is overlapped by another element"
+        },
+        {
+          "any": [
+            {
+              "id": "color-contrast",
+              "data": {
+                "contrastRatio": 0,
+                "fontSize": "54.0pt (72px)",
+                "fontWeight": "bold",
+                "messageKey": "bgOverlap",
+                "expectedContrastRatio": "3:1"
+              },
+              "relatedNodes": [],
+              "impact": "serious",
+              "message": "Element's background color could not be determined because it is overlapped by another element"
+            }
+          ],
+          "all": [],
+          "none": [],
+          "impact": "serious",
+          "html": "<div class=\"absolute -right-2 -top-4 text-7xl font-black text-green-500/10 font-mono\">02</div>",
+          "target": [
+            ".stat-card.overflow-hidden.relative:nth-child(2) > .-right-2.-top-4.text-7xl"
+          ],
+          "failureSummary": "Fix any of the following:\n  Element's background color could not be determined because it is overlapped by another element"
+        },
+        {
+          "any": [
+            {
+              "id": "color-contrast",
+              "data": {
+                "contrastRatio": 0,
+                "fontSize": "54.0pt (72px)",
+                "fontWeight": "bold",
+                "messageKey": "bgOverlap",
+                "expectedContrastRatio": "3:1"
+              },
+              "relatedNodes": [],
+              "impact": "serious",
+              "message": "Element's background color could not be determined because it is overlapped by another element"
+            }
+          ],
+          "all": [],
+          "none": [],
+          "impact": "serious",
+          "html": "<div class=\"absolute -right-2 -top-4 text-7xl font-black text-green-500/10 font-mono\">03</div>",
+          "target": [
+            ".stat-card.overflow-hidden.relative:nth-child(3) > .-right-2.-top-4.text-7xl"
+          ],
+          "failureSummary": "Fix any of the following:\n  Element's background color could not be determined because it is overlapped by another element"
+        },
+        {
+          "any": [
+            {
+              "id": "color-contrast",
+              "data": {
+                "contrastRatio": 0,
+                "fontSize": "22.5pt (30px)",
+                "fontWeight": "bold",
+                "messageKey": "bgGradient",
+                "expectedContrastRatio": "3:1"
+              },
+              "relatedNodes": [
+                {
+                  "html": "<span class=\"gradient-text\">निगरानी और नियोजित क्षमताएँ</span>",
+                  "target": [
+                    ".max-w-7xl.sm\\:px-6.lg\\:px-8 > .mb-14.text-center.max-w-2xl > .text-3xl.sm\\:text-4xl.mt-3 > .gradient-text"
+                  ]
+                }
+              ],
+              "impact": "serious",
+              "message": "Element's background color could not be determined due to a background gradient"
+            }
+          ],
+          "all": [],
+          "none": [],
+          "impact": "serious",
+          "html": "<span class=\"gradient-text\">निगरानी और नियोजित क्षमताएँ</span>",
+          "target": [
+            ".max-w-7xl.sm\\:px-6.lg\\:px-8 > .mb-14.text-center.max-w-2xl > .text-3xl.sm\\:text-4xl.mt-3 > .gradient-text"
+          ],
+          "failureSummary": "Fix any of the following:\n  Element's background color could not be determined due to a background gradient"
+        },
+        {
+          "any": [
+            {
+              "id": "color-contrast",
+              "data": {
+                "contrastRatio": 0,
+                "fontSize": "22.5pt (30px)",
+                "fontWeight": "bold",
+                "messageKey": "bgGradient",
+                "expectedContrastRatio": "3:1"
+              },
+              "relatedNodes": [
+                {
+                  "html": "<span class=\"gradient-text\">सेंसर से स्क्रीन तक</span>",
+                  "target": [
+                    ".max-w-4xl > .mb-14.text-center.max-w-2xl > .text-3xl.sm\\:text-4xl.mt-3 > .gradient-text"
+                  ]
+                }
+              ],
+              "impact": "serious",
+              "message": "Element's background color could not be determined due to a background gradient"
+            }
+          ],
+          "all": [],
+          "none": [],
+          "impact": "serious",
+          "html": "<span class=\"gradient-text\">सेंसर से स्क्रीन तक</span>",
+          "target": [
+            ".max-w-4xl > .mb-14.text-center.max-w-2xl > .text-3xl.sm\\:text-4xl.mt-3 > .gradient-text"
+          ],
+          "failureSummary": "Fix any of the following:\n  Element's background color could not be determined due to a background gradient"
+        },
+        {
+          "any": [
+            {
+              "id": "color-contrast",
+              "data": {
+                "contrastRatio": 0,
+                "fontSize": "22.5pt (30px)",
+                "fontWeight": "bold",
+                "messageKey": "bgGradient",
+                "expectedContrastRatio": "3:1"
+              },
+              "relatedNodes": [
+                {
+                  "html": "<span class=\"gradient-text\">प्रस्तावित उपयोग</span>",
+                  "target": [
+                    "#applications > .max-w-6xl.sm\\:px-6.lg\\:px-8 > .mb-14.text-center.max-w-2xl > .text-3xl.sm\\:text-4xl.mt-3 > .gradient-text"
+                  ]
+                }
+              ],
+              "impact": "serious",
+              "message": "Element's background color could not be determined due to a background gradient"
+            }
+          ],
+          "all": [],
+          "none": [],
+          "impact": "serious",
+          "html": "<span class=\"gradient-text\">प्रस्तावित उपयोग</span>",
+          "target": [
+            "#applications > .max-w-6xl.sm\\:px-6.lg\\:px-8 > .mb-14.text-center.max-w-2xl > .text-3xl.sm\\:text-4xl.mt-3 > .gradient-text"
+          ],
+          "failureSummary": "Fix any of the following:\n  Element's background color could not be determined due to a background gradient"
+        },
+        {
+          "any": [
+            {
+              "id": "color-contrast",
+              "data": {
+                "contrastRatio": 0,
+                "fontSize": "9.0pt (12px)",
+                "fontWeight": "normal",
+                "messageKey": "bgGradient",
+                "expectedContrastRatio": "4.5:1"
+              },
+              "relatedNodes": [
+                {
+                  "html": "<div class=\"section-tag mx-auto w-fit\">लोग</div>",
+                  "target": [
+                    "#team > .max-w-6xl.sm\\:px-6.lg\\:px-8 > .mb-14.text-center.max-w-2xl > .section-tag.w-fit.mx-auto"
+                  ]
+                },
+                {
+                  "html": "<div class=\"absolute inset-0 opacity-40 bg-grid\"></div>",
+                  "target": [
+                    ".opacity-40"
+                  ]
+                }
+              ],
+              "impact": "serious",
+              "message": "Element's background color could not be determined due to a background gradient"
+            }
+          ],
+          "all": [],
+          "none": [],
+          "impact": "serious",
+          "html": "<div class=\"section-tag mx-auto w-fit\">लोग</div>",
+          "target": [
+            "#team > .max-w-6xl.sm\\:px-6.lg\\:px-8 > .mb-14.text-center.max-w-2xl > .section-tag.w-fit.mx-auto"
+          ],
+          "failureSummary": "Fix any of the following:\n  Element's background color could not be determined due to a background gradient"
+        },
+        {
+          "any": [
+            {
+              "id": "color-contrast",
+              "data": {
+                "contrastRatio": 0,
+                "fontSize": "22.5pt (30px)",
+                "fontWeight": "bold",
+                "messageKey": "bgGradient",
+                "expectedContrastRatio": "3:1"
+              },
+              "relatedNodes": [
+                {
+                  "html": "<span class=\"gradient-text\">टीम का विवरण</span>",
+                  "target": [
+                    "#team > .max-w-6xl.sm\\:px-6.lg\\:px-8 > .mb-14.text-center.max-w-2xl > .text-3xl.sm\\:text-4xl.mt-3 > .gradient-text"
+                  ]
+                }
+              ],
+              "impact": "serious",
+              "message": "Element's background color could not be determined due to a background gradient"
+            }
+          ],
+          "all": [],
+          "none": [],
+          "impact": "serious",
+          "html": "<span class=\"gradient-text\">टीम का विवरण</span>",
+          "target": [
+            "#team > .max-w-6xl.sm\\:px-6.lg\\:px-8 > .mb-14.text-center.max-w-2xl > .text-3xl.sm\\:text-4xl.mt-3 > .gradient-text"
+          ],
+          "failureSummary": "Fix any of the following:\n  Element's background color could not be determined due to a background gradient"
+        },
+        {
+          "any": [
+            {
+              "id": "color-contrast",
+              "data": {
+                "contrastRatio": 0,
+                "fontSize": "12.0pt (16px)",
+                "fontWeight": "normal",
+                "messageKey": "bgGradient",
+                "expectedContrastRatio": "4.5:1"
+              },
+              "relatedNodes": [
+                {
+                  "html": "<div class=\"absolute inset-0 opacity-40 bg-grid\"></div>",
+                  "target": [
+                    ".opacity-40"
+                  ]
+                }
+              ],
+              "impact": "serious",
+              "message": "Element's background color could not be determined due to a background gradient"
+            }
+          ],
+          "all": [],
+          "none": [],
+          "impact": "serious",
+          "html": "<p class=\"text-slate-400 max-w-2xl mb-10\">प्रकाशन समीक्षा के बाद टीम और संबद्धता के विवरण जल्द आएँगे। यहाँ संस्थापकों, सलाहकारों या संस्थाओं के बारे में कोई असत्यापित दावा नहीं किया गया है।</p>",
+          "target": [
+            ".mb-10"
+          ],
+          "failureSummary": "Fix any of the following:\n  Element's background color could not be determined due to a background gradient"
+        },
+        {
+          "any": [
+            {
+              "id": "color-contrast",
+              "data": {
+                "contrastRatio": 0,
+                "fontSize": "27.0pt (36px)",
+                "fontWeight": "bold",
+                "messageKey": "bgGradient",
+                "expectedContrastRatio": "3:1"
+              },
+              "relatedNodes": [
+                {
+                  "html": "<h2 class=\"text-4xl font-bold gradient-text mb-4\">निगरानी पायलट पर चर्चा करें</h2>",
+                  "target": [
+                    ".text-4xl"
+                  ]
+                }
+              ],
+              "impact": "serious",
+              "message": "Element's background color could not be determined due to a background gradient"
+            }
+          ],
+          "all": [],
+          "none": [],
+          "impact": "serious",
+          "html": "<h2 class=\"text-4xl font-bold gradient-text mb-4\">निगरानी पायलट पर चर्चा करें</h2>",
+          "target": [
+            ".text-4xl"
+          ],
+          "failureSummary": "Fix any of the following:\n  Element's background color could not be determined due to a background gradient"
+        },
+        {
+          "any": [
+            {
+              "id": "color-contrast",
+              "data": {
+                "contrastRatio": 0,
+                "fontSize": "12.0pt (16px)",
+                "fontWeight": "normal",
+                "messageKey": "bgGradient",
+                "expectedContrastRatio": "4.5:1"
+              },
+              "relatedNodes": [
+                {
+                  "html": "<div class=\"absolute inset-0 bg-gradient-to-r from-green-950/40 via-green-900/20 to-green-950/40\"></div>",
+                  "target": [
+                    ".from-green-950\\/40"
+                  ]
+                }
+              ],
+              "impact": "serious",
+              "message": "Element's background color could not be determined due to a background gradient"
+            }
+          ],
+          "all": [],
+          "none": [],
+          "impact": "serious",
+          "html": "<p class=\"text-slate-500 mb-8\">पायलट, साझेदारी या डेमो के बारे में टीम से बात करें।</p>",
+          "target": [
+            ".mb-8"
+          ],
+          "failureSummary": "Fix any of the following:\n  Element's background color could not be determined due to a background gradient"
+        },
+        {
+          "any": [
+            {
+              "id": "color-contrast",
+              "data": {
+                "contrastRatio": 0,
+                "fontSize": "12.0pt (16px)",
+                "fontWeight": "normal",
+                "messageKey": "bgGradient",
+                "expectedContrastRatio": "4.5:1"
+              },
+              "relatedNodes": [
+                {
+                  "html": "<div class=\"absolute inset-0 bg-gradient-to-r from-green-950/40 via-green-900/20 to-green-950/40\"></div>",
+                  "target": [
+                    ".from-green-950\\/40"
+                  ]
+                }
+              ],
+              "impact": "serious",
+              "message": "Element's background color could not be determined due to a background gradient"
+            }
+          ],
+          "all": [],
+          "none": [],
+          "impact": "serious",
+          "html": "<a class=\"btn-outline px-10 py-4 text-base\" href=\"/hi/login\">साइन इन</a>",
+          "target": [
+            ".btn-outline.px-10.py-4"
+          ],
+          "failureSummary": "Fix any of the following:\n  Element's background color could not be determined due to a background gradient"
+        }
+      ]
+    }
+  ],
+  "scope": "Automated axe checks in a synthetic owned browser; no WCAG/Lighthouse/legal certification"
+}
