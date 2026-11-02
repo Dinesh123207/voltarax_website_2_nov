@@ -1,6 +1,6 @@
 # Autopilot progress
 
-RESUME HERE: User requested another error review and a practical running document. Fresh backend/lint/source-type/audit checks pass. Three packaging defects reproduced (empty untracked AI configs COPY, omitted AI evaluation module, omitted guarded backend bootstrap script); fixes and offline packaged-import check in progress. Finish fresh build/browser/AI/rules/native/firmware/config checks, document actual outcomes and running instructions, render/review the new PDF, then commit without moving prior phase tags or activating external services.
+RESUME HERE: Phase 11 active on phase-11-gaps from phase-10-release (6cbb487). Step 0 gap audit saved in PHASE11_GAP_MAP.md before product changes. Finish the preceding fresh verification/run-guide artifact, then implement required chatbot, original bounded media, 360px/data-state/contrast and clock gaps, optional nonce CSP if feasible, all gates plus axe, current completion/issue/progress docs and local commits. No external activation or user-data changes.
 
 Current checkpoint: All final local checks passed: 81 backend, 28 AI, 10 browser (7 UI fixtures + 3 actual API), one RTDB rules case, four native cases, placeholder-only firmware compile, expanded lint/types/standalone build/audits/configuration and supported-pattern current/history scan. 1045 bilingual source messages. Candidate tag release-candidate = 5b223e4; tested app source/tree unchanged. Completion PDF/source has ten pages and passed text/bounds/all-page render review; proof is phase10-pdf-proof.json. Final artifact commit is tagged phase-10-done after commit. Actual services/hardware/approved web map/legal/hosted CI/container/deployment/recovery remain Partial/manual; production audits frontend 0/backend 8 moderate/no high-critical.
 
@@ -139,3 +139,7 @@ Checkpoint wording in older task rows is historical; the current summary and fin
 ## Requested second review and running document
 - [x] Fresh backend 81/81 (158.85 s), AI 28/28 (15.60 s), frontend lint/source types and production audit pass. Audit unchanged: frontend 0/backend 8 moderate/no high-critical.
 - [x] Reproduced three packaging defects in reverify-packaging-before (48.11 s); fixed AI unused empty-directory COPY and missing evaluation.py, plus backend guarded seed.js packaging. Reverify-packaging-after passes (7.47 s). Tracked COPY/staged offline imports check added to CI; actual Docker runtime not claimed. Corrected root startup README. Fresh full build and remaining independent checks/document are in progress.
+
+
+## Phase 11 - close original pending-list gaps
+- [x] Step 0: audited all 14 original items with concrete file/evidence and implementation-versus-activation status in PHASE11_GAP_MAP.md. Confirmed item 4 exists only as a three-answer local FAQ (no provider); item 8 is an incomplete optional background referencing absent media. Existing public/dashboard clock found, nonce CSP still absent. Branch created from 6cbb487, no earlier tag moved.
