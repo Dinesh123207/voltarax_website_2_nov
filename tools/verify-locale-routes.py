@@ -90,6 +90,9 @@ def run_browser(layouts_only=False):
     browser = subprocess.run(command, cwd=frontend, env=browser_env, timeout=300)
     if browser.returncode:
         raise RuntimeError('Browser checks failed; inspect the saved browser result')
+    stats = json.loads((root / f'docs/test-results/{label}-browser.json').read_text(encoding='utf-8'))['stats']
+    assert stats['expected'] > 0 and all(stats[key] == 0 for key in ('skipped', 'unexpected', 'flaky')), 'Browser cases were skipped or did not pass cleanly'
+    return stats
 
 
 with log_path.open('w', encoding='utf-8') as log:
@@ -157,8 +160,8 @@ with log_path.open('w', encoding='utf-8') as log:
                   'hindi_legal_draft_noindex': True,
                   'backend': 'Owned loopback synthetic fixture only', 'browser_workflow': 'Not run by this HTTP smoke test'}
         if os.environ.get('FRONTEND_CHECK_BROWSER') == 'true':
-            run_browser()
-            result['browser_workflow'] = 'Five local synthetic UI checks passed; no real services or backend authentication verification'
+            result['browser_stats'] = run_browser()
+            result['browser_workflow'] = 'Local synthetic UI checks passed; no real services or backend authentication verification'
         (root / f'docs/test-results/{label}-fixture.json').write_text(json.dumps(result, indent=2) + '\n', encoding='utf-8')
         print(json.dumps(result))
     finally:
