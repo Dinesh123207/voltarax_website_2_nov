@@ -99,3 +99,6 @@ is an initial assumption, not a validated site threshold or accuracy/fault test.
 Drift requests review; it does not bypass minimum new rows or the chronological
 candidate acceptance gate. Reports identify the evaluated model version and
 training/source window. No drift result was verified on real-site data.
+
+## Container and final verification
+The pinned Python image runs predict_once.py as a batch job, not a fabricated HTTP service. Persist only reviewed artifacts at /srv/artifacts and use separate least-privilege AI_FIREBASE_* root Compose credentials. Both network/publication flags stay off by default. Full stack/scheduling/recovery steps are in ../../docs/RELEASE_OPERATIONS.md; actual image/runtime, real inputs/accuracy and live schedules remain unverified. The final local regression suite has 28 passing tests; consult FINAL_REPORT.md/PROGRESS.md for the complete gate and evidence paths. No weather-ahead forecasting or deployment is implied.

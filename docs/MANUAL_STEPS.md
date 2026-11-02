@@ -1,5 +1,20 @@
 # Manual steps and external verification
 
+## Pre-launch checklist and owners
+
+No live operation is authorized by these instructions. The owner must separately authorize actual messages, payments, deployment/publication and any data migration. Current detailed steps below supersede older pending-task wording; the final local gate is recorded in PROGRESS.md/FINAL_REPORT.md.
+
+1. [ ] Owner/security operator: select the intended isolated project/host, configure least-privilege Firebase and independent session/OTP/device secrets, rotate exposed/legacy credentials, and perform the guarded first-admin verification/site assignment. Never use a default password.
+2. [ ] Firebase operator: test real device UID/claims/rules and permissions, validate a private offline export, back up and deliberately apply the reviewed site-history/audit migration only when authorized. Preserve legacy data.
+3. [ ] Hardware operator: verify sensor calibration/power protection, disconnect/reconnect/buffer behavior and a physically safe relay/camera test. GPIO acknowledgement does not establish contact feedback.
+4. [ ] Database/operations owner: run actual PostgreSQL/Redis images and guarded migrations, shared limits/queue/dead-letter/concurrency checks, encrypted backups and an isolated restore/rollback drill. Supply approved recovery/retention objectives.
+5. [ ] Messaging owner: configure reviewed TLS SMTP/recipients, verify non-production OTP and outbox behavior, then separately authorize real delivery. No transport/inbox delivery is proven by the fake sender.
+6. [ ] Data/geospatial owner: follow MAP_DATA.md for current authoritative/licensed web-sized boundaries, source/rights/India publication review, hash/property/attribution and exact site-to-state assignment. Raw source was actually recovered, but is oversized/unapproved.
+7. [ ] AI/field reviewer: provide bounded reviewed calibrated real readings/labels, validate chronological performance/baselines/drift and trusted artifact ownership before scheduling or publishing. Weather-ahead forecasting needs suitable time-aligned weather/targets; it remains unavailable.
+8. [ ] Commerce/tax owner: supply reviewed actual plans/prices and Razorpay TEST credentials/webhooks, test provider Checkout/signature/replay/refund reconciliation and legal/tax details. Live switching/GST invoices require a separately reviewed future implementation; do not bypass guards.
+9. [ ] Owner/counsel/fluent/accessibility reviewers: confirm business/contact/people/scientific/patent and public-asset rights, current legal drafts/retention/age/rights/refund processes, Hindi wording/PDF/mail limits and independent AT/contrast/performance behavior. No legal/WCAG/field certification is supplied.
+10. [ ] Release operator: after separate authorization, run hosted CI, actual container/HTTPS/proxy/cookie and Coolify/DNS/certificate checks, monitoring/failure routing and recovery. Review the recorded source/image digests and keep indexing off until content/legal approval.
+
 ## Phase 8 public facts and publication review
 
 English/Hindi routing, current UI catalog and selected browser workflows pass the Phase 8 local gate, with English URLs unchanged and Hindi /hi. Operator-entered names/notes/data remain faithful to their input. Full Hindi PDF rendering and localized email templates are not implemented; receipts have an explicit English/ASCII policy. Review Hindi wording with a fluent reviewer, legal copy with counsel and actual service/account/target-device flows before publication. Local tests do not establish complete multilingual production operation.
@@ -8,7 +23,7 @@ Local Next tests use hostname localhost and http://localhost consistently; bindi
 
 Before public use, supply and approve real legal entity/contact/location, people/roles/biographies, institutional/client permissions and patent/performance evidence. None is inferred from old code or conflicting cities. Set only reviewed NEXT_PUBLIC_CONTACT_LOCATION/email/phone and HTTPS social profile values; blank keeps details hidden/unavailable. Material conversion/lifetime benefits, field savings, deployment/customer counts and automatic model improvement remain absent without proof. Review English/Hindi and legal wording before indexing or publication. No private facts or external profile were published here.
 
-## Phase 7 commerce configuration (in progress; not enabled)
+## Phase 7 commerce configuration (test-only; disabled by default)
 
 After the phase gate, an operator can verify non-production commerce as follows; none of these provider/account/deployment steps were run:
 
@@ -25,7 +40,7 @@ Keep PAYMENTS_ENABLED=false, PAYMENTS_MODE=test and GST_ENABLED=false. No produc
 
 After the phase gate, apply the generated commerce migration only to an operator-selected non-production PostgreSQL database using the existing explicit migration guard; verify backups first. Actual PostgreSQL/process concurrency remain unverified by the local PGlite tests. No existing Firebase or SQL user data is modified by this run.
 
-Order creation marked creation_unknown or left creating after a crash requires receipt-based administrator reconciliation in the Razorpay TEST dashboard; never retry with a fresh request key or assume creation failed. Full signed event/HTTP/UI reconciliation steps will be recorded as that task is implemented. No live key, account, order or refund is used here.
+Order creation marked creation_unknown or left creating after a crash requires receipt-based administrator reconciliation in the Razorpay TEST dashboard; never retry with a fresh request key or assume creation failed. Use the implemented guarded steps above and the saved local SQL/signature/browser evidence; actual provider reconciliation remains an operator check. No live key, account, order or refund is used here.
 
 ## Phase 6 artifact/publication operator checks
 
@@ -95,7 +110,7 @@ python tools/run-check.py --cwd voltarax-web/backend --name local-rules -- npm r
 Do not kill an unknown process occupying the configured port. Review it or use a separate documented test port. No database records were deleted by cleanup.
 
 ## Phase 3 device registration — pending hardware integration
-After configuring email verification, an administrator opens Dashboard > Devices, enters the configured site/device ID and a name, requests a registration code and confirms. Copy the displayed one-time key into the device's ignored secret configuration, then hide it. It cannot be retrieved later. Rotate if delivery is lost or exposure is suspected; the previous key immediately becomes invalid. Disable a device to reject its credential. Do not put keys in screenshots, logs, source, localStorage or URLs. No real device was registered by this run. Ingest/relay firmware integration is still tracked in PROGRESS.md until its tasks pass.
+After configuring email verification, an administrator opens Dashboard > Devices, enters the configured site/device ID and a name, requests a registration code and confirms. Copy the displayed one-time key into the device's ignored secret configuration, then hide it. It cannot be retrieved later. Rotate if delivery is lost or exposure is suspected; the previous key immediately becomes invalid. Disable a device to reject its credential. Do not put keys in screenshots, logs, source, localStorage or URLs. No real device was registered by this run. Local ingestion/relay integration and placeholder compilation passed; actual wiring, firmware/runtime reliability, safe switching and physical contact feedback remain operator checks.
 
 ## Phase 3 ingest migration — not run live
 1. Configure identical SOLAR_SITE_ID and SOLAR_DEVICE_ID in backend/AI. The default primary device matches the original nodemcu-01 firmware. Keep site-level measurement semantics; do not combine secondary sensor streams as additional generation.

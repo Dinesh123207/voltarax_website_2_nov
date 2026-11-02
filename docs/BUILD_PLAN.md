@@ -167,3 +167,6 @@ Authenticated boundary/state routes, operator state assignment, real recorded-en
 
 ### Phase 10 packaging/readiness checkpoint
 Pinned CI and three actual-backend browser cases are verified as scoped in PROGRESS. Two readiness regressions pass; non-root multi-stage/standalone images and portable private Compose are prepared; actual Compose syntax passed. Engine/hosted CI/runtime/TLS/recovery remain unverified, exact settings in RELEASE_OPERATIONS.md. Shared fallback translations complete the current 1045-entry catalog. Final local gate, audit disposition, final reports and PDF remain.
+
+### Phase 10 main local gate checkpoint
+81 backend, 28 AI, expanded lint/types/standalone build, seven UI/HTTP and three actual API browser cases pass. Explicit Node postbuild stages assets and start uses standalone entry. Current issues, exact audit candidates/exposure and manual owners are consolidated; container/hosted/provider/field/legal reviews remain partial. Finish rules/native/placeholder compiler/final scan, candidate tag and report/PDF QA.

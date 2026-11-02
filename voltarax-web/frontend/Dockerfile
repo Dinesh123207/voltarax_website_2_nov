@@ -24,8 +24,7 @@ FROM ${NODE_IMAGE} AS runtime
 WORKDIR /srv
 ENV NODE_ENV=production NEXT_TELEMETRY_DISABLED=1 HOSTNAME=0.0.0.0 PORT=3000
 COPY --from=builder --chown=node:node /srv/.next/standalone ./
-COPY --from=builder --chown=node:node /srv/.next/static ./.next/static
-COPY --from=builder --chown=node:node /srv/public ./public
+# postbuild staged public/static assets inside standalone before this copy.
 COPY --from=builder --chown=node:node /srv/licenses ./licenses
 USER node
 EXPOSE 3000

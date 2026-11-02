@@ -1,0 +1,451 @@
+{
+  "counts": {
+    "frontend": {
+      "production": {
+        "info": 0,
+        "low": 0,
+        "moderate": 0,
+        "high": 0,
+        "critical": 0,
+        "total": 0
+      },
+      "full": {
+        "info": 0,
+        "low": 0,
+        "moderate": 18,
+        "high": 0,
+        "critical": 0,
+        "total": 18
+      }
+    },
+    "backend": {
+      "production": {
+        "info": 0,
+        "low": 0,
+        "moderate": 8,
+        "high": 0,
+        "critical": 0,
+        "total": 8
+      },
+      "full": {
+        "info": 0,
+        "low": 0,
+        "moderate": 21,
+        "high": 0,
+        "critical": 0,
+        "total": 21
+      }
+    }
+  },
+  "findings": [
+    {
+      "service": "frontend",
+      "package": "@eslint-community/eslint-utils",
+      "severity": "moderate",
+      "exposure": "Development/CI only",
+      "candidate": "eslint@4.0.0 (installed 8.57.1); Reject downgrade suggestion",
+      "advisories": [
+        "https://github.com/advisories/GHSA-g3hv-75wg-m249"
+      ]
+    },
+    {
+      "service": "frontend",
+      "package": "@eslint/eslintrc",
+      "severity": "moderate",
+      "exposure": "Development/CI only",
+      "candidate": "eslint@4.0.0 (installed 8.57.1); Reject downgrade suggestion",
+      "advisories": [
+        "https://github.com/advisories/GHSA-g3hv-75wg-m249"
+      ]
+    },
+    {
+      "service": "frontend",
+      "package": "@humanwhocodes/config-array",
+      "severity": "moderate",
+      "exposure": "Development/CI only",
+      "candidate": "eslint@4.0.0 (installed 8.57.1); Reject downgrade suggestion",
+      "advisories": [
+        "https://github.com/advisories/GHSA-g3hv-75wg-m249"
+      ]
+    },
+    {
+      "service": "frontend",
+      "package": "@typescript-eslint/eslint-plugin",
+      "severity": "moderate",
+      "exposure": "Development/CI only",
+      "candidate": "eslint-config-next@0.2.4 (installed 15.5.28); Reject downgrade suggestion",
+      "advisories": [
+        "https://github.com/advisories/GHSA-g3hv-75wg-m249"
+      ]
+    },
+    {
+      "service": "frontend",
+      "package": "@typescript-eslint/parser",
+      "severity": "moderate",
+      "exposure": "Development/CI only",
+      "candidate": "eslint-config-next@0.2.4 (installed 15.5.28); Reject downgrade suggestion",
+      "advisories": [
+        "https://github.com/advisories/GHSA-g3hv-75wg-m249"
+      ]
+    },
+    {
+      "service": "frontend",
+      "package": "@typescript-eslint/type-utils",
+      "severity": "moderate",
+      "exposure": "Development/CI only",
+      "candidate": "eslint-config-next@0.2.4 (installed 15.5.28); Reject downgrade suggestion",
+      "advisories": [
+        "https://github.com/advisories/GHSA-g3hv-75wg-m249"
+      ]
+    },
+    {
+      "service": "frontend",
+      "package": "@typescript-eslint/typescript-estree",
+      "severity": "moderate",
+      "exposure": "Development/CI only",
+      "candidate": "eslint-config-next@0.2.4 (installed 15.5.28); Reject downgrade suggestion",
+      "advisories": [
+        "https://github.com/advisories/GHSA-g3hv-75wg-m249"
+      ]
+    },
+    {
+      "service": "frontend",
+      "package": "@typescript-eslint/utils",
+      "severity": "moderate",
+      "exposure": "Development/CI only",
+      "candidate": "eslint-config-next@0.2.4 (installed 15.5.28); Reject downgrade suggestion",
+      "advisories": [
+        "https://github.com/advisories/GHSA-g3hv-75wg-m249"
+      ]
+    },
+    {
+      "service": "frontend",
+      "package": "eslint",
+      "severity": "moderate",
+      "exposure": "Development/CI only",
+      "candidate": "eslint@4.0.0 (installed 8.57.1); Reject downgrade suggestion",
+      "advisories": [
+        "https://github.com/advisories/GHSA-g3hv-75wg-m249"
+      ]
+    },
+    {
+      "service": "frontend",
+      "package": "eslint-config-next",
+      "severity": "moderate",
+      "exposure": "Development/CI only",
+      "candidate": "eslint-config-next@0.2.4 (installed 15.5.28); Reject downgrade suggestion",
+      "advisories": [
+        "https://github.com/advisories/GHSA-g3hv-75wg-m249"
+      ]
+    },
+    {
+      "service": "frontend",
+      "package": "eslint-plugin-import",
+      "severity": "moderate",
+      "exposure": "Development/CI only",
+      "candidate": "eslint-config-next@0.2.4 (installed 15.5.28); Reject downgrade suggestion",
+      "advisories": [
+        "https://github.com/advisories/GHSA-g3hv-75wg-m249"
+      ]
+    },
+    {
+      "service": "frontend",
+      "package": "eslint-plugin-jsx-a11y",
+      "severity": "moderate",
+      "exposure": "Development/CI only",
+      "candidate": "eslint-config-next@0.2.4 (installed 15.5.28); Reject downgrade suggestion",
+      "advisories": [
+        "https://github.com/advisories/GHSA-g3hv-75wg-m249"
+      ]
+    },
+    {
+      "service": "frontend",
+      "package": "eslint-plugin-react",
+      "severity": "moderate",
+      "exposure": "Development/CI only",
+      "candidate": "npm audit fix; current dry run changes 0 packages, so review constraints/upstream patch",
+      "advisories": [
+        "https://github.com/advisories/GHSA-g3hv-75wg-m249"
+      ]
+    },
+    {
+      "service": "frontend",
+      "package": "file-entry-cache",
+      "severity": "moderate",
+      "exposure": "Development/CI only",
+      "candidate": "eslint@4.0.0 (installed 8.57.1); Reject downgrade suggestion",
+      "advisories": [
+        "https://github.com/advisories/GHSA-g3hv-75wg-m249"
+      ]
+    },
+    {
+      "service": "frontend",
+      "package": "flat-cache",
+      "severity": "moderate",
+      "exposure": "Development/CI only",
+      "candidate": "eslint@4.0.0 (installed 8.57.1); Reject downgrade suggestion",
+      "advisories": [
+        "https://github.com/advisories/GHSA-g3hv-75wg-m249"
+      ]
+    },
+    {
+      "service": "frontend",
+      "package": "glob",
+      "severity": "moderate",
+      "exposure": "Development/CI only",
+      "candidate": "eslint@4.0.0 (installed 8.57.1); Reject downgrade suggestion",
+      "advisories": [
+        "https://github.com/advisories/GHSA-g3hv-75wg-m249"
+      ]
+    },
+    {
+      "service": "frontend",
+      "package": "minimatch",
+      "severity": "moderate",
+      "exposure": "Development/CI only",
+      "candidate": "eslint@4.0.0 (installed 8.57.1); Reject downgrade suggestion",
+      "advisories": [
+        "https://github.com/advisories/GHSA-g3hv-75wg-m249"
+      ]
+    },
+    {
+      "service": "frontend",
+      "package": "rimraf",
+      "severity": "moderate",
+      "exposure": "Development/CI only",
+      "candidate": "eslint@4.0.0 (installed 8.57.1); Reject downgrade suggestion",
+      "advisories": [
+        "https://github.com/advisories/GHSA-g3hv-75wg-m249"
+      ]
+    },
+    {
+      "service": "backend",
+      "package": "@google-cloud/firestore",
+      "severity": "moderate",
+      "exposure": "Production SDK tree",
+      "candidate": "firebase-admin@14.5.0 (installed 13.10.0); Major compatibility review required",
+      "advisories": [
+        "https://github.com/advisories/GHSA-3g3m-2fjr-6pw4",
+        "https://github.com/advisories/GHSA-g3hv-75wg-m249",
+        "https://github.com/advisories/GHSA-w5hq-g745-h8pq"
+      ]
+    },
+    {
+      "service": "backend",
+      "package": "@google-cloud/pubsub",
+      "severity": "moderate",
+      "exposure": "Development/CI only",
+      "candidate": "firebase-tools@3.18.2 (installed 15.34.2); Reject downgrade suggestion",
+      "advisories": [
+        "https://github.com/advisories/GHSA-8988-4f7v-96qf"
+      ]
+    },
+    {
+      "service": "backend",
+      "package": "@google-cloud/storage",
+      "severity": "moderate",
+      "exposure": "Production SDK tree",
+      "candidate": "firebase-admin@14.5.0 (installed 13.10.0); Major compatibility review required",
+      "advisories": [
+        "https://github.com/advisories/GHSA-w5hq-g745-h8pq"
+      ]
+    },
+    {
+      "service": "backend",
+      "package": "@opentelemetry/core",
+      "severity": "moderate",
+      "exposure": "Development/CI only",
+      "candidate": "firebase-tools@3.18.2 (installed 15.34.2); Reject downgrade suggestion",
+      "advisories": [
+        "https://github.com/advisories/GHSA-8988-4f7v-96qf"
+      ]
+    },
+    {
+      "service": "backend",
+      "package": "archiver",
+      "severity": "moderate",
+      "exposure": "Development/CI only",
+      "candidate": "firebase-tools@3.18.2 (installed 15.34.2); Reject downgrade suggestion",
+      "advisories": [
+        "https://github.com/advisories/GHSA-3g3m-2fjr-6pw4",
+        "https://github.com/advisories/GHSA-g3hv-75wg-m249"
+      ]
+    },
+    {
+      "service": "backend",
+      "package": "archiver-utils",
+      "severity": "moderate",
+      "exposure": "Development/CI only",
+      "candidate": "firebase-tools@3.18.2 (installed 15.34.2); Reject downgrade suggestion",
+      "advisories": [
+        "https://github.com/advisories/GHSA-3g3m-2fjr-6pw4",
+        "https://github.com/advisories/GHSA-g3hv-75wg-m249"
+      ]
+    },
+    {
+      "service": "backend",
+      "package": "exegesis",
+      "severity": "moderate",
+      "exposure": "Development/CI only",
+      "candidate": "npm audit fix; current dry run changes 0 packages, so review constraints/upstream patch",
+      "advisories": [
+        "https://github.com/advisories/GHSA-3g3m-2fjr-6pw4",
+        "https://github.com/advisories/GHSA-g3hv-75wg-m249"
+      ]
+    },
+    {
+      "service": "backend",
+      "package": "firebase-admin",
+      "severity": "moderate",
+      "exposure": "Production SDK tree",
+      "candidate": "firebase-admin@14.5.0 (installed 13.10.0); Major compatibility review required",
+      "advisories": [
+        "https://github.com/advisories/GHSA-3g3m-2fjr-6pw4",
+        "https://github.com/advisories/GHSA-g3hv-75wg-m249",
+        "https://github.com/advisories/GHSA-w5hq-g745-h8pq"
+      ]
+    },
+    {
+      "service": "backend",
+      "package": "firebase-tools",
+      "severity": "moderate",
+      "exposure": "Development/CI only",
+      "candidate": "firebase-tools@3.18.2 (installed 15.34.2); Reject downgrade suggestion",
+      "advisories": [
+        "https://github.com/advisories/GHSA-3g3m-2fjr-6pw4",
+        "https://github.com/advisories/GHSA-8988-4f7v-96qf",
+        "https://github.com/advisories/GHSA-g3hv-75wg-m249",
+        "https://github.com/advisories/GHSA-w5hq-g745-h8pq"
+      ]
+    },
+    {
+      "service": "backend",
+      "package": "gaxios",
+      "severity": "moderate",
+      "exposure": "Production SDK tree",
+      "candidate": "firebase-tools@3.18.2 (installed 15.34.2); Reject downgrade suggestion",
+      "advisories": [
+        "https://github.com/advisories/GHSA-w5hq-g745-h8pq"
+      ]
+    },
+    {
+      "service": "backend",
+      "package": "glob",
+      "severity": "moderate",
+      "exposure": "Development/CI only",
+      "candidate": "firebase-tools@3.18.2 (installed 15.34.2); Reject downgrade suggestion",
+      "advisories": [
+        "https://github.com/advisories/GHSA-3g3m-2fjr-6pw4",
+        "https://github.com/advisories/GHSA-g3hv-75wg-m249"
+      ]
+    },
+    {
+      "service": "backend",
+      "package": "google-gax",
+      "severity": "moderate",
+      "exposure": "Production SDK tree",
+      "candidate": "firebase-admin@14.5.0 (installed 13.10.0); Major compatibility review required",
+      "advisories": [
+        "https://github.com/advisories/GHSA-3g3m-2fjr-6pw4",
+        "https://github.com/advisories/GHSA-g3hv-75wg-m249",
+        "https://github.com/advisories/GHSA-w5hq-g745-h8pq"
+      ]
+    },
+    {
+      "service": "backend",
+      "package": "minimatch",
+      "severity": "moderate",
+      "exposure": "Development/CI only",
+      "candidate": "nodemon@1.0.2 (installed 3.1.14); Reject downgrade suggestion",
+      "advisories": [
+        "https://github.com/advisories/GHSA-g3hv-75wg-m249"
+      ]
+    },
+    {
+      "service": "backend",
+      "package": "nodemon",
+      "severity": "moderate",
+      "exposure": "Development/CI only",
+      "candidate": "nodemon@1.0.2 (installed 3.1.14); Reject downgrade suggestion",
+      "advisories": [
+        "https://github.com/advisories/GHSA-g3hv-75wg-m249"
+      ]
+    },
+    {
+      "service": "backend",
+      "package": "readdir-glob",
+      "severity": "moderate",
+      "exposure": "Development/CI only",
+      "candidate": "firebase-tools@3.18.2 (installed 15.34.2); Reject downgrade suggestion",
+      "advisories": [
+        "https://github.com/advisories/GHSA-g3hv-75wg-m249"
+      ]
+    },
+    {
+      "service": "backend",
+      "package": "retry-request",
+      "severity": "moderate",
+      "exposure": "Production SDK tree",
+      "candidate": "firebase-admin@14.5.0 (installed 13.10.0); Major compatibility review required",
+      "advisories": [
+        "https://github.com/advisories/GHSA-w5hq-g745-h8pq"
+      ]
+    },
+    {
+      "service": "backend",
+      "package": "rimraf",
+      "severity": "moderate",
+      "exposure": "Development/CI only",
+      "candidate": "firebase-admin@14.5.0 (installed 13.10.0); Major compatibility review required",
+      "advisories": [
+        "https://github.com/advisories/GHSA-3g3m-2fjr-6pw4",
+        "https://github.com/advisories/GHSA-g3hv-75wg-m249"
+      ]
+    },
+    {
+      "service": "backend",
+      "package": "superstatic",
+      "severity": "moderate",
+      "exposure": "Development/CI only",
+      "candidate": "firebase-tools@3.18.2 (installed 15.34.2); Reject downgrade suggestion",
+      "advisories": [
+        "https://github.com/advisories/GHSA-g3hv-75wg-m249"
+      ]
+    },
+    {
+      "service": "backend",
+      "package": "teeny-request",
+      "severity": "moderate",
+      "exposure": "Production SDK tree",
+      "candidate": "firebase-admin@14.5.0 (installed 13.10.0); Major compatibility review required",
+      "advisories": [
+        "https://github.com/advisories/GHSA-w5hq-g745-h8pq"
+      ]
+    },
+    {
+      "service": "backend",
+      "package": "uuid",
+      "severity": "moderate",
+      "exposure": "Production SDK tree",
+      "candidate": "firebase-tools@3.18.2 (installed 15.34.2); Reject downgrade suggestion",
+      "advisories": [
+        "https://github.com/advisories/GHSA-w5hq-g745-h8pq"
+      ]
+    },
+    {
+      "service": "backend",
+      "package": "zip-stream",
+      "severity": "moderate",
+      "exposure": "Development/CI only",
+      "candidate": "npm audit fix; current dry run changes 0 packages, so review constraints/upstream patch",
+      "advisories": [
+        "https://github.com/advisories/GHSA-3g3m-2fjr-6pw4",
+        "https://github.com/advisories/GHSA-g3hv-75wg-m249"
+      ]
+    }
+  ],
+  "nonbreaking_dry_run_changes": {
+    "frontend": 0,
+    "backend": 0
+  }
+}

@@ -1,98 +1,67 @@
-# Known issues and audit disposition
+# Current known issues and verification limits
 
-## Commerce test-only limits (Phase 7)
+Updated 2 November 2026 IST. Current status supersedes historical phase notes; original findings/results remain in Git and saved test outputs. No production-readiness or security certification is claimed.
 
-Actual Razorpay test account, staged webhook delivery, provider browser/CSP behavior, real PostgreSQL/process concurrency and refunds remain operator checks; only fake gateway/local SQL/HTTP were run. GST_ENABLED=true blocks checkout until reviewed seller/tax details and tax invoice implementation exist. Current receipt layout was checked in English only; Hindi/font coverage is part of Phase 8 review. This test-only build must not be presented as verified real payments or fulfilment. Unknown/review-required orders remain preserved for administrator investigation and cannot be bypassed by a fresh request key for that plan.
+## Dependencies
 
-## Remaining dependency matches (2026-11-01)
+Production audit: frontend 0; backend 8 moderate, 0 high/critical. Full frontend tree: 18 moderate. Full backend tree: 21 moderate. These are npm package matches, not counts of distinct exploits; inherited rows may share one advisory. Both compatible audit-fix dry runs changed zero packages. Earlier non-breaking fixes removed the initial high findings. No forced downgrade or unverified SDK major was applied.
 
-Frontend production audit: zero findings after non-breaking fixes and a PostCSS 8.5.26 override. Backend production has moderate Firebase Admin transitive findings; no high or critical findings remain in either production tree. Full raw results and commands are under test-results/.
+Backend application code uses Firebase Realtime Database, not Firestore/Cloud Storage APIs. The eight SDK-tree matches remain installed in production; narrower application use is not proof of non-exploitability. Development matches are excluded by the backend production install. Frontend standalone tracing still needs container/distribution review. Exact audit candidates below are metadata, not approved upgrade commands. Reject suggested old ESLint/config-next/nodemon/Firebase-CLI versions; review a supported patch/override or deliberate major migration with actual adapter/credential checks. Details: test-results/phase10-audit-disposition.json and saved dry-run/production reports.
 
-| Package | Severity | Installed exposure | Exact suggested remediation | Advisory |
+| Service/package | Severity | Exposure | Audit candidate/disposition | Advisory |
 | --- | --- | --- | --- | --- |
-| frontend / `@eslint-community/eslint-utils` | moderate | Development tooling only | npm install eslint-config-next@0.2.4 (breaking; compatibility review) |  |
-| frontend / `@eslint/eslintrc` | moderate | Development tooling only | npm install eslint@4.0.0 (breaking; compatibility review) |  |
-| frontend / `@humanwhocodes/config-array` | moderate | Development tooling only | npm install eslint@4.0.0 (breaking; compatibility review) |  |
-| frontend / `@typescript-eslint/eslint-plugin` | moderate | Development tooling only | npm install eslint-config-next@0.2.4 (breaking; compatibility review) |  |
-| frontend / `@typescript-eslint/parser` | moderate | Development tooling only | npm install eslint-config-next@0.2.4 (breaking; compatibility review) |  |
-| frontend / `@typescript-eslint/type-utils` | moderate | Development tooling only | npm install eslint-config-next@0.2.4 (breaking; compatibility review) |  |
-| frontend / `@typescript-eslint/typescript-estree` | moderate | Development tooling only | npm install eslint-config-next@0.2.4 (breaking; compatibility review) |  |
-| frontend / `@typescript-eslint/utils` | moderate | Development tooling only | npm install eslint-config-next@0.2.4 (breaking; compatibility review) |  |
-| frontend / `eslint` | moderate | Development tooling only | npm install eslint@4.0.0 (breaking; compatibility review) |  |
-| frontend / `eslint-config-next` | moderate | Development tooling only | npm install eslint-config-next@0.2.4 (breaking; compatibility review) |  |
-| frontend / `eslint-plugin-import` | moderate | Development tooling only | npm audit fix |  |
-| frontend / `eslint-plugin-jsx-a11y` | moderate | Development tooling only | npm install eslint-config-next@0.2.4 (breaking; compatibility review) |  |
-| frontend / `eslint-plugin-react` | moderate | Development tooling only | npm audit fix |  |
-| frontend / `file-entry-cache` | moderate | Development tooling only | npm install eslint@4.0.0 (breaking; compatibility review) |  |
-| frontend / `flat-cache` | moderate | Development tooling only | npm install eslint@4.0.0 (breaking; compatibility review) |  |
-| frontend / `glob` | moderate | Development tooling only | npm install eslint@4.0.0 (breaking; compatibility review) |  |
-| frontend / `minimatch` | moderate | Development tooling only | npm install eslint@4.0.0 (breaking; compatibility review) | https://github.com/advisories/GHSA-g3hv-75wg-m249 |
-| frontend / `rimraf` | moderate | Development tooling only | npm install eslint@4.0.0 (breaking; compatibility review) |  |
-| backend / `@google-cloud/firestore` | moderate | Production tree | npm install firebase-admin@14.5.0 (breaking; compatibility review) |  |
-| backend / `@google-cloud/storage` | moderate | Production tree | npm install firebase-admin@14.5.0 (breaking; compatibility review) |  |
-| backend / `firebase-admin` | moderate | Production tree | npm install firebase-admin@14.5.0 (breaking; compatibility review) |  |
-| backend / `gaxios` | moderate | Production tree | npm audit fix |  |
-| backend / `google-gax` | moderate | Production tree | npm install firebase-admin@14.5.0 (breaking; compatibility review) |  |
-| backend / `minimatch` | moderate | Development tooling only | npm install nodemon@1.0.2 (breaking; compatibility review) | https://github.com/advisories/GHSA-g3hv-75wg-m249 |
-| backend / `nodemon` | moderate | Development tooling only | npm install nodemon@1.0.2 (breaking; compatibility review) |  |
-| backend / `retry-request` | moderate | Production tree | npm install firebase-admin@14.5.0 (breaking; compatibility review) |  |
-| backend / `teeny-request` | moderate | Production tree | npm install firebase-admin@14.5.0 (breaking; compatibility review) |  |
-| backend / `uuid` | moderate | Production tree | npm install firebase-admin@14.5.0 (breaking; compatibility review) | https://github.com/advisories/GHSA-w5hq-g745-h8pq |
+| frontend / `@eslint-community/eslint-utils` | moderate | Development/CI only | eslint@4.0.0 (installed 8.57.1); Reject downgrade suggestion | [advisory 1](https://github.com/advisories/GHSA-g3hv-75wg-m249) |
+| frontend / `@eslint/eslintrc` | moderate | Development/CI only | eslint@4.0.0 (installed 8.57.1); Reject downgrade suggestion | [advisory 1](https://github.com/advisories/GHSA-g3hv-75wg-m249) |
+| frontend / `@humanwhocodes/config-array` | moderate | Development/CI only | eslint@4.0.0 (installed 8.57.1); Reject downgrade suggestion | [advisory 1](https://github.com/advisories/GHSA-g3hv-75wg-m249) |
+| frontend / `@typescript-eslint/eslint-plugin` | moderate | Development/CI only | eslint-config-next@0.2.4 (installed 15.5.28); Reject downgrade suggestion | [advisory 1](https://github.com/advisories/GHSA-g3hv-75wg-m249) |
+| frontend / `@typescript-eslint/parser` | moderate | Development/CI only | eslint-config-next@0.2.4 (installed 15.5.28); Reject downgrade suggestion | [advisory 1](https://github.com/advisories/GHSA-g3hv-75wg-m249) |
+| frontend / `@typescript-eslint/type-utils` | moderate | Development/CI only | eslint-config-next@0.2.4 (installed 15.5.28); Reject downgrade suggestion | [advisory 1](https://github.com/advisories/GHSA-g3hv-75wg-m249) |
+| frontend / `@typescript-eslint/typescript-estree` | moderate | Development/CI only | eslint-config-next@0.2.4 (installed 15.5.28); Reject downgrade suggestion | [advisory 1](https://github.com/advisories/GHSA-g3hv-75wg-m249) |
+| frontend / `@typescript-eslint/utils` | moderate | Development/CI only | eslint-config-next@0.2.4 (installed 15.5.28); Reject downgrade suggestion | [advisory 1](https://github.com/advisories/GHSA-g3hv-75wg-m249) |
+| frontend / `eslint` | moderate | Development/CI only | eslint@4.0.0 (installed 8.57.1); Reject downgrade suggestion | [advisory 1](https://github.com/advisories/GHSA-g3hv-75wg-m249) |
+| frontend / `eslint-config-next` | moderate | Development/CI only | eslint-config-next@0.2.4 (installed 15.5.28); Reject downgrade suggestion | [advisory 1](https://github.com/advisories/GHSA-g3hv-75wg-m249) |
+| frontend / `eslint-plugin-import` | moderate | Development/CI only | eslint-config-next@0.2.4 (installed 15.5.28); Reject downgrade suggestion | [advisory 1](https://github.com/advisories/GHSA-g3hv-75wg-m249) |
+| frontend / `eslint-plugin-jsx-a11y` | moderate | Development/CI only | eslint-config-next@0.2.4 (installed 15.5.28); Reject downgrade suggestion | [advisory 1](https://github.com/advisories/GHSA-g3hv-75wg-m249) |
+| frontend / `eslint-plugin-react` | moderate | Development/CI only | npm audit fix; current dry run changes 0 packages, so review constraints/upstream patch | [advisory 1](https://github.com/advisories/GHSA-g3hv-75wg-m249) |
+| frontend / `file-entry-cache` | moderate | Development/CI only | eslint@4.0.0 (installed 8.57.1); Reject downgrade suggestion | [advisory 1](https://github.com/advisories/GHSA-g3hv-75wg-m249) |
+| frontend / `flat-cache` | moderate | Development/CI only | eslint@4.0.0 (installed 8.57.1); Reject downgrade suggestion | [advisory 1](https://github.com/advisories/GHSA-g3hv-75wg-m249) |
+| frontend / `glob` | moderate | Development/CI only | eslint@4.0.0 (installed 8.57.1); Reject downgrade suggestion | [advisory 1](https://github.com/advisories/GHSA-g3hv-75wg-m249) |
+| frontend / `minimatch` | moderate | Development/CI only | eslint@4.0.0 (installed 8.57.1); Reject downgrade suggestion | [advisory 1](https://github.com/advisories/GHSA-g3hv-75wg-m249) |
+| frontend / `rimraf` | moderate | Development/CI only | eslint@4.0.0 (installed 8.57.1); Reject downgrade suggestion | [advisory 1](https://github.com/advisories/GHSA-g3hv-75wg-m249) |
+| backend / `@google-cloud/firestore` | moderate | Production SDK tree | firebase-admin@14.5.0 (installed 13.10.0); Major compatibility review required | [advisory 1](https://github.com/advisories/GHSA-3g3m-2fjr-6pw4), [advisory 2](https://github.com/advisories/GHSA-g3hv-75wg-m249), [advisory 3](https://github.com/advisories/GHSA-w5hq-g745-h8pq) |
+| backend / `@google-cloud/pubsub` | moderate | Development/CI only | firebase-tools@3.18.2 (installed 15.34.2); Reject downgrade suggestion | [advisory 1](https://github.com/advisories/GHSA-8988-4f7v-96qf) |
+| backend / `@google-cloud/storage` | moderate | Production SDK tree | firebase-admin@14.5.0 (installed 13.10.0); Major compatibility review required | [advisory 1](https://github.com/advisories/GHSA-w5hq-g745-h8pq) |
+| backend / `@opentelemetry/core` | moderate | Development/CI only | firebase-tools@3.18.2 (installed 15.34.2); Reject downgrade suggestion | [advisory 1](https://github.com/advisories/GHSA-8988-4f7v-96qf) |
+| backend / `archiver` | moderate | Development/CI only | firebase-tools@3.18.2 (installed 15.34.2); Reject downgrade suggestion | [advisory 1](https://github.com/advisories/GHSA-3g3m-2fjr-6pw4), [advisory 2](https://github.com/advisories/GHSA-g3hv-75wg-m249) |
+| backend / `archiver-utils` | moderate | Development/CI only | firebase-tools@3.18.2 (installed 15.34.2); Reject downgrade suggestion | [advisory 1](https://github.com/advisories/GHSA-3g3m-2fjr-6pw4), [advisory 2](https://github.com/advisories/GHSA-g3hv-75wg-m249) |
+| backend / `exegesis` | moderate | Development/CI only | npm audit fix; current dry run changes 0 packages, so review constraints/upstream patch | [advisory 1](https://github.com/advisories/GHSA-3g3m-2fjr-6pw4), [advisory 2](https://github.com/advisories/GHSA-g3hv-75wg-m249) |
+| backend / `firebase-admin` | moderate | Production SDK tree | firebase-admin@14.5.0 (installed 13.10.0); Major compatibility review required | [advisory 1](https://github.com/advisories/GHSA-3g3m-2fjr-6pw4), [advisory 2](https://github.com/advisories/GHSA-g3hv-75wg-m249), [advisory 3](https://github.com/advisories/GHSA-w5hq-g745-h8pq) |
+| backend / `firebase-tools` | moderate | Development/CI only | firebase-tools@3.18.2 (installed 15.34.2); Reject downgrade suggestion | [advisory 1](https://github.com/advisories/GHSA-3g3m-2fjr-6pw4), [advisory 2](https://github.com/advisories/GHSA-8988-4f7v-96qf), [advisory 3](https://github.com/advisories/GHSA-g3hv-75wg-m249), [advisory 4](https://github.com/advisories/GHSA-w5hq-g745-h8pq) |
+| backend / `gaxios` | moderate | Production SDK tree | firebase-tools@3.18.2 (installed 15.34.2); Reject downgrade suggestion | [advisory 1](https://github.com/advisories/GHSA-w5hq-g745-h8pq) |
+| backend / `glob` | moderate | Development/CI only | firebase-tools@3.18.2 (installed 15.34.2); Reject downgrade suggestion | [advisory 1](https://github.com/advisories/GHSA-3g3m-2fjr-6pw4), [advisory 2](https://github.com/advisories/GHSA-g3hv-75wg-m249) |
+| backend / `google-gax` | moderate | Production SDK tree | firebase-admin@14.5.0 (installed 13.10.0); Major compatibility review required | [advisory 1](https://github.com/advisories/GHSA-3g3m-2fjr-6pw4), [advisory 2](https://github.com/advisories/GHSA-g3hv-75wg-m249), [advisory 3](https://github.com/advisories/GHSA-w5hq-g745-h8pq) |
+| backend / `minimatch` | moderate | Development/CI only | nodemon@1.0.2 (installed 3.1.14); Reject downgrade suggestion | [advisory 1](https://github.com/advisories/GHSA-g3hv-75wg-m249) |
+| backend / `nodemon` | moderate | Development/CI only | nodemon@1.0.2 (installed 3.1.14); Reject downgrade suggestion | [advisory 1](https://github.com/advisories/GHSA-g3hv-75wg-m249) |
+| backend / `readdir-glob` | moderate | Development/CI only | firebase-tools@3.18.2 (installed 15.34.2); Reject downgrade suggestion | [advisory 1](https://github.com/advisories/GHSA-g3hv-75wg-m249) |
+| backend / `retry-request` | moderate | Production SDK tree | firebase-admin@14.5.0 (installed 13.10.0); Major compatibility review required | [advisory 1](https://github.com/advisories/GHSA-w5hq-g745-h8pq) |
+| backend / `rimraf` | moderate | Development/CI only | firebase-admin@14.5.0 (installed 13.10.0); Major compatibility review required | [advisory 1](https://github.com/advisories/GHSA-3g3m-2fjr-6pw4), [advisory 2](https://github.com/advisories/GHSA-g3hv-75wg-m249) |
+| backend / `superstatic` | moderate | Development/CI only | firebase-tools@3.18.2 (installed 15.34.2); Reject downgrade suggestion | [advisory 1](https://github.com/advisories/GHSA-g3hv-75wg-m249) |
+| backend / `teeny-request` | moderate | Production SDK tree | firebase-admin@14.5.0 (installed 13.10.0); Major compatibility review required | [advisory 1](https://github.com/advisories/GHSA-w5hq-g745-h8pq) |
+| backend / `uuid` | moderate | Production SDK tree | firebase-tools@3.18.2 (installed 15.34.2); Reject downgrade suggestion | [advisory 1](https://github.com/advisories/GHSA-w5hq-g745-h8pq) |
+| backend / `zip-stream` | moderate | Development/CI only | npm audit fix; current dry run changes 0 packages, so review constraints/upstream patch | [advisory 1](https://github.com/advisories/GHSA-3g3m-2fjr-6pw4), [advisory 2](https://github.com/advisories/GHSA-g3hv-75wg-m249) |
 
-The backend currently invokes Firebase Realtime Database, not Firestore or Cloud Storage. Moderate packages are installed through those SDK dependency branches; this narrows current use but is not proof of non-exploitability. A Firebase Admin major upgrade requires emulator and real credential verification beyond the isolated tests. Development ESLint/nodemon findings affect local/CI tooling, not the production dependency installation. Do not blindly apply audit-suggested downgrades (e.g. ESLint 4); migrate the lint stack deliberately.
+## Product and service limits
 
-## Product limits
+- Accounts now have email OTP, verified server-side site/role checks and revocable cookies. Actual local browser/SDK tests passed individually; real SMTP, target HTTPS/proxy behavior and hosted CI remain operator checks. In-memory limits require one API process; shared Redis/process behavior has not run here. CSP still permits inline styles/scripts for the existing Next rendering; a stricter nonce policy is a separate reviewed change.
+- Actual PostgreSQL/Redis containers, queue transport/delivery, multi-process locking and migrations on the intended host are unverified. PGlite tests execute real SQL but do not establish server operation. Schema migrations and legacy audit/history imports are explicit and were not applied to user data. Queue mail is at-least-once; dead letters need reviewed reconciliation.
+- Physical sensor calibration, reconnect/buffer/relay/camera behavior and live Firebase UID/rules/telemetry migration are unverified. Compiled firmware/native helper checks and simulated GPIO acknowledgement do not prove physical contact state, which remains Unavailable. Manual camera/coating records and secured proxies are implemented; automatic visual diagnosis/coating score/digital twin/voice assistance remain coming soon/unavailable.
+- Raw telemetry scans stop at 50000 rows. Large reports need reviewed aggregation; formal PDFs refuse insufficient coverage, synthetic readings or unverified factors. Dashboard configured carbon/physical assumptions remain Estimated and are not evidence of savings, calibrated accuracy or official reporting acceptance.
+- AI is current-condition estimation with chronological validation and trusted artifacts. Weather-ahead forecasting, field accuracy, actual weather provider, live publishing, schedules and model drift operation remain unverified. No default R2/performance promise is made.
+- Commerce is test-only/off by default, with unset business prices. Fake gateway/widget plus real SQL/HMAC/replay tests do not verify Razorpay-hosted Checkout, actual test credentials/webhook retries or refunds. Callback alone stays pending. GST/tax invoices, seller identity, legal policies, fulfilment and live-mode switching are not implemented/approved. Never bypass the live-key guard.
+- English/Hindi UI has a source-bound catalog (1045 messages at this checkpoint) and scoped browser checks. Entered records stay in their original language. Fluent review, independent assistive-technology/full contrast/performance review remain manual. No Lighthouse/WCAG claim. Receipts are English/ASCII with explicit unavailable non-ASCII PDF labels; original names are preserved. Full Hindi PDF embedding/shaping and translated email templates remain unimplemented.
+- Privacy/terms/refunds are noindex drafts. Legal entity/contact, current DPDP applicability/amendments, rights/retention/age/processor workflow, tax/refund rules and business/scientific/people/patent evidence need owner/counsel review. Indexing defaults off. Public assets also require rights/privacy review before any publication.
+- The exact original boundary was recovered and streamed: 164447698 bytes, 36 features, 1071165 coordinate pairs, mixed ST_NM/state properties and matching LFS SHA-256. It exceeds the 8 MiB/250000-point web budget; upstream is not proof of current/authoritative boundary or underlying rights. No outline was approximated or published. An approved web-sized file, hash/attribution/property configuration and real site assignment are required; map stays missing by default. Only the authorized configured site is counted, not a national fleet.
+- Docker CLI syntax/tag checks passed, but its engine is unavailable. Image builds, read-only path permissions, container runtime, Coolify, DNS/TLS, uptime monitoring, encrypted backups and isolated restore/rollback are not verified. Image tags/digests are checked references, not a running deployment.
+- Source/all-local-ref pattern scans found no supported credential patterns, but cannot prove all formats absent. Preserve ignored secrets; rotate operator credentials as part of the separately authorized launch/recovery plan. No push, real message/payment, external deployment, data deletion or private publication occurred.
 
-- Firmware compilation, physical sensors/relay/camera, live Firebase rules and migration are unverified; see MANUAL_STEPS.md.
-- Accounts are not yet tenant/site-isolated, OTP is not implemented, and sessions still use the existing JWT mechanism. Phase 2 must resolve this before launch.
-- Unaggregated history has a 50,000-row safety ceiling; large reporting periods require aggregation.
-- Coating, CV, relay commands, persistent maintenance, reports and commerce remain unavailable pending later phases. No release-candidate status is implied.
-
-
-## Phase 2 current audit disposition (supersedes earlier counts)
-
-Production remains frontend 0 and backend 8 moderate; neither has high/critical findings. The backend full tree now has 21 moderate and no high/critical findings. Emulator tooling introduced five inherited high matches through the Firestore test client; non-breaking audit fix could not patch its pinned gRPC. A scoped @firebase/firestore override to @grpc/grpc-js 1.14.7 removed them without downgrading Firebase. Full/production evidence is saved under test-results/.
-
-| Backend package | Severity | Exposure | Audit suggested fix (review required) | Direct advisory |
-| --- | --- | --- | --- | --- |
-| `@google-cloud/firestore` | moderate | Included in production SDK tree; see RTDB reachability note above | firebase-admin@14.5.0 (breaking) |  |
-| `@google-cloud/pubsub` | moderate | Development/emulator tooling only | firebase-tools@3.18.2 (breaking) |  |
-| `@google-cloud/storage` | moderate | Included in production SDK tree; see RTDB reachability note above | firebase-admin@14.5.0 (breaking) |  |
-| `@opentelemetry/core` | moderate | Development/emulator tooling only | firebase-tools@3.18.2 (breaking) | https://github.com/advisories/GHSA-8988-4f7v-96qf |
-| `archiver` | moderate | Development/emulator tooling only | firebase-tools@3.18.2 (breaking) |  |
-| `archiver-utils` | moderate | Development/emulator tooling only | firebase-tools@3.18.2 (breaking) |  |
-| `exegesis` | moderate | Development/emulator tooling only | npm audit fix |  |
-| `firebase-admin` | moderate | Included in production SDK tree; see RTDB reachability note above | firebase-admin@14.5.0 (breaking) |  |
-| `firebase-tools` | moderate | Development/emulator tooling only | firebase-tools@3.18.2 (breaking) |  |
-| `gaxios` | moderate | Included in production SDK tree; see RTDB reachability note above | firebase-tools@3.18.2 (breaking) |  |
-| `glob` | moderate | Development/emulator tooling only | firebase-tools@3.18.2 (breaking) | https://github.com/advisories/GHSA-3g3m-2fjr-6pw4 |
-| `google-gax` | moderate | Included in production SDK tree; see RTDB reachability note above | firebase-admin@14.5.0 (breaking) |  |
-| `minimatch` | moderate | Development/emulator tooling only | nodemon@1.0.2 (breaking) | https://github.com/advisories/GHSA-g3hv-75wg-m249 |
-| `nodemon` | moderate | Development/emulator tooling only | nodemon@1.0.2 (breaking) |  |
-| `readdir-glob` | moderate | Development/emulator tooling only | firebase-tools@3.18.2 (breaking) |  |
-| `retry-request` | moderate | Included in production SDK tree; see RTDB reachability note above | firebase-admin@14.5.0 (breaking) |  |
-| `rimraf` | moderate | Development/emulator tooling only | firebase-admin@14.5.0 (breaking) |  |
-| `superstatic` | moderate | Development/emulator tooling only | firebase-tools@3.18.2 (breaking) |  |
-| `teeny-request` | moderate | Included in production SDK tree; see RTDB reachability note above | firebase-admin@14.5.0 (breaking) |  |
-| `uuid` | moderate | Included in production SDK tree; see RTDB reachability note above | firebase-tools@3.18.2 (breaking) | https://github.com/advisories/GHSA-w5hq-g745-h8pq |
-| `zip-stream` | moderate | Development/emulator tooling only | npm audit fix |  |
-
-Do not apply the suggested Firebase/test-tooling/CLI downgrades blindly. Production uses npm ci --omit=dev. Review major SDK upgrades against the emulator and actual configured project before deployment. Frontend CSP permits inline scripts/styles for current Next.js rendering; tightening it needs a nonce/rendering change. SMTP delivery, shared Redis, hardware and target-host cookies remain unverified.
-
-Firmware tooling note: ESP8266 SDK 3.30102.0 helper elf2bin.py emits SyntaxWarnings for legacy Python escape sequences under this machine's Python. The compile completed successfully. No vendored SDK source was modified; revisit with an upstream toolchain update. Static build RAM/flash figures do not establish runtime memory safety; physical-device heap/reconnect/load testing remains manual.
-
-## Phase 4 follow-up
-The schema CLI initially added four moderate development-only matches through esbuild <=0.24.2 (GHSA-67mh-4wv8-2f99). Its affected development-server mode is not used by the application or schema-generation command. Non-breaking audit fix could not resolve the pinned loader; a scoped override to esbuild 0.28.2 passed actual schema generation with no migration changes and returned the backend full audit to 21 moderate, zero high/critical. Do not accept npm's suggested drizzle-kit@0.18.1 downgrade blindly. Runtime production findings remain the eight previously documented SDK moderate matches; production installs omit Drizzle Kit/PGlite/Firebase test tooling.
-
-The current machine cannot run the Docker Linux service. PGlite tests verify SQL/migrations and lifecycle logic, not PostgreSQL multi-process locking, privileged configuration, physical storage persistence or recovery. Redis/BullMQ and SMTP use fakes in tests; external service behavior remains unverified. Notifications are at-least-once and may duplicate after SMTP acceptance before SQL confirmation. Disabled events do not automatically replay on enablement.
-
-Formal report generation is intentionally blocked without real sufficiently covered primary-device telemetry and an explicitly verified factor/source. Raw-history scan ceilings can reject a large reporting period until reviewed rollups/migration exist; increasing the bound is not a coverage fix. Uptime is Unavailable. The saved ESG layout PDF contains synthetic test inputs only. No real-data ESG claim or backup/restore result is established.
-
-### Phase 8 font and browser coverage limits
-Full Hindi PDF receipts are not implemented: Helvetica base-font documents now explicitly mark non-ASCII plan labels Unavailable and preserve original Unicode names in authenticated order/evidence. English receipt text/one-page rendering passed synthetic review. A reviewed embeddable font, Hindi shaping/glyph/mixed-script tests and rendered/text verification are needed before claiming full Hindi document support. Existing immutable receipts are not regenerated.
-Independent screen-reader/zoom/target-device and complete contrast/performance review remain manual. Prepared Playwright UI checks use local mocks and cannot establish actual authentication, delivery, hardware, service reliability or WCAG conformance.
-
-### Phase 8 full frontend tooling audit
-Full frontend tree: 18 moderate, zero high/critical (phase08-gate-frontend-full-audit.log); production frontend: zero. Matches are in ESLint/config/import/React/JSX/TypeScript tooling and glob/minimatch/cache chains, used while analyzing/building source. Inference from dependency placement: their exposure is principally development/CI processing of untrusted source/config, not the production dependency graph audited with --omit=dev. Do not treat that as a general sandbox guarantee. npm proposes major downgrades to eslint 4.0.0 and eslint-config-next 0.2.4 for several chains; these are not valid coherent Next 15 remediations and were not forced. Keep CI inputs untrusted, run without production secrets, and upgrade the lint stack coherently in a maintenance phase with lint/types/build/audit checks. Two entries indicate potentially compatible transitive updates; review npm audit fix --dry-run and apply compatible-only updates before considering major migrations. Existing phase-one non-breaking audit fixes and remaining SDK issues are documented above.
-
-- Phase 9: original boundary recovered with exact LFS hash, but source authority/current-outline rights review is incomplete and geometry exceeds browser budgets (164 MB, 1071165 points). Map stays unavailable until the reviewed web-sized dataset in MAP_DATA.md is installed. This is a deliberate partial data dependency, not a working production India outline.
+Each concrete follow-up is in MANUAL_STEPS.md, MAP_DATA.md, LEGAL_REVIEW.md and RELEASE_OPERATIONS.md. Final gate outcomes/counts belong to PROGRESS.md and FINAL_REPORT.md; no pending gate is implied complete by this issue list.
