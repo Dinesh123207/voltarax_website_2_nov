@@ -1,0 +1,120 @@
+{
+  "scope": "Tracked COPY inputs and isolated staged AI imports; no Docker engine/runtime assertion",
+  "inputs": {
+    "frontend": [
+      {
+        "source": "package.json",
+        "files": 1
+      },
+      {
+        "source": "package-lock.json",
+        "files": 1
+      },
+      {
+        "source": ".",
+        "files": 100
+      }
+    ],
+    "backend": [
+      {
+        "source": "package.json",
+        "files": 1
+      },
+      {
+        "source": "package-lock.json",
+        "files": 1
+      },
+      {
+        "source": "package.json",
+        "files": 1
+      },
+      {
+        "source": "package-lock.json",
+        "files": 1
+      },
+      {
+        "source": "app.js",
+        "files": 1
+      },
+      {
+        "source": "server.js",
+        "files": 1
+      },
+      {
+        "source": "config",
+        "files": 3
+      },
+      {
+        "source": "db",
+        "files": 11
+      },
+      {
+        "source": "middleware",
+        "files": 5
+      },
+      {
+        "source": "models",
+        "files": 4
+      },
+      {
+        "source": "routes",
+        "files": 11
+      },
+      {
+        "source": "services",
+        "files": 38
+      },
+      {
+        "source": "data/chatKnowledge.json",
+        "files": 1
+      },
+      {
+        "source": "licenses",
+        "files": 2
+      },
+      {
+        "source": "scripts/migrate-relational.js",
+        "files": 1
+      },
+      {
+        "source": "scripts/seed.js",
+        "files": 1
+      }
+    ],
+    "ai-engine": [
+      {
+        "source": "requirements.lock.txt",
+        "files": 1
+      },
+      {
+        "source": "config.py",
+        "files": 1
+      },
+      {
+        "source": "evaluation.py",
+        "files": 1
+      },
+      {
+        "source": "data",
+        "files": 4
+      },
+      {
+        "source": "models",
+        "files": 8
+      },
+      {
+        "source": "pipeline",
+        "files": 7
+      },
+      {
+        "source": "scripts",
+        "files": 5
+      }
+    ]
+  },
+  "backend_relative_imports": 199,
+  "errors": [],
+  "imports_exit_code": 0,
+  "imports_output": "Staged runtime imports and batch entry points pass; no main function executed\n",
+  "stage": ".local-tools/packaging/c0bfec29401f4b05bc43127ecb237b24"
+}

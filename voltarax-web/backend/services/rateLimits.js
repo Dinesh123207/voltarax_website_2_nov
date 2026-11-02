@@ -10,7 +10,7 @@ function createLimiters({ client, limits = {} } = {}) {
   return {
     api: limiter('api', 1000), authIp: limiter('auth-ip', 30),
     authEmail: limiter('auth-email', 10, { skip: req => !req.user?.email && typeof req.body?.email !== 'string', keyGenerator: req => createHash('sha256').update(String(req.user?.email || req.body?.email).trim().toLowerCase().slice(0, 254)).digest('hex') }),
-    forms: limiter('forms', 10), ingest: limiter('ingest', 1200),
+    forms: limiter('forms', 10), chat: limiter('chat', 30), ingest: limiter('ingest', 1200),
   };
 }
 async function connectRateStore(env, logger) {

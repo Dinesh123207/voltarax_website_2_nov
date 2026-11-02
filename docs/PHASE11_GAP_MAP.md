@@ -30,3 +30,7 @@ Done means the stated local task is implemented and verified. Partial distinguis
 5. Partial: public/dashboard ISTClock already exists (`components/ui/ISTClock.tsx`, Navbar and dashboard layout; `lib/clock.ts`, backend clock test). Verify visibility, hidden-tab pause/hydration and add reading-age/offline last-updated state/tests.
 6. Not done, optional after required work: nonce CSP instead of inline allowances; complete framework/request/cache tests before changing policy. If deferred, record the concrete reason as Skipped/Partial.
 7. Not done: all existing gates plus new tests/axe, updated completion source/known issues/progress, visually reviewed running document and local commits only. No external activation, real messages/payments or user-data changes.
+
+
+## After Step 1 local implementation
+Item 4 local code Done: reviewed EN/HI source-bound replies, disabled provider interface, optional loopback Ollama source selector, API-backed plain-text widget, human contact, dedicated limits and no-user-text provider boundary. Three focused tests plus source types/lint and staged input/import checks pass (`phase11-chat-*`). Real Ollama/model execution remains Not done; full browser/phase gate is pending. Actual SMTP/provider/hosting/hardware gaps in the baseline table remain unchanged.

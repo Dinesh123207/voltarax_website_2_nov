@@ -180,3 +180,7 @@ All ten local phase gates and final report/source/PDF QA are complete. release-c
 
 ### Requested second verification and running guide
 Recheck the completed local application without changing phase tags or external services. Reproduced/fixed three packaging omissions and verified tracked inputs plus isolated AI imports; retained failing evidence and added the check to CI. Root README now separates public preview, configured services and first-admin bootstrap. Finish the fresh build/browser/rules/native/firmware/config checks and publish a visually reviewed verification/running guide with exact outcomes and remaining activation requirements.
+
+
+### Phase 11 chatbot implementation checkpoint
+Step 0 is saved with all 14 baseline statuses. Step 1 local provider/FAQ/client/privacy/rate-limit code and focused tests are complete; optional Ollama execution and full browser/gate are unverified. Continue original bounded media, 360px/color/data states/contrast, stale-reading clock, optional tested nonce CSP, then all gates plus axe and final docs/run guide.

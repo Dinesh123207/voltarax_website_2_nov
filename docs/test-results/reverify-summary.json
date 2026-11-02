@@ -1,0 +1,248 @@
+{
+  "scope": "Second review baseline before Phase 11 product changes",
+  "reviewed_commit": "6cbb487",
+  "branch_at_review": "phase-10-release",
+  "local_checks_passed": true,
+  "checks": {
+    "backend": {
+      "command": [
+        "npm.cmd",
+        "test"
+      ],
+      "cwd": "voltarax-web/backend",
+      "exit_code": 0,
+      "seconds": 158.85
+    },
+    "ai": {
+      "command": [
+        "C:/Users/JARVIS/Desktop/VOLTARAX/.local-tools/ai-python/Scripts/python.exe",
+        "-m",
+        "pytest",
+        "tests",
+        "-q",
+        "-p",
+        "no:cacheprovider"
+      ],
+      "cwd": "voltarax-web/ai-engine",
+      "exit_code": 0,
+      "seconds": 15.6
+    },
+    "lint": {
+      "command": [
+        "npm.cmd",
+        "run",
+        "lint"
+      ],
+      "cwd": "voltarax-web/frontend",
+      "exit_code": 0,
+      "seconds": 28.14
+    },
+    "source-types": {
+      "command": [
+        "npx.cmd",
+        "tsc",
+        "--noEmit",
+        "--project",
+        "tsconfig.source.json"
+      ],
+      "cwd": "voltarax-web/frontend",
+      "exit_code": 0,
+      "seconds": 29.21
+    },
+    "generated-types": {
+      "command": [
+        "npx.cmd",
+        "tsc",
+        "--noEmit"
+      ],
+      "cwd": "voltarax-web/frontend",
+      "exit_code": 0,
+      "seconds": 21.37
+    },
+    "build": {
+      "command": [
+        "python",
+        "tools/verify-locale-routes.py",
+        "--build"
+      ],
+      "cwd": ".",
+      "exit_code": 0,
+      "seconds": 92.74
+    },
+    "web": {
+      "command": [
+        "python",
+        "tools/verify-locale-routes.py"
+      ],
+      "cwd": ".",
+      "exit_code": 0,
+      "seconds": 37.52
+    },
+    "api": {
+      "command": [
+        "python",
+        "tools/run-local-database.py",
+        "--log",
+        "docs/test-results/reverify-api-java.log",
+        "--",
+        "python",
+        "tools/verify-backend-browser.py"
+      ],
+      "cwd": ".",
+      "exit_code": 0,
+      "seconds": 55.06
+    },
+    "rules": {
+      "command": [
+        "python",
+        "tools/run-local-database.py",
+        "--log",
+        "docs/test-results/reverify-rules-java.log",
+        "--",
+        "node",
+        "--test",
+        "voltarax-web/backend/tests/firebase-rules.test.cjs"
+      ],
+      "cwd": ".",
+      "exit_code": 0,
+      "seconds": 12.55
+    },
+    "native": {
+      "command": [
+        "C:/Users/JARVIS/Desktop/VOLTARAX/.local-tools/platformio/Scripts/python.exe",
+        "-m",
+        "platformio",
+        "test",
+        "-e",
+        "native"
+      ],
+      "cwd": "voltarax-web/hardware/nodemcu",
+      "exit_code": 0,
+      "seconds": 6.35
+    },
+    "firmware": {
+      "command": [
+        "C:/Users/JARVIS/Desktop/VOLTARAX/.local-tools/platformio/Scripts/python.exe",
+        "-m",
+        "platformio",
+        "run",
+        "-e",
+        "compile_check",
+        "-j",
+        "2"
+      ],
+      "cwd": "voltarax-web/hardware/nodemcu",
+      "exit_code": 0,
+      "seconds": 376.23
+    },
+    "audit": {
+      "command": [
+        "python",
+        "tools/audit-dependencies.py"
+      ],
+      "cwd": ".",
+      "exit_code": 0,
+      "seconds": 10.98
+    },
+    "secrets": {
+      "command": [
+        "python",
+        "tools/scan-secrets.py",
+        "--history"
+      ],
+      "cwd": ".",
+      "exit_code": 0,
+      "seconds": 3.62
+    },
+    "packaging-final": {
+      "command": [
+        "python",
+        "tools/check-runtime-packaging.py"
+      ],
+      "cwd": ".",
+      "exit_code": 0,
+      "seconds": 10.37
+    }
+  },
+  "counts": {
+    "backend": 81,
+    "ai": 28,
+    "public_browser": 7,
+    "actual_api_browser": 3,
+    "rules": 1,
+    "native": 4
+  },
+  "browser": {
+    "web": {
+      "startTime": "2026-11-02T05:26:53.009Z",
+      "duration": 30905.045000000002,
+      "expected": 7,
+      "skipped": 0,
+      "unexpected": 0,
+      "flaky": 0
+    },
+    "api": {
+      "startTime": "2026-11-02T05:31:05.137Z",
+      "duration": 33816.29,
+      "expected": 3,
+      "skipped": 0,
+      "unexpected": 0,
+      "flaky": 0
+    }
+  },
+  "syntax": {
+    "checks": {
+      "python": 44,
+      "node": 120
+    },
+    "errors": [],
+    "scope": "Tracked backend/AI/hardware Python and tools syntax; frontend TypeScript checked separately. Syntax does not prove runtime."
+  },
+  "containers": {
+    "compose": {
+      "exit_code": 0,
+      "scope": "Synthetic config only",
+      "output": ""
+    },
+    "engine": {
+      "exit_code": 1,
+      "scope": "Engine availability only; no container start",
+      "output": "\nfailed to connect to the docker API at npipe:////./pipe/dockerDesktopLinuxEngine; check if the path is correct and if the daemon is running: open //./pipe/dockerDesktopLinuxEngine: The system cannot find the file specified.\n"
+    }
+  },
+  "ci": {
+    "parsed": true,
+    "aiPackagingStep": true,
+    "hostedRun": false
+  },
+  "scan": {
+    "files_checked": 1170,
+    "findings": [],
+    "limit": "Pattern scan is not proof that every credential format is absent.",
+    "history_blobs_checked": 1863,
+    "history_large_blobs_skipped": 0
+  },
+  "production_audit": {
+    "frontend": {
+      "info": 0,
+      "low": 0,
+      "moderate": 0,
+      "high": 0,
+      "critical": 0,
+      "total": 0
+    },
+    "backend": {
+      "info": 0,
+      "low": 0,
+      "moderate": 8,
+      "high": 0,
+      "critical": 0,
+      "total": 8
+    }
+  },
+  "limitations": [
+    "Existing locked installs, not a clean reinstall",
+    "No actual Docker images/runtime or hosted CI",
+    "No real service, hardware, live payment, message, migration or field accuracy assertion"
+  ]
+}

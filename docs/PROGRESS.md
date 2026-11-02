@@ -143,3 +143,7 @@ Checkpoint wording in older task rows is historical; the current summary and fin
 
 ## Phase 11 - close original pending-list gaps
 - [x] Step 0: audited all 14 original items with concrete file/evidence and implementation-versus-activation status in PHASE11_GAP_MAP.md. Confirmed item 4 exists only as a three-answer local FAQ (no provider); item 8 is an incomplete optional background referencing absent media. Existing public/dashboard clock found, nonce CSP still absent. Branch created from 6cbb487, no earlier tag moved.
+
+
+- [x] Pre-Phase-11 second-review baseline completed: 81 backend/28 AI/10 browser/1 rules/4 native; firmware placeholder compile 376.23 s; lint/types/build/production audit/CI-Compose parse/offline packaging/pattern scan pass. Baseline source is 6cbb487 and results are reverify-summary.json; these are not claimed as tests of later Phase 11 code. Running-document generator is prepared; final guide will incorporate Phase 11 results.
+- [x] Step 1 local chatbot: three focused tests pass (4.67 s), source types (25.06 s), lint (38.62 s), staged packaging/imports (21.59 s). Disabled default; reviewed EN/HI source-bound answers/refusal/human link, optional keyless loopback Ollama ID-only selector, no user/personal text to providers, no raw HTML, separate rate limits and six translations. No actual model/provider contacted. Initial packaging lacked new Git-index files; staged rerun passes, original failure retained. Complete browser/full gate remains pending.

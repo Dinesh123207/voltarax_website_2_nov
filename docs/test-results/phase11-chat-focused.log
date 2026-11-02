@@ -1,0 +1,11 @@
+✔ reviewed assistant uses source-bound EN/HI answers, refuses instructions and never forwards personal text (11.8504ms)
+✔ optional Ollama adapter is loopback-only, keyless, bounded and accepts only an entry selection (82.3607ms)
+✔ actual chat HTTP route validates language/body and uses its own rate limit without logging question data (1140.4346ms)
+ℹ tests 3
+ℹ suites 0
+ℹ pass 3
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 1489.5879

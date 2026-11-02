@@ -15,6 +15,7 @@ COPY --chown=node:node middleware ./middleware
 COPY --chown=node:node models ./models
 COPY --chown=node:node routes ./routes
 COPY --chown=node:node services ./services
+COPY --chown=node:node data/chatKnowledge.json ./data/chatKnowledge.json
 COPY --chown=node:node licenses ./licenses
 COPY --chown=node:node scripts/migrate-relational.js ./scripts/migrate-relational.js
 COPY --chown=node:node scripts/seed.js ./scripts/seed.js

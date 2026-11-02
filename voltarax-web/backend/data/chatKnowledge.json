@@ -1,0 +1,34 @@
+{
+  "reviewedAt": "2026-11-02",
+  "reviewScope": "Verified software capabilities and limitations; no business, subsidy, pricing or legal approval",
+  "entries": [
+    {
+      "id": "platform-scope",
+      "terms": ["voltvision", "voltarax", "monitoring", "platform", "वोल्टविजन", "वोल्टारैक्स", "निगरानी", "प्लेटफॉर्म"],
+      "files": ["backend/services/dashboardData.js", "frontend/app/[locale]/dashboard/page.tsx"],
+      "en": {"title": "Monitoring platform scope", "answer": "VoltVision displays authorized site telemetry, current-condition estimates and saved maintenance records when their hardware and services are configured. Field calibration and reliability still require verification."},
+      "hi": {"title": "निगरानी प्लेटफॉर्म का दायरा", "answer": "हार्डवेयर और सेवाएँ कॉन्फ़िगर होने पर VoltVision अधिकृत साइट की रीडिंग, वर्तमान स्थितियों के अनुमान और सहेजे गए रखरखाव रिकॉर्ड दिखाता है। वास्तविक अंशांकन और विश्वसनीयता की जाँच अभी आवश्यक है।"}
+    },
+    {
+      "id": "coating-records",
+      "terms": ["coating", "inspection", "कोटिंग", "निरीक्षण"],
+      "files": ["backend/services/inspections.js", "frontend/components/operations/Inspections.tsx"],
+      "en": {"title": "Manual inspection records", "answer": "The software saves dated manual area, condition, photo and note observations. These records do not establish coating chemistry, material performance or a numerical coating health score."},
+      "hi": {"title": "मैन्युअल निरीक्षण रिकॉर्ड", "answer": "सॉफ़्टवेयर तारीख सहित क्षेत्र, स्थिति, फ़ोटो और नोट के मैन्युअल अवलोकन सहेजता है। ये रिकॉर्ड कोटिंग की रासायनिक संरचना, सामग्री के प्रदर्शन या संख्यात्मक स्वास्थ्य स्कोर को प्रमाणित नहीं करते।"}
+    },
+    {
+      "id": "ai-limitations",
+      "terms": ["ai", "model", "forecast", "anomaly", "एआई", "मॉडल", "पूर्वानुमान", "विसंगति"],
+      "files": ["ai-engine/README.md", "backend/services/forecast.js"],
+      "en": {"title": "Current-condition AI and limits", "answer": "Current-condition models require fresh suitable inputs, sufficient history and candidate validation. Unusual patterns are estimates, not confirmed faults. Weather-ahead forecasting, automatic vision classification and autonomous dispatch remain unavailable."},
+      "hi": {"title": "वर्तमान स्थितियों की एआई और सीमाएँ", "answer": "वर्तमान स्थितियों के मॉडल के लिए उपयुक्त ताज़ा इनपुट, पर्याप्त इतिहास और मॉडल सत्यापन आवश्यक हैं। असामान्य पैटर्न अनुमान हैं, पुष्ट खराबी नहीं। मौसम-आधारित भविष्य का पूर्वानुमान, स्वचालित दृश्य वर्गीकरण और स्वायत्त कार्य आवंटन अभी उपलब्ध नहीं हैं।"}
+    },
+    {
+      "id": "support-boundary",
+      "terms": [],
+      "files": ["docs/KNOWN_ISSUES.md", "docs/MANUAL_STEPS.md"],
+      "en": {"title": "Reviewed answer boundary and human help", "answer": "I do not have a reviewed answer for that request. I cannot supply or invent subsidies, prices, legal advice or technical specifications. Please use the Contact page to ask a person to review your question."},
+      "hi": {"title": "समीक्षित उत्तर की सीमा और मानवीय सहायता", "answer": "इस अनुरोध का समीक्षित उत्तर मेरे पास नहीं है। मैं सब्सिडी, कीमत, कानूनी सलाह या तकनीकी विनिर्देश नहीं दे सकता और न ही बना सकता हूँ। अपने प्रश्न की मानवीय समीक्षा के लिए कृपया संपर्क पृष्ठ का उपयोग करें।"}
+    }
+  ]
+}

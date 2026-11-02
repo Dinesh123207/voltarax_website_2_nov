@@ -1,0 +1,8 @@
+{
+  "checks": {
+    "python": 44,
+    "node": 120
+  },
+  "errors": [],
+  "scope": "Tracked backend/AI/hardware Python and tools syntax; frontend TypeScript checked separately. Syntax does not prove runtime."
+}

@@ -14,7 +14,8 @@ function createApp({ logger, limiters, routes, env = process.env, readiness = as
   app.use(express.json({ limit: '10kb' }), cookieParser());
   const authPaths = ['/api/auth/login', '/api/auth/register', '/api/auth/otp', '/api/auth/sensitive', '/api/auth/password'];
   app.use(authPaths, limiters.authIp, limiters.authEmail);
-  app.use(['/api/contact', '/api/demo', '/api/subscribe', '/api/chat'], limiters.forms);
+  app.use(['/api/contact', '/api/demo', '/api/subscribe'], limiters.forms);
+  app.use('/api/chat', limiters.chat || limiters.forms);
   app.use('/api/telemetry/ingest', limiters.ingest);
   app.get('/health', validate(), (req, res) => res.json({ status: 'ok', app: 'Voltarax API', testMode: require('./config/testMode').demoEmulator(env), simulatorAllowed: require('./config/testMode').simulatorAllowed(env) }));
   app.get(['/ready','/api/ready'],validate(),async(req,res)=>{

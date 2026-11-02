@@ -1,0 +1,549 @@
+Processing compile_check (platform: espressif8266@4.2.1; board: nodemcuv2; framework: arduino)
+--------------------------------------------------------------------------------
+Verbose mode can be enabled via `-v, --verbose` option
+CONFIGURATION: https://docs.platformio.org/page/boards/espressif8266/nodemcuv2.html
+PLATFORM: Espressif 8266 (4.2.1) > NodeMCU 1.0 (ESP-12E Module)
+HARDWARE: ESP8266 80MHz, 80KB RAM, 4MB Flash
+PACKAGES: 
+ - framework-arduinoespressif8266 @ 3.30102.0 (3.1.2) 
+ - tool-esptool @ 1.413.0 (4.13) 
+ - tool-esptoolpy @ 1.30000.201119 (3.0.0) 
+ - toolchain-xtensa @ 2.100300.220621 (10.3.0)
+LDF: Library Dependency Finder -> https://bit.ly/configure-pio-ldf
+LDF Modes: Finder ~ chain, Compatibility ~ soft
+Found 47 compatible libraries
+Scanning dependencies...
+Dependency Graph
+|-- Firebase Arduino Client Library for ESP8266 and ESP32 @ 4.4.17
+|-- Adafruit INA219 @ 1.2.3
+|-- BH1750 @ 1.3.0
+|-- DHT sensor library @ 1.4.7
+Building in release mode
+Compiling .pio\build\compile_check\src\main.cpp.o
+Generating LD script .pio\build\compile_check\ld\local.eagle.app.v6.common.ld
+Compiling .pio\build\compile_check\libf86\SPI\SPI.cpp.o
+Archiving .pio\build\compile_check\libf86\libSPI.a
+Compiling .pio\build\compile_check\lib800\ESP8266WiFi\BearSSLHelpers.cpp.o
+Compiling .pio\build\compile_check\lib800\ESP8266WiFi\CertStoreBearSSL.cpp.o
+Compiling .pio\build\compile_check\lib800\ESP8266WiFi\ESP8266WiFi.cpp.o
+Compiling .pio\build\compile_check\lib800\ESP8266WiFi\ESP8266WiFiAP.cpp.o
+Compiling .pio\build\compile_check\lib800\ESP8266WiFi\ESP8266WiFiGeneric.cpp.o
+Compiling .pio\build\compile_check\lib800\ESP8266WiFi\ESP8266WiFiGratuitous.cpp.o
+Compiling .pio\build\compile_check\lib800\ESP8266WiFi\ESP8266WiFiMulti.cpp.o
+Compiling .pio\build\compile_check\lib800\ESP8266WiFi\ESP8266WiFiSTA-WPS.cpp.o
+Compiling .pio\build\compile_check\lib800\ESP8266WiFi\ESP8266WiFiSTA.cpp.o
+Compiling .pio\build\compile_check\lib800\ESP8266WiFi\ESP8266WiFiScan.cpp.o
+Compiling .pio\build\compile_check\lib800\ESP8266WiFi\WiFiClient.cpp.o
+Compiling .pio\build\compile_check\lib800\ESP8266WiFi\WiFiClientSecureBearSSL.cpp.o
+Compiling .pio\build\compile_check\lib800\ESP8266WiFi\WiFiServer.cpp.o
+Compiling .pio\build\compile_check\lib800\ESP8266WiFi\WiFiServerSecureBearSSL.cpp.o
+Compiling .pio\build\compile_check\lib800\ESP8266WiFi\WiFiUdp.cpp.o
+Compiling .pio\build\compile_check\lib800\ESP8266WiFi\enable_wifi_at_boot_time.cpp.o
+Compiling .pio\build\compile_check\lib913\LittleFS\LittleFS.cpp.o
+Archiving .pio\build\compile_check\lib800\libESP8266WiFi.a
+Compiling .pio\build\compile_check\lib913\LittleFS\lfs.c.o
+Compiling .pio\build\compile_check\lib913\LittleFS\lfs_util.c.o
+Compiling .pio\build\compile_check\libacf\ESP8266SdFat\ExFatLib\ExFatDbg.cpp.o
+Compiling .pio\build\compile_check\libacf\ESP8266SdFat\ExFatLib\ExFatFile.cpp.o
+Archiving .pio\build\compile_check\lib913\libLittleFS.a
+Compiling .pio\build\compile_check\libacf\ESP8266SdFat\ExFatLib\ExFatFilePrint.cpp.o
+Compiling .pio\build\compile_check\libacf\ESP8266SdFat\ExFatLib\ExFatFileWrite.cpp.o
+Compiling .pio\build\compile_check\libacf\ESP8266SdFat\ExFatLib\ExFatFormatter.cpp.o
+Compiling .pio\build\compile_check\libacf\ESP8266SdFat\ExFatLib\ExFatName.cpp.o
+Compiling .pio\build\compile_check\libacf\ESP8266SdFat\ExFatLib\ExFatPartition.cpp.o
+Compiling .pio\build\compile_check\libacf\ESP8266SdFat\ExFatLib\ExFatVolume.cpp.o
+Compiling .pio\build\compile_check\libacf\ESP8266SdFat\FatLib\FatDbg.cpp.o
+Compiling .pio\build\compile_check\libacf\ESP8266SdFat\FatLib\FatFile.cpp.o
+Compiling .pio\build\compile_check\libacf\ESP8266SdFat\FatLib\FatFileLFN.cpp.o
+Compiling .pio\build\compile_check\libacf\ESP8266SdFat\FatLib\FatFilePrint.cpp.o
+Compiling .pio\build\compile_check\libacf\ESP8266SdFat\FatLib\FatFileSFN.cpp.o
+Compiling .pio\build\compile_check\libacf\ESP8266SdFat\FatLib\FatFormatter.cpp.o
+Compiling .pio\build\compile_check\libacf\ESP8266SdFat\FatLib\FatName.cpp.o
+Compiling .pio\build\compile_check\libacf\ESP8266SdFat\FatLib\FatPartition.cpp.o
+Compiling .pio\build\compile_check\libacf\ESP8266SdFat\FatLib\FatVolume.cpp.o
+Compiling .pio\build\compile_check\libacf\ESP8266SdFat\FreeStack.cpp.o
+Compiling .pio\build\compile_check\libacf\ESP8266SdFat\FsLib\FsFile.cpp.o
+Compiling .pio\build\compile_check\libacf\ESP8266SdFat\FsLib\FsNew.cpp.o
+Compiling .pio\build\compile_check\libacf\ESP8266SdFat\FsLib\FsVolume.cpp.o
+Compiling .pio\build\compile_check\libacf\ESP8266SdFat\MinimumSerial.cpp.o
+Compiling .pio\build\compile_check\libacf\ESP8266SdFat\SdCard\SdCardInfo.cpp.o
+Compiling .pio\build\compile_check\libacf\ESP8266SdFat\SdCard\SdSpiCard.cpp.o
+Compiling .pio\build\compile_check\libacf\ESP8266SdFat\SdCard\SdioTeensy.cpp.o
+Compiling .pio\build\compile_check\libacf\ESP8266SdFat\SpiDriver\SdSpiArtemis.cpp.o
+Compiling .pio\build\compile_check\libacf\ESP8266SdFat\SpiDriver\SdSpiChipSelect.cpp.o
+Compiling .pio\build\compile_check\libacf\ESP8266SdFat\SpiDriver\SdSpiDue.cpp.o
+Compiling .pio\build\compile_check\libacf\ESP8266SdFat\SpiDriver\SdSpiESP.cpp.o
+Compiling .pio\build\compile_check\libacf\ESP8266SdFat\SpiDriver\SdSpiParticle.cpp.o
+Compiling .pio\build\compile_check\libacf\ESP8266SdFat\SpiDriver\SdSpiSTM32.cpp.o
+Compiling .pio\build\compile_check\libacf\ESP8266SdFat\SpiDriver\SdSpiSTM32Core.cpp.o
+Compiling .pio\build\compile_check\libacf\ESP8266SdFat\SpiDriver\SdSpiTeensy3.cpp.o
+Compiling .pio\build\compile_check\libacf\ESP8266SdFat\common\FmtNumber.cpp.o
+Compiling .pio\build\compile_check\libacf\ESP8266SdFat\common\FsCache.cpp.o
+Compiling .pio\build\compile_check\libacf\ESP8266SdFat\common\FsDateTime.cpp.o
+Compiling .pio\build\compile_check\libacf\ESP8266SdFat\common\FsName.cpp.o
+Compiling .pio\build\compile_check\libacf\ESP8266SdFat\common\FsStructs.cpp.o
+Compiling .pio\build\compile_check\libacf\ESP8266SdFat\common\FsUtf.cpp.o
+Compiling .pio\build\compile_check\libacf\ESP8266SdFat\common\upcase.cpp.o
+Compiling .pio\build\compile_check\libacf\ESP8266SdFat\iostream\StdioStream.cpp.o
+Compiling .pio\build\compile_check\libacf\ESP8266SdFat\iostream\StreamBaseClass.cpp.o
+Compiling .pio\build\compile_check\libacf\ESP8266SdFat\iostream\istream.cpp.o
+Compiling .pio\build\compile_check\libacf\ESP8266SdFat\iostream\ostream.cpp.o
+Compiling .pio\build\compile_check\lib391\SDFS\SDFS.cpp.o
+Archiving .pio\build\compile_check\libacf\libESP8266SdFat.a
+Compiling .pio\build\compile_check\lib323\SD\SD.cpp.o
+Archiving .pio\build\compile_check\lib323\libSD.a
+Compiling .pio\build\compile_check\libc21\lwIP_enc28j60\utility\enc28j60.cpp.o
+Archiving .pio\build\compile_check\lib391\libSDFS.a
+Compiling .pio\build\compile_check\lib926\Ethernet\Dhcp.cpp.o
+Archiving .pio\build\compile_check\libc21\liblwIP_enc28j60.a
+Compiling .pio\build\compile_check\lib926\Ethernet\Dns.cpp.o
+Compiling .pio\build\compile_check\lib926\Ethernet\Ethernet.cpp.o
+Compiling .pio\build\compile_check\lib926\Ethernet\EthernetClient.cpp.o
+Compiling .pio\build\compile_check\lib926\Ethernet\EthernetServer.cpp.o
+Compiling .pio\build\compile_check\lib926\Ethernet\EthernetUdp.cpp.o
+Compiling .pio\build\compile_check\lib926\Ethernet\socket.cpp.o
+Compiling .pio\build\compile_check\lib926\Ethernet\utility\w5100.cpp.o
+Compiling .pio\build\compile_check\lib319\lwIP_w5100\utility\w5100.cpp.o
+Archiving .pio\build\compile_check\lib926\libEthernet.a
+Archiving .pio\build\compile_check\lib319\liblwIP_w5100.a
+Compiling .pio\build\compile_check\libd1c\lwIP_w5500\utility\w5500.cpp.o
+Compiling .pio\build\compile_check\libb9f\Firebase Arduino Client Library for ESP8266 and ESP32\Firebase.cpp.o
+Archiving .pio\build\compile_check\libd1c\liblwIP_w5500.a
+Compiling .pio\build\compile_check\libb9f\Firebase Arduino Client Library for ESP8266 and ESP32\client\SSLClient\bssl\aes_big_cbcdec.c.o
+Compiling .pio\build\compile_check\libb9f\Firebase Arduino Client Library for ESP8266 and ESP32\client\SSLClient\bssl\aes_big_cbcenc.c.o
+Compiling .pio\build\compile_check\libb9f\Firebase Arduino Client Library for ESP8266 and ESP32\client\SSLClient\bssl\aes_big_ctr.c.o
+Compiling .pio\build\compile_check\libb9f\Firebase Arduino Client Library for ESP8266 and ESP32\client\SSLClient\bssl\aes_big_ctrcbc.c.o
+Compiling .pio\build\compile_check\libb9f\Firebase Arduino Client Library for ESP8266 and ESP32\client\SSLClient\bssl\aes_big_dec.c.o
+Compiling .pio\build\compile_check\libb9f\Firebase Arduino Client Library for ESP8266 and ESP32\client\SSLClient\bssl\aes_big_enc.c.o
+Compiling .pio\build\compile_check\libb9f\Firebase Arduino Client Library for ESP8266 and ESP32\client\SSLClient\bssl\aes_common.c.o
+Compiling .pio\build\compile_check\libb9f\Firebase Arduino Client Library for ESP8266 and ESP32\client\SSLClient\bssl\aes_ct.c.o
+Compiling .pio\build\compile_check\libb9f\Firebase Arduino Client Library for ESP8266 and ESP32\client\SSLClient\bssl\aes_ct64.c.o
+Compiling .pio\build\compile_check\libb9f\Firebase Arduino Client Library for ESP8266 and ESP32\client\SSLClient\bssl\aes_ct64_cbcdec.c.o
+Compiling .pio\build\compile_check\libb9f\Firebase Arduino Client Library for ESP8266 and ESP32\client\SSLClient\bssl\aes_ct64_cbcenc.c.o
+Compiling .pio\build\compile_check\libb9f\Firebase Arduino Client Library for ESP8266 and ESP32\client\SSLClient\bssl\aes_ct64_ctr.c.o
+Compiling .pio\build\compile_check\libb9f\Firebase Arduino Client Library for ESP8266 and ESP32\client\SSLClient\bssl\aes_ct64_ctrcbc.c.o
+Compiling .pio\build\compile_check\libb9f\Firebase Arduino Client Library for ESP8266 and ESP32\client\SSLClient\bssl\aes_ct64_dec.c.o
+Compiling .pio\build\compile_check\libb9f\Firebase Arduino Client Library for ESP8266 and ESP32\client\SSLClient\bssl\aes_ct64_enc.c.o
+Compiling .pio\build\compile_check\libb9f\Firebase Arduino Client Library for ESP8266 and ESP32\client\SSLClient\bssl\aes_ct_cbcdec.c.o
+Compiling .pio\build\compile_check\libb9f\Firebase Arduino Client Library for ESP8266 and ESP32\client\SSLClient\bssl\aes_ct_cbcenc.c.o
+Compiling .pio\build\compile_check\libb9f\Firebase Arduino Client Library for ESP8266 and ESP32\client\SSLClient\bssl\aes_ct_ctr.c.o
+Compiling .pio\build\compile_check\libb9f\Firebase Arduino Client Library for ESP8266 and ESP32\client\SSLClient\bssl\aes_ct_ctrcbc.c.o
+Compiling .pio\build\compile_check\libb9f\Firebase Arduino Client Library for ESP8266 and ESP32\client\SSLClient\bssl\aes_ct_dec.c.o
+Compiling .pio\build\compile_check\libb9f\Firebase Arduino Client Library for ESP8266 and ESP32\client\SSLClient\bssl\aes_ct_enc.c.o
+Compiling .pio\build\compile_check\libb9f\Firebase Arduino Client Library for ESP8266 and ESP32\client\SSLClient\bssl\aes_pwr8.c.o
+Compiling .pio\build\compile_check\libb9f\Firebase Arduino Client Library for ESP8266 and ESP32\client\SSLClient\bssl\aes_pwr8_cbcdec.c.o
+Compiling .pio\build\compile_check\libb9f\Firebase Arduino Client Library for ESP8266 and ESP32\client\SSLClient\bssl\aes_pwr8_cbcenc.c.o
+Compiling .pio\build\compile_check\libb9f\Firebase Arduino Client Library for ESP8266 and ESP32\client\SSLClient\bssl\aes_pwr8_ctr.c.o
+Compiling .pio\build\compile_check\libb9f\Firebase Arduino Client Library for ESP8266 and ESP32\client\SSLClient\bssl\aes_pwr8_ctrcbc.c.o
+Compiling .pio\build\compile_check\libb9f\Firebase Arduino Client Library for ESP8266 and ESP32\client\SSLClient\bssl\aes_small_cbcdec.c.o
+Compiling .pio\build\compile_check\libb9f\Firebase Arduino Client Library for ESP8266 and ESP32\client\SSLClient\bssl\aes_small_cbcenc.c.o
+Compiling .pio\build\compile_check\libb9f\Firebase Arduino Client Library for ESP8266 and ESP32\client\SSLClient\bssl\aes_small_ctr.c.o
+Compiling .pio\build\compile_check\libb9f\Firebase Arduino Client Library for ESP8266 and ESP32\client\SSLClient\bssl\aes_small_ctrcbc.c.o
+Compiling .pio\build\compile_check\libb9f\Firebase Arduino Client Library for ESP8266 and ESP32\client\SSLClient\bssl\aes_small_dec.c.o
+Compiling .pio\build\compile_check\libb9f\Firebase Arduino Client Library for ESP8266 and ESP32\client\SSLClient\bssl\aes_small_enc.c.o
+Compiling .pio\build\compile_check\libb9f\Firebase Arduino Client Library for ESP8266 and ESP32\client\SSLClient\bssl\aes_x86ni.c.o
+Compiling .pio\build\compile_check\libb9f\Firebase Arduino Client Library for ESP8266 and ESP32\client\SSLClient\bssl\aes_x86ni_cbcdec.c.o
+Compiling .pio\build\compile_check\libb9f\Firebase Arduino Client Library for ESP8266 and ESP32\client\SSLClient\bssl\aes_x86ni_cbcenc.c.o
+Compiling .pio\build\compile_check\libb9f\Firebase Arduino Client Library for ESP8266 and ESP32\client\SSLClient\bssl\aes_x86ni_ctr.c.o
+Compiling .pio\build\compile_check\libb9f\Firebase Arduino Client Library for ESP8266 and ESP32\client\SSLClient\bssl\aes_x86ni_ctrcbc.c.o
+Compiling .pio\build\compile_check\libb9f\Firebase Arduino Client Library for ESP8266 and ESP32\client\SSLClient\bssl\aesctr_drbg.c.o
+Compiling .pio\build\compile_check\libb9f\Firebase Arduino Client Library for ESP8266 and ESP32\client\SSLClient\bssl\asn1enc.c.o
+Compiling .pio\build\compile_check\libb9f\Firebase Arduino Client Library for ESP8266 and ESP32\client\SSLClient\bssl\ccm.c.o
+Compiling .pio\build\compile_check\libb9f\Firebase Arduino Client Library for ESP8266 and ESP32\client\SSLClient\bssl\ccopy.c.o
+Compiling .pio\build\compile_check\libb9f\Firebase Arduino Client Library for ESP8266 and ESP32\client\SSLClient\bssl\chacha20_ct.c.o
+Compiling .pio\build\compile_check\libb9f\Firebase Arduino Client Library for ESP8266 and ESP32\client\SSLClient\bssl\chacha20_sse2.c.o
+Compiling .pio\build\compile_check\libb9f\Firebase Arduino Client Library for ESP8266 and ESP32\client\SSLClient\bssl\dec16be.c.o
+Compiling .pio\build\compile_check\libb9f\Firebase Arduino Client Library for ESP8266 and ESP32\client\SSLClient\bssl\dec16le.c.o
+Compiling .pio\build\compile_check\libb9f\Firebase Arduino Client Library for ESP8266 and ESP32\client\SSLClient\bssl\dec32be.c.o
+Compiling .pio\build\compile_check\libb9f\Firebase Arduino Client Library for ESP8266 and ESP32\client\SSLClient\bssl\dec32le.c.o
+Compiling .pio\build\compile_check\libb9f\Firebase Arduino Client Library for ESP8266 and ESP32\client\SSLClient\bssl\dec64be.c.o
+Compiling .pio\build\compile_check\libb9f\Firebase Arduino Client Library for ESP8266 and ESP32\client\SSLClient\bssl\dec64le.c.o
+Compiling .pio\build\compile_check\libb9f\Firebase Arduino Client Library for ESP8266 and ESP32\client\SSLClient\bssl\des_ct.c.o
+Compiling .pio\build\compile_check\libb9f\Firebase Arduino Client Library for ESP8266 and ESP32\client\SSLClient\bssl\des_ct_cbcdec.c.o
+Compiling .pio\build\compile_check\libb9f\Firebase Arduino Client Library for ESP8266 and ESP32\client\SSLClient\bssl\des_ct_cbcenc.c.o
+Compiling .pio\build\compile_check\libb9f\Firebase Arduino Client Library for ESP8266 and ESP32\client\SSLClient\bssl\des_support.c.o
+Compiling .pio\build\compile_check\libb9f\Firebase Arduino Client Library for ESP8266 and ESP32\client\SSLClient\bssl\des_tab.c.o
+Compiling .pio\build\compile_check\libb9f\Firebase Arduino Client Library for ESP8266 and ESP32\client\SSLClient\bssl\des_tab_cbcdec.c.o
+Compiling .pio\build\compile_check\libb9f\Firebase Arduino Client Library for ESP8266 and ESP32\client\SSLClient\bssl\des_tab_cbcenc.c.o
+Compiling .pio\build\compile_check\libb9f\Firebase Arduino Client Library for ESP8266 and ESP32\client\SSLClient\bssl\dig_oid.c.o
+Compiling .pio\build\compile_check\libb9f\Firebase Arduino Client Library for ESP8266 and ESP32\client\SSLClient\bssl\dig_size.c.o
+Compiling .pio\build\compile_check\libb9f\Firebase Arduino Client Library for ESP8266 and ESP32\client\SSLClient\bssl\eax.c.o
+Compiling .pio\build\compile_check\libb9f\Firebase Arduino Client Library for ESP8266 and ESP32\client\SSLClient\bssl\ec_all_m15.c.o
+Compiling .pio\build\compile_check\libb9f\Firebase Arduino Client Library for ESP8266 and ESP32\client\SSLClient\bssl\ec_all_m31.c.o
+Compiling .pio\build\compile_check\libb9f\Firebase Arduino Client Library for ESP8266 and ESP32\client\SSLClient\bssl\ec_c25519_i15.c.o
+Compiling .pio\build\compile_check\libb9f\Firebase Arduino Client Library for ESP8266 and ESP32\client\SSLClient\bssl\ec_c25519_i31.c.o
+Compiling .pio\build\compile_check\libb9f\Firebase Arduino Client Library for ESP8266 and ESP32\client\SSLClient\bssl\ec_c25519_m15.c.o
+Compiling .pio\build\compile_check\libb9f\Firebase Arduino Client Library for ESP8266 and ESP32\client\SSLClient\bssl\ec_c25519_m31.c.o
+Compiling .pio\build\compile_check\libb9f\Firebase Arduino Client Library for ESP8266 and ESP32\client\SSLClient\bssl\ec_c25519_m62.c.o
+Compiling .pio\build\compile_check\libb9f\Firebase Arduino Client Library for ESP8266 and ESP32\client\SSLClient\bssl\ec_c25519_m64.c.o
+Compiling .pio\build\compile_check\libb9f\Firebase Arduino Client Library for ESP8266 and ESP32\client\SSLClient\bssl\ec_curve25519.c.o
+Compiling .pio\build\compile_check\libb9f\Firebase Arduino Client Library for ESP8266 and ESP32\client\SSLClient\bssl\ec_default.c.o
+Compiling .pio\build\compile_check\libb9f\Firebase Arduino Client Library for ESP8266 and ESP32\client\SSLClient\bssl\ec_keygen.c.o
+Compiling .pio\build\compile_check\libb9f\Firebase Arduino Client Library for ESP8266 and ESP32\client\SSLClient\bssl\ec_p256_m15.c.o
+Compiling .pio\build\compile_check\libb9f\Firebase Arduino Client Library for ESP8266 and ESP32\client\SSLClient\bssl\ec_p256_m31.c.o
+Compiling .pio\build\compile_check\libb9f\Firebase Arduino Client Library for ESP8266 and ESP32\client\SSLClient\bssl\ec_p256_m62.c.o
+Compiling .pio\build\compile_check\libb9f\Firebase Arduino Client Library for ESP8266 and ESP32\client\SSLClient\bssl\ec_p256_m64.c.o
+Compiling .pio\build\compile_check\libb9f\Firebase Arduino Client Library for ESP8266 and ESP32\client\SSLClient\bssl\ec_prime_i15.c.o
+Compiling .pio\build\compile_check\libb9f\Firebase Arduino Client Library for ESP8266 and ESP32\client\SSLClient\bssl\ec_prime_i31.c.o
+Compiling .pio\build\compile_check\libb9f\Firebase Arduino Client Library for ESP8266 and ESP32\client\SSLClient\bssl\ec_pubkey.c.o
+Compiling .pio\build\compile_check\libb9f\Firebase Arduino Client Library for ESP8266 and ESP32\client\SSLClient\bssl\ec_secp256r1.c.o
+Compiling .pio\build\compile_check\libb9f\Firebase Arduino Client Library for ESP8266 and ESP32\client\SSLClient\bssl\ec_secp384r1.c.o
+Compiling .pio\build\compile_check\libb9f\Firebase Arduino Client Library for ESP8266 and ESP32\client\SSLClient\bssl\ec_secp521r1.c.o
+Compiling .pio\build\compile_check\libb9f\Firebase Arduino Client Library for ESP8266 and ESP32\client\SSLClient\bssl\ecdsa_atr.c.o
+Compiling .pio\build\compile_check\libb9f\Firebase Arduino Client Library for ESP8266 and ESP32\client\SSLClient\bssl\ecdsa_default_sign_asn1.c.o
+Compiling .pio\build\compile_check\libb9f\Firebase Arduino Client Library for ESP8266 and ESP32\client\SSLClient\bssl\ecdsa_default_sign_raw.c.o
+Compiling .pio\build\compile_check\libb9f\Firebase Arduino Client Library for ESP8266 and ESP32\client\SSLClient\bssl\ecdsa_default_vrfy_asn1.c.o
+Compiling .pio\build\compile_check\libb9f\Firebase Arduino Client Library for ESP8266 and ESP32\client\SSLClient\bssl\ecdsa_default_vrfy_raw.c.o
+Compiling .pio\build\compile_check\libb9f\Firebase Arduino Client Library for ESP8266 and ESP32\client\SSLClient\bssl\ecdsa_i15_bits.c.o
+Compiling .pio\build\compile_check\libb9f\Firebase Arduino Client Library for ESP8266 and ESP32\client\SSLClient\bssl\ecdsa_i15_sign_asn1.c.o
+Compiling .pio\build\compile_check\libb9f\Firebase Arduino Client Library for ESP8266 and ESP32\client\SSLClient\bssl\ecdsa_i15_sign_raw.c.o
+Compiling .pio\build\compile_check\libb9f\Firebase Arduino Client Library for ESP8266 and ESP32\client\SSLClient\bssl\ecdsa_i15_vrfy_asn1.c.o
+Compiling .pio\build\compile_check\libb9f\Firebase Arduino Client Library for ESP8266 and ESP32\client\SSLClient\bssl\ecdsa_i15_vrfy_raw.c.o
+Compiling .pio\build\compile_check\libb9f\Firebase Arduino Client Library for ESP8266 and ESP32\client\SSLClient\bssl\ecdsa_i31_bits.c.o
+Compiling .pio\build\compile_check\libb9f\Firebase Arduino Client Library for ESP8266 and ESP32\client\SSLClient\bssl\ecdsa_i31_sign_asn1.c.o
+Compiling .pio\build\compile_check\libb9f\Firebase Arduino Client Library for ESP8266 and ESP32\client\SSLClient\bssl\ecdsa_i31_sign_raw.c.o
+Compiling .pio\build\compile_check\libb9f\Firebase Arduino Client Library for ESP8266 and ESP32\client\SSLClient\bssl\ecdsa_i31_vrfy_asn1.c.o
+Compiling .pio\build\compile_check\libb9f\Firebase Arduino Client Library for ESP8266 and ESP32\client\SSLClient\bssl\ecdsa_i31_vrfy_raw.c.o
+Compiling .pio\build\compile_check\libb9f\Firebase Arduino Client Library for ESP8266 and ESP32\client\SSLClient\bssl\ecdsa_rta.c.o
+Compiling .pio\build\compile_check\libb9f\Firebase Arduino Client Library for ESP8266 and ESP32\client\SSLClient\bssl\enc16be.c.o
+Compiling .pio\build\compile_check\libb9f\Firebase Arduino Client Library for ESP8266 and ESP32\client\SSLClient\bssl\enc16le.c.o
+Compiling .pio\build\compile_check\libb9f\Firebase Arduino Client Library for ESP8266 and ESP32\client\SSLClient\bssl\enc32be.c.o
+Compiling .pio\build\compile_check\libb9f\Firebase Arduino Client Library for ESP8266 and ESP32\client\SSLClient\bssl\enc32le.c.o
+Compiling .pio\build\compile_check\libb9f\Firebase Arduino Client Library for ESP8266 and ESP32\client\SSLClient\bssl\enc64be.c.o
+Compiling .pio\build\compile_check\libb9f\Firebase Arduino Client Library for ESP8266 and ESP32\client\SSLClient\bssl\enc64le.c.o
+Compiling .pio\build\compile_check\libb9f\Firebase Arduino Client Library for ESP8266 and ESP32\client\SSLClient\bssl\encode_ec_pk8der.c.o
+Compiling .pio\build\compile_check\libb9f\Firebase Arduino Client Library for ESP8266 and ESP32\client\SSLClient\bssl\encode_ec_rawder.c.o
+Compiling .pio\build\compile_check\libb9f\Firebase Arduino Client Library for ESP8266 and ESP32\client\SSLClient\bssl\encode_rsa_pk8der.c.o
+Compiling .pio\build\compile_check\libb9f\Firebase Arduino Client Library for ESP8266 and ESP32\client\SSLClient\bssl\encode_rsa_rawder.c.o
+Compiling .pio\build\compile_check\libb9f\Firebase Arduino Client Library for ESP8266 and ESP32\client\SSLClient\bssl\gcm.c.o
+Compiling .pio\build\compile_check\libb9f\Firebase Arduino Client Library for ESP8266 and ESP32\client\SSLClient\bssl\ghash_ctmul.c.o
+Compiling .pio\build\compile_check\libb9f\Firebase Arduino Client Library for ESP8266 and ESP32\client\SSLClient\bssl\ghash_ctmul32.c.o
+Compiling .pio\build\compile_check\libb9f\Firebase Arduino Client Library for ESP8266 and ESP32\client\SSLClient\bssl\ghash_ctmul64.c.o
+Compiling .pio\build\compile_check\libb9f\Firebase Arduino Client Library for ESP8266 and ESP32\client\SSLClient\bssl\ghash_pclmul.c.o
+Compiling .pio\build\compile_check\libb9f\Firebase Arduino Client Library for ESP8266 and ESP32\client\SSLClient\bssl\ghash_pwr8.c.o
+Compiling .pio\build\compile_check\libb9f\Firebase Arduino Client Library for ESP8266 and ESP32\client\SSLClient\bssl\hkdf.c.o
+Compiling .pio\build\compile_check\libb9f\Firebase Arduino Client Library for ESP8266 and ESP32\client\SSLClient\bssl\hmac.c.o
+Compiling .pio\build\compile_check\libb9f\Firebase Arduino Client Library for ESP8266 and ESP32\client\SSLClient\bssl\hmac_ct.c.o
+Compiling .pio\build\compile_check\libb9f\Firebase Arduino Client Library for ESP8266 and ESP32\client\SSLClient\bssl\hmac_drbg.c.o
+Compiling .pio\build\compile_check\libb9f\Firebase Arduino Client Library for ESP8266 and ESP32\client\SSLClient\bssl\i15_add.c.o
+Compiling .pio\build\compile_check\libb9f\Firebase Arduino Client Library for ESP8266 and ESP32\client\SSLClient\bssl\i15_bitlen.c.o
+Compiling .pio\build\compile_check\libb9f\Firebase Arduino Client Library for ESP8266 and ESP32\client\SSLClient\bssl\i15_decmod.c.o
+Compiling .pio\build\compile_check\libb9f\Firebase Arduino Client Library for ESP8266 and ESP32\client\SSLClient\bssl\i15_decode.c.o
+Compiling .pio\build\compile_check\libb9f\Firebase Arduino Client Library for ESP8266 and ESP32\client\SSLClient\bssl\i15_decred.c.o
+Compiling .pio\build\compile_check\libb9f\Firebase Arduino Client Library for ESP8266 and ESP32\client\SSLClient\bssl\i15_encode.c.o
+Compiling .pio\build\compile_check\libb9f\Firebase Arduino Client Library for ESP8266 and ESP32\client\SSLClient\bssl\i15_fmont.c.o
+Compiling .pio\build\compile_check\libb9f\Firebase Arduino Client Library for ESP8266 and ESP32\client\SSLClient\bssl\i15_iszero.c.o
+Compiling .pio\build\compile_check\libb9f\Firebase Arduino Client Library for ESP8266 and ESP32\client\SSLClient\bssl\i15_moddiv.c.o
+Compiling .pio\build\compile_check\libb9f\Firebase Arduino Client Library for ESP8266 and ESP32\client\SSLClient\bssl\i15_modpow.c.o
+Compiling .pio\build\compile_check\libb9f\Firebase Arduino Client Library for ESP8266 and ESP32\client\SSLClient\bssl\i15_modpow2.c.o
+Compiling .pio\build\compile_check\libb9f\Firebase Arduino Client Library for ESP8266 and ESP32\client\SSLClient\bssl\i15_montmul.c.o
+Compiling .pio\build\compile_check\libb9f\Firebase Arduino Client Library for ESP8266 and ESP32\client\SSLClient\bssl\i15_mulacc.c.o
+Compiling .pio\build\compile_check\libb9f\Firebase Arduino Client Library for ESP8266 and ESP32\client\SSLClient\bssl\i15_muladd.c.o
+Compiling .pio\build\compile_check\libb9f\Firebase Arduino Client Library for ESP8266 and ESP32\client\SSLClient\bssl\i15_ninv15.c.o
+Compiling .pio\build\compile_check\libb9f\Firebase Arduino Client Library for ESP8266 and ESP32\client\SSLClient\bssl\i15_reduce.c.o
+Compiling .pio\build\compile_check\libb9f\Firebase Arduino Client Library for ESP8266 and ESP32\client\SSLClient\bssl\i15_rshift.c.o
+Compiling .pio\build\compile_check\libb9f\Firebase Arduino Client Library for ESP8266 and ESP32\client\SSLClient\bssl\i15_sub.c.o
+Compiling .pio\build\compile_check\libb9f\Firebase Arduino Client Library for ESP8266 and ESP32\client\SSLClient\bssl\i15_tmont.c.o
+Compiling .pio\build\compile_check\libb9f\Firebase Arduino Client Library for ESP8266 and ESP32\client\SSLClient\bssl\i31_add.c.o
+Compiling .pio\build\compile_check\libb9f\Firebase Arduino Client Library for ESP8266 and ESP32\client\SSLClient\bssl\i31_bitlen.c.o
+Compiling .pio\build\compile_check\libb9f\Firebase Arduino Client Library for ESP8266 and ESP32\client\SSLClient\bssl\i31_decmod.c.o
+Compiling .pio\build\compile_check\libb9f\Firebase Arduino Client Library for ESP8266 and ESP32\client\SSLClient\bssl\i31_decode.c.o
+Compiling .pio\build\compile_check\libb9f\Firebase Arduino Client Library for ESP8266 and ESP32\client\SSLClient\bssl\i31_decred.c.o
+Compiling .pio\build\compile_check\libb9f\Firebase Arduino Client Library for ESP8266 and ESP32\client\SSLClient\bssl\i31_encode.c.o
+Compiling .pio\build\compile_check\libb9f\Firebase Arduino Client Library for ESP8266 and ESP32\client\SSLClient\bssl\i31_fmont.c.o
+Compiling .pio\build\compile_check\libb9f\Firebase Arduino Client Library for ESP8266 and ESP32\client\SSLClient\bssl\i31_iszero.c.o
+Compiling .pio\build\compile_check\libb9f\Firebase Arduino Client Library for ESP8266 and ESP32\client\SSLClient\bssl\i31_moddiv.c.o
+Compiling .pio\build\compile_check\libb9f\Firebase Arduino Client Library for ESP8266 and ESP32\client\SSLClient\bssl\i31_modpow.c.o
+Compiling .pio\build\compile_check\libb9f\Firebase Arduino Client Library for ESP8266 and ESP32\client\SSLClient\bssl\i31_modpow2.c.o
+Compiling .pio\build\compile_check\libb9f\Firebase Arduino Client Library for ESP8266 and ESP32\client\SSLClient\bssl\i31_montmul.c.o
+Compiling .pio\build\compile_check\libb9f\Firebase Arduino Client Library for ESP8266 and ESP32\client\SSLClient\bssl\i31_mulacc.c.o
+Compiling .pio\build\compile_check\libb9f\Firebase Arduino Client Library for ESP8266 and ESP32\client\SSLClient\bssl\i31_muladd.c.o
+Compiling .pio\build\compile_check\libb9f\Firebase Arduino Client Library for ESP8266 and ESP32\client\SSLClient\bssl\i31_ninv31.c.o
+Compiling .pio\build\compile_check\libb9f\Firebase Arduino Client Library for ESP8266 and ESP32\client\SSLClient\bssl\i31_reduce.c.o
+Compiling .pio\build\compile_check\libb9f\Firebase Arduino Client Library for ESP8266 and ESP32\client\SSLClient\bssl\i31_rshift.c.o
+Compiling .pio\build\compile_check\libb9f\Firebase Arduino Client Library for ESP8266 and ESP32\client\SSLClient\bssl\i31_sub.c.o
+Compiling .pio\build\compile_check\libb9f\Firebase Arduino Client Library for ESP8266 and ESP32\client\SSLClient\bssl\i31_tmont.c.o
+Compiling .pio\build\compile_check\libb9f\Firebase Arduino Client Library for ESP8266 and ESP32\client\SSLClient\bssl\i32_add.c.o
+Compiling .pio\build\compile_check\libb9f\Firebase Arduino Client Library for ESP8266 and ESP32\client\SSLClient\bssl\i32_bitlen.c.o
+Compiling .pio\build\compile_check\libb9f\Firebase Arduino Client Library for ESP8266 and ESP32\client\SSLClient\bssl\i32_decmod.c.o
+Compiling .pio\build\compile_check\libb9f\Firebase Arduino Client Library for ESP8266 and ESP32\client\SSLClient\bssl\i32_decode.c.o
+Compiling .pio\build\compile_check\libb9f\Firebase Arduino Client Library for ESP8266 and ESP32\client\SSLClient\bssl\i32_decred.c.o
+Compiling .pio\build\compile_check\libb9f\Firebase Arduino Client Library for ESP8266 and ESP32\client\SSLClient\bssl\i32_div32.c.o
+Compiling .pio\build\compile_check\libb9f\Firebase Arduino Client Library for ESP8266 and ESP32\client\SSLClient\bssl\i32_encode.c.o
+Compiling .pio\build\compile_check\libb9f\Firebase Arduino Client Library for ESP8266 and ESP32\client\SSLClient\bssl\i32_fmont.c.o
+Compiling .pio\build\compile_check\libb9f\Firebase Arduino Client Library for ESP8266 and ESP32\client\SSLClient\bssl\i32_iszero.c.o
+Compiling .pio\build\compile_check\libb9f\Firebase Arduino Client Library for ESP8266 and ESP32\client\SSLClient\bssl\i32_modpow.c.o
+Compiling .pio\build\compile_check\libb9f\Firebase Arduino Client Library for ESP8266 and ESP32\client\SSLClient\bssl\i32_montmul.c.o
+Compiling .pio\build\compile_check\libb9f\Firebase Arduino Client Library for ESP8266 and ESP32\client\SSLClient\bssl\i32_mulacc.c.o
+Compiling .pio\build\compile_check\libb9f\Firebase Arduino Client Library for ESP8266 and ESP32\client\SSLClient\bssl\i32_muladd.c.o
+Compiling .pio\build\compile_check\libb9f\Firebase Arduino Client Library for ESP8266 and ESP32\client\SSLClient\bssl\i32_ninv32.c.o
+Compiling .pio\build\compile_check\libb9f\Firebase Arduino Client Library for ESP8266 and ESP32\client\SSLClient\bssl\i32_reduce.c.o
+Compiling .pio\build\compile_check\libb9f\Firebase Arduino Client Library for ESP8266 and ESP32\client\SSLClient\bssl\i32_sub.c.o
+Compiling .pio\build\compile_check\libb9f\Firebase Arduino Client Library for ESP8266 and ESP32\client\SSLClient\bssl\i32_tmont.c.o
+Compiling .pio\build\compile_check\libb9f\Firebase Arduino Client Library for ESP8266 and ESP32\client\SSLClient\bssl\i62_modpow2.c.o
+Compiling .pio\build\compile_check\libb9f\Firebase Arduino Client Library for ESP8266 and ESP32\client\SSLClient\bssl\md5.c.o
+Compiling .pio\build\compile_check\libb9f\Firebase Arduino Client Library for ESP8266 and ESP32\client\SSLClient\bssl\md5sha1.c.o
+Compiling .pio\build\compile_check\libb9f\Firebase Arduino Client Library for ESP8266 and ESP32\client\SSLClient\bssl\mgf1.c.o
+Compiling .pio\build\compile_check\libb9f\Firebase Arduino Client Library for ESP8266 and ESP32\client\SSLClient\bssl\multihash.c.o
+Compiling .pio\build\compile_check\libb9f\Firebase Arduino Client Library for ESP8266 and ESP32\client\SSLClient\bssl\pemdec.c.o
+Compiling .pio\build\compile_check\libb9f\Firebase Arduino Client Library for ESP8266 and ESP32\client\SSLClient\bssl\pemenc.c.o
+Compiling .pio\build\compile_check\libb9f\Firebase Arduino Client Library for ESP8266 and ESP32\client\SSLClient\bssl\pkey_decoder.c.o
+Compiling .pio\build\compile_check\libb9f\Firebase Arduino Client Library for ESP8266 and ESP32\client\SSLClient\bssl\poly1305_ctmul.c.o
+Compiling .pio\build\compile_check\libb9f\Firebase Arduino Client Library for ESP8266 and ESP32\client\SSLClient\bssl\poly1305_ctmul32.c.o
+Compiling .pio\build\compile_check\libb9f\Firebase Arduino Client Library for ESP8266 and ESP32\client\SSLClient\bssl\poly1305_ctmulq.c.o
+Compiling .pio\build\compile_check\libb9f\Firebase Arduino Client Library for ESP8266 and ESP32\client\SSLClient\bssl\poly1305_i15.c.o
+Compiling .pio\build\compile_check\libb9f\Firebase Arduino Client Library for ESP8266 and ESP32\client\SSLClient\bssl\prf.c.o
+Compiling .pio\build\compile_check\libb9f\Firebase Arduino Client Library for ESP8266 and ESP32\client\SSLClient\bssl\prf_md5sha1.c.o
+Compiling .pio\build\compile_check\libb9f\Firebase Arduino Client Library for ESP8266 and ESP32\client\SSLClient\bssl\prf_sha256.c.o
+Compiling .pio\build\compile_check\libb9f\Firebase Arduino Client Library for ESP8266 and ESP32\client\SSLClient\bssl\prf_sha384.c.o
+Compiling .pio\build\compile_check\libb9f\Firebase Arduino Client Library for ESP8266 and ESP32\client\SSLClient\bssl\rsa_default_keygen.c.o
+Compiling .pio\build\compile_check\libb9f\Firebase Arduino Client Library for ESP8266 and ESP32\client\SSLClient\bssl\rsa_default_modulus.c.o
+Compiling .pio\build\compile_check\libb9f\Firebase Arduino Client Library for ESP8266 and ESP32\client\SSLClient\bssl\rsa_default_oaep_decrypt.c.o
+Compiling .pio\build\compile_check\libb9f\Firebase Arduino Client Library for ESP8266 and ESP32\client\SSLClient\bssl\rsa_default_oaep_encrypt.c.o
+Compiling .pio\build\compile_check\libb9f\Firebase Arduino Client Library for ESP8266 and ESP32\client\SSLClient\bssl\rsa_default_pkcs1_sign.c.o
+Compiling .pio\build\compile_check\libb9f\Firebase Arduino Client Library for ESP8266 and ESP32\client\SSLClient\bssl\rsa_default_pkcs1_vrfy.c.o
+Compiling .pio\build\compile_check\libb9f\Firebase Arduino Client Library for ESP8266 and ESP32\client\SSLClient\bssl\rsa_default_priv.c.o
+Compiling .pio\build\compile_check\libb9f\Firebase Arduino Client Library for ESP8266 and ESP32\client\SSLClient\bssl\rsa_default_privexp.c.o
+Compiling .pio\build\compile_check\libb9f\Firebase Arduino Client Library for ESP8266 and ESP32\client\SSLClient\bssl\rsa_default_pss_sign.c.o
+Compiling .pio\build\compile_check\libb9f\Firebase Arduino Client Library for ESP8266 and ESP32\client\SSLClient\bssl\rsa_default_pss_vrfy.c.o
+Compiling .pio\build\compile_check\libb9f\Firebase Arduino Client Library for ESP8266 and ESP32\client\SSLClient\bssl\rsa_default_pub.c.o
+Compiling .pio\build\compile_check\libb9f\Firebase Arduino Client Library for ESP8266 and ESP32\client\SSLClient\bssl\rsa_default_pubexp.c.o
+Compiling .pio\build\compile_check\libb9f\Firebase Arduino Client Library for ESP8266 and ESP32\client\SSLClient\bssl\rsa_i15_keygen.c.o
+Compiling .pio\build\compile_check\libb9f\Firebase Arduino Client Library for ESP8266 and ESP32\client\SSLClient\bssl\rsa_i15_modulus.c.o
+Compiling .pio\build\compile_check\libb9f\Firebase Arduino Client Library for ESP8266 and ESP32\client\SSLClient\bssl\rsa_i15_oaep_decrypt.c.o
+Compiling .pio\build\compile_check\libb9f\Firebase Arduino Client Library for ESP8266 and ESP32\client\SSLClient\bssl\rsa_i15_oaep_encrypt.c.o
+Compiling .pio\build\compile_check\libb9f\Firebase Arduino Client Library for ESP8266 and ESP32\client\SSLClient\bssl\rsa_i15_pkcs1_sign.c.o
+Compiling .pio\build\compile_check\libb9f\Firebase Arduino Client Library for ESP8266 and ESP32\client\SSLClient\bssl\rsa_i15_pkcs1_vrfy.c.o
+Compiling .pio\build\compile_check\libb9f\Firebase Arduino Client Library for ESP8266 and ESP32\client\SSLClient\bssl\rsa_i15_priv.c.o
+Compiling .pio\build\compile_check\libb9f\Firebase Arduino Client Library for ESP8266 and ESP32\client\SSLClient\bssl\rsa_i15_privexp.c.o
+Compiling .pio\build\compile_check\libb9f\Firebase Arduino Client Library for ESP8266 and ESP32\client\SSLClient\bssl\rsa_i15_pss_sign.c.o
+Compiling .pio\build\compile_check\libb9f\Firebase Arduino Client Library for ESP8266 and ESP32\client\SSLClient\bssl\rsa_i15_pss_vrfy.c.o
+Compiling .pio\build\compile_check\libb9f\Firebase Arduino Client Library for ESP8266 and ESP32\client\SSLClient\bssl\rsa_i15_pub.c.o
+Compiling .pio\build\compile_check\libb9f\Firebase Arduino Client Library for ESP8266 and ESP32\client\SSLClient\bssl\rsa_i15_pubexp.c.o
+Compiling .pio\build\compile_check\libb9f\Firebase Arduino Client Library for ESP8266 and ESP32\client\SSLClient\bssl\rsa_i31_keygen.c.o
+Compiling .pio\build\compile_check\libb9f\Firebase Arduino Client Library for ESP8266 and ESP32\client\SSLClient\bssl\rsa_i31_keygen_inner.c.o
+Compiling .pio\build\compile_check\libb9f\Firebase Arduino Client Library for ESP8266 and ESP32\client\SSLClient\bssl\rsa_i31_modulus.c.o
+Compiling .pio\build\compile_check\libb9f\Firebase Arduino Client Library for ESP8266 and ESP32\client\SSLClient\bssl\rsa_i31_oaep_decrypt.c.o
+Compiling .pio\build\compile_check\libb9f\Firebase Arduino Client Library for ESP8266 and ESP32\client\SSLClient\bssl\rsa_i31_oaep_encrypt.c.o
+Compiling .pio\build\compile_check\libb9f\Firebase Arduino Client Library for ESP8266 and ESP32\client\SSLClient\bssl\rsa_i31_pkcs1_sign.c.o
+Compiling .pio\build\compile_check\libb9f\Firebase Arduino Client Library for ESP8266 and ESP32\client\SSLClient\bssl\rsa_i31_pkcs1_vrfy.c.o
+Compiling .pio\build\compile_check\libb9f\Firebase Arduino Client Library for ESP8266 and ESP32\client\SSLClient\bssl\rsa_i31_priv.c.o
+Compiling .pio\build\compile_check\libb9f\Firebase Arduino Client Library for ESP8266 and ESP32\client\SSLClient\bssl\rsa_i31_privexp.c.o
+Compiling .pio\build\compile_check\libb9f\Firebase Arduino Client Library for ESP8266 and ESP32\client\SSLClient\bssl\rsa_i31_pss_sign.c.o
+Compiling .pio\build\compile_check\libb9f\Firebase Arduino Client Library for ESP8266 and ESP32\client\SSLClient\bssl\rsa_i31_pss_vrfy.c.o
+Compiling .pio\build\compile_check\libb9f\Firebase Arduino Client Library for ESP8266 and ESP32\client\SSLClient\bssl\rsa_i31_pub.c.o
+Compiling .pio\build\compile_check\libb9f\Firebase Arduino Client Library for ESP8266 and ESP32\client\SSLClient\bssl\rsa_i31_pubexp.c.o
+Compiling .pio\build\compile_check\libb9f\Firebase Arduino Client Library for ESP8266 and ESP32\client\SSLClient\bssl\rsa_i32_oaep_decrypt.c.o
+Compiling .pio\build\compile_check\libb9f\Firebase Arduino Client Library for ESP8266 and ESP32\client\SSLClient\bssl\rsa_i32_oaep_encrypt.c.o
+Compiling .pio\build\compile_check\libb9f\Firebase Arduino Client Library for ESP8266 and ESP32\client\SSLClient\bssl\rsa_i32_pkcs1_sign.c.o
+Compiling .pio\build\compile_check\libb9f\Firebase Arduino Client Library for ESP8266 and ESP32\client\SSLClient\bssl\rsa_i32_pkcs1_vrfy.c.o
+Compiling .pio\build\compile_check\libb9f\Firebase Arduino Client Library for ESP8266 and ESP32\client\SSLClient\bssl\rsa_i32_priv.c.o
+Compiling .pio\build\compile_check\libb9f\Firebase Arduino Client Library for ESP8266 and ESP32\client\SSLClient\bssl\rsa_i32_pss_sign.c.o
+Compiling .pio\build\compile_check\libb9f\Firebase Arduino Client Library for ESP8266 and ESP32\client\SSLClient\bssl\rsa_i32_pss_vrfy.c.o
+Compiling .pio\build\compile_check\libb9f\Firebase Arduino Client Library for ESP8266 and ESP32\client\SSLClient\bssl\rsa_i32_pub.c.o
+Compiling .pio\build\compile_check\libb9f\Firebase Arduino Client Library for ESP8266 and ESP32\client\SSLClient\bssl\rsa_i62_keygen.c.o
+Compiling .pio\build\compile_check\libb9f\Firebase Arduino Client Library for ESP8266 and ESP32\client\SSLClient\bssl\rsa_i62_oaep_decrypt.c.o
+Compiling .pio\build\compile_check\libb9f\Firebase Arduino Client Library for ESP8266 and ESP32\client\SSLClient\bssl\rsa_i62_oaep_encrypt.c.o
+Compiling .pio\build\compile_check\libb9f\Firebase Arduino Client Library for ESP8266 and ESP32\client\SSLClient\bssl\rsa_i62_pkcs1_sign.c.o
+Compiling .pio\build\compile_check\libb9f\Firebase Arduino Client Library for ESP8266 and ESP32\client\SSLClient\bssl\rsa_i62_pkcs1_vrfy.c.o
+Compiling .pio\build\compile_check\libb9f\Firebase Arduino Client Library for ESP8266 and ESP32\client\SSLClient\bssl\rsa_i62_priv.c.o
+Compiling .pio\build\compile_check\libb9f\Firebase Arduino Client Library for ESP8266 and ESP32\client\SSLClient\bssl\rsa_i62_pss_sign.c.o
+Compiling .pio\build\compile_check\libb9f\Firebase Arduino Client Library for ESP8266 and ESP32\client\SSLClient\bssl\rsa_i62_pss_vrfy.c.o
+Compiling .pio\build\compile_check\libb9f\Firebase Arduino Client Library for ESP8266 and ESP32\client\SSLClient\bssl\rsa_i62_pub.c.o
+Compiling .pio\build\compile_check\libb9f\Firebase Arduino Client Library for ESP8266 and ESP32\client\SSLClient\bssl\rsa_oaep_pad.c.o
+Compiling .pio\build\compile_check\libb9f\Firebase Arduino Client Library for ESP8266 and ESP32\client\SSLClient\bssl\rsa_oaep_unpad.c.o
+Compiling .pio\build\compile_check\libb9f\Firebase Arduino Client Library for ESP8266 and ESP32\client\SSLClient\bssl\rsa_pkcs1_sig_pad.c.o
+Compiling .pio\build\compile_check\libb9f\Firebase Arduino Client Library for ESP8266 and ESP32\client\SSLClient\bssl\rsa_pkcs1_sig_unpad.c.o
+Compiling .pio\build\compile_check\libb9f\Firebase Arduino Client Library for ESP8266 and ESP32\client\SSLClient\bssl\rsa_pss_sig_pad.c.o
+Compiling .pio\build\compile_check\libb9f\Firebase Arduino Client Library for ESP8266 and ESP32\client\SSLClient\bssl\rsa_pss_sig_unpad.c.o
+Compiling .pio\build\compile_check\libb9f\Firebase Arduino Client Library for ESP8266 and ESP32\client\SSLClient\bssl\rsa_ssl_decrypt.c.o
+Compiling .pio\build\compile_check\libb9f\Firebase Arduino Client Library for ESP8266 and ESP32\client\SSLClient\bssl\settings.c.o
+Compiling .pio\build\compile_check\libb9f\Firebase Arduino Client Library for ESP8266 and ESP32\client\SSLClient\bssl\sha1.c.o
+Compiling .pio\build\compile_check\libb9f\Firebase Arduino Client Library for ESP8266 and ESP32\client\SSLClient\bssl\sha2big.c.o
+Compiling .pio\build\compile_check\libb9f\Firebase Arduino Client Library for ESP8266 and ESP32\client\SSLClient\bssl\sha2small.c.o
+Compiling .pio\build\compile_check\libb9f\Firebase Arduino Client Library for ESP8266 and ESP32\client\SSLClient\bssl\shake.c.o
+Compiling .pio\build\compile_check\libb9f\Firebase Arduino Client Library for ESP8266 and ESP32\client\SSLClient\bssl\skey_decoder.c.o
+Compiling .pio\build\compile_check\libb9f\Firebase Arduino Client Library for ESP8266 and ESP32\client\SSLClient\bssl\ssl_ccert_single_ec.c.o
+Compiling .pio\build\compile_check\libb9f\Firebase Arduino Client Library for ESP8266 and ESP32\client\SSLClient\bssl\ssl_ccert_single_rsa.c.o
+Compiling .pio\build\compile_check\libb9f\Firebase Arduino Client Library for ESP8266 and ESP32\client\SSLClient\bssl\ssl_client.c.o
+Compiling .pio\build\compile_check\libb9f\Firebase Arduino Client Library for ESP8266 and ESP32\client\SSLClient\bssl\ssl_client_default_rsapub.c.o
+Compiling .pio\build\compile_check\libb9f\Firebase Arduino Client Library for ESP8266 and ESP32\client\SSLClient\bssl\ssl_client_full.c.o
+Compiling .pio\build\compile_check\libb9f\Firebase Arduino Client Library for ESP8266 and ESP32\client\SSLClient\bssl\ssl_engine.c.o
+Compiling .pio\build\compile_check\libb9f\Firebase Arduino Client Library for ESP8266 and ESP32\client\SSLClient\bssl\ssl_engine_default_aescbc.c.o
+Compiling .pio\build\compile_check\libb9f\Firebase Arduino Client Library for ESP8266 and ESP32\client\SSLClient\bssl\ssl_engine_default_aesccm.c.o
+Compiling .pio\build\compile_check\libb9f\Firebase Arduino Client Library for ESP8266 and ESP32\client\SSLClient\bssl\ssl_engine_default_aesgcm.c.o
+Compiling .pio\build\compile_check\libb9f\Firebase Arduino Client Library for ESP8266 and ESP32\client\SSLClient\bssl\ssl_engine_default_chapol.c.o
+Compiling .pio\build\compile_check\libb9f\Firebase Arduino Client Library for ESP8266 and ESP32\client\SSLClient\bssl\ssl_engine_default_descbc.c.o
+Compiling .pio\build\compile_check\libb9f\Firebase Arduino Client Library for ESP8266 and ESP32\client\SSLClient\bssl\ssl_engine_default_ec.c.o
+Compiling .pio\build\compile_check\libb9f\Firebase Arduino Client Library for ESP8266 and ESP32\client\SSLClient\bssl\ssl_engine_default_ecdsa.c.o
+Compiling .pio\build\compile_check\libb9f\Firebase Arduino Client Library for ESP8266 and ESP32\client\SSLClient\bssl\ssl_engine_default_rsavrfy.c.o
+Compiling .pio\build\compile_check\libb9f\Firebase Arduino Client Library for ESP8266 and ESP32\client\SSLClient\bssl\ssl_hashes.c.o
+Compiling .pio\build\compile_check\libb9f\Firebase Arduino Client Library for ESP8266 and ESP32\client\SSLClient\bssl\ssl_hs_client.c.o
+Compiling .pio\build\compile_check\libb9f\Firebase Arduino Client Library for ESP8266 and ESP32\client\SSLClient\bssl\ssl_hs_server.c.o
+Compiling .pio\build\compile_check\libb9f\Firebase Arduino Client Library for ESP8266 and ESP32\client\SSLClient\bssl\ssl_io.c.o
+Compiling .pio\build\compile_check\libb9f\Firebase Arduino Client Library for ESP8266 and ESP32\client\SSLClient\bssl\ssl_keyexport.c.o
+Compiling .pio\build\compile_check\libb9f\Firebase Arduino Client Library for ESP8266 and ESP32\client\SSLClient\bssl\ssl_lru.c.o
+Compiling .pio\build\compile_check\libb9f\Firebase Arduino Client Library for ESP8266 and ESP32\client\SSLClient\bssl\ssl_rec_cbc.c.o
+Compiling .pio\build\compile_check\libb9f\Firebase Arduino Client Library for ESP8266 and ESP32\client\SSLClient\bssl\ssl_rec_ccm.c.o
+Compiling .pio\build\compile_check\libb9f\Firebase Arduino Client Library for ESP8266 and ESP32\client\SSLClient\bssl\ssl_rec_chapol.c.o
+Compiling .pio\build\compile_check\libb9f\Firebase Arduino Client Library for ESP8266 and ESP32\client\SSLClient\bssl\ssl_rec_gcm.c.o
+Compiling .pio\build\compile_check\libb9f\Firebase Arduino Client Library for ESP8266 and ESP32\client\SSLClient\bssl\ssl_scert_single_ec.c.o
+Compiling .pio\build\compile_check\libb9f\Firebase Arduino Client Library for ESP8266 and ESP32\client\SSLClient\bssl\ssl_scert_single_rsa.c.o
+Compiling .pio\build\compile_check\libb9f\Firebase Arduino Client Library for ESP8266 and ESP32\client\SSLClient\bssl\ssl_server.c.o
+Compiling .pio\build\compile_check\libb9f\Firebase Arduino Client Library for ESP8266 and ESP32\client\SSLClient\bssl\ssl_server_full_ec.c.o
+Compiling .pio\build\compile_check\libb9f\Firebase Arduino Client Library for ESP8266 and ESP32\client\SSLClient\bssl\ssl_server_full_rsa.c.o
+Compiling .pio\build\compile_check\libb9f\Firebase Arduino Client Library for ESP8266 and ESP32\client\SSLClient\bssl\ssl_server_mine2c.c.o
+Compiling .pio\build\compile_check\libb9f\Firebase Arduino Client Library for ESP8266 and ESP32\client\SSLClient\bssl\ssl_server_mine2g.c.o
+Compiling .pio\build\compile_check\libb9f\Firebase Arduino Client Library for ESP8266 and ESP32\client\SSLClient\bssl\ssl_server_minf2c.c.o
+Compiling .pio\build\compile_check\libb9f\Firebase Arduino Client Library for ESP8266 and ESP32\client\SSLClient\bssl\ssl_server_minf2g.c.o
+Compiling .pio\build\compile_check\libb9f\Firebase Arduino Client Library for ESP8266 and ESP32\client\SSLClient\bssl\ssl_server_minr2g.c.o
+Compiling .pio\build\compile_check\libb9f\Firebase Arduino Client Library for ESP8266 and ESP32\client\SSLClient\bssl\ssl_server_minu2g.c.o
+Compiling .pio\build\compile_check\libb9f\Firebase Arduino Client Library for ESP8266 and ESP32\client\SSLClient\bssl\ssl_server_minv2g.c.o
+Compiling .pio\build\compile_check\libb9f\Firebase Arduino Client Library for ESP8266 and ESP32\client\SSLClient\bssl\sysrng.c.o
+Compiling .pio\build\compile_check\libb9f\Firebase Arduino Client Library for ESP8266 and ESP32\client\SSLClient\bssl\x509_decoder.c.o
+Compiling .pio\build\compile_check\libb9f\Firebase Arduino Client Library for ESP8266 and ESP32\client\SSLClient\bssl\x509_knownkey.c.o
+Compiling .pio\build\compile_check\libb9f\Firebase Arduino Client Library for ESP8266 and ESP32\client\SSLClient\bssl\x509_minimal.c.o
+Compiling .pio\build\compile_check\libb9f\Firebase Arduino Client Library for ESP8266 and ESP32\client\SSLClient\bssl\x509_minimal_full.c.o
+Compiling .pio\build\compile_check\libb9f\Firebase Arduino Client Library for ESP8266 and ESP32\client\SSLClient\client\BSSL_CertStore.cpp.o
+Compiling .pio\build\compile_check\libb9f\Firebase Arduino Client Library for ESP8266 and ESP32\client\SSLClient\client\BSSL_Helper.cpp.o
+Compiling .pio\build\compile_check\libb9f\Firebase Arduino Client Library for ESP8266 and ESP32\client\SSLClient\client\BSSL_SSL_Client.cpp.o
+Compiling .pio\build\compile_check\libb9f\Firebase Arduino Client Library for ESP8266 and ESP32\client\SSLClient\client\BSSL_TCP_Client.cpp.o
+Compiling .pio\build\compile_check\libb9f\Firebase Arduino Client Library for ESP8266 and ESP32\client\SSLClient\client\stm32_time_fix.c.o
+Compiling .pio\build\compile_check\libb9f\Firebase Arduino Client Library for ESP8266 and ESP32\core\FirebaseCore.cpp.o
+Compiling .pio\build\compile_check\libb9f\Firebase Arduino Client Library for ESP8266 and ESP32\firestore\FB_Firestore.cpp.o
+Compiling .pio\build\compile_check\libb9f\Firebase Arduino Client Library for ESP8266 and ESP32\functions\FB_Functions.cpp.o
+Compiling .pio\build\compile_check\libb9f\Firebase Arduino Client Library for ESP8266 and ESP32\functions\FunctionsConfig.cpp.o
+Compiling .pio\build\compile_check\libb9f\Firebase Arduino Client Library for ESP8266 and ESP32\functions\PocicyBuilder.cpp.o
+Compiling .pio\build\compile_check\libb9f\Firebase Arduino Client Library for ESP8266 and ESP32\gcs\GCS.cpp.o
+Compiling .pio\build\compile_check\libb9f\Firebase Arduino Client Library for ESP8266 and ESP32\json\FirebaseJson.cpp.o
+Compiling .pio\build\compile_check\libb9f\Firebase Arduino Client Library for ESP8266 and ESP32\json\MB_JSON\MB_JSON.c.o
+Compiling .pio\build\compile_check\libb9f\Firebase Arduino Client Library for ESP8266 and ESP32\json\extras\print\fb_json_print.c.o
+Compiling .pio\build\compile_check\libb9f\Firebase Arduino Client Library for ESP8266 and ESP32\message\FCM.cpp.o
+Compiling .pio\build\compile_check\libb9f\Firebase Arduino Client Library for ESP8266 and ESP32\rtdb\FB_RTDB.cpp.o
+Compiling .pio\build\compile_check\libb9f\Firebase Arduino Client Library for ESP8266 and ESP32\rtdb\QueryFilter.cpp.o
+Compiling .pio\build\compile_check\libb9f\Firebase Arduino Client Library for ESP8266 and ESP32\rtdb\QueueInfo.cpp.o
+Compiling .pio\build\compile_check\libb9f\Firebase Arduino Client Library for ESP8266 and ESP32\rtdb\QueueManager.cpp.o
+Compiling .pio\build\compile_check\libb9f\Firebase Arduino Client Library for ESP8266 and ESP32\rtdb\stream\FB_MP_Stream.cpp.o
+Compiling .pio\build\compile_check\libb9f\Firebase Arduino Client Library for ESP8266 and ESP32\rtdb\stream\FB_Stream.cpp.o
+Compiling .pio\build\compile_check\libb9f\Firebase Arduino Client Library for ESP8266 and ESP32\session\FB_Session.cpp.o
+Compiling .pio\build\compile_check\libb9f\Firebase Arduino Client Library for ESP8266 and ESP32\storage\FCS.cpp.o
+Compiling .pio\build\compile_check\lib5ee\Wire\Wire.cpp.o
+Archiving .pio\build\compile_check\libb9f\libFirebase Arduino Client Library for ESP8266 and ESP32.a
+Archiving .pio\build\compile_check\lib5ee\libWire.a
+Compiling .pio\build\compile_check\lib897\Adafruit BusIO\Adafruit_BusIO_Register.cpp.o
+Compiling .pio\build\compile_check\lib897\Adafruit BusIO\Adafruit_GenericDevice.cpp.o
+Compiling .pio\build\compile_check\lib897\Adafruit BusIO\Adafruit_I2CDevice.cpp.o
+Compiling .pio\build\compile_check\lib897\Adafruit BusIO\Adafruit_SPIDevice.cpp.o
+Compiling .pio\build\compile_check\libbf9\Adafruit INA219\Adafruit_INA219.cpp.o
+Archiving .pio\build\compile_check\lib897\libAdafruit BusIO.a
+Compiling .pio\build\compile_check\lib08e\BH1750\BH1750.cpp.o
+Archiving .pio\build\compile_check\libbf9\libAdafruit INA219.a
+Compiling .pio\build\compile_check\lib1ba\Adafruit Unified Sensor\Adafruit_Sensor.cpp.o
+Archiving .pio\build\compile_check\lib08e\libBH1750.a
+Compiling .pio\build\compile_check\libfa6\DHT sensor library\DHT.cpp.o
+Archiving .pio\build\compile_check\lib1ba\libAdafruit Unified Sensor.a
+Compiling .pio\build\compile_check\libfa6\DHT sensor library\DHT_U.cpp.o
+Archiving .pio\build\compile_check\libFrameworkArduinoVariant.a
+Compiling .pio\build\compile_check\FrameworkArduino\Crypto.cpp.o
+Archiving .pio\build\compile_check\libfa6\libDHT sensor library.a
+Compiling .pio\build\compile_check\FrameworkArduino\Esp-frag.cpp.o
+Compiling .pio\build\compile_check\FrameworkArduino\Esp-version.cpp.o
+Compiling .pio\build\compile_check\FrameworkArduino\Esp.cpp.o
+Compiling .pio\build\compile_check\FrameworkArduino\FS.cpp.o
+Compiling .pio\build\compile_check\FrameworkArduino\FSnoop.cpp.o
+Compiling .pio\build\compile_check\FrameworkArduino\FunctionalInterrupt.cpp.o
+Compiling .pio\build\compile_check\FrameworkArduino\HardwareSerial.cpp.o
+Compiling .pio\build\compile_check\FrameworkArduino\IPAddress.cpp.o
+Compiling .pio\build\compile_check\FrameworkArduino\LwipDhcpServer-NonOS.cpp.o
+Compiling .pio\build\compile_check\FrameworkArduino\LwipDhcpServer.cpp.o
+Compiling .pio\build\compile_check\FrameworkArduino\LwipIntf.cpp.o
+Compiling .pio\build\compile_check\FrameworkArduino\LwipIntfCB.cpp.o
+Compiling .pio\build\compile_check\FrameworkArduino\MD5Builder.cpp.o
+Compiling .pio\build\compile_check\FrameworkArduino\Print.cpp.o
+Compiling .pio\build\compile_check\FrameworkArduino\Schedule.cpp.o
+Compiling .pio\build\compile_check\FrameworkArduino\StackThunk.cpp.o
+Compiling .pio\build\compile_check\FrameworkArduino\Stream.cpp.o
+Compiling .pio\build\compile_check\FrameworkArduino\StreamSend.cpp.o
+Compiling .pio\build\compile_check\FrameworkArduino\Tone.cpp.o
+Compiling .pio\build\compile_check\FrameworkArduino\TypeConversion.cpp.o
+Compiling .pio\build\compile_check\FrameworkArduino\Updater.cpp.o
+Compiling .pio\build\compile_check\FrameworkArduino\WMath.cpp.o
+Compiling .pio\build\compile_check\FrameworkArduino\WString.cpp.o
+Compiling .pio\build\compile_check\FrameworkArduino\abi.cpp.o
+Compiling .pio\build\compile_check\FrameworkArduino\aes_unwrap.cpp.o
+Compiling .pio\build\compile_check\FrameworkArduino\base64.cpp.o
+Compiling .pio\build\compile_check\FrameworkArduino\cbuf.cpp.o
+Compiling .pio\build\compile_check\FrameworkArduino\cont.S.o
+Compiling .pio\build\compile_check\FrameworkArduino\cont_util.cpp.o
+Compiling .pio\build\compile_check\FrameworkArduino\core_esp8266_app_entry_noextra4k.cpp.o
+Compiling .pio\build\compile_check\FrameworkArduino\core_esp8266_eboot_command.cpp.o
+Compiling .pio\build\compile_check\FrameworkArduino\core_esp8266_features.cpp.o
+Compiling .pio\build\compile_check\FrameworkArduino\core_esp8266_flash_quirks.cpp.o
+Compiling .pio\build\compile_check\FrameworkArduino\core_esp8266_flash_utils.cpp.o
+Compiling .pio\build\compile_check\FrameworkArduino\core_esp8266_i2s.cpp.o
+Compiling .pio\build\compile_check\FrameworkArduino\core_esp8266_main.cpp.o
+Compiling .pio\build\compile_check\FrameworkArduino\core_esp8266_non32xfer.cpp.o
+Compiling .pio\build\compile_check\FrameworkArduino\core_esp8266_noniso.cpp.o
+Compiling .pio\build\compile_check\FrameworkArduino\core_esp8266_phy.cpp.o
+Compiling .pio\build\compile_check\FrameworkArduino\core_esp8266_postmortem.cpp.o
+Compiling .pio\build\compile_check\FrameworkArduino\core_esp8266_si2c.cpp.o
+Compiling .pio\build\compile_check\FrameworkArduino\core_esp8266_sigma_delta.cpp.o
+Compiling .pio\build\compile_check\FrameworkArduino\core_esp8266_spi_utils.cpp.o
+Compiling .pio\build\compile_check\FrameworkArduino\core_esp8266_timer.cpp.o
+Compiling .pio\build\compile_check\FrameworkArduino\core_esp8266_vm.cpp.o
+Compiling .pio\build\compile_check\FrameworkArduino\core_esp8266_waveform_phase.cpp.o
+Compiling .pio\build\compile_check\FrameworkArduino\core_esp8266_waveform_pwm.cpp.o
+Compiling .pio\build\compile_check\FrameworkArduino\core_esp8266_wiring.cpp.o
+Compiling .pio\build\compile_check\FrameworkArduino\core_esp8266_wiring_analog.cpp.o
+Compiling .pio\build\compile_check\FrameworkArduino\core_esp8266_wiring_digital.cpp.o
+Compiling .pio\build\compile_check\FrameworkArduino\core_esp8266_wiring_pulse.cpp.o
+Compiling .pio\build\compile_check\FrameworkArduino\core_esp8266_wiring_pwm.cpp.o
+Compiling .pio\build\compile_check\FrameworkArduino\core_esp8266_wiring_shift.cpp.o
+Compiling .pio\build\compile_check\FrameworkArduino\crc32.cpp.o
+Compiling .pio\build\compile_check\FrameworkArduino\debug.cpp.o
+Compiling .pio\build\compile_check\FrameworkArduino\exc-c-wrapper-handler.S.o
+Compiling .pio\build\compile_check\FrameworkArduino\exc-sethandler.cpp.o
+Compiling .pio\build\compile_check\FrameworkArduino\flash_hal.cpp.o
+Compiling .pio\build\compile_check\FrameworkArduino\gdb_hooks.cpp.o
+Compiling .pio\build\compile_check\FrameworkArduino\heap.cpp.o
+Compiling .pio\build\compile_check\FrameworkArduino\hwdt_app_entry.cpp.o
+Compiling .pio\build\compile_check\FrameworkArduino\libb64\cdecode.cpp.o
+Compiling .pio\build\compile_check\FrameworkArduino\libb64\cencode.cpp.o
+Compiling .pio\build\compile_check\FrameworkArduino\libc_replacements.cpp.o
+Compiling .pio\build\compile_check\FrameworkArduino\mmu_iram.cpp.o
+Compiling .pio\build\compile_check\FrameworkArduino\reboot_uart_dwnld.cpp.o
+Compiling .pio\build\compile_check\FrameworkArduino\spiffs\spiffs_cache.cpp.o
+Compiling .pio\build\compile_check\FrameworkArduino\spiffs\spiffs_check.cpp.o
+Compiling .pio\build\compile_check\FrameworkArduino\spiffs\spiffs_gc.cpp.o
+Compiling .pio\build\compile_check\FrameworkArduino\spiffs\spiffs_hydrogen.cpp.o
+Compiling .pio\build\compile_check\FrameworkArduino\spiffs\spiffs_nucleus.cpp.o
+Compiling .pio\build\compile_check\FrameworkArduino\spiffs_api.cpp.o
+Compiling .pio\build\compile_check\FrameworkArduino\sqrt32.cpp.o
+Compiling .pio\build\compile_check\FrameworkArduino\stdlib_noniso.cpp.o
+Compiling .pio\build\compile_check\FrameworkArduino\time.cpp.o
+Compiling .pio\build\compile_check\FrameworkArduino\uart.cpp.o
+Compiling .pio\build\compile_check\FrameworkArduino\umm_malloc\umm_info.c.o
+Compiling .pio\build\compile_check\FrameworkArduino\umm_malloc\umm_integrity.c.o
+Compiling .pio\build\compile_check\FrameworkArduino\umm_malloc\umm_local.c.o
+Compiling .pio\build\compile_check\FrameworkArduino\umm_malloc\umm_malloc.cpp.o
+Compiling .pio\build\compile_check\FrameworkArduino\umm_malloc\umm_poison.c.o
+Compiling .pio\build\compile_check\FrameworkArduino\wpa2_eap_patch.cpp.o
+Archiving .pio\build\compile_check\libFrameworkArduino.a
+Linking .pio\build\compile_check\firmware.elf
+Retrieving maximum program size .pio\build\compile_check\firmware.elf
+Checking size .pio\build\compile_check\firmware.elf
+Advanced Memory Usage is available via "PlatformIO Home > Project Inspect"
+RAM:   [====      ]  42.6% (used 34936 bytes from 81920 bytes)
+Flash: [=====     ]  53.3% (used 556771 bytes from 1044464 bytes)
+Building .pio\build\compile_check\firmware.bin
+C:\Users\JARVIS\Desktop\VOLTARAX\.local-tools\platformio-core\packages\framework-arduinoespressif8266\tools\elf2bin.py:54: SyntaxWarning: invalid escape sequence '\s'
+  words = re.split('\s+', line)
+C:\Users\JARVIS\Desktop\VOLTARAX\.local-tools\platformio-core\packages\framework-arduinoespressif8266\tools\elf2bin.py:73: SyntaxWarning: invalid escape sequence '\s'
+  words = re.split('\s+', line)
+Creating BIN file ".pio\build\compile_check\firmware.bin" using "C:\Users\JARVIS\Desktop\VOLTARAX\.local-tools\platformio-core\packages\framework-arduinoespressif8266\bootloaders\eboot\eboot.elf" and ".pio\build\compile_check\firmware.elf"
+======================== [SUCCESS] Took 373.10 seconds ========================
+
+Environment    Status    Duration
+-------------  --------  ------------
+compile_check  SUCCESS   00:06:13.102
+========================= 1 succeeded in 00:06:13.102 =========================

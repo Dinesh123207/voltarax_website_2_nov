@@ -46,6 +46,9 @@ services:
     environment:
       NODE_ENV: production
       PORT: 5000
+      CHAT_PROVIDER: ${CHAT_PROVIDER:-disabled}
+      CHAT_OLLAMA_ORIGIN: ${CHAT_OLLAMA_ORIGIN:-http://127.0.0.1:11434}
+      CHAT_OLLAMA_MODEL: ${CHAT_OLLAMA_MODEL:-}
       DATABASE_URL: ${DATABASE_URL:?Set a URL-encoded PostgreSQL URL for the postgres service}
       REDIS_URL: ${REDIS_URL:?Set a URL-encoded Redis URL for the redis service}
       FRONTEND_URL: ${FRONTEND_URL:-http://localhost:3000}

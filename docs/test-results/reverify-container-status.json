@@ -1,0 +1,12 @@
+{
+  "compose": {
+    "exit_code": 0,
+    "scope": "Synthetic config only",
+    "output": ""
+  },
+  "engine": {
+    "exit_code": 1,
+    "scope": "Engine availability only; no container start",
+    "output": "\nfailed to connect to the docker API at npipe:////./pipe/dockerDesktopLinuxEngine; check if the path is correct and if the daemon is running: open //./pipe/dockerDesktopLinuxEngine: The system cannot find the file specified.\n"
+  }
+}

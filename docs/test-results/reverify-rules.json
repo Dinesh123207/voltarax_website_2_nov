@@ -1,0 +1,15 @@
+{
+  "command": [
+    "python",
+    "tools/run-local-database.py",
+    "--log",
+    "docs/test-results/reverify-rules-java.log",
+    "--",
+    "node",
+    "--test",
+    "voltarax-web/backend/tests/firebase-rules.test.cjs"
+  ],
+  "cwd": ".",
+  "exit_code": 0,
+  "seconds": 12.55
+}
