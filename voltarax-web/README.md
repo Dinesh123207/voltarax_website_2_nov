@@ -2,7 +2,7 @@
 
 Existing Next.js website/dashboard, Express API, Firebase telemetry/accounts, optional PostgreSQL/Redis operations, Python AI engine and hardware firmware.
 
-Start with the practical verification and running guide in `../docs/VERIFICATION_AND_RUN_GUIDE.md` (and its accompanying PDF). Current evidence is in `../docs/PROGRESS.md`; external requirements are in `../docs/MANUAL_STEPS.md`. Historical phase tags describe their original checkpoints.
+Start with the [documentation index](../docs/README.md) and practical [verification and running guide](../docs/VERIFICATION_AND_RUN_GUIDE.md) (and its accompanying PDF). Current evidence is in `../docs/PROGRESS.md`; external requirements are in `../docs/MANUAL_STEPS.md`. Historical phase tags describe their original checkpoints.
 
 ## What runs where
 

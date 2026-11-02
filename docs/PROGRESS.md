@@ -171,3 +171,6 @@ Checkpoint wording in older task rows is historical; the current summary and fin
 
 ## Sustainability visual and connection recheck
 Original responsive solar landscape and PIB-attributed EN/HI slogans added, with reduced-motion support. Build, 5 focused contracts, 7 synthetic AI contract cases, 4 actual-API browser cases, packaging, synthetic Compose parsing and EN/HI mobile browser/axe checks passed. Two color-contrast items require manual review. Container AI credential-file mount limitation is documented; Docker/real services/hardware remain unverified. See STACK_CONNECTION_RECHECK.md and test-results/sustainability-*. No live data or external action.
+
+
+Documentation index added at docs/README.md; the running guide, completion report, connection review, gap map and supporting evidence were already tracked in docs/. Index targets verified locally.
