@@ -1,0 +1,111 @@
+name: Voltarax local-service checks
+on:
+  pull_request:
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: checks-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+env:
+  NEXT_TELEMETRY_DISABLED: '1'
+  NODE_OPTIONS: --max-old-space-size=768
+  EMAIL_ENABLED: 'false'
+  NOTIFICATIONS_ENABLED: 'false'
+  PAYMENTS_ENABLED: 'false'
+  PAYMENTS_MODE: test
+  CAMERA_ENABLED: 'false'
+jobs:
+  application:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+          clean: false
+      - uses: actions/setup-python@6d4fd22b20465ccc0f7354476588e8df7c9ca0e0 # v7.1.0
+        with:
+          python-version: '3.13.15'
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+        with:
+          node-version: '24.19.0'
+          cache: npm
+          cache-dependency-path: |
+            voltarax-web/frontend/package-lock.json
+            voltarax-web/backend/package-lock.json
+      - uses: actions/setup-java@b843ebf9b913146b38da2eaa7aeddf76074ae1ad # v6.1.0
+        with:
+          distribution: temurin
+          java-version: '21'
+      - name: Install backend and frontend locks
+        run: |
+          python tools/run-check.py --cwd voltarax-web/backend --name ci-backend-install -- npm ci
+          python tools/run-check.py --cwd voltarax-web/frontend --name ci-frontend-install -- npm ci
+      - name: Backend unit and SQL tests
+        run: python tools/run-check.py --cwd voltarax-web/backend --name ci-backend -- npm test
+      - name: Lint and source types
+        run: |
+          python tools/run-check.py --cwd voltarax-web/frontend --name ci-lint -- npm run lint
+          python tools/run-check.py --cwd voltarax-web/frontend --name ci-source-types -- npx tsc --noEmit --project tsconfig.source.json
+      - name: Production build with owned proxy target
+        env:
+          LOCALE_SMOKE_LABEL: ci-build
+        run: python tools/run-check.py --cwd . --name ci-build -- python tools/verify-locale-routes.py --build
+      - name: Generated route types
+        run: python tools/run-check.py --cwd voltarax-web/frontend --name ci-generated-types -- npx tsc --noEmit
+      - name: Install isolated browser and demo emulator tools
+        run: |
+          python tools/run-check.py --cwd voltarax-web/frontend --name ci-browser-install -- npx playwright install --with-deps chromium
+          python tools/run-check.py --cwd voltarax-web/backend --name ci-emulator-install -- npx firebase setup:emulators:database --project demo-voltarax
+      - name: Public, language and map browser checks
+        env:
+          LOCALE_SMOKE_LABEL: ci-public
+          FRONTEND_CHECK_SERVER: production
+          FRONTEND_CHECK_BROWSER: 'true'
+        run: python tools/run-check.py --cwd . --name ci-public -- python tools/verify-locale-routes.py
+      - name: Actual API browser workflows with fake delivery and gateway
+        env:
+          BACKEND_BROWSER_LABEL: ci-actual-api
+        run: python tools/run-check.py --cwd . --name ci-actual-api -- python tools/run-local-database.py --log docs/test-results/ci-actual-api-java.log -- python tools/verify-backend-browser.py
+      - name: Production dependency audit and source pattern scan
+        run: |
+          python tools/run-check.py --cwd . --name ci-audit -- python tools/audit-dependencies.py
+          python tools/run-check.py --cwd . --name ci-secrets -- python tools/scan-secrets.py
+      - name: Save synthetic check results
+        if: always()
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+        with:
+          name: application-check-results
+          path: |
+            docs/test-results/ci-*.json
+            docs/test-results/ci-*.log
+          retention-days: 7
+          if-no-files-found: ignore
+  ai:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+          clean: false
+      - uses: actions/setup-python@6d4fd22b20465ccc0f7354476588e8df7c9ca0e0 # v7.1.0
+        with:
+          python-version: '3.13.15'
+          cache: pip
+          cache-dependency-path: voltarax-web/ai-engine/requirements.lock.txt
+      - name: Install reviewed Python lock
+        run: python tools/run-check.py --cwd voltarax-web/ai-engine --name ci-ai-install -- python -m pip install -r requirements.lock.txt
+      - name: Synthetic AI regressions
+        run: python tools/run-check.py --cwd voltarax-web/ai-engine --name ci-ai -- python -m pytest tests -q -p no:cacheprovider
+      - name: Save AI results
+        if: always()
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+        with:
+          name: ai-check-results
+          path: |
+            docs/test-results/ci-ai*.json
+            docs/test-results/ci-ai*.log
+          retention-days: 7
+          if-no-files-found: ignore

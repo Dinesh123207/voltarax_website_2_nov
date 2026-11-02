@@ -121,3 +121,5 @@ Status key: [ ] todo; [~] in progress; [x] done and verified as stated; [!] skip
 - [FOUND] Docker CLI is installed but Docker Desktop engine is unavailable (phase10-docker-availability). No service/image build/start was run. Official registry metadata for exact Node 24.19.0, Python 3.13.15, PostgreSQL 18.6 and Redis 7.2.17 image tags/digests was retrieved; this verifies references, not container operation.
 - [ ] E2E tests, CI, Docker, deployment and backup documentation.
 - [ ] Final scan, full test evidence, manual steps, known issues, release tag and evidence-based completion PDF.
+
+- [x] Phase 10 CI definition prepared: exact official action SHAs/licenses checked, read-only token, no persisted credentials, PR/manual triggers, bounded installs/tests/types/build/audit/scan, isolated browser/emulator and locked Python jobs, synthetic evidence retention. YAML syntax parsed with installed js-yaml. Hosted execution remains manual/no push; this is configuration validation, not a passing hosted CI run.

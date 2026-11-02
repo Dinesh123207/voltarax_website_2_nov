@@ -193,3 +193,6 @@ Inspect docs/test-results/phase08-gate-frontend-full-audit.log for the exact 18 
 
 ### Phase 9 map activation
 Follow MAP_DATA.md exactly. Original raw archive object is recovered but 164 MB and unverified for outline currency/authority; it will not be published. Obtain approved web-sized geometry, retain its actual license/source, verify property names/hash/budget, install at backend/data/india-states.geojson, configure MAP_* and the real site-to-state assignment. Recheck geographic/India publication and rights requirements before enabling. No placeholder India outline is supplied.
+
+### Phase 10 hosted CI activation
+CI is prepared under .github/workflows/ci.yml and uses no real service secrets. After your separately authorized repository publication/push, run its manual workflow and review both application/AI jobs and seven-day synthetic evidence artifacts. Review hosted Linux browser/Python dependency compatibility; local Windows results do not prove a hosted run. Renovate automerge remains off. No push or GitHub workflow run occurred here.
