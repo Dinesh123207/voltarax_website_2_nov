@@ -1,0 +1,9 @@
+{
+  "command": [
+    "python",
+    "tools/check-runtime-packaging.py"
+  ],
+  "cwd": ".",
+  "exit_code": 0,
+  "seconds": 7.47
+}

@@ -8,9 +8,8 @@ FROM ${PYTHON_IMAGE} AS runtime
 ENV PATH=/opt/venv/bin:$PATH PYTHONDONTWRITEBYTECODE=1 PYTHONUNBUFFERED=1
 WORKDIR /srv
 COPY --from=dependencies /opt/venv /opt/venv
-COPY config.py ./
+COPY config.py evaluation.py ./
 COPY data ./data
-COPY configs ./configs
 COPY models ./models
 COPY pipeline ./pipeline
 COPY scripts ./scripts

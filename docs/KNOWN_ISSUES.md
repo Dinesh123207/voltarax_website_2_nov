@@ -65,3 +65,7 @@ Backend application code uses Firebase Realtime Database, not Firestore/Cloud St
 - Source/all-local-ref pattern scans found no supported credential patterns, but cannot prove all formats absent. Preserve ignored secrets; rotate operator credentials as part of the separately authorized launch/recovery plan. No push, real message/payment, external deployment, data deletion or private publication occurred.
 
 Each concrete follow-up is in MANUAL_STEPS.md, MAP_DATA.md, LEGAL_REVIEW.md and RELEASE_OPERATIONS.md. Final gate outcomes/counts belong to PROGRESS.md and FINAL_REPORT.md; no pending gate is implied complete by this issue list.
+
+
+## Second review follow-up - 2 November 2026
+Three concrete packaging defects were reproduced and fixed after the original phase-10 tag: unused/untracked AI configs COPY, omitted AI evaluation.py (ModuleNotFoundError), and missing guarded backend seed.js operator entry point. Offline tracked-input/staged-runtime import checks now pass; actual Docker image build/runtime is still unverified. The root README no longer recommends bootstrap as ordinary startup. New current evidence uses reverify-* names; prior phase results and tags remain immutable historical checkpoints.

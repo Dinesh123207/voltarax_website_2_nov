@@ -176,3 +176,7 @@ Final summary confirms 81 backend/28 AI/10 browser/one rules/four native plus pl
 
 ### Local autopilot complete
 All ten local phase gates and final report/source/PDF QA are complete. release-candidate is the checked code/evidence commit; final report artifacts and phase-10-done follow without application changes. No independent authorized local task remains. Real credentials/services/hardware/current web boundary/legal review and external activation/recovery are still the named owners manual tasks, not inferred operational completion.
+
+
+### Requested second verification and running guide
+Recheck the completed local application without changing phase tags or external services. Reproduced/fixed three packaging omissions and verified tracked inputs plus isolated AI imports; retained failing evidence and added the check to CI. Root README now separates public preview, configured services and first-admin bootstrap. Finish the fresh build/browser/rules/native/firmware/config checks and publish a visually reviewed verification/running guide with exact outcomes and remaining activation requirements.

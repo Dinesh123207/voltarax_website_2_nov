@@ -1,6 +1,6 @@
 # Autopilot progress
 
-RESUME HERE: Local phases 1-10 and final report/PDF QA are complete. No independent authorized local work remains; owners continue only the explicit external/manual actions in MANUAL_STEPS.md, without automatic deployment/messages/payments/migration.
+RESUME HERE: User requested another error review and a practical running document. Fresh backend/lint/source-type/audit checks pass. Three packaging defects reproduced (empty untracked AI configs COPY, omitted AI evaluation module, omitted guarded backend bootstrap script); fixes and offline packaged-import check in progress. Finish fresh build/browser/AI/rules/native/firmware/config checks, document actual outcomes and running instructions, render/review the new PDF, then commit without moving prior phase tags or activating external services.
 
 Current checkpoint: All final local checks passed: 81 backend, 28 AI, 10 browser (7 UI fixtures + 3 actual API), one RTDB rules case, four native cases, placeholder-only firmware compile, expanded lint/types/standalone build/audits/configuration and supported-pattern current/history scan. 1045 bilingual source messages. Candidate tag release-candidate = 5b223e4; tested app source/tree unchanged. Completion PDF/source has ten pages and passed text/bounds/all-page render review; proof is phase10-pdf-proof.json. Final artifact commit is tagged phase-10-done after commit. Actual services/hardware/approved web map/legal/hosted CI/container/deployment/recovery remain Partial/manual; production audits frontend 0/backend 8 moderate/no high-critical.
 
@@ -134,3 +134,8 @@ Checkpoint wording in older task rows is historical; the current summary and fin
 - [x] Final artifact task: docs/COMPLETION_SUMMARY.md and docs/Voltarax_Completion_Summary.pdf generated from actual gate/provenance/history, with Done/Partial/Not done/Skipped, exact results, risks/owners and ten manual steps. Reopened ten pages, required sections/text/source commit verified, every page rendered and inspected without clipping/overlap/unreadable glyphs; proof/hash/runtime versions retained. Docker engine recheck still fails, no container operation claimed. No new application source changes or redundant full-suite rerun.
 
 - [x] Final byte-portability follow-up: Git was treating the ASCII-encoded PDF as text; a simulated Windows checkout changed its bytes. Added *.pdf binary in .gitattributes and verified the same checkout filter now preserves the exact reviewed SHA-256. PDF/application contents did not change, so rendering/runtime suites were not repeated. Existing release-candidate/phase-10-done tags remain immutable; the branch adds this metadata-only safeguard.
+
+
+## Requested second review and running document
+- [x] Fresh backend 81/81 (158.85 s), AI 28/28 (15.60 s), frontend lint/source types and production audit pass. Audit unchanged: frontend 0/backend 8 moderate/no high-critical.
+- [x] Reproduced three packaging defects in reverify-packaging-before (48.11 s); fixed AI unused empty-directory COPY and missing evaluation.py, plus backend guarded seed.js packaging. Reverify-packaging-after passes (7.47 s). Tracked COPY/staged offline imports check added to CI; actual Docker runtime not claimed. Corrected root startup README. Fresh full build and remaining independent checks/document are in progress.

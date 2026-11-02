@@ -17,6 +17,7 @@ COPY --chown=node:node routes ./routes
 COPY --chown=node:node services ./services
 COPY --chown=node:node licenses ./licenses
 COPY --chown=node:node scripts/migrate-relational.js ./scripts/migrate-relational.js
+COPY --chown=node:node scripts/seed.js ./scripts/seed.js
 RUN mkdir -p /srv/data && chown node:node /srv/data
 USER node
 EXPOSE 5000

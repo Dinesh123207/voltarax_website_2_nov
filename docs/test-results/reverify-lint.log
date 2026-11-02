@@ -1,0 +1,4 @@
+
+> voltarax-frontend@1.0.0 lint
+> eslint app components i18n lib tests --ext .ts,.tsx
+
