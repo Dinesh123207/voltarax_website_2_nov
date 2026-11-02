@@ -1,0 +1,14 @@
+{
+  "command": [
+    "node",
+    "--test",
+    "--test-concurrency=1",
+    "tests/ai-predictions.test.js",
+    "tests/operations-api.test.js",
+    "tests/inspections-api.test.js",
+    "tests/commerce-api.test.js"
+  ],
+  "cwd": ".",
+  "exit_code": 0,
+  "seconds": 57.86
+}

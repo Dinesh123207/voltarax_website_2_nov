@@ -1,0 +1,11 @@
+{
+  "command": [
+    "node",
+    "node_modules/@playwright/test/cli.js",
+    "test",
+    "tests/e2e/launcher.spec.ts"
+  ],
+  "cwd": ".",
+  "exit_code": 0,
+  "seconds": 37.96
+}

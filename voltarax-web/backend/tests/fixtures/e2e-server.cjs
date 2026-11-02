@@ -1,10 +1,13 @@
 // Owned loopback test process only. Never imported by server.js or packaged in runtime images.
 const {randomBytes,createHmac}=require('node:crypto');
 if(process.env.FIREBASE_DATABASE_EMULATOR_HOST!=='127.0.0.1:9000' || process.env.FIREBASE_PROJECT_ID!=='demo-voltarax' || !/^[a-f0-9]{64}$/.test(process.env.E2E_FIXTURE_TOKEN||'')) throw Error('Requires owned demo emulator and fixture nonce');
+const frontendPort=process.env.E2E_FRONTEND_PORT||'38473';
+if(!['3000','38473'].includes(frontendPort)) throw Error('Fixture frontend must use an allowed local port');
+const frontendOrigin=`http://localhost:${frontendPort}`;
 Object.assign(process.env,{NODE_ENV:'test',GCLOUD_PROJECT:'demo-voltarax',FIREBASE_DATABASE_URL:'',FIREBASE_SERVICE_ACCOUNT_JSON:'',FIREBASE_CLIENT_EMAIL:'',FIREBASE_PRIVATE_KEY:'',GOOGLE_APPLICATION_CREDENTIALS:'',
   JWT_SECRET:randomBytes(48).toString('hex'),OTP_SECRET:randomBytes(48).toString('hex'),EMAIL_ENABLED:'false',NOTIFICATIONS_ENABLED:'false',REDIS_URL:'',DATABASE_URL:'',CAMERA_ENABLED:'false',CAMERA_STREAM_URL:'',CAMERA_SNAPSHOT_URL:'',
   PAYMENTS_ENABLED:'true',PAYMENTS_MODE:'test',GST_ENABLED:'false',RAZORPAY_KEY_ID:'rzp_test_LocalFixture',RAZORPAY_KEY_SECRET:randomBytes(32).toString('hex'),RAZORPAY_WEBHOOK_SECRET:randomBytes(32).toString('hex'),
-  CORS_ORIGINS:'http://localhost:38473',FRONTEND_URL:'http://localhost:38473',TRUST_PROXY_HOPS:'0',SOLAR_SITE_ID:'solar_site',SOLAR_DEVICE_ID:'simulator-01',DEVICE_SIMULATOR_ENABLED:'true',RELAY_CONTROL_ENABLED:'true',MAP_BOUNDARIES_REVIEWED:'false',MAP_SITE_STATE:''});
+  CORS_ORIGINS:frontendOrigin,FRONTEND_URL:frontendOrigin,TRUST_PROXY_HOPS:'0',SOLAR_SITE_ID:'solar_site',SOLAR_DEVICE_ID:'simulator-01',DEVICE_SIMULATOR_ENABLED:'true',RELAY_CONTROL_ENABLED:'true',MAP_BOUNDARIES_REVIEWED:'false',MAP_SITE_STATE:''});
 const env=process.env,base='http://127.0.0.1:38475';
 let stage='firebase';
 async function main(){

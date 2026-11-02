@@ -2,6 +2,7 @@
 
 These documents are part of the local project repository. Start with the running guide, then review the connection findings and manual steps before configuring a connected installation.
 
+- [Start Voltarax](START_HERE.md): one-command local demo and separately configured test mode.
 - [Verification and running guide](VERIFICATION_AND_RUN_GUIDE.md) ([PDF](Voltarax_Verification_and_Run_Guide.pdf)): public preview, isolated tests, connected setup and troubleshooting.
 - [Stack connection recheck](STACK_CONNECTION_RECHECK.md): tested connections, the AI container credential-file limitation and checks that still require real services or hardware.
 - [Completion summary](COMPLETION_SUMMARY.md) ([PDF](Voltarax_Completion_Summary.pdf)): Phase 11 status and the historical Phase 10 report.

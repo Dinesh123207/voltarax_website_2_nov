@@ -1,0 +1,47 @@
+
+Running 1 test using 1 worker
+
+(node:15004) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  x  1 tests\e2e\launcher.spec.ts:3:5 › @launcher browser signs in to the isolated demo and loads its dashboard (1.3m)
+
+
+  1) tests\e2e\launcher.spec.ts:3:5 › @launcher browser signs in to the isolated demo and loads its dashboard 
+
+    Error: expect(page).toHaveURL(expected) failed
+
+    Expected pattern: /\/dashboard$/
+    Received string:  "http://localhost:3000/login"
+    Timeout: 30000ms
+
+    Call log:
+      - Expect "toHaveURL" with timeout 30000ms
+        46 × locator resolved to <html lang="en" class="dark">…</html>
+           - unexpected value "http://localhost:3000/login"
+
+
+      11 |   await page.getByRole('button', { name: 'Sign in', exact: true }).click();
+      12 |   expect((await login).status()).toBe(200);
+    > 13 |   await expect(page).toHaveURL(/\/dashboard$/);
+         |                      ^
+      14 |   await expect(page.getByRole('heading', { name: 'Solar Intelligence Dashboard' })).toBeVisible();
+      15 |   const user = await page.request.get('/api/auth/me');
+      16 |   expect(user.status()).toBe(200);
+        at C:\Users\JARVIS\Desktop\VOLTARAX\voltarax-web\frontend\tests\e2e\launcher.spec.ts:13:22
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    ..\..\.local-tools\playwright\launcher-browser-current\launcher--launcher-browser-9a50c-emo-and-loads-its-dashboard\test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: ..\..\.local-tools\playwright\launcher-browser-current\launcher--launcher-browser-9a50c-emo-and-loads-its-dashboard\error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    ..\..\.local-tools\playwright\launcher-browser-current\launcher--launcher-browser-9a50c-emo-and-loads-its-dashboard\trace.zip
+    Usage:
+
+        npx playwright show-trace ..\..\.local-tools\playwright\launcher-browser-current\launcher--launcher-browser-9a50c-emo-and-loads-its-dashboard\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  1 failed
+    tests\e2e\launcher.spec.ts:3:5 › @launcher browser signs in to the isolated demo and loads its dashboard 

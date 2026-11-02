@@ -198,3 +198,11 @@ Shared data states, savings-first/units-second formatting, four semantic metric 
 Add sourced bilingual solar/LiFE wording and an original scalable solar landscape. Verify mobile/reduced-motion rendering and rerun isolated frontend/API, database emulator and packaging integration checks; document service and physical-system limits without touching live systems.
 
 Done locally: sustainability presentation and isolated stack recheck; results and operator-owned connection gap are recorded in STACK_CONNECTION_RECHECK.md. Real services and hardware remain unverified.
+
+
+## Local launcher
+Add a root-level Python launcher for the website plus API, a safe synthetic default, one-time dependency setup, an explicitly configured connected test mode, owned-process cleanup and concise instructions. Record startup and safety checks without accessing real services.
+
+
+## Connection recheck
+Reproduce and fix launcher browser-origin mismatch; verify real browser sign-in, configured launcher against an owned emulator, simulated device traffic, AI publication and SQL/API contracts. Retain failures and document real-service and cold-start limits.

@@ -19,7 +19,7 @@ async function main() {
   const stopRelay = require('./services/relay').startRelayReconciler(logger);
   const stopAlerts = require('./services/alertCollector').startAlertCollector(logger);
   const stopNotifications = await require('./services/notifications').startNotifications(logger);
-  const server = app.listen(Number(process.env.PORT || 5000), () => logger.info({ event: 'listening' }, 'API started'));
+  const server = app.listen(Number(process.env.PORT || 5000), process.env.VOLTARAX_BIND_HOST || '0.0.0.0', () => logger.info({ event: 'listening' }, 'API started'));
   const stop = () => { stopRelay(); stopAlerts(); server.close(async () => { await stopNotifications(); if (client) await client.quit(); await require('./db/client').closeRelational(); process.exit(0); }); };
   process.on('SIGTERM', stop); process.on('SIGINT', stop);
 }

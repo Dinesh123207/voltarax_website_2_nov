@@ -1,0 +1,10 @@
+{
+  "ports": [
+    3000,
+    38475,
+    9000
+  ],
+  "all_released": true,
+  "standalone_demo_check_passed": true,
+  "configured_real_services_tested": false
+}

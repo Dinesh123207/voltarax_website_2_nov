@@ -1,0 +1,11 @@
+Starting isolated demo database...
+Starting demo API...
+Starting website (first startup may take a little time)...
+
+DEMO ONLY: temporary synthetic data; it is lost when the launcher stops.
+Demo administrator: admin@local.test
+Demo password: synthetic-local-password-123
+Email delivery, real payments, hardware and field AI are not connected.
+Open: http://localhost:3000 | Hindi: http://localhost:3000/hi
+Demo startup and proxy/login check passed.
+Local logs: C:\Users\JARVIS\Desktop\VOLTARAX\.local-tools\launcher\run-iejqx3n7

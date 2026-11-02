@@ -1,0 +1,10 @@
+{
+  "command": [
+    "node",
+    "node_modules/typescript/bin/tsc",
+    "--noEmit"
+  ],
+  "cwd": ".",
+  "exit_code": 0,
+  "seconds": 7.43
+}

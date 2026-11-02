@@ -1,0 +1,15 @@
+{
+  "command": [
+    "C:\\Users\\JARVIS\\AppData\\Local\\Programs\\Python\\Python313\\python.exe",
+    "../../tools/run-local-database.py",
+    "--log",
+    "docs/test-results/connections-device-java.log",
+    "--",
+    "node",
+    "--test",
+    "tests/device-emulator.test.cjs"
+  ],
+  "cwd": "voltarax-web/backend",
+  "exit_code": 0,
+  "seconds": 13.25
+}

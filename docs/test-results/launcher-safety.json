@@ -1,0 +1,6 @@
+{
+  "demo_env_excludes_real_credentials": true,
+  "occupied_port_refused_without_stopping_owner": true,
+  "connected_check_refused": true,
+  "scope": "Offline safety checks with synthetic environment; no live services"
+}

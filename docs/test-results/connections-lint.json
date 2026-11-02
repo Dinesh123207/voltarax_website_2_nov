@@ -1,0 +1,10 @@
+{
+  "command": [
+    "node",
+    "node_modules/eslint/bin/eslint.js",
+    "tests/e2e/launcher.spec.ts"
+  ],
+  "cwd": ".",
+  "exit_code": 0,
+  "seconds": 15.31
+}

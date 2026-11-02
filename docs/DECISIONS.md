@@ -332,3 +332,9 @@ Date: 2026-11-01. This is an internal project document. The internal project ref
 
 
 - [FOUND] The public solar and LiFE phrases are attributed and linked to PIB; a bilingual, original vector landscape represents sustainability without claims about Voltarax, measured outcomes or official affiliation. [ASSUMED] A responsive resolution-independent SVG is suitable for a sharp visual effect without large external media; animation respects reduced motion.
+
+
+- [ASSUMED] The default one-command launcher should use the owned loopback demo emulator and synthetic fixture so it can start without private credentials or live writes. A separate explicit --connected mode starts the real API only after a test project is configured; email, payment, notifications, relay and camera remain disabled. AI jobs and physical hardware remain separate. The launcher binds the API to loopback and owns its process tree.
+
+
+- [FOUND] The launcher demo fixture previously allowed localhost:38473 but the actual launcher browser sends localhost:3000, causing HTTP 403. Constrained the selectable fixture origin to those two explicit loopback ports, kept the original test default, and added browser-origin acceptance/rejection checks. The connected launcher may omit backend/.env only for the exact owned loopback demo project; actual service settings are still an operator responsibility.
