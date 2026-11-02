@@ -114,7 +114,17 @@ def demo_environment():
 def login_smoke():
     opener = urllib.request.build_opener(urllib.request.ProxyHandler({}), urllib.request.HTTPCookieProcessor(http.cookiejar.CookieJar()))
     payload = json.dumps({'email': 'admin@local.test', 'password': 'synthetic-local-password-123'}).encode()
-    request = urllib.request.Request(BASE + '/api/auth/login', data=payload, headers={'Content-Type': 'application/json'}, method='POST')
+    rejected = urllib.request.Request(BASE + '/api/auth/login', data=payload,
+                                      headers={'Content-Type': 'application/json', 'Origin': 'http://localhost:3999'}, method='POST')
+    try:
+        opener.open(rejected, timeout=30).close()
+    except urllib.error.HTTPError as error:
+        if error.code != 403:
+            raise
+    else:
+        raise RuntimeError('The demo API accepted an unexpected browser origin.')
+    request = urllib.request.Request(BASE + '/api/auth/login', data=payload,
+                                     headers={'Content-Type': 'application/json', 'Origin': BASE}, method='POST')
     with opener.open(request, timeout=30) as response:
         data = json.load(response)
     if not data.get('success') or data.get('user', {}).get('role') != 'admin':
@@ -136,10 +146,13 @@ def run(args, node):
         ports = (3000, 38475, 9000)
         env = demo_environment()
         env.update(FIREBASE_DATABASE_EMULATOR_HOST='127.0.0.1:9000', FIREBASE_PROJECT_ID='demo-voltarax',
-                   GCLOUD_PROJECT='demo-voltarax', E2E_FIXTURE_TOKEN=secrets.token_hex(32), NODE_ENV='test')
+                   GCLOUD_PROJECT='demo-voltarax', E2E_FIXTURE_TOKEN=secrets.token_hex(32),
+                   E2E_FRONTEND_PORT='3000', NODE_ENV='test')
         backend_port = 38475
     else:
-        if not (BACK / '.env').is_file():
+        owned_demo = (os.environ.get('FIREBASE_DATABASE_EMULATOR_HOST') == '127.0.0.1:9000'
+                      and os.environ.get('FIREBASE_PROJECT_ID') == 'demo-voltarax')
+        if not (BACK / '.env').is_file() and not owned_demo:
             raise RuntimeError('Connected test mode needs an existing backend/.env. Follow docs/VERIFICATION_AND_RUN_GUIDE.md first.')
         ports = (3000, 5000)
         env = os.environ.copy()

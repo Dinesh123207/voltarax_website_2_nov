@@ -1,0 +1,10 @@
+{
+  "command": [
+    "python",
+    "run-voltarax.py",
+    "--check"
+  ],
+  "cwd": ".",
+  "exit_code": 1,
+  "seconds": 45.46
+}

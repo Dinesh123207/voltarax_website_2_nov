@@ -1,0 +1,1 @@
+{"actual_backend_server": true, "demo_firebase_health": true, "website_proxy_readiness": true, "website_proxy_chat_source": true, "synthetic_admin_login_and_dashboard": true, "scope": "Owned demo emulator, synthetic credentials; no external services"}

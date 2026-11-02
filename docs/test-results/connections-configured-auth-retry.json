@@ -1,0 +1,14 @@
+{
+  "command": [
+    "C:\\Users\\JARVIS\\AppData\\Local\\Programs\\Python\\Python313\\python.exe",
+    "tools/run-local-database.py",
+    "--log",
+    "docs/test-results/connections-configured-auth-retry-java.log",
+    "--",
+    "C:\\Users\\JARVIS\\AppData\\Local\\Programs\\Python\\Python313\\python.exe",
+    "tools/verify-configured-launcher.py"
+  ],
+  "cwd": ".",
+  "exit_code": 0,
+  "seconds": 29.79
+}

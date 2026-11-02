@@ -1,0 +1,10 @@
+Traceback (most recent call last):
+  File "C:\Users\JARVIS\Desktop\VOLTARAX\tools\verify-configured-launcher.py", line 59, in <module>
+    subprocess.run(['node', '-e', seed, str(ROOT / 'voltarax-web' / 'backend')],
+    ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+                   cwd=log_dir, env=env, capture_output=True, check=True, timeout=60)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\JARVIS\AppData\Local\Programs\Python\Python313\Lib\subprocess.py", line 577, in run
+    raise CalledProcessError(retcode, process.args,
+                             output=stdout, stderr=stderr)
+subprocess.CalledProcessError: Command '['node', '-e', "const User=require(process.argv[1]+'/models/User');\nconst firebase=require(process.argv[1]+'/config/firebase');\n(async()=>{const u=await User.create({email:'connected@local.test',name:'Synthetic Test',password:'synthetic-test-password-123',role:'viewer'});await User.secureUpdate(u._id,{emailVerified:true,role:'admin',siteIds:['solar_site']});await firebase.app.delete();})().catch(()=>process.exit(1));", 'C:\\Users\\JARVIS\\Desktop\\VOLTARAX\\voltarax-web\\backend']' returned non-zero exit status 1.

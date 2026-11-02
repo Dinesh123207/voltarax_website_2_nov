@@ -1,6 +1,6 @@
 # Autopilot progress
 
-RESUME HERE: Local launcher complete on codex/local-launcher. Use docs/START_HERE.md; connected external services, physical hardware and real AI remain separately configured and unverified.
+RESUME HERE: Launcher connection recheck complete on codex/local-launcher. Demo browser origin fixed and actual local emulator/API, session, dashboard, device, SQL and AI contracts checked. Real external services and hardware remain unverified; see STACK_CONNECTION_RECHECK.md.
 
 Current checkpoint: Phase 11 local gate passed: 88 backend, 28 AI, 10 UI and 4 actual-API browser cases, 1 Firebase rules and 4 native cases, placeholder firmware compile, build, lint, types, packaging, production audit and supported-pattern scan. Axe: 18 scans, 0 violations, 2 incomplete color-contrast checks; solid-pair minimum 10.14:1. Reports and per-check evidence are saved in test-results/. Optional nonce CSP Skipped; external activation remains Partial.
 
@@ -178,3 +178,7 @@ Documentation index added at docs/README.md; the running guide, completion repor
 
 ## One-command local launcher
 Added run-voltarax.py with an isolated demo and opt-in configured test mode; no real services were contacted. Demo startup, Next-to-API synthetic login, safety guards, occupied-port refusal and cleanup passed (test-results/launcher-*.json). The existing API can bind to loopback via VOLTARAX_BIND_HOST without changing its default. Real connected mode, PostgreSQL/Redis, email, hardware and AI scheduling require operator setup and remain unverified.
+
+
+## Launcher connection recheck
+Reproduced the demo browser origin 403 and fixed the fixture origin selection. Actual browser login passed; the first browser run timed out waiting for a cold dashboard compile and is retained. Connected-mode real backend login/dashboard/chat passed through the frontend and an isolated demo Firebase emulator after installing the project rules; initial test setup without those rules failed and is retained. One simulated device-emulator case, 11 AI/SQL/API contract cases, eight AI publication/drift cases, TypeScript and targeted lint passed. `launcher-origin-verified` checks accepted and rejected origins and cleans up its services. Cold Next development startup sometimes logged a transient JSON parse error before successful retry; root cause and external service/hardware checks remain open in KNOWN_ISSUES.md.
