@@ -1,0 +1,8 @@
+{
+  "version": "4.14.0",
+  "license": "MPL-2.0",
+  "license_sha256": "af175b9d96ee93c21a036152e1b905b0b95304d4ae8c2c921c7609100ba8df7e",
+  "location": ".local-tools/a11y/node_modules/axe-core",
+  "scope": "Isolated unmodified browser-test tool; not a product/runtime dependency",
+  "source": "https://registry.npmjs.org/axe-core/4.14.0"
+}

@@ -34,3 +34,7 @@ Done means the stated local task is implemented and verified. Partial distinguis
 
 ## After Step 1 local implementation
 Item 4 local code Done: reviewed EN/HI source-bound replies, disabled provider interface, optional loopback Ollama source selector, API-backed plain-text widget, human contact, dedicated limits and no-user-text provider boundary. Three focused tests plus source types/lint and staged input/import checks pass (`phase11-chat-*`). Real Ollama/model execution remains Not done; full browser/phase gate is pending. Actual SMTP/provider/hosting/hardware gaps in the baseline table remain unchanged.
+
+
+## After Step 2 local implementation
+Item 8 local code Done, browser gate pending: original SVG/CSS hero and silent local WebM explainer, poster, EN/HI caption tracks/transcript, lazy/motion/visibility/control fallbacks and enforced build byte budgets. Assets total 14607 bytes; WebM 12914. Source types pass (phase11-media-types). Legacy absent stock-media references removed. No Remotion or external footage. Exact browser/media/accessibility results will be added after execution.

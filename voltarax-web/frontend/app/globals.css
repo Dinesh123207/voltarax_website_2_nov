@@ -2,6 +2,11 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Original system-flow motion; state is controlled by viewport, tab and user preference. */
+.flow-path { stroke-dasharray: 10 8; animation: flow-dashes 1.5s linear infinite; }
+@keyframes flow-dashes { to { stroke-dashoffset: -36; } }
+@media (prefers-reduced-motion: reduce) { .flow-path { animation: none; } }
+
 /* ── Custom cursor ────────────────────────────────────────────────────────── */
 /* Native pointer/text cursors remain available on every input surface. */
 

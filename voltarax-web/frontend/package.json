@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "postbuild": "node scripts/prepare-standalone.cjs",
+    "postbuild": "node scripts/check-media.cjs && node scripts/prepare-standalone.cjs",
     "start": "node .next/standalone/server.js",
     "lint": "eslint app components i18n lib tests --ext .ts,.tsx",
     "test:e2e:public": "playwright test --grep @public",

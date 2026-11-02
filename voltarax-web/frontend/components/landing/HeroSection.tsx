@@ -3,6 +3,7 @@ import { useEffect, useMemo, useState } from 'react';
 import { Link } from '@/i18n/navigation';
 import { ChevronRight, ArrowDown, Zap, Leaf, Brain, Sun, Wind, Activity } from 'lucide-react';
 import WindTurbineBackdrop from './WindTurbineBackdrop';
+import FlowMedia from './FlowMedia';
 import { useCopy } from '@/i18n/copy';
 
 
@@ -59,7 +60,7 @@ export default function HeroSection() {
         <WindTurbineBackdrop />
         <div className="absolute inset-0 bg-gradient-to-r from-[#06100a] via-[#06100a]/90 to-transparent pointer-events-none" />
 
-        <div className="relative z-10 max-w-7xl mx-auto w-full px-5 sm:px-8 lg:px-10 pt-28 pb-20">
+        <div className="relative z-10 max-w-7xl mx-auto w-full px-5 sm:px-8 lg:px-10 pt-28 pb-20 grid lg:grid-cols-2 gap-8 items-center">
           <div className="max-w-3xl">
             <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-emerald-300/20 bg-emerald-300/5 text-emerald-200 text-xs font-semibold uppercase tracking-[.18em] mb-7">
               <Wind size={14} />
@@ -94,6 +95,7 @@ export default function HeroSection() {
               ))}
             </div>
           </div>
+          <FlowMedia variant="hero"/>
         </div>
 
         <a href="#why" aria-label={copyText("Scroll to content")} className="absolute bottom-7 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 text-slate-600 hover:text-emerald-300">

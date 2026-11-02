@@ -1,0 +1,17 @@
+{
+  "command": [
+    "npm.cmd",
+    "install",
+    "--prefix",
+    "../../.local-tools/a11y",
+    "--no-save",
+    "--package-lock=false",
+    "--ignore-scripts",
+    "--no-audit",
+    "--no-fund",
+    "axe-core@4.14.0"
+  ],
+  "cwd": "voltarax-web/frontend",
+  "exit_code": 0,
+  "seconds": 13.67
+}

@@ -1,0 +1,7 @@
+WEBVTT
+
+00:00.000 --> 00:02.000
+Illustration: sensors record readings; Firebase stores them.
+
+00:02.000 --> 00:04.200
+The API checks access; the dashboard displays authorized site data.

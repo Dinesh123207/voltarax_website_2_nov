@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="480" height="360" viewBox="0 0 480 360" role="img" aria-labelledby="title">
+  <title id="title">Illustration of configured sensor, Firebase, API and dashboard flow</title>
+  <rect width="480" height="360" rx="18" fill="#0a0f0d"/>
+  <g stroke="#cbd5e1" stroke-width="3" fill="none"><path d="M190 85H290 M365 125V235 M290 275H190"/><path d="M280 77L290 85L280 93 M357 225L365 235L373 225 M200 267L190 275L200 283"/></g>
+  <g fill="#173127" stroke="#86efac" stroke-width="2"><rect x="35" y="50" width="150" height="70" rx="12"/><rect x="290" y="50" width="150" height="70" rx="12"/><rect x="290" y="240" width="150" height="70" rx="12"/><rect x="35" y="240" width="150" height="70" rx="12"/></g>
+  <g fill="#f1f5f9" font-family="sans-serif" font-size="19" text-anchor="middle"><text x="110" y="92">Sensors</text><text x="365" y="92">Firebase</text><text x="365" y="282">Authorized API</text><text x="110" y="282">Site view</text></g>
+  <text x="240" y="185" fill="#cbd5e1" font-family="sans-serif" font-size="16" text-anchor="middle">Illustration, not live data</text>
+</svg>

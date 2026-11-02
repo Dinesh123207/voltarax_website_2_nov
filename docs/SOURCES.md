@@ -133,3 +133,7 @@ Official GitHub release/commit pages and full MIT licenses read. No action sourc
 
 ### Completion artifact runtime
 Created locally with bundled ReportLab 4.4.9, pypdf 6.10.0 and pdfplumber 0.11.9, using standard ASCII Type 1 fonts rather than redistributing OS fonts. Poppler rendered all ten pages; creation/QA proof and actual font/runtime metadata are in test-results/phase10-pdf-{create,proof}.json. Original report/layout code, no external document/template text or font asset copied. No report or private source was uploaded externally.
+
+
+## Phase 11 original media and isolated accessibility tool
+System-flow SVG/CSS, poster, canvas recording generator and EN/HI captions are original project work, with no copied footage, statistics or Remotion. Hashes/sizes: test-results/phase11-media-budget.json. axe-core 4.14.0 metadata/installed LICENSE identify MPL-2.0 (license reviewed, notices retained unmodified under ignored .local-tools/a11y/node_modules/axe-core). It is installed only as an isolated browser-test tool, not a product dependency, vendored source or runtime bundle. Registry: https://registry.npmjs.org/axe-core/4.14.0; upstream https://github.com/dequelabs/axe-core. Test source/version/license hash is recorded in phase11-axe-source.json; no certification is inferred from a scan.

@@ -1053,6 +1053,20 @@
     "p_61e2a3f8": "Source",
     "p_ad2eff59": "Contact a person for help",
     "p_d3411ba8": "Checking reviewed knowledge...",
-    "p_7fd6ecad": "Assistant unavailable. Please use the Contact page for human help."
+    "p_7fd6ecad": "Assistant unavailable. Please use the Contact page for human help.",
+    "p_07335ffc": "From readings to a site view",
+    "p_7c90b022": "How the configured system connects",
+    "p_066d3ceb": "Illustration of sensors, saved readings, authorized API and site view",
+    "p_90817d38": "Sensors",
+    "p_6d50d424": "Firebase",
+    "p_66fab0ac": "Authorized API",
+    "p_54c10843": "Site view",
+    "p_e8212cae": "Illustration, not live data",
+    "p_92962865": "System flow illustration video",
+    "p_4ef7ab58": "Sensors record readings. Firebase stores them. The API checks access. The dashboard shows authorized site data.",
+    "p_0793fe3f": "Illustration only. Hardware and services require configuration and verification.",
+    "p_e97457cc": "Resume animation",
+    "p_52d63d7f": "Pause animation",
+    "p_cddf9f9c": "Video unavailable. The diagram and transcript remain available."
   }
 }

@@ -1,0 +1,32 @@
+{
+  "original": true,
+  "files": [
+    {
+      "file": "system-flow.webm",
+      "bytes": 12914,
+      "ceiling": 524288,
+      "sha256": "48b7041a8981b12d251a178356d02bd7f880b451922c5c3df96e1f4790f282e6"
+    },
+    {
+      "file": "system-flow-poster.svg",
+      "bytes": 1120,
+      "ceiling": 32768,
+      "sha256": "abb5e4d511721acbbfc9e1e9f6550b5664029e0aa036ce918635a7bbd7d0e4f8"
+    },
+    {
+      "file": "system-flow.en.vtt",
+      "bytes": 186,
+      "ceiling": 16384,
+      "sha256": "d4b15bb86362c213b6af3dfd7890decaceec2f85f5c7f5078bbd71abb8f03c90"
+    },
+    {
+      "file": "system-flow.hi.vtt",
+      "bytes": 387,
+      "ceiling": 16384,
+      "sha256": "6628cb97c1762005b2d113b08051fd3392ca7ecaf18e55bafd314f6355aa8359"
+    }
+  ],
+  "totalBytes": 14607,
+  "withinBudget": true,
+  "policy": "Engineering resource caps, not performance/business claims"
+}

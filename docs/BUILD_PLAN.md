@@ -184,3 +184,7 @@ Recheck the completed local application without changing phase tags or external 
 
 ### Phase 11 chatbot implementation checkpoint
 Step 0 is saved with all 14 baseline statuses. Step 1 local provider/FAQ/client/privacy/rate-limit code and focused tests are complete; optional Ollama execution and full browser/gate are unverified. Continue original bounded media, 360px/color/data states/contrast, stale-reading clock, optional tested nonce CSP, then all gates plus axe and final docs/run guide.
+
+
+### Phase 11 media checkpoint
+Original hero SVG/CSS and bounded local WebM explainer/poster/EN-HI tracks implemented. Byte budget and source types pass; controls/reduced-motion/lazy/no-external behavior require new browser checks in the final gate. Continue shared data loading/empty/offline/error notices, savings-first Indian formatting/semantic colors/contrast, timestamp freshness tests and measured axe scans.
