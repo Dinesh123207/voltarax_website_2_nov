@@ -1,0 +1,95 @@
+{
+  "pdf": "docs/Voltarax_Completion_Summary.pdf",
+  "sha256": "ded2f90428ef2b601d840718a0f88c26d1d72395ec0489e2a9a8c95c79c9cc91",
+  "pages": [
+    {
+      "page": 1,
+      "characters": 1290,
+      "width": 595.2756,
+      "height": 841.8898
+    },
+    {
+      "page": 2,
+      "characters": 1800,
+      "width": 595.2756,
+      "height": 841.8898
+    },
+    {
+      "page": 3,
+      "characters": 2382,
+      "width": 595.2756,
+      "height": 841.8898
+    },
+    {
+      "page": 4,
+      "characters": 2573,
+      "width": 595.2756,
+      "height": 841.8898
+    },
+    {
+      "page": 5,
+      "characters": 2615,
+      "width": 595.2756,
+      "height": 841.8898
+    },
+    {
+      "page": 6,
+      "characters": 2576,
+      "width": 595.2756,
+      "height": 841.8898
+    },
+    {
+      "page": 7,
+      "characters": 2167,
+      "width": 595.2756,
+      "height": 841.8898
+    },
+    {
+      "page": 8,
+      "characters": 2859,
+      "width": 595.2756,
+      "height": 841.8898
+    },
+    {
+      "page": 9,
+      "characters": 2823,
+      "width": 595.2756,
+      "height": 841.8898
+    },
+    {
+      "page": 10,
+      "characters": 2735,
+      "width": 595.2756,
+      "height": 841.8898
+    }
+  ],
+  "fonts": [
+    "Courier",
+    "Helvetica",
+    "Helvetica-Bold"
+  ],
+  "layout_bounds_pass": true,
+  "required_sections_pass": true,
+  "visual_review": "All 10 rendered PNG pages inspected; no clipping, overlap, empty section or unreadable glyph observed",
+  "poppler_note": "Renderer warned about unavailable global Symbol/ArialUnicode display fonts; actual used fonts and all-ASCII content are recorded; visual rendering must still be checked",
+  "visual_pages_reviewed": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10
+  ],
+  "source_sha256_lf_utf8": "38bbc5549d1e2fc7624e0551bb900119fb1597cf32834e3a0590a5404c475b3e",
+  "runtime": {
+    "reportlab": "4.4.9",
+    "pypdf": "6.10.0",
+    "pdfplumber": "0.11.9"
+  },
+  "candidate_commit": "5b223e4aba3b3562a476b38d253aa75ce326e7b5",
+  "rendered_pngs": ".local-tools/pdf-review/phase10-completion/page-01.png through page-10.png"
+}

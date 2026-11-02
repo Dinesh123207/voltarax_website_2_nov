@@ -1,5 +1,7 @@
 # Reference sources
 
+This is a historical provenance ledger. Earlier preparation/pending wording describes its checkpoint, not current feature status. The final local gate and 1045-message catalog are recorded in PROGRESS.md/FINAL_REPORT.md; archived boundary pointer recovery and exact source verification are recorded in Phase 9 below. Unused archive license classifications remain preliminary and are not adaptation permission.
+
 ## Phase 8 localization/SEO preparation (2026-11-02)
 
 - Original copy extraction/wiring/merge helpers use the already installed TypeScript compiler API (installed LICENSE.txt checked: Apache-2.0); no compiler source copied. Translation text is original, reviewed against current English copy, and does not create scientific/business facts. Exact source binding and opaque/nonstring preservation are tested. Hindi linguistic/legal review remains an operator task; the catalog is currently partial, as tracked in PROGRESS.md.
@@ -38,7 +40,7 @@ Inspected archive root licenses and root package manifests on 2026-11-01. Classi
 | `next-shadcn-admin-dashboard-main.zip` | 2.2.0 | MIT; retain notice | `next-shadcn-admin-dashboard-main/LICENSE` | 0 |
 | `SaaSify-Dashboard-Subscription-Management-main.zip` | not stated in inspected root manifest | MIT; retain notice | `SaaSify-Dashboard-Subscription-Management-main/LICENSE` | 0 |
 
-PostHog is not enabled; TimescaleDB is a design reference only. Boundary GeoJSON is a Git LFS pointer.
+PostHog is not enabled; TimescaleDB is a design reference only. The archived boundary entry is a Git LFS pointer; Phase 9 recovered its exact raw object for ignored local review, without approving/publishing product geometry.
 
 ## External documentation consulted
 
@@ -128,3 +130,6 @@ Official GitHub release/commit pages and full MIT licenses read. No action sourc
 - Official Docker Hub library tag URLs/digests in phase10-container-tags.json; availability is not build/run verification. Node LTS/Bookworm variants: https://nodejs.org/en/about/previous-releases , https://raw.githubusercontent.com/nodejs/docker-node/main/versions.json . Retained locally tested Node 24.19.0/Python 3.13.15.
 - Redis 7.2.17 full BSD-3-Clause COPYING and PostgreSQL REL_18_6 full PostgreSQL COPYRIGHT read at official GitHub raw paths; external images retain notices. No server source copied. Dependencies retain installed licenses; base-image distribution review remains manual.
 - https://coolify.io/docs/applications/builds/docker-compose , https://coolify.io/docs/applications/builds/dockerfile , https://coolify.io/docs/applications/configuration/environment-variables , https://coolify.io/docs/core/networking/proxy/overview : current settings/ports/base paths/build-runtime scope/managed proxy consulted for original guide. No Coolify code adapted; a guessed older networking URL failed, no behavior inferred.
+
+### Completion artifact runtime
+Created locally with bundled ReportLab 4.4.9, pypdf 6.10.0 and pdfplumber 0.11.9, using standard ASCII Type 1 fonts rather than redistributing OS fonts. Poppler rendered all ten pages; creation/QA proof and actual font/runtime metadata are in test-results/phase10-pdf-{create,proof}.json. Original report/layout code, no external document/template text or font asset copied. No report or private source was uploaded externally.

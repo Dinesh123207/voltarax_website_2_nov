@@ -1,0 +1,11 @@
+{
+  "file": "docs/Voltarax_Completion_Summary.pdf",
+  "pages": 10,
+  "expected_pages": 10,
+  "text_sections_present": true,
+  "candidate_commit": "5b223e4aba3b3562a476b38d253aa75ce326e7b5",
+  "tested_code_commit": "3d88e6bcd83defe089ca35d47fdc82f5d7d78525",
+  "application_tree": "b93b97030ea330ffe70c736465c6c1634a314610",
+  "sha256": "ded2f90428ef2b601d840718a0f88c26d1d72395ec0489e2a9a8c95c79c9cc91",
+  "visual_review": "Pending render inspection; creation is not visual proof"
+}
