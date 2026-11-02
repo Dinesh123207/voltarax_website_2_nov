@@ -1,0 +1,677 @@
+{
+  "config": {
+    "argv": [
+      "C:\\Program Files\\nodejs\\node.EXE",
+      "C:\\Users\\JARVIS\\Desktop\\VOLTARAX\\voltarax-web\\frontend\\node_modules\\@playwright\\test\\cli.js",
+      "test",
+      "--grep",
+      "@public|@phase11"
+    ],
+    "configFile": "C:\\Users\\JARVIS\\Desktop\\VOLTARAX\\voltarax-web\\frontend\\playwright.config.ts",
+    "rootDir": "C:/Users/JARVIS/Desktop/VOLTARAX/voltarax-web/frontend/tests/e2e",
+    "failOnFlakyTests": false,
+    "forbidOnly": false,
+    "fullyParallel": false,
+    "globalSetup": null,
+    "globalTeardown": null,
+    "globalTimeout": 0,
+    "grep": {},
+    "grepInvert": null,
+    "maxFailures": 0,
+    "metadata": {
+      "actualWorkers": 1
+    },
+    "preserveOutput": "always",
+    "projects": [
+      {
+        "outputDir": "C:/Users/JARVIS/Desktop/VOLTARAX/.local-tools/playwright/phase11-gate-web-run2-browser",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 1
+        },
+        "id": "",
+        "name": "",
+        "testDir": "C:/Users/JARVIS/Desktop/VOLTARAX/voltarax-web/frontend/tests/e2e",
+        "testIgnore": [],
+        "testMatch": [
+          "**/*.@(spec|test).?(c|m)[jt]s?(x)"
+        ],
+        "timeout": 45000
+      }
+    ],
+    "filteredProjects": [
+      {
+        "grep": {},
+        "grepInvert": null,
+        "outputDir": "C:\\Users\\JARVIS\\Desktop\\VOLTARAX\\.local-tools\\playwright\\phase11-gate-web-run2-browser",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 1
+        },
+        "name": "",
+        "testDir": "C:\\Users\\JARVIS\\Desktop\\VOLTARAX\\voltarax-web\\frontend\\tests\\e2e",
+        "snapshotDir": "C:\\Users\\JARVIS\\Desktop\\VOLTARAX\\voltarax-web\\frontend\\tests\\e2e",
+        "testIgnore": [],
+        "testMatch": "**/*.@(spec|test).?(c|m)[jt]s?(x)",
+        "timeout": 45000,
+        "use": {
+          "baseURL": "http://localhost:38473",
+          "browserName": "chromium",
+          "channel": "msedge",
+          "headless": true,
+          "viewport": {
+            "width": 360,
+            "height": 800
+          },
+          "reducedMotion": "reduce",
+          "locale": "en-IN",
+          "timezoneId": "Asia/Kolkata",
+          "serviceWorkers": "block",
+          "trace": "retain-on-failure",
+          "screenshot": "only-on-failure",
+          "launchOptions": {
+            "args": [
+              "--disable-background-networking",
+              "--disable-component-update",
+              "--no-first-run"
+            ]
+          }
+        },
+        "dependencies": [],
+        "ignoreSnapshots": false,
+        "__projectId": ""
+      }
+    ],
+    "quiet": false,
+    "reporter": [
+      [
+        "list",
+        null
+      ],
+      [
+        "json",
+        {
+          "outputFile": "C:\\Users\\JARVIS\\Desktop\\VOLTARAX\\docs\\test-results\\phase11-gate-web-run2-browser.json"
+        }
+      ]
+    ],
+    "reportSlowTests": {
+      "max": 5,
+      "threshold": 300000
+    },
+    "shard": null,
+    "tags": [],
+    "updateSnapshots": "default",
+    "updateSourceMethod": "patch",
+    "version": "1.64.1",
+    "workers": 1,
+    "webServer": null
+  },
+  "suites": [
+    {
+      "title": "map.spec.ts",
+      "file": "map.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [
+        {
+          "title": "@public @map Hindi missing-data state never invents an India outline",
+          "ok": true,
+          "tags": [
+            "public",
+            "map"
+          ],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 14162,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-02T06:51:23.287Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "2d8799038d2916f69765-5557be47d3924046bf32",
+          "file": "map.spec.ts",
+          "line": 8,
+          "column": 5
+        },
+        {
+          "title": "@public @map client-only vector map joins recorded zero and safe text with table alternative",
+          "ok": false,
+          "tags": [
+            "public",
+            "map"
+          ],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "failed",
+                  "duration": 19892,
+                  "error": {
+                    "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoContainText\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m failed\n\nLocator: getByRole('table')\nExpected substring: \u001b[32m\"0.000000 kWh\"\u001b[39m\nReceived string:    \u001b[31m\"State values for the configured siteState or territoryConfigured sitesRegistered devicesRecorded energy todayCoverage secondsSynthetic <img src=x onerror=alert(1)>1 Calculated0 Calculated0 kWh Estimated60 / 3600 Calculated\"\u001b[39m\nTimeout: 5000ms\n\nCall log:\n\u001b[2m  - Expect \"toContainText\" getByRole('table') with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for getByRole('table')\u001b[22m\n\u001b[2m    12 × locator resolved to <table class=\"w-full text-left text-sm tabular-nums\">…</table>\u001b[22m\n\u001b[2m       - unexpected value \"State values for the configured siteState or territoryConfigured sitesRegistered devicesRecorded energy todayCoverage secondsSynthetic <img src=x onerror=alert(1)>1 Calculated0 Calculated0 kWh Estimated60 / 3600 Calculated\"\u001b[22m\n",
+                    "stack": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoContainText\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m failed\n\nLocator: getByRole('table')\nExpected substring: \u001b[32m\"0.000000 kWh\"\u001b[39m\nReceived string:    \u001b[31m\"State values for the configured siteState or territoryConfigured sitesRegistered devicesRecorded energy todayCoverage secondsSynthetic <img src=x onerror=alert(1)>1 Calculated0 Calculated0 kWh Estimated60 / 3600 Calculated\"\u001b[39m\nTimeout: 5000ms\n\nCall log:\n\u001b[2m  - Expect \"toContainText\" getByRole('table') with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for getByRole('table')\u001b[22m\n\u001b[2m    12 × locator resolved to <table class=\"w-full text-left text-sm tabular-nums\">…</table>\u001b[22m\n\u001b[2m       - unexpected value \"State values for the configured siteState or territoryConfigured sitesRegistered devicesRecorded energy todayCoverage secondsSynthetic <img src=x onerror=alert(1)>1 Calculated0 Calculated0 kWh Estimated60 / 3600 Calculated\"\u001b[22m\n\n    at C:\\Users\\JARVIS\\Desktop\\VOLTARAX\\voltarax-web\\frontend\\tests\\e2e\\map.spec.ts:23:41",
+                    "location": {
+                      "file": "C:\\Users\\JARVIS\\Desktop\\VOLTARAX\\voltarax-web\\frontend\\tests\\e2e\\map.spec.ts",
+                      "column": 41,
+                      "line": 23
+                    },
+                    "snippet": "  21 |   await page.goto('/dashboard/map');\n  22 |   await expect(page.locator('.leaflet-interactive')).toHaveCount(1);\n> 23 |   await expect(page.getByRole('table')).toContainText('0.000000 kWh');\n     |                                         ^\n  24 |   await expect(page.getByRole('rowheader',{name})).toBeVisible();\n  25 |   const shape=page.locator('.leaflet-interactive'), bounds=await shape.boundingBox(); expect(bounds).not.toBeNull();\n  26 |   await shape.hover({position:{x:bounds!.width*.8,y:bounds!.height*.8}});"
+                  },
+                  "errors": [
+                    {
+                      "location": {
+                        "file": "C:\\Users\\JARVIS\\Desktop\\VOLTARAX\\voltarax-web\\frontend\\tests\\e2e\\map.spec.ts",
+                        "column": 41,
+                        "line": 23
+                      },
+                      "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoContainText\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m failed\n\nLocator: getByRole('table')\nExpected substring: \u001b[32m\"0.000000 kWh\"\u001b[39m\nReceived string:    \u001b[31m\"State values for the configured siteState or territoryConfigured sitesRegistered devicesRecorded energy todayCoverage secondsSynthetic <img src=x onerror=alert(1)>1 Calculated0 Calculated0 kWh Estimated60 / 3600 Calculated\"\u001b[39m\nTimeout: 5000ms\n\nCall log:\n\u001b[2m  - Expect \"toContainText\" getByRole('table') with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for getByRole('table')\u001b[22m\n\u001b[2m    12 × locator resolved to <table class=\"w-full text-left text-sm tabular-nums\">…</table>\u001b[22m\n\u001b[2m       - unexpected value \"State values for the configured siteState or territoryConfigured sitesRegistered devicesRecorded energy todayCoverage secondsSynthetic <img src=x onerror=alert(1)>1 Calculated0 Calculated0 kWh Estimated60 / 3600 Calculated\"\u001b[22m\n\n\n  21 |   await page.goto('/dashboard/map');\n  22 |   await expect(page.locator('.leaflet-interactive')).toHaveCount(1);\n> 23 |   await expect(page.getByRole('table')).toContainText('0.000000 kWh');\n     |                                         ^\n  24 |   await expect(page.getByRole('rowheader',{name})).toBeVisible();\n  25 |   const shape=page.locator('.leaflet-interactive'), bounds=await shape.boundingBox(); expect(bounds).not.toBeNull();\n  26 |   await shape.hover({position:{x:bounds!.width*.8,y:bounds!.height*.8}});\n    at C:\\Users\\JARVIS\\Desktop\\VOLTARAX\\voltarax-web\\frontend\\tests\\e2e\\map.spec.ts:23:41"
+                    }
+                  ],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-02T06:51:41.289Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "screenshot",
+                      "contentType": "image/png",
+                      "path": "C:\\Users\\JARVIS\\Desktop\\VOLTARAX\\.local-tools\\playwright\\phase11-gate-web-run2-browser\\map--public-map-client-onl-6c958-text-with-table-alternative\\test-failed-1.png"
+                    },
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "C:\\Users\\JARVIS\\Desktop\\VOLTARAX\\.local-tools\\playwright\\phase11-gate-web-run2-browser\\map--public-map-client-onl-6c958-text-with-table-alternative\\error-context.md"
+                    },
+                    {
+                      "name": "trace",
+                      "contentType": "application/zip",
+                      "path": "C:\\Users\\JARVIS\\Desktop\\VOLTARAX\\.local-tools\\playwright\\phase11-gate-web-run2-browser\\map--public-map-client-onl-6c958-text-with-table-alternative\\trace.zip"
+                    }
+                  ],
+                  "errorLocation": {
+                    "file": "C:\\Users\\JARVIS\\Desktop\\VOLTARAX\\voltarax-web\\frontend\\tests\\e2e\\map.spec.ts",
+                    "column": 41,
+                    "line": 23
+                  }
+                }
+              ],
+              "status": "unexpected"
+            }
+          ],
+          "id": "2d8799038d2916f69765-e52ec4fd4075797a323a",
+          "file": "map.spec.ts",
+          "line": 16,
+          "column": 5
+        }
+      ]
+    },
+    {
+      "title": "phase11.spec.ts",
+      "file": "phase11.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [
+        {
+          "title": "@phase11 original media is lazy, captioned, controllable and absent under reduced motion",
+          "ok": false,
+          "tags": [
+            "phase11"
+          ],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "failed",
+                  "duration": 16460,
+                  "error": {
+                    "message": "Error: Measured axe violations; inspect the saved report\n\n\u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoEqual\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // deep equality\u001b[22m\n\n\u001b[32m- Expected  -  1\u001b[39m\n\u001b[31m+ Received  + 40\u001b[39m\n\n\u001b[32m- Array []\u001b[39m\n\u001b[31m+ Array [\u001b[39m\n\u001b[31m+   Object {\u001b[39m\n\u001b[31m+     \"description\": \"Ensure that elements labelled through their content must have their visible text as part of their accessible name\",\u001b[39m\n\u001b[31m+     \"help\": \"Elements must have their visible text as part of their accessible name\",\u001b[39m\n\u001b[31m+     \"helpUrl\": \"https://dequeuniversity.com/rules/axe/4.14/label-content-name-mismatch?application=axeAPI\",\u001b[39m\n\u001b[31m+     \"id\": \"label-content-name-mismatch\",\u001b[39m\n\u001b[31m+     \"impact\": \"serious\",\u001b[39m\n\u001b[31m+     \"nodes\": Array [\u001b[39m\n\u001b[31m+       Object {\u001b[39m\n\u001b[31m+         \"all\": Array [],\u001b[39m\n\u001b[31m+         \"any\": Array [\u001b[39m\n\u001b[31m+           Object {\u001b[39m\n\u001b[31m+             \"data\": null,\u001b[39m\n\u001b[31m+             \"id\": \"label-content-name-mismatch\",\u001b[39m\n\u001b[31m+             \"impact\": \"serious\",\u001b[39m\n\u001b[31m+             \"message\": \"Text inside the element is not included in the accessible name\",\u001b[39m\n\u001b[31m+             \"relatedNodes\": Array [],\u001b[39m\n\u001b[31m+           },\u001b[39m\n\u001b[31m+         ],\u001b[39m\n\u001b[31m+         \"failureSummary\": \"Fix any of the following:\u001b[39m\n\u001b[31m+   Text inside the element is not included in the accessible name\",\u001b[39m\n\u001b[31m+         \"html\": \"<a href=\\\"#why\\\" aria-label=\\\"Scroll to content\\\" class=\\\"absolute bottom-7 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 text-slate-600 hover:text-emerald-300\\\">\",\u001b[39m\n\u001b[31m+         \"impact\": \"serious\",\u001b[39m\n\u001b[31m+         \"none\": Array [],\u001b[39m\n\u001b[31m+         \"target\": Array [\u001b[39m\n\u001b[31m+           \".bottom-7\",\u001b[39m\n\u001b[31m+         ],\u001b[39m\n\u001b[31m+       },\u001b[39m\n\u001b[31m+     ],\u001b[39m\n\u001b[31m+     \"tags\": Array [\u001b[39m\n\u001b[31m+       \"cat.semantics\",\u001b[39m\n\u001b[31m+       \"wcag21a\",\u001b[39m\n\u001b[31m+       \"wcag253\",\u001b[39m\n\u001b[31m+       \"EN-301-549\",\u001b[39m\n\u001b[31m+       \"EN-9.2.5.3\",\u001b[39m\n\u001b[31m+       \"RGAAv4\",\u001b[39m\n\u001b[31m+       \"RGAA-6.1.5\",\u001b[39m\n\u001b[31m+     ],\u001b[39m\n\u001b[31m+   },\u001b[39m\n\u001b[31m+ ]\u001b[39m",
+                    "stack": "Error: Measured axe violations; inspect the saved report\n\n\u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoEqual\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // deep equality\u001b[22m\n\n\u001b[32m- Expected  -  1\u001b[39m\n\u001b[31m+ Received  + 40\u001b[39m\n\n\u001b[32m- Array []\u001b[39m\n\u001b[31m+ Array [\u001b[39m\n\u001b[31m+   Object {\u001b[39m\n\u001b[31m+     \"description\": \"Ensure that elements labelled through their content must have their visible text as part of their accessible name\",\u001b[39m\n\u001b[31m+     \"help\": \"Elements must have their visible text as part of their accessible name\",\u001b[39m\n\u001b[31m+     \"helpUrl\": \"https://dequeuniversity.com/rules/axe/4.14/label-content-name-mismatch?application=axeAPI\",\u001b[39m\n\u001b[31m+     \"id\": \"label-content-name-mismatch\",\u001b[39m\n\u001b[31m+     \"impact\": \"serious\",\u001b[39m\n\u001b[31m+     \"nodes\": Array [\u001b[39m\n\u001b[31m+       Object {\u001b[39m\n\u001b[31m+         \"all\": Array [],\u001b[39m\n\u001b[31m+         \"any\": Array [\u001b[39m\n\u001b[31m+           Object {\u001b[39m\n\u001b[31m+             \"data\": null,\u001b[39m\n\u001b[31m+             \"id\": \"label-content-name-mismatch\",\u001b[39m\n\u001b[31m+             \"impact\": \"serious\",\u001b[39m\n\u001b[31m+             \"message\": \"Text inside the element is not included in the accessible name\",\u001b[39m\n\u001b[31m+             \"relatedNodes\": Array [],\u001b[39m\n\u001b[31m+           },\u001b[39m\n\u001b[31m+         ],\u001b[39m\n\u001b[31m+         \"failureSummary\": \"Fix any of the following:\u001b[39m\n\u001b[31m+   Text inside the element is not included in the accessible name\",\u001b[39m\n\u001b[31m+         \"html\": \"<a href=\\\"#why\\\" aria-label=\\\"Scroll to content\\\" class=\\\"absolute bottom-7 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 text-slate-600 hover:text-emerald-300\\\">\",\u001b[39m\n\u001b[31m+         \"impact\": \"serious\",\u001b[39m\n\u001b[31m+         \"none\": Array [],\u001b[39m\n\u001b[31m+         \"target\": Array [\u001b[39m\n\u001b[31m+           \".bottom-7\",\u001b[39m\n\u001b[31m+         ],\u001b[39m\n\u001b[31m+       },\u001b[39m\n\u001b[31m+     ],\u001b[39m\n\u001b[31m+     \"tags\": Array [\u001b[39m\n\u001b[31m+       \"cat.semantics\",\u001b[39m\n\u001b[31m+       \"wcag21a\",\u001b[39m\n\u001b[31m+       \"wcag253\",\u001b[39m\n\u001b[31m+       \"EN-301-549\",\u001b[39m\n\u001b[31m+       \"EN-9.2.5.3\",\u001b[39m\n\u001b[31m+       \"RGAAv4\",\u001b[39m\n\u001b[31m+       \"RGAA-6.1.5\",\u001b[39m\n\u001b[31m+     ],\u001b[39m\n\u001b[31m+   },\u001b[39m\n\u001b[31m+ ]\u001b[39m\n    at axe (C:\\Users\\JARVIS\\Desktop\\VOLTARAX\\voltarax-web\\frontend\\tests\\e2e\\phase11.spec.ts:17:119)\n    at C:\\Users\\JARVIS\\Desktop\\VOLTARAX\\voltarax-web\\frontend\\tests\\e2e\\phase11.spec.ts:47:3",
+                    "location": {
+                      "file": "C:\\Users\\JARVIS\\Desktop\\VOLTARAX\\voltarax-web\\frontend\\tests\\e2e\\phase11.spec.ts",
+                      "column": 119,
+                      "line": 17
+                    },
+                    "snippet": "  15 |   const result=await page.evaluate(async()=>{const tool=(window as any).axe;const report=await tool.run(document,{resultTypes:['violations','incomplete']});return {version:tool.version,violations:report.violations,incomplete:report.incomplete};});\n  16 |   write('axe-'+name,{path:new URL(page.url()).pathname,viewport:{width:360,height:800},...result,scope:'Automated axe checks in a synthetic owned browser; no WCAG/Lighthouse/legal certification'});\n> 17 |   expect(result.version).toBe('4.14.0');expect(result.violations,'Measured axe violations; inspect the saved report').toEqual([]);\n     |                                                                                                                       ^\n  18 | }\n  19 | function emptyBody(url:string):unknown{\n  20 |   if(url==='/api/dashboard')return {current_power_kw:null,daily_generation_kwh:null,daily_savings_inr:null,telemetry_fresh:false,freshness:{last_seen:null,valid_until:null,fresh:false},simulated:true};"
+                  },
+                  "errors": [
+                    {
+                      "location": {
+                        "file": "C:\\Users\\JARVIS\\Desktop\\VOLTARAX\\voltarax-web\\frontend\\tests\\e2e\\phase11.spec.ts",
+                        "column": 119,
+                        "line": 17
+                      },
+                      "message": "Error: Measured axe violations; inspect the saved report\n\n\u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoEqual\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // deep equality\u001b[22m\n\n\u001b[32m- Expected  -  1\u001b[39m\n\u001b[31m+ Received  + 40\u001b[39m\n\n\u001b[32m- Array []\u001b[39m\n\u001b[31m+ Array [\u001b[39m\n\u001b[31m+   Object {\u001b[39m\n\u001b[31m+     \"description\": \"Ensure that elements labelled through their content must have their visible text as part of their accessible name\",\u001b[39m\n\u001b[31m+     \"help\": \"Elements must have their visible text as part of their accessible name\",\u001b[39m\n\u001b[31m+     \"helpUrl\": \"https://dequeuniversity.com/rules/axe/4.14/label-content-name-mismatch?application=axeAPI\",\u001b[39m\n\u001b[31m+     \"id\": \"label-content-name-mismatch\",\u001b[39m\n\u001b[31m+     \"impact\": \"serious\",\u001b[39m\n\u001b[31m+     \"nodes\": Array [\u001b[39m\n\u001b[31m+       Object {\u001b[39m\n\u001b[31m+         \"all\": Array [],\u001b[39m\n\u001b[31m+         \"any\": Array [\u001b[39m\n\u001b[31m+           Object {\u001b[39m\n\u001b[31m+             \"data\": null,\u001b[39m\n\u001b[31m+             \"id\": \"label-content-name-mismatch\",\u001b[39m\n\u001b[31m+             \"impact\": \"serious\",\u001b[39m\n\u001b[31m+             \"message\": \"Text inside the element is not included in the accessible name\",\u001b[39m\n\u001b[31m+             \"relatedNodes\": Array [],\u001b[39m\n\u001b[31m+           },\u001b[39m\n\u001b[31m+         ],\u001b[39m\n\u001b[31m+         \"failureSummary\": \"Fix any of the following:\u001b[39m\n\u001b[31m+   Text inside the element is not included in the accessible name\",\u001b[39m\n\u001b[31m+         \"html\": \"<a href=\\\"#why\\\" aria-label=\\\"Scroll to content\\\" class=\\\"absolute bottom-7 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 text-slate-600 hover:text-emerald-300\\\">\",\u001b[39m\n\u001b[31m+         \"impact\": \"serious\",\u001b[39m\n\u001b[31m+         \"none\": Array [],\u001b[39m\n\u001b[31m+         \"target\": Array [\u001b[39m\n\u001b[31m+           \".bottom-7\",\u001b[39m\n\u001b[31m+         ],\u001b[39m\n\u001b[31m+       },\u001b[39m\n\u001b[31m+     ],\u001b[39m\n\u001b[31m+     \"tags\": Array [\u001b[39m\n\u001b[31m+       \"cat.semantics\",\u001b[39m\n\u001b[31m+       \"wcag21a\",\u001b[39m\n\u001b[31m+       \"wcag253\",\u001b[39m\n\u001b[31m+       \"EN-301-549\",\u001b[39m\n\u001b[31m+       \"EN-9.2.5.3\",\u001b[39m\n\u001b[31m+       \"RGAAv4\",\u001b[39m\n\u001b[31m+       \"RGAA-6.1.5\",\u001b[39m\n\u001b[31m+     ],\u001b[39m\n\u001b[31m+   },\u001b[39m\n\u001b[31m+ ]\u001b[39m\n\n  15 |   const result=await page.evaluate(async()=>{const tool=(window as any).axe;const report=await tool.run(document,{resultTypes:['violations','incomplete']});return {version:tool.version,violations:report.violations,incomplete:report.incomplete};});\n  16 |   write('axe-'+name,{path:new URL(page.url()).pathname,viewport:{width:360,height:800},...result,scope:'Automated axe checks in a synthetic owned browser; no WCAG/Lighthouse/legal certification'});\n> 17 |   expect(result.version).toBe('4.14.0');expect(result.violations,'Measured axe violations; inspect the saved report').toEqual([]);\n     |                                                                                                                       ^\n  18 | }\n  19 | function emptyBody(url:string):unknown{\n  20 |   if(url==='/api/dashboard')return {current_power_kw:null,daily_generation_kwh:null,daily_savings_inr:null,telemetry_fresh:false,freshness:{last_seen:null,valid_until:null,fresh:false},simulated:true};\n    at axe (C:\\Users\\JARVIS\\Desktop\\VOLTARAX\\voltarax-web\\frontend\\tests\\e2e\\phase11.spec.ts:17:119)\n    at C:\\Users\\JARVIS\\Desktop\\VOLTARAX\\voltarax-web\\frontend\\tests\\e2e\\phase11.spec.ts:47:3"
+                    }
+                  ],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-02T06:52:15.523Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "screenshot",
+                      "contentType": "image/png",
+                      "path": "C:\\Users\\JARVIS\\Desktop\\VOLTARAX\\.local-tools\\playwright\\phase11-gate-web-run2-browser\\phase11--phase11-original--0a3ff-absent-under-reduced-motion\\test-failed-1.png"
+                    },
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "C:\\Users\\JARVIS\\Desktop\\VOLTARAX\\.local-tools\\playwright\\phase11-gate-web-run2-browser\\phase11--phase11-original--0a3ff-absent-under-reduced-motion\\error-context.md"
+                    },
+                    {
+                      "name": "trace",
+                      "contentType": "application/zip",
+                      "path": "C:\\Users\\JARVIS\\Desktop\\VOLTARAX\\.local-tools\\playwright\\phase11-gate-web-run2-browser\\phase11--phase11-original--0a3ff-absent-under-reduced-motion\\trace.zip"
+                    }
+                  ],
+                  "errorLocation": {
+                    "file": "C:\\Users\\JARVIS\\Desktop\\VOLTARAX\\voltarax-web\\frontend\\tests\\e2e\\phase11.spec.ts",
+                    "column": 119,
+                    "line": 17
+                  }
+                }
+              ],
+              "status": "unexpected"
+            }
+          ],
+          "id": "8461b0d06a2faf842e01-a51fa2046fdd21d6d57a",
+          "file": "phase11.spec.ts",
+          "line": 44,
+          "column": 5
+        },
+        {
+          "title": "@phase11 savings-first grouping and last-updated expire offline without hydration or hidden ticks",
+          "ok": false,
+          "tags": [
+            "phase11"
+          ],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 2,
+                  "parallelIndex": 0,
+                  "status": "failed",
+                  "duration": 574826,
+                  "error": {
+                    "message": "Error: clock.pauseAt: Error: Cannot fast-forward to the past\n    at ClockController._innerFastForwardTo (eval at evaluate (:370:30), <anonymous>:201:13)\n    at ClockController.pauseAt (eval at evaluate (:370:30), <anonymous>:132:16)\n    at async <anonymous>:396:30",
+                    "stack": "Error: clock.pauseAt: Error: Cannot fast-forward to the past\n    at ClockController._innerFastForwardTo (eval at evaluate (:370:30), <anonymous>:201:13)\n    at ClockController.pauseAt (eval at evaluate (:370:30), <anonymous>:132:16)\n    at async <anonymous>:396:30\n    at ClockController._innerFastForwardTo (eval at evaluate (:370:30), <anonymous>:201:13)\n    at ClockController.pauseAt (eval at evaluate (:370:30), <anonymous>:132:16)\n    at async <anonymous>:396:30\n    at C:\\Users\\JARVIS\\Desktop\\VOLTARAX\\voltarax-web\\frontend\\tests\\e2e\\phase11.spec.ts:58:72",
+                    "location": {
+                      "file": "eval at evaluate (:370:30), <anonymous>",
+                      "column": 13,
+                      "line": 201
+                    }
+                  },
+                  "errors": [
+                    {
+                      "location": {
+                        "file": "eval at evaluate (:370:30), <anonymous>",
+                        "column": 13,
+                        "line": 201
+                      },
+                      "message": "Error: clock.pauseAt: Error: Cannot fast-forward to the past\n    at ClockController._innerFastForwardTo (eval at evaluate (:370:30), <anonymous>:201:13)\n    at ClockController.pauseAt (eval at evaluate (:370:30), <anonymous>:132:16)\n    at async <anonymous>:396:30\n    at ClockController._innerFastForwardTo (eval at evaluate (:370:30), <anonymous>:201:13)\n    at ClockController.pauseAt (eval at evaluate (:370:30), <anonymous>:132:16)\n    at async <anonymous>:396:30\n    at C:\\Users\\JARVIS\\Desktop\\VOLTARAX\\voltarax-web\\frontend\\tests\\e2e\\phase11.spec.ts:58:72"
+                    },
+                    {
+                      "message": "\u001b[31mTearing down \"context\" exceeded the test timeout of 45000ms.\u001b[39m"
+                    }
+                  ],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-02T06:52:49.888Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "screenshot",
+                      "contentType": "image/png",
+                      "path": "C:\\Users\\JARVIS\\Desktop\\VOLTARAX\\.local-tools\\playwright\\phase11-gate-web-run2-browser\\phase11--phase11-savings-f-f3e59-t-hydration-or-hidden-ticks\\test-failed-1.png"
+                    },
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "C:\\Users\\JARVIS\\Desktop\\VOLTARAX\\.local-tools\\playwright\\phase11-gate-web-run2-browser\\phase11--phase11-savings-f-f3e59-t-hydration-or-hidden-ticks\\error-context.md"
+                    },
+                    {
+                      "name": "trace",
+                      "contentType": "application/zip",
+                      "path": "C:\\Users\\JARVIS\\Desktop\\VOLTARAX\\.local-tools\\playwright\\phase11-gate-web-run2-browser\\phase11--phase11-savings-f-f3e59-t-hydration-or-hidden-ticks\\trace.zip"
+                    }
+                  ],
+                  "errorLocation": {
+                    "file": "eval at evaluate (:370:30), <anonymous>",
+                    "column": 13,
+                    "line": 201
+                  }
+                }
+              ],
+              "status": "unexpected"
+            }
+          ],
+          "id": "8461b0d06a2faf842e01-fbed13d7845dbf574539",
+          "file": "phase11.spec.ts",
+          "line": 57,
+          "column": 5
+        },
+        {
+          "title": "@phase11 data screens expose loading empty offline error states at 360px with measured axe results",
+          "ok": false,
+          "tags": [
+            "phase11"
+          ],
+          "tests": [
+            {
+              "timeout": 240000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 3,
+                  "parallelIndex": 0,
+                  "status": "failed",
+                  "duration": 6490,
+                  "error": {
+                    "message": "Error: Measured axe violations; inspect the saved report\n\n\u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoEqual\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // deep equality\u001b[22m\n\n\u001b[32m- Expected  -  1\u001b[39m\n\u001b[31m+ Received  + 35\u001b[39m\n\n\u001b[32m- Array []\u001b[39m\n\u001b[31m+ Array [\u001b[39m\n\u001b[31m+   Object {\u001b[39m\n\u001b[31m+     \"description\": \"Ensure the order of headings is semantically correct\",\u001b[39m\n\u001b[31m+     \"help\": \"Heading levels should only increase by one\",\u001b[39m\n\u001b[31m+     \"helpUrl\": \"https://dequeuniversity.com/rules/axe/4.14/heading-order?application=axeAPI\",\u001b[39m\n\u001b[31m+     \"id\": \"heading-order\",\u001b[39m\n\u001b[31m+     \"impact\": \"moderate\",\u001b[39m\n\u001b[31m+     \"nodes\": Array [\u001b[39m\n\u001b[31m+       Object {\u001b[39m\n\u001b[31m+         \"all\": Array [],\u001b[39m\n\u001b[31m+         \"any\": Array [\u001b[39m\n\u001b[31m+           Object {\u001b[39m\n\u001b[31m+             \"data\": null,\u001b[39m\n\u001b[31m+             \"id\": \"heading-order\",\u001b[39m\n\u001b[31m+             \"impact\": \"moderate\",\u001b[39m\n\u001b[31m+             \"message\": \"Heading order invalid\",\u001b[39m\n\u001b[31m+             \"relatedNodes\": Array [],\u001b[39m\n\u001b[31m+           },\u001b[39m\n\u001b[31m+         ],\u001b[39m\n\u001b[31m+         \"failureSummary\": \"Fix any of the following:\u001b[39m\n\u001b[31m+   Heading order invalid\",\u001b[39m\n\u001b[31m+         \"html\": \"<h3 class=\\\"text-white font-semibold text-sm\\\">Site Health</h3>\",\u001b[39m\n\u001b[31m+         \"impact\": \"moderate\",\u001b[39m\n\u001b[31m+         \"none\": Array [],\u001b[39m\n\u001b[31m+         \"target\": Array [\u001b[39m\n\u001b[31m+           \".stat-card:nth-child(1) > .mb-4.justify-between.items-center > h3\",\u001b[39m\n\u001b[31m+         ],\u001b[39m\n\u001b[31m+       },\u001b[39m\n\u001b[31m+     ],\u001b[39m\n\u001b[31m+     \"tags\": Array [\u001b[39m\n\u001b[31m+       \"cat.semantics\",\u001b[39m\n\u001b[31m+       \"best-practice\",\u001b[39m\n\u001b[31m+     ],\u001b[39m\n\u001b[31m+   },\u001b[39m\n\u001b[31m+ ]\u001b[39m",
+                    "stack": "Error: Measured axe violations; inspect the saved report\n\n\u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoEqual\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // deep equality\u001b[22m\n\n\u001b[32m- Expected  -  1\u001b[39m\n\u001b[31m+ Received  + 35\u001b[39m\n\n\u001b[32m- Array []\u001b[39m\n\u001b[31m+ Array [\u001b[39m\n\u001b[31m+   Object {\u001b[39m\n\u001b[31m+     \"description\": \"Ensure the order of headings is semantically correct\",\u001b[39m\n\u001b[31m+     \"help\": \"Heading levels should only increase by one\",\u001b[39m\n\u001b[31m+     \"helpUrl\": \"https://dequeuniversity.com/rules/axe/4.14/heading-order?application=axeAPI\",\u001b[39m\n\u001b[31m+     \"id\": \"heading-order\",\u001b[39m\n\u001b[31m+     \"impact\": \"moderate\",\u001b[39m\n\u001b[31m+     \"nodes\": Array [\u001b[39m\n\u001b[31m+       Object {\u001b[39m\n\u001b[31m+         \"all\": Array [],\u001b[39m\n\u001b[31m+         \"any\": Array [\u001b[39m\n\u001b[31m+           Object {\u001b[39m\n\u001b[31m+             \"data\": null,\u001b[39m\n\u001b[31m+             \"id\": \"heading-order\",\u001b[39m\n\u001b[31m+             \"impact\": \"moderate\",\u001b[39m\n\u001b[31m+             \"message\": \"Heading order invalid\",\u001b[39m\n\u001b[31m+             \"relatedNodes\": Array [],\u001b[39m\n\u001b[31m+           },\u001b[39m\n\u001b[31m+         ],\u001b[39m\n\u001b[31m+         \"failureSummary\": \"Fix any of the following:\u001b[39m\n\u001b[31m+   Heading order invalid\",\u001b[39m\n\u001b[31m+         \"html\": \"<h3 class=\\\"text-white font-semibold text-sm\\\">Site Health</h3>\",\u001b[39m\n\u001b[31m+         \"impact\": \"moderate\",\u001b[39m\n\u001b[31m+         \"none\": Array [],\u001b[39m\n\u001b[31m+         \"target\": Array [\u001b[39m\n\u001b[31m+           \".stat-card:nth-child(1) > .mb-4.justify-between.items-center > h3\",\u001b[39m\n\u001b[31m+         ],\u001b[39m\n\u001b[31m+       },\u001b[39m\n\u001b[31m+     ],\u001b[39m\n\u001b[31m+     \"tags\": Array [\u001b[39m\n\u001b[31m+       \"cat.semantics\",\u001b[39m\n\u001b[31m+       \"best-practice\",\u001b[39m\n\u001b[31m+     ],\u001b[39m\n\u001b[31m+   },\u001b[39m\n\u001b[31m+ ]\u001b[39m\n    at axe (C:\\Users\\JARVIS\\Desktop\\VOLTARAX\\voltarax-web\\frontend\\tests\\e2e\\phase11.spec.ts:17:119)\n    at C:\\Users\\JARVIS\\Desktop\\VOLTARAX\\voltarax-web\\frontend\\tests\\e2e\\phase11.spec.ts:84:5",
+                    "location": {
+                      "file": "C:\\Users\\JARVIS\\Desktop\\VOLTARAX\\voltarax-web\\frontend\\tests\\e2e\\phase11.spec.ts",
+                      "column": 119,
+                      "line": 17
+                    },
+                    "snippet": "  15 |   const result=await page.evaluate(async()=>{const tool=(window as any).axe;const report=await tool.run(document,{resultTypes:['violations','incomplete']});return {version:tool.version,violations:report.violations,incomplete:report.incomplete};});\n  16 |   write('axe-'+name,{path:new URL(page.url()).pathname,viewport:{width:360,height:800},...result,scope:'Automated axe checks in a synthetic owned browser; no WCAG/Lighthouse/legal certification'});\n> 17 |   expect(result.version).toBe('4.14.0');expect(result.violations,'Measured axe violations; inspect the saved report').toEqual([]);\n     |                                                                                                                       ^\n  18 | }\n  19 | function emptyBody(url:string):unknown{\n  20 |   if(url==='/api/dashboard')return {current_power_kw:null,daily_generation_kwh:null,daily_savings_inr:null,telemetry_fresh:false,freshness:{last_seen:null,valid_until:null,fresh:false},simulated:true};"
+                  },
+                  "errors": [
+                    {
+                      "location": {
+                        "file": "C:\\Users\\JARVIS\\Desktop\\VOLTARAX\\voltarax-web\\frontend\\tests\\e2e\\phase11.spec.ts",
+                        "column": 119,
+                        "line": 17
+                      },
+                      "message": "Error: Measured axe violations; inspect the saved report\n\n\u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoEqual\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // deep equality\u001b[22m\n\n\u001b[32m- Expected  -  1\u001b[39m\n\u001b[31m+ Received  + 35\u001b[39m\n\n\u001b[32m- Array []\u001b[39m\n\u001b[31m+ Array [\u001b[39m\n\u001b[31m+   Object {\u001b[39m\n\u001b[31m+     \"description\": \"Ensure the order of headings is semantically correct\",\u001b[39m\n\u001b[31m+     \"help\": \"Heading levels should only increase by one\",\u001b[39m\n\u001b[31m+     \"helpUrl\": \"https://dequeuniversity.com/rules/axe/4.14/heading-order?application=axeAPI\",\u001b[39m\n\u001b[31m+     \"id\": \"heading-order\",\u001b[39m\n\u001b[31m+     \"impact\": \"moderate\",\u001b[39m\n\u001b[31m+     \"nodes\": Array [\u001b[39m\n\u001b[31m+       Object {\u001b[39m\n\u001b[31m+         \"all\": Array [],\u001b[39m\n\u001b[31m+         \"any\": Array [\u001b[39m\n\u001b[31m+           Object {\u001b[39m\n\u001b[31m+             \"data\": null,\u001b[39m\n\u001b[31m+             \"id\": \"heading-order\",\u001b[39m\n\u001b[31m+             \"impact\": \"moderate\",\u001b[39m\n\u001b[31m+             \"message\": \"Heading order invalid\",\u001b[39m\n\u001b[31m+             \"relatedNodes\": Array [],\u001b[39m\n\u001b[31m+           },\u001b[39m\n\u001b[31m+         ],\u001b[39m\n\u001b[31m+         \"failureSummary\": \"Fix any of the following:\u001b[39m\n\u001b[31m+   Heading order invalid\",\u001b[39m\n\u001b[31m+         \"html\": \"<h3 class=\\\"text-white font-semibold text-sm\\\">Site Health</h3>\",\u001b[39m\n\u001b[31m+         \"impact\": \"moderate\",\u001b[39m\n\u001b[31m+         \"none\": Array [],\u001b[39m\n\u001b[31m+         \"target\": Array [\u001b[39m\n\u001b[31m+           \".stat-card:nth-child(1) > .mb-4.justify-between.items-center > h3\",\u001b[39m\n\u001b[31m+         ],\u001b[39m\n\u001b[31m+       },\u001b[39m\n\u001b[31m+     ],\u001b[39m\n\u001b[31m+     \"tags\": Array [\u001b[39m\n\u001b[31m+       \"cat.semantics\",\u001b[39m\n\u001b[31m+       \"best-practice\",\u001b[39m\n\u001b[31m+     ],\u001b[39m\n\u001b[31m+   },\u001b[39m\n\u001b[31m+ ]\u001b[39m\n\n  15 |   const result=await page.evaluate(async()=>{const tool=(window as any).axe;const report=await tool.run(document,{resultTypes:['violations','incomplete']});return {version:tool.version,violations:report.violations,incomplete:report.incomplete};});\n  16 |   write('axe-'+name,{path:new URL(page.url()).pathname,viewport:{width:360,height:800},...result,scope:'Automated axe checks in a synthetic owned browser; no WCAG/Lighthouse/legal certification'});\n> 17 |   expect(result.version).toBe('4.14.0');expect(result.violations,'Measured axe violations; inspect the saved report').toEqual([]);\n     |                                                                                                                       ^\n  18 | }\n  19 | function emptyBody(url:string):unknown{\n  20 |   if(url==='/api/dashboard')return {current_power_kw:null,daily_generation_kwh:null,daily_savings_inr:null,telemetry_fresh:false,freshness:{last_seen:null,valid_until:null,fresh:false},simulated:true};\n    at axe (C:\\Users\\JARVIS\\Desktop\\VOLTARAX\\voltarax-web\\frontend\\tests\\e2e\\phase11.spec.ts:17:119)\n    at C:\\Users\\JARVIS\\Desktop\\VOLTARAX\\voltarax-web\\frontend\\tests\\e2e\\phase11.spec.ts:84:5"
+                    }
+                  ],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-02T07:03:00.214Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "screenshot",
+                      "contentType": "image/png",
+                      "path": "C:\\Users\\JARVIS\\Desktop\\VOLTARAX\\.local-tools\\playwright\\phase11-gate-web-run2-browser\\phase11--phase11-data-scre-d2f58-x-with-measured-axe-results\\test-failed-1.png"
+                    },
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "C:\\Users\\JARVIS\\Desktop\\VOLTARAX\\.local-tools\\playwright\\phase11-gate-web-run2-browser\\phase11--phase11-data-scre-d2f58-x-with-measured-axe-results\\error-context.md"
+                    },
+                    {
+                      "name": "trace",
+                      "contentType": "application/zip",
+                      "path": "C:\\Users\\JARVIS\\Desktop\\VOLTARAX\\.local-tools\\playwright\\phase11-gate-web-run2-browser\\phase11--phase11-data-scre-d2f58-x-with-measured-axe-results\\trace.zip"
+                    }
+                  ],
+                  "errorLocation": {
+                    "file": "C:\\Users\\JARVIS\\Desktop\\VOLTARAX\\voltarax-web\\frontend\\tests\\e2e\\phase11.spec.ts",
+                    "column": 119,
+                    "line": 17
+                  }
+                }
+              ],
+              "status": "unexpected"
+            }
+          ],
+          "id": "8461b0d06a2faf842e01-3fb4c9511c7826974d2e",
+          "file": "phase11.spec.ts",
+          "line": 69,
+          "column": 5
+        }
+      ]
+    },
+    {
+      "title": "public.spec.ts",
+      "file": "public.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [
+        {
+          "title": "@public 360px language switch, native cursor, keyboard skip and navigation",
+          "ok": true,
+          "tags": [
+            "public"
+          ],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 4,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 6093,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-02T07:03:11.484Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "muted-text-contrast-against-page-background",
+                      "contentType": "application/json",
+                      "body": "eyJzYW1wbGVzIjo0OCwibWluaW11bSI6OS41NDMyOTgyNzQ3Mzc0NjUsImxpbWl0YXRpb24iOiJTb2xpZCBwYWdlIGJhY2tncm91bmQ7IG5vdCBhIGZ1bGwgV0NBRyBvciBpbWFnZS9ncmFkaWVudCBhdWRpdCJ9"
+                    }
+                  ]
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "349fc90c6061c792a808-4b92ce5cb876e3960a74",
+          "file": "public.spec.ts",
+          "line": 26,
+          "column": 5
+        },
+        {
+          "title": "@public clock crosses IST midnight, pauses on visibility event and has stable reduced-motion text",
+          "ok": true,
+          "tags": [
+            "public"
+          ],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 4,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 2500,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-02T07:03:18.753Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "349fc90c6061c792a808-5ab657a94a54901fbc1a",
+          "file": "public.spec.ts",
+          "line": 47,
+          "column": 5
+        },
+        {
+          "title": "@public prepared assistant preserves entered Hindi text and returns keyboard focus",
+          "ok": true,
+          "tags": [
+            "public"
+          ],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 4,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 2225,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-02T07:03:21.281Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "349fc90c6061c792a808-5e8bccaf4b62c8774f94",
+          "file": "public.spec.ts",
+          "line": 61,
+          "column": 5
+        },
+        {
+          "title": "@public Hindi draft metadata, form labels and synthetic submission only",
+          "ok": true,
+          "tags": [
+            "public"
+          ],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 4,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 2981,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-02T07:03:23.543Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "349fc90c6061c792a808-36104de94683af9984b0",
+          "file": "public.spec.ts",
+          "line": 71,
+          "column": 5
+        },
+        {
+          "title": "@public Hindi role labels retain API values and closed mobile sidebar stays hidden",
+          "ok": true,
+          "tags": [
+            "public"
+          ],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 4,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1509,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-02T07:03:26.609Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "349fc90c6061c792a808-5de8619f81feed63c6b1",
+          "file": "public.spec.ts",
+          "line": 95,
+          "column": 5
+        }
+      ]
+    }
+  ],
+  "errors": [],
+  "stats": {
+    "startTime": "2026-11-02T06:51:17.909Z",
+    "duration": 734013.6059999999,
+    "expected": 6,
+    "skipped": 0,
+    "unexpected": 4,
+    "flaky": 0
+  }
+}

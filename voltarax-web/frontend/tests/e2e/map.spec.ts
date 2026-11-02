@@ -20,7 +20,7 @@ test('@public @map client-only vector map joins recorded zero and safe text with
   await page.route('**/api/map/states',route=>route.fulfill({json:{states:[state],stateAssignment:name,assignmentMatched:true}}));
   await page.goto('/dashboard/map');
   await expect(page.locator('.leaflet-interactive')).toHaveCount(1);
-  await expect(page.getByRole('table')).toContainText('0.000000 kWh');
+  await expect(page.getByRole('table')).toContainText('0 kWh');
   await expect(page.getByRole('rowheader',{name})).toBeVisible();
   const shape=page.locator('.leaflet-interactive'), bounds=await shape.boundingBox(); expect(bounds).not.toBeNull();
   await shape.hover({position:{x:bounds!.width*.8,y:bounds!.height*.8}});

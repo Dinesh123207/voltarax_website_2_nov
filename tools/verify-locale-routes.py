@@ -90,8 +90,10 @@ def run_browser(layouts_only=False):
     selection = os.environ.get('FRONTEND_CHECK_GREP')
     if selection:
         if not re.fullmatch(r'[@a-zA-Z0-9 |()._-]{1,100}', selection): raise RuntimeError('Invalid local browser selection')
-        command = [shutil.which('npm.cmd' if os.name == 'nt' else 'npm'), 'run', 'test:e2e', '--', '--grep', selection]
-    browser = subprocess.run(command, cwd=frontend, env=browser_env, timeout=300)
+        # npm.cmd re-enters cmd.exe on Windows; a regex pipe becomes a shell pipe.
+        # Invoke the exact Playwright CLI behind the checked test:e2e script instead.
+        command = [shutil.which('node'), str(frontend / 'node_modules/@playwright/test/cli.js'), 'test', '--grep', selection]
+    browser = subprocess.run(command, cwd=frontend, env=browser_env, timeout=420)
     if browser.returncode:
         raise RuntimeError('Browser checks failed; inspect the saved browser result')
     stats = json.loads((root / f'docs/test-results/{label}-browser.json').read_text(encoding='utf-8'))['stats']

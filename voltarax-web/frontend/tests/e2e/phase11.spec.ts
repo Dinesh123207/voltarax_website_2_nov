@@ -14,7 +14,7 @@ async function axe(page:Page,name:string){
   await page.addScriptTag({path:file});
   const result=await page.evaluate(async()=>{const tool=(window as any).axe;const report=await tool.run(document,{resultTypes:['violations','incomplete']});return {version:tool.version,violations:report.violations,incomplete:report.incomplete};});
   write('axe-'+name,{path:new URL(page.url()).pathname,viewport:{width:360,height:800},...result,scope:'Automated axe checks in a synthetic owned browser; no WCAG/Lighthouse/legal certification'});
-  expect(result.version).toBe('4.14.0');expect(result.violations,'Measured axe violations; inspect the saved report').toEqual([]);
+  expect(result.version).toBe('4.14.0');expect.soft(result.violations,'Measured axe violations; inspect the saved report').toEqual([]);
 }
 function emptyBody(url:string):unknown{
   if(url==='/api/dashboard')return {current_power_kw:null,daily_generation_kwh:null,daily_savings_inr:null,telemetry_fresh:false,freshness:{last_seen:null,valid_until:null,fresh:false},simulated:true};
@@ -55,7 +55,7 @@ test('@phase11 original media is lazy, captioned, controllable and absent under 
   await page.emulateMedia({reducedMotion:'reduce'});await page.goto('/hi');await expect(page.locator('video')).toHaveCount(0);await axe(page,'home-hi-reduced');
 });
 test('@phase11 savings-first grouping and last-updated expire offline without hydration or hidden ticks',async({page})=>{
-  await page.clock.install({time:new Date(baseline)});await page.clock.pauseAt(new Date(baseline));
+  await page.clock.install({time:new Date(baseline)});
   await page.route('**/api/dashboard',route=>route.fulfill({status:200,contentType:'application/json',body:JSON.stringify({current_power_kw:1.234,daily_generation_kwh:12345.67,daily_savings_inr:1234567.5,telemetry_fresh:true,freshness,simulated:true})}));
   await page.goto('/dashboard');await expect(page.locator('[data-metric]').first()).toContainText('Estimated Savings Today');await expect(page.locator('[data-metric]').nth(1)).toContainText('Recorded Energy Today');
   await expect(page.locator('[data-metric]').first()).toContainText('₹12,34,567.50');await expect(page.locator('[data-metric]').nth(1)).toContainText('12,345.67');

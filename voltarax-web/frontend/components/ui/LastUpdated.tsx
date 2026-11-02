@@ -15,6 +15,6 @@ export default function LastUpdated(){
     return()=>{active=false;stop();controller?.abort();window.removeEventListener('online',connection);window.removeEventListener('offline',connection);};
   },[]);
   const state=error?'offline':readingState(data,now,online);
-  const stamp=data?.last_seen?Date.parse(data.last_seen):NaN;
-  return <span data-reading-state={state} className="text-xs text-slate-200 tabular-nums" aria-live="off">{c(state==='offline'?'Offline - last updated':'Last updated')}: {Number.isFinite(stamp)?formatISTClock(stamp,locale==='hi'?'hi-IN':'en-IN'):c('Unavailable')}</span>;
+  const stamp=typeof data?.last_seen==='string'?Date.parse(data.last_seen):NaN;
+  return <span data-reading-state={state} className="text-xs text-slate-200 tabular-nums" aria-live="off">{c(state==='offline'?'Offline - last updated':'Last updated')}: {state!=='unavailable'&&Number.isFinite(stamp)?formatISTClock(stamp,locale==='hi'?'hi-IN':'en-IN'):c('Unavailable')}</span>;
 }

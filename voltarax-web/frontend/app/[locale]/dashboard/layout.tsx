@@ -161,8 +161,8 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
             <LanguageSwitcher />
             <ISTClock />
             {siteAccess&&<LastUpdated/>}
+            {testMode&&<span className="text-xs text-amber-300">{c('Test data')}</span>}
             <div className="hidden md:flex items-center gap-2 text-xs text-green-600 font-mono">
-              {copyText(testMode && <span className="text-amber-300">{c('Test data')}</span>)}
               {c('Dashboard')}
             </div>
           </div>

@@ -1,0 +1,251 @@
+Standalone public/static build assets are ready
+Built standalone public/static assets staged locally
+
+Running 10 tests using 1 worker
+
+(node:17576) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node.EXE --trace-warnings ...` to show where the warning was created)
+  ok  1 tests\e2e\map.spec.ts:8:5 › @public @map Hindi missing-data state never invents an India outline (14.2s)
+  x   2 tests\e2e\map.spec.ts:16:5 › @public @map client-only vector map joins recorded zero and safe text with table alternative (19.9s)
+(node:2320) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node.EXE --trace-warnings ...` to show where the warning was created)
+  x   3 tests\e2e\phase11.spec.ts:44:5 › @phase11 original media is lazy, captioned, controllable and absent under reduced motion (16.5s)
+(node:5652) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node.EXE --trace-warnings ...` to show where the warning was created)
+  x   4 tests\e2e\phase11.spec.ts:57:5 › @phase11 savings-first grouping and last-updated expire offline without hydration or hidden ticks (9.6m)
+(node:20912) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node.EXE --trace-warnings ...` to show where the warning was created)
+  x   5 tests\e2e\phase11.spec.ts:69:5 › @phase11 data screens expose loading empty offline error states at 360px with measured axe results (6.5s)
+(node:3620) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node.EXE --trace-warnings ...` to show where the warning was created)
+  ok  6 tests\e2e\public.spec.ts:26:5 › @public 360px language switch, native cursor, keyboard skip and navigation (6.1s)
+  ok  7 tests\e2e\public.spec.ts:47:5 › @public clock crosses IST midnight, pauses on visibility event and has stable reduced-motion text (2.5s)
+  ok  8 tests\e2e\public.spec.ts:61:5 › @public prepared assistant preserves entered Hindi text and returns keyboard focus (2.2s)
+  ok  9 tests\e2e\public.spec.ts:71:5 › @public Hindi draft metadata, form labels and synthetic submission only (3.0s)
+  ok 10 tests\e2e\public.spec.ts:95:5 › @public Hindi role labels retain API values and closed mobile sidebar stays hidden (1.5s)
+
+
+  1) tests\e2e\map.spec.ts:16:5 › @public @map client-only vector map joins recorded zero and safe text with table alternative 
+
+    Error: expect(locator).toContainText(expected) failed
+
+    Locator: getByRole('table')
+    Expected substring: "0.000000 kWh"
+    Received string:    "State values for the configured siteState or territoryConfigured sitesRegistered devicesRecorded energy todayCoverage secondsSynthetic <img src=x onerror=alert(1)>1 Calculated0 Calculated0 kWh Estimated60 / 3600 Calculated"
+    Timeout: 5000ms
+
+    Call log:
+      - Expect "toContainText" getByRole('table') with timeout 5000ms
+      - waiting for getByRole('table')
+        12 × locator resolved to <table class="w-full text-left text-sm tabular-nums">…</table>
+           - unexpected value "State values for the configured siteState or territoryConfigured sitesRegistered devicesRecorded energy todayCoverage secondsSynthetic <img src=x onerror=alert(1)>1 Calculated0 Calculated0 kWh Estimated60 / 3600 Calculated"
+
+
+      21 |   await page.goto('/dashboard/map');
+      22 |   await expect(page.locator('.leaflet-interactive')).toHaveCount(1);
+    > 23 |   await expect(page.getByRole('table')).toContainText('0.000000 kWh');
+         |                                         ^
+      24 |   await expect(page.getByRole('rowheader',{name})).toBeVisible();
+      25 |   const shape=page.locator('.leaflet-interactive'), bounds=await shape.boundingBox(); expect(bounds).not.toBeNull();
+      26 |   await shape.hover({position:{x:bounds!.width*.8,y:bounds!.height*.8}});
+        at C:\Users\JARVIS\Desktop\VOLTARAX\voltarax-web\frontend\tests\e2e\map.spec.ts:23:41
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    ..\..\.local-tools\playwright\phase11-gate-web-run2-browser\map--public-map-client-onl-6c958-text-with-table-alternative\test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: ..\..\.local-tools\playwright\phase11-gate-web-run2-browser\map--public-map-client-onl-6c958-text-with-table-alternative\error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    ..\..\.local-tools\playwright\phase11-gate-web-run2-browser\map--public-map-client-onl-6c958-text-with-table-alternative\trace.zip
+    Usage:
+
+        npx playwright show-trace ..\..\.local-tools\playwright\phase11-gate-web-run2-browser\map--public-map-client-onl-6c958-text-with-table-alternative\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  2) tests\e2e\phase11.spec.ts:44:5 › @phase11 original media is lazy, captioned, controllable and absent under reduced motion 
+
+    Error: Measured axe violations; inspect the saved report
+
+    expect(received).toEqual(expected) // deep equality
+
+    - Expected  -  1
+    + Received  + 40
+
+    - Array []
+    + Array [
+    +   Object {
+    +     "description": "Ensure that elements labelled through their content must have their visible text as part of their accessible name",
+    +     "help": "Elements must have their visible text as part of their accessible name",
+    +     "helpUrl": "https://dequeuniversity.com/rules/axe/4.14/label-content-name-mismatch?application=axeAPI",
+    +     "id": "label-content-name-mismatch",
+    +     "impact": "serious",
+    +     "nodes": Array [
+    +       Object {
+    +         "all": Array [],
+    +         "any": Array [
+    +           Object {
+    +             "data": null,
+    +             "id": "label-content-name-mismatch",
+    +             "impact": "serious",
+    +             "message": "Text inside the element is not included in the accessible name",
+    +             "relatedNodes": Array [],
+    +           },
+    +         ],
+    +         "failureSummary": "Fix any of the following:
+    +   Text inside the element is not included in the accessible name",
+    +         "html": "<a href=\"#why\" aria-label=\"Scroll to content\" class=\"absolute bottom-7 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 text-slate-600 hover:text-emerald-300\">",
+    +         "impact": "serious",
+    +         "none": Array [],
+    +         "target": Array [
+    +           ".bottom-7",
+    +         ],
+    +       },
+    +     ],
+    +     "tags": Array [
+    +       "cat.semantics",
+    +       "wcag21a",
+    +       "wcag253",
+    +       "EN-301-549",
+    +       "EN-9.2.5.3",
+    +       "RGAAv4",
+    +       "RGAA-6.1.5",
+    +     ],
+    +   },
+    + ]
+
+      15 |   const result=await page.evaluate(async()=>{const tool=(window as any).axe;const report=await tool.run(document,{resultTypes:['violations','incomplete']});return {version:tool.version,violations:report.violations,incomplete:report.incomplete};});
+      16 |   write('axe-'+name,{path:new URL(page.url()).pathname,viewport:{width:360,height:800},...result,scope:'Automated axe checks in a synthetic owned browser; no WCAG/Lighthouse/legal certification'});
+    > 17 |   expect(result.version).toBe('4.14.0');expect(result.violations,'Measured axe violations; inspect the saved report').toEqual([]);
+         |                                                                                                                       ^
+      18 | }
+      19 | function emptyBody(url:string):unknown{
+      20 |   if(url==='/api/dashboard')return {current_power_kw:null,daily_generation_kwh:null,daily_savings_inr:null,telemetry_fresh:false,freshness:{last_seen:null,valid_until:null,fresh:false},simulated:true};
+        at axe (C:\Users\JARVIS\Desktop\VOLTARAX\voltarax-web\frontend\tests\e2e\phase11.spec.ts:17:119)
+        at C:\Users\JARVIS\Desktop\VOLTARAX\voltarax-web\frontend\tests\e2e\phase11.spec.ts:47:3
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    ..\..\.local-tools\playwright\phase11-gate-web-run2-browser\phase11--phase11-original--0a3ff-absent-under-reduced-motion\test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: ..\..\.local-tools\playwright\phase11-gate-web-run2-browser\phase11--phase11-original--0a3ff-absent-under-reduced-motion\error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    ..\..\.local-tools\playwright\phase11-gate-web-run2-browser\phase11--phase11-original--0a3ff-absent-under-reduced-motion\trace.zip
+    Usage:
+
+        npx playwright show-trace ..\..\.local-tools\playwright\phase11-gate-web-run2-browser\phase11--phase11-original--0a3ff-absent-under-reduced-motion\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  3) tests\e2e\phase11.spec.ts:57:5 › @phase11 savings-first grouping and last-updated expire offline without hydration or hidden ticks 
+
+    Error: clock.pauseAt: Error: Cannot fast-forward to the past
+        at ClockController._innerFastForwardTo (eval at evaluate (:370:30), <anonymous>:201:13)
+        at ClockController.pauseAt (eval at evaluate (:370:30), <anonymous>:132:16)
+        at async <anonymous>:396:30
+        at ClockController._innerFastForwardTo (eval at evaluate (:370:30), <anonymous>:201:13)
+        at ClockController.pauseAt (eval at evaluate (:370:30), <anonymous>:132:16)
+        at async <anonymous>:396:30
+        at C:\Users\JARVIS\Desktop\VOLTARAX\voltarax-web\frontend\tests\e2e\phase11.spec.ts:58:72
+
+    Tearing down "context" exceeded the test timeout of 45000ms.
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    ..\..\.local-tools\playwright\phase11-gate-web-run2-browser\phase11--phase11-savings-f-f3e59-t-hydration-or-hidden-ticks\test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: ..\..\.local-tools\playwright\phase11-gate-web-run2-browser\phase11--phase11-savings-f-f3e59-t-hydration-or-hidden-ticks\error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    ..\..\.local-tools\playwright\phase11-gate-web-run2-browser\phase11--phase11-savings-f-f3e59-t-hydration-or-hidden-ticks\trace.zip
+    Usage:
+
+        npx playwright show-trace ..\..\.local-tools\playwright\phase11-gate-web-run2-browser\phase11--phase11-savings-f-f3e59-t-hydration-or-hidden-ticks\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  4) tests\e2e\phase11.spec.ts:69:5 › @phase11 data screens expose loading empty offline error states at 360px with measured axe results 
+
+    Error: Measured axe violations; inspect the saved report
+
+    expect(received).toEqual(expected) // deep equality
+
+    - Expected  -  1
+    + Received  + 35
+
+    - Array []
+    + Array [
+    +   Object {
+    +     "description": "Ensure the order of headings is semantically correct",
+    +     "help": "Heading levels should only increase by one",
+    +     "helpUrl": "https://dequeuniversity.com/rules/axe/4.14/heading-order?application=axeAPI",
+    +     "id": "heading-order",
+    +     "impact": "moderate",
+    +     "nodes": Array [
+    +       Object {
+    +         "all": Array [],
+    +         "any": Array [
+    +           Object {
+    +             "data": null,
+    +             "id": "heading-order",
+    +             "impact": "moderate",
+    +             "message": "Heading order invalid",
+    +             "relatedNodes": Array [],
+    +           },
+    +         ],
+    +         "failureSummary": "Fix any of the following:
+    +   Heading order invalid",
+    +         "html": "<h3 class=\"text-white font-semibold text-sm\">Site Health</h3>",
+    +         "impact": "moderate",
+    +         "none": Array [],
+    +         "target": Array [
+    +           ".stat-card:nth-child(1) > .mb-4.justify-between.items-center > h3",
+    +         ],
+    +       },
+    +     ],
+    +     "tags": Array [
+    +       "cat.semantics",
+    +       "best-practice",
+    +     ],
+    +   },
+    + ]
+
+      15 |   const result=await page.evaluate(async()=>{const tool=(window as any).axe;const report=await tool.run(document,{resultTypes:['violations','incomplete']});return {version:tool.version,violations:report.violations,incomplete:report.incomplete};});
+      16 |   write('axe-'+name,{path:new URL(page.url()).pathname,viewport:{width:360,height:800},...result,scope:'Automated axe checks in a synthetic owned browser; no WCAG/Lighthouse/legal certification'});
+    > 17 |   expect(result.version).toBe('4.14.0');expect(result.violations,'Measured axe violations; inspect the saved report').toEqual([]);
+         |                                                                                                                       ^
+      18 | }
+      19 | function emptyBody(url:string):unknown{
+      20 |   if(url==='/api/dashboard')return {current_power_kw:null,daily_generation_kwh:null,daily_savings_inr:null,telemetry_fresh:false,freshness:{last_seen:null,valid_until:null,fresh:false},simulated:true};
+        at axe (C:\Users\JARVIS\Desktop\VOLTARAX\voltarax-web\frontend\tests\e2e\phase11.spec.ts:17:119)
+        at C:\Users\JARVIS\Desktop\VOLTARAX\voltarax-web\frontend\tests\e2e\phase11.spec.ts:84:5
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    ..\..\.local-tools\playwright\phase11-gate-web-run2-browser\phase11--phase11-data-scre-d2f58-x-with-measured-axe-results\test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: ..\..\.local-tools\playwright\phase11-gate-web-run2-browser\phase11--phase11-data-scre-d2f58-x-with-measured-axe-results\error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    ..\..\.local-tools\playwright\phase11-gate-web-run2-browser\phase11--phase11-data-scre-d2f58-x-with-measured-axe-results\trace.zip
+    Usage:
+
+        npx playwright show-trace ..\..\.local-tools\playwright\phase11-gate-web-run2-browser\phase11--phase11-data-scre-d2f58-x-with-measured-axe-results\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  4 failed
+    tests\e2e\map.spec.ts:16:5 › @public @map client-only vector map joins recorded zero and safe text with table alternative 
+    tests\e2e\phase11.spec.ts:44:5 › @phase11 original media is lazy, captioned, controllable and absent under reduced motion 
+    tests\e2e\phase11.spec.ts:57:5 › @phase11 savings-first grouping and last-updated expire offline without hydration or hidden ticks 
+    tests\e2e\phase11.spec.ts:69:5 › @phase11 data screens expose loading empty offline error states at 360px with measured axe results 
+  6 passed (12.2m)
+Traceback (most recent call last):
+  File "C:\Users\JARVIS\Desktop\VOLTARAX\tools\verify-locale-routes.py", line 182, in <module>
+    result['browser_stats'] = run_browser()
+                              ~~~~~~~~~~~^^
+  File "C:\Users\JARVIS\Desktop\VOLTARAX\tools\verify-locale-routes.py", line 98, in run_browser
+    raise RuntimeError('Browser checks failed; inspect the saved browser result')
+RuntimeError: Browser checks failed; inspect the saved browser result

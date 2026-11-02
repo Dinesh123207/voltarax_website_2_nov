@@ -98,7 +98,7 @@ export default function HeroSection() {
           <FlowMedia variant="hero"/>
         </div>
 
-        <a href="#why" aria-label={copyText("Scroll to content")} className="absolute bottom-7 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 text-slate-600 hover:text-emerald-300">
+        <a href="#why" className="absolute bottom-7 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 text-slate-600 hover:text-emerald-300">
           <span className="text-[10px] tracking-[.25em] uppercase">{copyText("Discover")}</span>
           <ArrowDown size={15} />
         </a>
