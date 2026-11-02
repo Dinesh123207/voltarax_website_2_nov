@@ -1,0 +1,125 @@
+
+> voltarax-frontend@1.0.0 build
+> next build
+
+   ▲ Next.js 15.5.28
+   - Experiments (use with caution):
+     · cpus: 1
+
+   Creating an optimized production build ...
+ ✓ Compiled successfully in 20.1s
+   Linting and checking validity of types ...
+   Collecting page data ...
+   Generating static pages (0/56) ...
+   Generating static pages (14/56) 
+   Generating static pages (28/56) 
+   Generating static pages (42/56) 
+ ✓ Generating static pages (56/56)
+   Finalizing page optimization ...
+   Collecting build traces ...
+
+Route (app)                                  Size  First Load JS
+┌ ○ /_not-found                              1 kB         104 kB
+├ ● /[locale]                             8.92 kB         153 kB
+├   ├ /en
+├   └ /hi
+├ ● /[locale]/about                         135 B         148 kB
+├   ├ /en/about
+├   └ /hi/about
+├ ● /[locale]/account/orders               6.1 kB         150 kB
+├   ├ /en/account/orders
+├   └ /hi/account/orders
+├ ƒ /[locale]/account/orders/[id]          3.6 kB         154 kB
+├ ● /[locale]/contact                     7.79 kB         157 kB
+├   ├ /en/contact
+├   └ /hi/contact
+├ ● /[locale]/dashboard                   6.32 kB         145 kB
+├   ├ /en/dashboard
+├   └ /hi/dashboard
+├ ● /[locale]/dashboard/alerts            3.67 kB         148 kB
+├   ├ /en/dashboard/alerts
+├   └ /hi/dashboard/alerts
+├ ● /[locale]/dashboard/bfci                133 B         144 kB
+├   ├ /en/dashboard/bfci
+├   └ /hi/dashboard/bfci
+├ ● /[locale]/dashboard/carbon               6 kB         144 kB
+├   ├ /en/dashboard/carbon
+├   └ /hi/dashboard/carbon
+├ ● /[locale]/dashboard/commerce          1.87 kB         152 kB
+├   ├ /en/dashboard/commerce
+├   └ /hi/dashboard/commerce
+├ ● /[locale]/dashboard/cv                  131 B         144 kB
+├   ├ /en/dashboard/cv
+├   └ /hi/dashboard/cv
+├ ● /[locale]/dashboard/devices           3.32 kB         142 kB
+├   ├ /en/dashboard/devices
+├   └ /hi/dashboard/devices
+├ ● /[locale]/dashboard/forecast          4.73 kB         143 kB
+├   ├ /en/dashboard/forecast
+├   └ /hi/dashboard/forecast
+├ ● /[locale]/dashboard/map                3.9 kB         142 kB
+├   ├ /en/dashboard/map
+├   └ /hi/dashboard/map
+├ ● /[locale]/dashboard/panels            4.41 kB         143 kB
+├   ├ /en/dashboard/panels
+├   └ /hi/dashboard/panels
+├ ● /[locale]/dashboard/relay             3.58 kB         142 kB
+├   ├ /en/dashboard/relay
+├   └ /hi/dashboard/relay
+├ ● /[locale]/dashboard/settings          3.99 kB         148 kB
+├   ├ /en/dashboard/settings
+├   └ /hi/dashboard/settings
+├ ● /[locale]/dashboard/users             4.65 kB         143 kB
+├   ├ /en/dashboard/users
+├   └ /hi/dashboard/users
+├ ● /[locale]/dashboard/work-orders       3.69 kB         148 kB
+├   ├ /en/dashboard/work-orders
+├   └ /hi/dashboard/work-orders
+├ ƒ /[locale]/dashboard/work-orders/[id]  3.66 kB         148 kB
+├ ● /[locale]/login                       2.95 kB         147 kB
+├   ├ /en/login
+├   └ /hi/login
+├ ● /[locale]/pricing                     6.73 kB         151 kB
+├   ├ /en/pricing
+├   └ /hi/pricing
+├ ● /[locale]/privacy                       135 B         148 kB
+├   ├ /en/privacy
+├   └ /hi/privacy
+├ ● /[locale]/products                      135 B         148 kB
+├   ├ /en/products
+├   └ /hi/products
+├ ● /[locale]/refunds                       136 B         148 kB
+├   ├ /en/refunds
+├   └ /hi/refunds
+├ ● /[locale]/sustainability                136 B         148 kB
+├   ├ /en/sustainability
+├   └ /hi/sustainability
+├ ● /[locale]/technology                    135 B         148 kB
+├   ├ /en/technology
+├   └ /hi/technology
+├ ● /[locale]/terms                         135 B         148 kB
+├   ├ /en/terms
+├   └ /hi/terms
+├ ƒ /healthz                                140 B         103 kB
+├ ƒ /og.png                                 140 B         103 kB
+├ ƒ /robots.txt                             140 B         103 kB
+└ ƒ /sitemap.xml                            140 B         103 kB
++ First Load JS shared by all              103 kB
+  ├ chunks/1255-dc3ddf72a1dc71a7.js       46.6 kB
+  ├ chunks/4bd1b696-f785427dddbba9fb.js   54.2 kB
+  └ other shared chunks (total)           2.52 kB
+
+
+ƒ Middleware                              46.4 kB
+
+○  (Static)   prerendered as static content
+●  (SSG)      prerendered as static HTML (uses generateStaticParams)
+ƒ  (Dynamic)  server-rendered on demand
+
+
+> voltarax-frontend@1.0.0 postbuild
+> node scripts/check-media.cjs && node scripts/prepare-standalone.cjs
+
+{"original":true,"files":[{"file":"system-flow.webm","bytes":12914,"ceiling":524288,"sha256":"48b7041a8981b12d251a178356d02bd7f880b451922c5c3df96e1f4790f282e6"},{"file":"system-flow-poster.svg","bytes":1120,"ceiling":32768,"sha256":"abb5e4d511721acbbfc9e1e9f6550b5664029e0aa036ce918635a7bbd7d0e4f8"},{"file":"system-flow.en.vtt","bytes":186,"ceiling":16384,"sha256":"d4b15bb86362c213b6af3dfd7890decaceec2f85f5c7f5078bbd71abb8f03c90"},{"file":"system-flow.hi.vtt","bytes":387,"ceiling":16384,"sha256":"6628cb97c1762005b2d113b08051fd3392ca7ecaf18e55bafd314f6355aa8359"}],"totalBytes":14607,"withinBudget":true,"policy":"Engineering resource caps, not performance/business claims"}
+Standalone public/static build assets are ready
+{"built_with_owned_loopback_backend": true, "backend_port": 38475, "indexing": false}

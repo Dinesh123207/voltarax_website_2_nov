@@ -1,0 +1,14 @@
+{
+  "command": [
+    "node",
+    "--test",
+    "--test-concurrency=1",
+    "tests/ai-freshness.test.js",
+    "tests/firebase-query.test.js",
+    "tests/dashboard-freshness.test.js",
+    "tests/commerce.test.js"
+  ],
+  "cwd": ".",
+  "exit_code": 0,
+  "seconds": 21.56
+}

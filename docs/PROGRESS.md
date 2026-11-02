@@ -1,6 +1,6 @@
 # Autopilot progress
 
-RESUME HERE: Phase 11 required local work and gate complete on phase-11-gaps. External activation and optional nonce CSP remain as recorded in MANUAL_STEPS.md and KNOWN_ISSUES.md; no external action is authorized.
+RESUME HERE: Sustainability visual and isolated stack-connection recheck complete on codex/sustainability-connections. Follow STACK_CONNECTION_RECHECK.md and MANUAL_STEPS.md for external service and hardware verification; no external activation is authorized.
 
 Current checkpoint: Phase 11 local gate passed: 88 backend, 28 AI, 10 UI and 4 actual-API browser cases, 1 Firebase rules and 4 native cases, placeholder firmware compile, build, lint, types, packaging, production audit and supported-pattern scan. Axe: 18 scans, 0 violations, 2 incomplete color-contrast checks; solid-pair minimum 10.14:1. Reports and per-check evidence are saved in test-results/. Optional nonce CSP Skipped; external activation remains Partial.
 
@@ -167,3 +167,7 @@ Checkpoint wording in older task rows is historical; the current summary and fin
 - [x] Final UI run passed ten cases/15-screen state matrix, 18 axe scans with 0 violations and 22 incomplete checks; actual-API four cases pass (50.85 s), generated types pass. Manual inspection of incomplete nodes then found a fixable Carbon missing-value overlap, unsupported aria-label on time and an empty device table without a body message. Corrected all three before final artifact generation: responsive Carbon values, native clock title, explicit empty row. Source types pass (8.12 s); refreshed build/browser confirmation is required. Remaining incomplete complex public contrast will stay honestly scoped/manual.
 
 - [x] Reviewed rerun passes 10 UI cases/18 axe scans, 0 violations. Incomplete entries fell from 22 to 3: two public gradient/overlay contrast contexts and a map legend name on an untyped div. Added the explicit group role to that legend; final release build/confirmation follows. Public complex contrast remains manual, with raw solid-role ratios saved.
+
+
+## Sustainability visual and connection recheck
+Original responsive solar landscape and PIB-attributed EN/HI slogans added, with reduced-motion support. Build, 5 focused contracts, 7 synthetic AI contract cases, 4 actual-API browser cases, packaging, synthetic Compose parsing and EN/HI mobile browser/axe checks passed. Two color-contrast items require manual review. Container AI credential-file mount limitation is documented; Docker/real services/hardware remain unverified. See STACK_CONNECTION_RECHECK.md and test-results/sustainability-*. No live data or external action.

@@ -1,0 +1,10 @@
+{
+  "command": [
+    "node",
+    "--test",
+    "tests/ai-predictions.test.js"
+  ],
+  "cwd": ".",
+  "exit_code": 0,
+  "seconds": 4.45
+}

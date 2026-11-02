@@ -1,0 +1,10 @@
+{
+  "command": [
+    "npm.cmd",
+    "run",
+    "build"
+  ],
+  "cwd": ".",
+  "exit_code": 0,
+  "seconds": 112.93
+}

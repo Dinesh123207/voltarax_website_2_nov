@@ -1,0 +1,18 @@
+Standalone public/static build assets are ready
+Built standalone public/static assets staged locally
+
+> voltarax-frontend@1.0.0 test:e2e
+> playwright test --grep @backend
+
+
+Running 4 tests using 1 worker
+
+(node:104) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ok 1 tests\e2e\backend.spec.ts:20:5 › @backend reviewed assistant uses the actual FAQ route with Hindi source and refusal (9.9s)
+  ok 2 tests\e2e\backend.spec.ts:28:5 › @backend registration OTP, real cookie login, site revocation, role access and Hindi switch (16.5s)
+  ok 3 tests\e2e\backend.spec.ts:58:5 › @backend administrator relay request and simulated acknowledgement keep physical feedback unavailable (10.1s)
+  ok 4 tests\e2e\backend.spec.ts:77:5 › @backend test checkout uses actual SQL/signatures, callback stays pending and capture creates one invoice (21.9s)
+
+  4 passed (1.1m)
+{"browser_stats": {"startTime": "2026-11-02T09:07:33.271Z", "duration": 63722.126, "expected": 4, "skipped": 0, "unexpected": 0, "flaky": 0}, "passing_cases": ["@backend reviewed assistant uses the actual FAQ route with Hindi source and refusal", "@backend registration OTP, real cookie login, site revocation, role access and Hindi switch", "@backend administrator relay request and simulated acknowledgement keep physical feedback unavailable", "@backend test checkout uses actual SQL/signatures, callback stays pending and capture creates one invoice"], "actual_product_routes": true, "storage": "Owned demo RTDB; ephemeral PGlite initialized only for SQL cases", "external_mail_gateway_hardware": "Fake sender, fake order/checkout and simulated GPIO acknowledgement only", "real_service_assurance": false}

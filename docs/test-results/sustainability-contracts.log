@@ -1,0 +1,13 @@
+✔ legacy AI output stays unavailable even with a fresh publication time (14.2541ms)
+✔ unpriced plans block checkout; snapshots, ownership and request-key idempotency persist in SQL (10345.8911ms)
+✔ ambiguous order creation is retained and is never automatically repeated (6649.6575ms)
+✔ stale or missing telemetry never becomes current zero power or offline panel counts (17.8135ms)
+✔ timestamp range is pushed to Firebase without limiting before site filtering (13.8826ms)
+ℹ tests 5
+ℹ suites 0
+ℹ pass 5
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 21306.6246

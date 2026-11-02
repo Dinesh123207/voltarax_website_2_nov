@@ -41,6 +41,22 @@ test.beforeEach(async({context,page,baseURL})=>{
   (page as any).__phase11={errors,external};
 });
 test.afterEach(async({page})=>{expect((page as any).__phase11.errors).toEqual([]);expect((page as any).__phase11.external).toEqual([]);});
+test('@sustainability sourced vision is responsive and respects reduced motion',async({page})=>{
+  await page.emulateMedia({reducedMotion:'reduce'});
+  await page.goto('/');
+  const vision=page.locator('.vision-section');
+  await expect(vision.getByRole('heading',{name:'One Sun, One World, One Grid'})).toBeVisible();
+  await expect(vision.getByRole('link')).toHaveAttribute('href',/pib\.gov\.in/);
+  expect(await vision.locator('.vision-sun-glow').evaluate(node=>getComputedStyle(node).animationName)).toBe('none');
+  expect(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth)).toBe(true);
+  await axe(page,'sustainability-en');
+  await vision.screenshot({path:shot('sustainability-en-360')});
+  await page.goto('/hi');
+  await expect(page.locator('.vision-section h2')).toHaveText('एक सूर्य, एक विश्व, एक ग्रिड');
+  expect(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth)).toBe(true);
+  await axe(page,'sustainability-hi');
+  await page.locator('.vision-section').screenshot({path:shot('sustainability-hi-360')});
+});
 test('@phase11 original media is lazy, captioned, controllable and absent under reduced motion',async({page})=>{
   await page.goto('/');await expect(page.locator('[data-flow-variant="hero"] svg')).toBeVisible();expect(await page.locator('video').count()).toBe(0);
   await page.locator('[data-flow-variant="explainer"]').scrollIntoViewIfNeeded();expect(await page.locator('video').count()).toBe(0);

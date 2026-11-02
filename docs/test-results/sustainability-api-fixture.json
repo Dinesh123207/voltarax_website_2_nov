@@ -1,0 +1,20 @@
+{
+  "browser_stats": {
+    "startTime": "2026-11-02T09:07:33.271Z",
+    "duration": 63722.126,
+    "expected": 4,
+    "skipped": 0,
+    "unexpected": 0,
+    "flaky": 0
+  },
+  "passing_cases": [
+    "@backend reviewed assistant uses the actual FAQ route with Hindi source and refusal",
+    "@backend registration OTP, real cookie login, site revocation, role access and Hindi switch",
+    "@backend administrator relay request and simulated acknowledgement keep physical feedback unavailable",
+    "@backend test checkout uses actual SQL/signatures, callback stays pending and capture creates one invoice"
+  ],
+  "actual_product_routes": true,
+  "storage": "Owned demo RTDB; ephemeral PGlite initialized only for SQL cases",
+  "external_mail_gateway_hardware": "Fake sender, fake order/checkout and simulated GPIO acknowledgement only",
+  "real_service_assurance": false
+}

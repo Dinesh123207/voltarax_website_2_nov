@@ -1,5 +1,9 @@
 # Manual steps and external verification
 
+## AI container credential connection
+
+- [ ] For a connected test installation, provide a dedicated least-privilege AI Firebase identity. The Compose AI service does not mount host credential files: arrange an operator-managed read-only secret mount and set AI_FIREBASE_SERVICE_ACCOUNT_FILE to the container path, or provide AI_FIREBASE_SERVICE_ACCOUNT_JSON privately. Verify against an isolated Firebase test project only after setup. Never commit or log credentials. Actual container connectivity has not been tested.
+
 ## Phase 11 follow-up
 
 - [ ] Accessibility reviewer: inspect the two incomplete public-page gradient color-contrast contexts in `test-results/phase11-release-web-browser-axe-home-{en,hi}-reduced.json`, then independently test keyboard and assistive technology. The measured solid-color pairs do not cover those gradients.

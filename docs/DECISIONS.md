@@ -329,3 +329,6 @@ Date: 2026-11-01. This is an internal project document. The internal project ref
 
 
 - [FOUND] Did not treat 0 axe violations as complete accessibility. Inspected all 22 incomplete entries: time aria-label support, Carbon values obscured at 360px, empty-device table cells and public gradient/overlay contrast. Replaced the time label with native title (visible time/live-off retained), fixed Carbon mobile value sizing/priority, and added an explicit empty device row. Public complex contrast/independent AT remains manual; new types pass and new browser evidence follows.
+
+
+- [FOUND] The public solar and LiFE phrases are attributed and linked to PIB; a bilingual, original vector landscape represents sustainability without claims about Voltarax, measured outcomes or official affiliation. [ASSUMED] A responsive resolution-independent SVG is suitable for a sharp visual effect without large external media; animation respects reduced motion.

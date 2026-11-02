@@ -1,0 +1,11 @@
+Standalone public/static build assets are ready
+Built standalone public/static assets staged locally
+
+Running 1 test using 1 worker
+
+(node:4744) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node.EXE --trace-warnings ...` to show where the warning was created)
+  ok 1 tests\e2e\phase11.spec.ts:44:5 › @sustainability sourced vision is responsive and respects reduced motion (9.9s)
+
+  1 passed (16.1s)
+{"english_and_hindi_document_languages": true, "hindi_navigation": true, "hindi_about_content": true, "hindi_home_products_technology_sustainability": true, "locale_preference_redirect": true, "api_and_health_proxy_unprefixed": true, "localized_checkout_header": true, "review_gated_metadata_robots_sitemap": true, "localized_page_metadata": true, "private_noindex_header": true, "original_1200x630_png": true, "hindi_legal_draft_noindex": true, "frontend_liveness_and_validation": true, "backend": "Owned loopback synthetic fixture only", "browser_workflow": "Local synthetic UI checks passed; no real services or backend authentication verification", "browser_stats": {"startTime": "2026-11-02T09:08:51.826Z", "duration": 16067.926, "expected": 1, "skipped": 0, "unexpected": 0, "flaky": 0}}

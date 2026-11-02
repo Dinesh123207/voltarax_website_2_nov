@@ -13,6 +13,21 @@
 @keyframes flow-dashes { to { stroke-dashoffset: -36; } }
 @media (prefers-reduced-motion: reduce) { .flow-path { animation: none; } }
 
+/* Original scalable solar landscape; no external media or claimed performance. */
+.vision-section { position: relative; min-height: 360px; display: flex; align-items: center; overflow: hidden; background: #071b17; }
+.vision-art, .vision-landscape { position: absolute; inset: 0; width: 100%; height: 100%; }
+.vision-art::after { content: ''; position: absolute; inset: 0; background: linear-gradient(90deg, rgba(3,18,14,.97) 0%, rgba(3,18,14,.87) 42%, rgba(3,18,14,.26) 100%); }
+.vision-sun-glow { transform-origin: 850px 175px; animation: vision-breathe 8s ease-in-out infinite alternate; }
+@keyframes vision-breathe { from { opacity: .65; transform: scale(.9); } to { opacity: 1; transform: scale(1.08); } }
+.vision-content { position: relative; z-index: 1; width: min(100%, 1280px); margin: auto; padding: 4rem 1.25rem; color: #f8fafc; }
+.vision-kicker { color: #bbf7d0; text-transform: uppercase; letter-spacing: .16em; font-size: .75rem; font-weight: 700; margin-bottom: 1rem; }
+.vision-content h2 { max-width: 720px; font-size: clamp(2rem, 5vw, 4.25rem); font-weight: 800; line-height: 1.1; letter-spacing: -.025em; }
+.vision-attribution { max-width: 580px; color: #e2e8f0; margin-top: 1rem; }
+.vision-life { color: #fef3c7; font-weight: 600; margin-top: 1.25rem; }
+.vision-content a { display: inline-block; color: #bbf7d0; text-decoration: underline; text-underline-offset: .25em; margin-top: 1rem; }
+.vision-content a:focus-visible { outline: 2px solid #bbf7d0; outline-offset: 4px; }
+@media (prefers-reduced-motion: reduce) { .vision-sun-glow { animation: none; } }
+
 /* ── Custom cursor ────────────────────────────────────────────────────────── */
 /* Native pointer/text cursors remain available on every input surface. */
 

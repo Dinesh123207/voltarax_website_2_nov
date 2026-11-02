@@ -140,3 +140,7 @@ System-flow SVG/CSS, poster, canvas recording generator and EN/HI captions are o
 
 
 Contrast method/threshold reference checked 2 November 2026: W3C Understanding SC 1.4.3, https://www.w3.org/WAI/WCAG22/Understanding/contrast-minimum.html . The script uses relative sRGB luminance and compares unrounded ratios; its scope is the recorded solid metric/surface pairs. Screenshot/axe checks do not establish WCAG or legal certification.
+
+
+## Sustainability visual and public quotations
+- PIB, 16 February 2022: https://www.pib.gov.in/Pressreleaseshare.aspx?PRID=1798831&lang=2&reg=48 records Prime Minister Narendra Modi presenting “One Sun, One World, One Grid” and LiFE as Lifestyle for Environment. Hindi wording also appears in https://www.pib.gov.in/PressReleasePage.aspx?PRID=2185137&lang=2&reg=48 . The original solar landscape is project-drawn vector/CSS; no government logo, official endorsement or project affiliation is implied.
