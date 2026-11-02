@@ -1,0 +1,10 @@
+✔ data activity reports loading/empty/error, retains real zero and isolates routes without consuming responses twice (131.2693ms)
+✔ Indian numeric grouping and rupees preserve valid zero and missing values (106.5605ms)
+ℹ tests 2
+ℹ suites 0
+ℹ pass 2
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 789.3248

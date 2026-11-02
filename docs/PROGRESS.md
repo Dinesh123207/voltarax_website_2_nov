@@ -150,3 +150,8 @@ Checkpoint wording in older task rows is historical; the current summary and fin
 
 
 - [x] Step 2 local media: original SVG/CSS hero and 480x360 canvas-recorded silent WebM explainer, poster/EN-HI captions/transcript, lazy/motion/hidden-tab/user pause and fallbacks. Generated with no external network/asset or Remotion. Actual total 14607 bytes/WebM 12914; postbuild budget/hash guard and source types pass (23.20 s). Removed dangling stock-video defaults; legacy flag uses original poster. Browser proof is pending. Axe 4.14.0 installed isolated (13.67 s), MPL-2.0/notice reviewed and preserved; no axe code is added to product dependencies/bundles.
+
+
+- [x] Steps 3/4 local code: shared tracked-GET loading/empty/not-found/offline/error notices (15 existing call-site files/shared helper), en-IN/tabular values, savings before units and four metric colors. Savings requires explicit tariff/recorded energy; absent values remain null. Pure data/format cases pass; role contrast minimum 10.137:1 over 12 pairs, saved.
+- [x] IST clock present in public/dashboard headers; added server freshness metadata/reading Last updated, client expiry/offline/current-value suppression, visibility-paused clock/polling and bad-date fallback. Combined six focused cases pass (1.59 s). Initial Map iterator type error fixed with Array.from; final source types pass (84.64 s) and focused lint pass (35.44 s). New 15-screen UI state/axe matrix, media check and actual-API assistant case prepared; complete gate is in progress.
+- [!] Optional Step 5 nonce CSP Skipped with concrete current rendering/cache/style-attribute/Checkout dependencies. Inline allowances remain a named Partial risk; no nonce implementation or certification claimed.

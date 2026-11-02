@@ -18,7 +18,7 @@
     },
     {
       "id": "ai-limitations",
-      "terms": ["ai", "model", "forecast", "anomaly", "एआई", "मॉडल", "पूर्वानुमान", "विसंगति"],
+      "terms": ["ai", "model", "forecast", "anomaly", "एआई", "कृत्रिम", "बुद्धिमत्ता", "मॉडल", "पूर्वानुमान", "विसंगति"],
       "files": ["ai-engine/README.md", "backend/services/forecast.js"],
       "en": {"title": "Current-condition AI and limits", "answer": "Current-condition models require fresh suitable inputs, sufficient history and candidate validation. Unusual patterns are estimates, not confirmed faults. Weather-ahead forecasting, automatic vision classification and autonomous dispatch remain unavailable."},
       "hi": {"title": "वर्तमान स्थितियों की एआई और सीमाएँ", "answer": "वर्तमान स्थितियों के मॉडल के लिए उपयुक्त ताज़ा इनपुट, पर्याप्त इतिहास और मॉडल सत्यापन आवश्यक हैं। असामान्य पैटर्न अनुमान हैं, पुष्ट खराबी नहीं। मौसम-आधारित भविष्य का पूर्वानुमान, स्वचालित दृश्य वर्गीकरण और स्वायत्त कार्य आवंटन अभी उपलब्ध नहीं हैं।"}

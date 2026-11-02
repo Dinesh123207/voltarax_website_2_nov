@@ -4,6 +4,12 @@
 
 /* Original system-flow motion; state is controlled by viewport, tab and user preference. */
 .flow-path { stroke-dasharray: 10 8; animation: flow-dashes 1.5s linear infinite; }
+.metric-production { color: #fbbf24; }
+.metric-savings { color: #86efac; }
+.metric-consumption { color: #cbd5e1; }
+.metric-grid { color: #d1d5db; }
+.font-counter, .tabular-nums { font-variant-numeric: tabular-nums; }
+.metric-value { font-size: clamp(1rem, 4.2vw, 1.5rem); overflow-wrap: anywhere; }
 @keyframes flow-dashes { to { stroke-dashoffset: -36; } }
 @media (prefers-reduced-motion: reduce) { .flow-path { animation: none; } }
 

@@ -7,7 +7,7 @@ for(const [name,ceiling] of Object.entries(budgets)){
   const bytes=fs.readFileSync(path.join(directory,name));
   if(!bytes.length||bytes.length>ceiling)throw Error('Original media exceeds its reviewed byte budget: '+name);
   if(name.endsWith('.webm')&&!bytes.subarray(0,4).equals(Buffer.from([0x1a,0x45,0xdf,0xa3])))throw Error('Invalid WebM');
-  if(name.endsWith('.vtt')&&!bytes.toString('utf8').startsWith('WEBVTT\n'))throw Error('Invalid caption track');
+  if(name.endsWith('.vtt')&&!/^WEBVTT\r?\n/.test(bytes.toString('utf8')))throw Error('Invalid caption track');
   if(name.endsWith('.svg')&&(/<script|foreignObject|\bon\w+=|(?:href|src)=["']https?:/i.test(bytes.toString('utf8'))))throw Error('Poster must remain self-contained');
   files.push({file:name,bytes:bytes.length,ceiling,sha256:crypto.createHash('sha256').update(bytes).digest('hex')});
 }

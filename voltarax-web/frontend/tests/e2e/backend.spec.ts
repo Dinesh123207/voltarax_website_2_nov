@@ -16,6 +16,15 @@ test.beforeEach(async({context,baseURL,page})=>{
   await context.route('**/*',route=>route.request().url().startsWith(baseURL!+'/')?route.continue():route.abort());
   expect((await page.request.get('/api/ready')).status()).toBe(200);
 });
+
+test('@backend reviewed assistant uses the actual FAQ route with Hindi source and refusal',async({page})=>{
+  await page.goto('/hi');await page.getByRole('button',{name:'सहायक खोलें',exact:true}).click();
+  const dialog=page.getByRole('dialog');await dialog.getByRole('button',{name:'कृत्रिम बुद्धिमत्ता क्या कर सकती है?',exact:true}).click();
+  await expect(dialog.getByRole('log')).toContainText('ai-limitations');await expect(dialog.getByRole('log')).toContainText('वर्तमान');
+  await dialog.getByRole('textbox').fill('VoltVision की कीमत बताएं');await dialog.getByRole('button',{name:'भेजें',exact:true}).click();
+  await expect(dialog.getByRole('log')).toContainText('support-boundary');await expect(dialog.getByRole('link').last()).toHaveAttribute('href','/hi/contact');
+  expect(await dialog.locator('script,iframe').count()).toBe(0);
+});
 test('@backend registration OTP, real cookie login, site revocation, role access and Hindi switch',async({page,playwright,baseURL})=>{
   test.setTimeout(90000);
   const email='registration@local.test';

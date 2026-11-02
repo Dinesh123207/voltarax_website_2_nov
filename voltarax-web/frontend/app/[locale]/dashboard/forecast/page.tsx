@@ -1,4 +1,6 @@
 'use client';
+import { dataFetch as fetch } from '@/lib/data-activity';
+
 import { useEffect, useState } from 'react';
 import { RefreshCw } from 'lucide-react';
 import DataQualityBadge from '@/components/ui/DataQualityBadge';

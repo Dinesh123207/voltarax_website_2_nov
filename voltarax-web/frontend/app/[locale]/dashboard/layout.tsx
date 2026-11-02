@@ -1,10 +1,14 @@
 'use client';
+import { dataFetch as fetch } from '@/lib/data-activity';
+
 import { useState, useEffect } from 'react';
 import { Link } from '@/i18n/navigation';
 import { usePathname, useRouter } from '@/i18n/navigation';
 import DataQualityBadge from '@/components/ui/DataQualityBadge';
 import type { DataQuality } from '@/components/ui/DataQualityBadge';
 import ISTClock from '@/components/ui/ISTClock';
+import LastUpdated from '@/components/ui/LastUpdated';
+import DataActivityNotice from '@/components/ui/DataActivityNotice';
 import LanguageSwitcher from '@/components/ui/LanguageSwitcher';
 import { useCopy } from '@/i18n/copy';
 import {
@@ -156,6 +160,7 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
           <div className="ml-auto flex flex-wrap items-center justify-end gap-2">
             <LanguageSwitcher />
             <ISTClock />
+            {siteAccess&&<LastUpdated/>}
             <div className="hidden md:flex items-center gap-2 text-xs text-green-600 font-mono">
               {copyText(testMode && <span className="text-amber-300">{c('Test data')}</span>)}
               {c('Dashboard')}
@@ -165,6 +170,7 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
 
         {/* Page content */}
         <main id="main-content" tabIndex={-1} className="flex-1 p-4 sm:p-6 overflow-auto">
+          <DataActivityNotice/>
           <div className="mb-4 flex flex-wrap items-center gap-2 text-xs text-slate-400">
             <span>{c('Section data:')}</span><DataQualityBadge quality={sectionQuality} />
             <span>{c('Individual readings are labelled where their quality differs. Missing data is unavailable.')}</span>

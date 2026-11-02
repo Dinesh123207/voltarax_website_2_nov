@@ -5,7 +5,7 @@ import type {FeatureCollection} from 'geojson';
 import 'leaflet/dist/leaflet.css';
 import {useCopy} from '@/i18n/copy';
 export type StateMetric = {key:string;name:string;site_count:number|null;registered_devices:number|null;recorded_kwh:number|null;covered_seconds:number|null;period_seconds:number;simulated:boolean;quality:Record<string,string>};
-export const mapFill = (value:number|null) => value === null ? '#475569' : value === 0 ? '#fef08a' : value < 1 ? '#86efac' : '#15803d';
+export const mapFill = (value:number|null) => value === null ? '#475569' : value === 0 ? '#fef3c7' : value < 1 ? '#fcd34d' : '#b45309';
 export default function StateMap({geojson,states}:{geojson:FeatureCollection;states:StateMetric[]}) {
   const element=useRef<HTMLDivElement>(null), c=useCopy();
   useEffect(()=>{

@@ -1,9 +1,12 @@
 'use client';
+import { dataFetch as fetch } from '@/lib/data-activity';
+
 import { useEffect, useState } from 'react';
 import { Leaf, RefreshCw, ExternalLink, Globe, TrendingUp } from 'lucide-react';
 import DataQualityBadge from '@/components/ui/DataQualityBadge';
 import Reports from '@/components/operations/Reports';
 import { useCopy } from '@/i18n/copy';
+import { indianNumber,indianRupees } from '@/lib/metrics';
 
 
 
@@ -52,15 +55,15 @@ export default function CarbonPage() {
         {loading ? Array.from({ length: 4 }).map((_, i) => (
           <div key={i} className="stat-card"><div className="shimmer h-16 rounded" /></div>
         )) : data ? [
-          { label: "Today's CO₂ Saved",  value: data.today_co2_kg,     unit: 'kg',  color: 'text-green-400' },
-          { label: 'This Month',          value: data.month_co2_kg,     unit: 'kg',  color: 'text-green-400' },
-          { label: 'This Year',           value: data.year_co2_kg,      unit: 'kg',  color: 'text-green-400' },
-          { label: 'Trees Equivalent',    value: data.trees_equivalent,  unit: '🌳', color: 'text-green-400' },
+          { label: 'Estimated Savings (Year)', value: data.grid_saved_inr, unit: 'INR', color: 'metric-savings' },
+          { label: 'Recorded Energy Today', value: data.today_kwh, unit: 'kWh', color: 'metric-production' },
+          { label: "Today's CO₂ Saved", value: data.today_co2_kg, unit: 'kg', color: 'metric-savings' },
+          { label: 'This Month', value: data.month_co2_kg, unit: 'kg', color: 'metric-savings' },
         ].map(k => (
           <div key={k.label} className="stat-card">
             <div className="text-xs text-slate-500 mb-1">{copyText(k.label)}</div>
             <div className={`text-2xl font-counter font-bold ${k.color}`}>
-              {copyText(k.value == null ? 'Unavailable' : k.value)}<span className="text-sm text-slate-500 ml-1">{copyText(k.value == null ? '' : k.unit)}</span>
+              {copyText(k.value == null ? 'Unavailable' : k.unit==='INR'?indianRupees(k.value):indianNumber(k.value))}<span className="text-sm text-slate-500 ml-1">{copyText(k.value == null || k.unit==='INR' ? '' : k.unit)}</span>
             </div>
           </div>
         )) : (

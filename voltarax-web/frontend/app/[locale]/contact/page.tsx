@@ -1,4 +1,6 @@
 'use client';
+import { dataFetch as fetch } from '@/lib/data-activity';
+
 import Navbar from '@/components/ui/Navbar';
 import Footer from '@/components/ui/Footer';
 import { Suspense, useState, FormEvent } from 'react';

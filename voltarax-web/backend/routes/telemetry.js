@@ -75,6 +75,7 @@ router.get('/latest', protect, requireSite, validate(), async (req, res) => {
     const latest = await SolarTelemetry.latest(SITE_ID);
     const analysis = await SolarAnalysis.findOne({ site_id: SITE_ID }).lean();
     res.json({ success: true, latest: latest || null, analysis: analysis || null, site_id: SITE_ID,
+      freshness: require('../services/readingFreshness').readingFreshness(latest),
       quality: { latest: qualityOf(latest, QUALITY.MEASURED), analysis: qualityOf(analysis, QUALITY.CALCULATED) } });
   } catch (err) { res.status(500).json({ success: false, message: 'Unable to read telemetry.' }); }
 });

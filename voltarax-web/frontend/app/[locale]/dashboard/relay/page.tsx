@@ -1,4 +1,6 @@
 'use client';
+import { dataFetch as fetch } from '@/lib/data-activity';
+
 import { FormEvent, useCallback, useEffect, useState } from 'react';
 import DataQualityBadge from '@/components/ui/DataQualityBadge';
 import { useCopy } from '@/i18n/copy';

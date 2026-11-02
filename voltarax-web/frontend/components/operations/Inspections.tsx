@@ -1,4 +1,6 @@
 'use client';
+import { dataFetch as fetch } from '@/lib/data-activity';
+
 /* eslint-disable @next/next/no-img-element -- authenticated streams/photos must be fetched with browser session cookies, without the public image optimizer. */
 import { useCallback, useEffect, useState, type FormEvent } from 'react';
 import DataQualityBadge, { type DataQuality } from '@/components/ui/DataQualityBadge';

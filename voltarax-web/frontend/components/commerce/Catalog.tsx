@@ -1,4 +1,7 @@
 'use client';
+import DataActivityNotice from '@/components/ui/DataActivityNotice';
+import { dataFetch as fetch } from '@/lib/data-activity';
+
 import { useEffect, useState } from 'react';
 import { Link, useRouter } from '@/i18n/navigation';
 import { api, inr } from '@/lib/commerce';
@@ -35,7 +38,7 @@ export default function Catalog() {
     } catch (failure) { setError(failure instanceof Error ? failure.message : 'Checkout unavailable. Check your orders before trying again.'); }
     finally { setBusy(false); }
   };
-  return <div className="space-y-6">
+  return <div className="space-y-6"><DataActivityNotice/>
     <h1 className="text-3xl font-bold text-white">{copyText("Plans and pricing")}</h1>
     <p className="text-amber-300">{copyText("Test mode only · one-time purchases · no recurring billing or real funds.")}</p>
     <DataQualityBadge quality={loaded ? 'Calculated' : 'Unavailable'} />

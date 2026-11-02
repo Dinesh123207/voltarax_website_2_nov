@@ -1,0 +1,80 @@
+{
+  "formula": "Relative sRGB luminance and (Lmax+0.05)/(Lmin+0.05)",
+  "samples": [
+    {
+      "role": "production",
+      "color": "#fbbf24",
+      "background": "#111a14",
+      "contrast": 10.645
+    },
+    {
+      "role": "production",
+      "color": "#fbbf24",
+      "background": "#0a0f0d",
+      "contrast": 11.572
+    },
+    {
+      "role": "production",
+      "color": "#fbbf24",
+      "background": "#102017",
+      "contrast": 10.137
+    },
+    {
+      "role": "savings",
+      "color": "#86efac",
+      "background": "#111a14",
+      "contrast": 12.656
+    },
+    {
+      "role": "savings",
+      "color": "#86efac",
+      "background": "#0a0f0d",
+      "contrast": 13.758
+    },
+    {
+      "role": "savings",
+      "color": "#86efac",
+      "background": "#102017",
+      "contrast": 12.051
+    },
+    {
+      "role": "consumption",
+      "color": "#cbd5e1",
+      "background": "#111a14",
+      "contrast": 11.969
+    },
+    {
+      "role": "consumption",
+      "color": "#cbd5e1",
+      "background": "#0a0f0d",
+      "contrast": 13.012
+    },
+    {
+      "role": "consumption",
+      "color": "#cbd5e1",
+      "background": "#102017",
+      "contrast": 11.397
+    },
+    {
+      "role": "grid",
+      "color": "#d1d5db",
+      "background": "#111a14",
+      "contrast": 12.06
+    },
+    {
+      "role": "grid",
+      "color": "#d1d5db",
+      "background": "#0a0f0d",
+      "contrast": 13.11
+    },
+    {
+      "role": "grid",
+      "color": "#d1d5db",
+      "background": "#102017",
+      "contrast": 11.484
+    }
+  ],
+  "minimum": 10.137,
+  "threshold": 4.5,
+  "scope": "Actual solid metric foregrounds against card/page/notice surfaces; gradients/images/transparency require browser review. No WCAG certification."
+}

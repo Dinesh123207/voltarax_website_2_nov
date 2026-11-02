@@ -1,3 +1,4 @@
+import { dataFetch as fetch } from '@/lib/data-activity';
 export async function api<T>(path: string, method = 'GET', body?: unknown): Promise<T> {
   const response = await fetch(`/api${path}`, { method, cache: 'no-store', headers: { 'Content-Type': 'application/json', 'X-Voltarax-Request': '1' }, ...(body === undefined ? {} : { body: JSON.stringify(body) }) });
   const data = await response.json().catch(() => null);

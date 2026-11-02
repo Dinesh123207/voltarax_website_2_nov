@@ -57,6 +57,7 @@ jobs:
         run: python tools/run-check.py --cwd voltarax-web/frontend --name ci-generated-types -- npx tsc --noEmit
       - name: Install isolated browser and demo emulator tools
         run: |
+          python tools/run-check.py --cwd voltarax-web/frontend --name ci-axe-install -- npm install --prefix ../../.local-tools/a11y --no-save --package-lock=false --ignore-scripts --no-audit --no-fund axe-core@4.14.0
           python tools/run-check.py --cwd voltarax-web/frontend --name ci-browser-install -- npx playwright install --with-deps chromium
           python tools/run-check.py --cwd voltarax-web/backend --name ci-emulator-install -- npx firebase setup:emulators:database --project demo-voltarax
       - name: Public, language and map browser checks
@@ -64,6 +65,7 @@ jobs:
           LOCALE_SMOKE_LABEL: ci-public
           FRONTEND_CHECK_SERVER: production
           FRONTEND_CHECK_BROWSER: 'true'
+          FRONTEND_CHECK_GREP: '@public|@phase11'
         run: python tools/run-check.py --cwd . --name ci-public -- python tools/verify-locale-routes.py
       - name: Role, site and device database rules
         run: python tools/run-check.py --cwd . --name ci-rules -- python tools/run-local-database.py --log docs/test-results/ci-rules-java.log -- node --test voltarax-web/backend/tests/firebase-rules.test.cjs

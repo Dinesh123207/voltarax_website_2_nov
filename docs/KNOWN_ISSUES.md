@@ -69,3 +69,7 @@ Each concrete follow-up is in MANUAL_STEPS.md, MAP_DATA.md, LEGAL_REVIEW.md and 
 
 ## Second review follow-up - 2 November 2026
 Three concrete packaging defects were reproduced and fixed after the original phase-10 tag: unused/untracked AI configs COPY, omitted AI evaluation.py (ModuleNotFoundError), and missing guarded backend seed.js operator entry point. Offline tracked-input/staged-runtime import checks now pass; actual Docker image build/runtime is still unverified. The root README no longer recommends bootstrap as ordinary startup. New current evidence uses reverify-* names; prior phase results and tags remain immutable historical checkpoints.
+
+
+## Phase 11 current implementation checkpoint
+Reviewed source-bound bilingual assistant/provider boundary and original accessible bounded flow media are implemented; actual Ollama/model execution remains unverified/disabled. Shared data states, configured-tariff savings display and server-policy reading freshness/hidden-tab clock behavior have focused tests. Full browser/axe/phase gates are pending until PROGRESS records actual results. Optional nonce CSP was Skipped: current static locale/cache/rendering, inline Next scripts and Framer/React style attributes plus Checkout need a coordinated change; script/style unsafe-inline allowances remain. Measured solid-color contrast is limited to the recorded role/surface pairs, not full accessibility certification. Existing physical/service/licensed-map/hosting/payment/legal gaps remain unchanged.

@@ -1,4 +1,6 @@
 'use client';
+import { dataFetch as fetch } from '@/lib/data-activity';
+
 import { useEffect, useState } from 'react';
 import { Users, RefreshCw, ExternalLink, Settings as SettingsIcon, Shield } from 'lucide-react';
 import { useCopy } from '@/i18n/copy';

@@ -30,4 +30,9 @@ function energyStats(readings, start, end) {
 }
 const integrateKwh = (readings, start, end) => energyStats(readings, start, end).kwh ?? 0;
 
-module.exports = { periodStartsIST, integrateKwh, energyStats };
+function estimatedSavings(kwh,tariff){
+  if(typeof kwh!=='number'||!Number.isFinite(kwh)||kwh<0||tariff==null||String(tariff).trim()==='')return null;
+  const rate=Number(tariff),amount=kwh*rate;
+  return Number.isFinite(rate)&&rate>=0&&Number.isFinite(amount)?Number(amount.toFixed(2)):null;
+}
+module.exports = { periodStartsIST, integrateKwh, energyStats, estimatedSavings };

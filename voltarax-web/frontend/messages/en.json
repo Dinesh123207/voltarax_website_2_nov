@@ -1067,6 +1067,19 @@
     "p_0793fe3f": "Illustration only. Hardware and services require configuration and verification.",
     "p_e97457cc": "Resume animation",
     "p_52d63d7f": "Pause animation",
-    "p_cddf9f9c": "Video unavailable. The diagram and transcript remain available."
+    "p_cddf9f9c": "Video unavailable. The diagram and transcript remain available.",
+    "p_bcd62eeb": "Offline. Displayed records may be old. Reconnect before relying on current readings.",
+    "p_df0089d8": "A data request failed. Check your connection and use this screen to retry.",
+    "p_04bb0489": "Loading data...",
+    "p_f57e9944": "Some requested data is empty or unavailable. No values have been assumed.",
+    "p_bf0e5cc3": "Estimated Savings Today",
+    "p_d6ea7fbb": "Recorded energy times the explicitly configured tariff",
+    "p_89cb4f3a": "Production",
+    "p_3edeeb10": "Savings",
+    "p_84713ed4": "Consumption",
+    "p_2fb366b1": "Grid",
+    "p_9debe01e": "Estimated Savings (Year)",
+    "p_fb4f3062": "Offline - last updated",
+    "p_f49b957a": "Last updated"
   }
 }

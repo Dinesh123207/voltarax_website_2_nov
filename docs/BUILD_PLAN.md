@@ -188,3 +188,7 @@ Step 0 is saved with all 14 baseline statuses. Step 1 local provider/FAQ/client/
 
 ### Phase 11 media checkpoint
 Original hero SVG/CSS and bounded local WebM explainer/poster/EN-HI tracks implemented. Byte budget and source types pass; controls/reduced-motion/lazy/no-external behavior require new browser checks in the final gate. Continue shared data loading/empty/offline/error notices, savings-first Indian formatting/semantic colors/contrast, timestamp freshness tests and measured axe scans.
+
+
+### Phase 11 data/clock code complete; full gate next
+Shared data states, savings-first/units-second formatting, four semantic metric colors and grouped/tabular numbers implemented. Explicit tariff/energy and server freshness policy preserve missing/zero semantics. Header Last updated expires offline, clocks pause hidden and current values are suppressed after expiry. Focused state/reading/type checks pass; contrast script records minimum 10.137:1 for 12 solid-role pairs. Run the existing full gates plus three Phase 11 UI cases (15-screen state/axe matrix) and four actual-API browser cases. Optional full nonce CSP is Skipped with its actual renderer/style/cache dependencies recorded; retain current allowance as a known risk. Finish summary/issues/progress and the requested run-guide PDF/source with visual QA.

@@ -1,4 +1,5 @@
 'use client';
+import DataActivityNotice from '@/components/ui/DataActivityNotice';
 import { FormEvent, useCallback, useEffect, useState } from 'react';
 import { Link } from '@/i18n/navigation';
 import { api, inr, ist, rupeesToPaise } from '@/lib/commerce';
@@ -31,7 +32,7 @@ export default function OrderDetail({ id, admin = false }: { id: string; admin?:
       instance.open(); opened = true;
     } catch (failure) { setError(failureText(failure)); } finally { if (!opened) setBusy(false); }
   };
-  return <div className="space-y-5">
+  return <div className="space-y-5"><DataActivityNotice/>
     <h1 className="text-2xl font-bold text-white">{copyText("Test order")}</h1><DataQualityBadge quality={data ? 'Calculated' : 'Unavailable'} />
     <p className="text-amber-300">{copyText("Test mode only. No real funds, automatic site access or delivery established.")}</p>
     <nav className="flex flex-wrap gap-4 text-green-300 underline text-sm" aria-label={copyText('Legal drafts')}><Link href="/terms">{copyText('Terms draft')}</Link><Link href="/privacy">{copyText('Privacy draft')}</Link><Link href="/refunds">{copyText('Refund and cancellation draft')}</Link></nav>

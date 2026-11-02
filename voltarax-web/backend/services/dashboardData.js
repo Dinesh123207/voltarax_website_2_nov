@@ -15,15 +15,12 @@ function virtualRow(index) { let value = index + 1, label = ''; while (value) { 
 
 async function latest() {
   const [raw, result] = await Promise.all([SolarTelemetry.latest(SITE_ID), SolarAnalysis.findOne({ site_id: SITE_ID }).lean()]);
-  const maximumAge = Number(process.env.MAX_TELEMETRY_AGE_SECONDS || 120);
-  if (!Number.isFinite(maximumAge) || maximumAge < 5 || maximumAge > 86400) throw new Error('Invalid telemetry freshness policy');
-  const age = raw ? Date.now() / 1000 - Number(raw.ts) : Infinity;
-  const fresh = Number.isFinite(age) && age >= -300 && age <= maximumAge;
-  return { reading: fresh ? raw : null, analysis: fresh && Number(result?.ts) === Number(raw.ts) ? result : null, lastSeen: isoFromTs(raw?.ts), stale: !fresh };
+  const freshness=require('./readingFreshness').readingFreshness(raw),fresh=freshness.fresh;
+  return { reading: fresh ? raw : null, analysis: fresh && Number(result?.ts) === Number(raw.ts) ? result : null, lastSeen: freshness.last_seen, stale: !fresh, freshness };
 }
 
 async function dashboard() {
-  const { reading, analysis, lastSeen } = await latest();
+  const { reading, analysis, lastSeen, freshness } = await latest();
   const now = Date.now() / 1000;
   const start = periodStartsIST(new Date(now * 1000)).day;
   const today = await SolarTelemetry.find({ site_id: SITE_ID, ts: { $gte: start - 900 } }).sort({ ts: 1 }).lean();
@@ -36,6 +33,8 @@ async function dashboard() {
   const result = {
     current_power_kw: currentPower == null ? null : Number(currentPower.toFixed(3)),
     daily_generation_kwh: dailyKwh == null ? null : Number(dailyKwh.toFixed(3)),
+    daily_savings_inr: require('./energy').estimatedSavings(dailyKwh,process.env.GRID_TARIFF_INR_PER_KWH),
+    freshness,
     energy_coverage_pct: energy.periodSeconds > 0 ? Number((energy.coveredSeconds / energy.periodSeconds * 100).toFixed(2)) : null,
     energy_note: 'Integration covers recorded valid-power intervals only, capped at 15 minutes per sample; gaps are not extrapolated.',
     battery_soc_pct: null,
@@ -62,6 +61,7 @@ async function dashboard() {
   result.quality = {
     current_power_kw: qualityOf(result.current_power_kw, QUALITY.CALCULATED),
     daily_generation_kwh: qualityOf(result.daily_generation_kwh, QUALITY.CALCULATED),
+    daily_savings_inr: qualityOf(result.daily_savings_inr, QUALITY.ESTIMATED),
     battery_soc_pct: qualityOf(result.battery_soc_pct, QUALITY.MEASURED),
     bfci_score_avg: qualityOf(result.bfci_score_avg, QUALITY.CALCULATED),
     system_efficiency_pct: qualityOf(result.system_efficiency_pct, QUALITY.ESTIMATED),

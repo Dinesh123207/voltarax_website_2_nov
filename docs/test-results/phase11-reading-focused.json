@@ -1,0 +1,13 @@
+{
+  "command": [
+    "node",
+    "--test",
+    "tests/reading-policy.test.js",
+    "tests/clock.test.js",
+    "tests/dashboard-freshness.test.js",
+    "tests/data-activity.test.js"
+  ],
+  "cwd": "voltarax-web/backend",
+  "exit_code": 0,
+  "seconds": 1.59
+}

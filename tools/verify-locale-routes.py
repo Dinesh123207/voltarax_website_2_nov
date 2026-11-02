@@ -87,6 +87,10 @@ def run_browser(layouts_only=False):
     command = [shutil.which('npm.cmd' if os.name == 'nt' else 'npm'), 'run']
     grep = '@public Hindi draft' if os.environ.get('FRONTEND_CHECK_FORM_ONLY') == 'true' else '@public 360px' if os.environ.get('FRONTEND_CHECK_LANGUAGE_ONLY') == 'true' else '@public (360px|Hindi role)'
     command += ['test:e2e', '--', '--grep', grep] if layouts_only else ['test:e2e:public']
+    selection = os.environ.get('FRONTEND_CHECK_GREP')
+    if selection:
+        if not re.fullmatch(r'[@a-zA-Z0-9 |()._-]{1,100}', selection): raise RuntimeError('Invalid local browser selection')
+        command = [shutil.which('npm.cmd' if os.name == 'nt' else 'npm'), 'run', 'test:e2e', '--', '--grep', selection]
     browser = subprocess.run(command, cwd=frontend, env=browser_env, timeout=300)
     if browser.returncode:
         raise RuntimeError('Browser checks failed; inspect the saved browser result')

@@ -38,3 +38,9 @@ Item 4 local code Done: reviewed EN/HI source-bound replies, disabled provider i
 
 ## After Step 2 local implementation
 Item 8 local code Done, browser gate pending: original SVG/CSS hero and silent local WebM explainer, poster, EN/HI caption tracks/transcript, lazy/motion/visibility/control fallbacks and enforced build byte budgets. Assets total 14607 bytes; WebM 12914. Source types pass (phase11-media-types). Legacy absent stock-media references removed. No Remotion or external footage. Exact browser/media/accessibility results will be added after execution.
+
+
+## After Steps 3 and 4 local implementation
+Local data-state/format/color/clock code Done; complete browser verification pending. Shared data request notices and India grouping cover the maintained data call sites, with invalid/empty/error/offline distinctions and no double-read. Explicit-tariff estimated rupees appear before recorded kWh. Solid role contrast measured over 12 pairs: production minimum 10.137, savings 12.051, consumption 11.397, grid 11.484 (test-results/phase11-contrast.json). Public/dashboard clocks are present; server freshness metadata drives Last updated/offline and suppresses expired current values. Six focused clock/reading/dashboard/state cases and source types pass. The new browser matrix/axe must still run before claiming its outcomes.
+
+Step 5 optional nonce CSP: Skipped for this phase. Concrete dependencies are static locale/public rendering/caching, Next inline boot scripts, Framer/React style attributes and test-only Checkout policy. A nonce-only header change cannot fix style attributes; current unsafe-inline allowances remain Partial, not claimed removed. Required gates and operating document are prioritized.

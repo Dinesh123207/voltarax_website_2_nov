@@ -1,13 +1,15 @@
 import { test, expect } from '@playwright/test';
 import path from 'node:path';
+const assistant = require('../../../backend/services/chatAssistant').createChatAssistant({env:{}});
 const fixture = { _id: 'synthetic-admin', name: 'Synthetic Admin', email: 'admin@local.test', role: 'admin', siteIds: ['synthetic-site'], isActive: true, emailVerified: true };
 const screenshot = (name:string) => path.resolve('../../docs/test-results', `${process.env.E2E_LABEL || 'public-browser'}-${name}.png`);
 test.beforeEach(async ({ context, page, baseURL }) => {
   const remote: string[] = [], errors: string[] = [];
   context.on('request', request => { if (!request.url().startsWith(baseURL! + '/') && !/^(data:|blob:)/.test(request.url())) remote.push(new URL(request.url()).origin); });
   await context.route('**/*', route => route.request().url().startsWith(baseURL! + '/') ? route.continue() : route.abort());
-  await page.route('**/api/**', route => {
+  await page.route('**/api/**', async route => {
     const url = new URL(route.request().url());
+    if(url.pathname==='/api/chat')return route.fulfill({status:200,contentType:'application/json',body:JSON.stringify(await assistant.answer(route.request().postDataJSON()))});
     const body = url.pathname === '/api/auth/me' ? { user: fixture, siteAccess: true } : url.pathname === '/api/users' ? { data: [fixture] } : url.pathname === '/api/dashboard' ? { telemetry_fresh: false, simulated: true } : { success: true, message: 'Your inquiry has been recorded for review.' };
     return route.fulfill({ status: 200, contentType: 'application/json', body: JSON.stringify(body) });
   });
