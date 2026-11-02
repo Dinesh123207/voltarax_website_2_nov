@@ -1,0 +1,18 @@
+{
+  "command": [
+    "npx.cmd",
+    "next",
+    "lint",
+    "--file",
+    "app/[locale]/dashboard/map/page.tsx",
+    "--file",
+    "components/map/StateMap.tsx",
+    "--file",
+    "app/[locale]/dashboard/layout.tsx",
+    "--file",
+    "tests/e2e/map.spec.ts"
+  ],
+  "cwd": "voltarax-web/frontend",
+  "exit_code": 0,
+  "seconds": 8.58
+}

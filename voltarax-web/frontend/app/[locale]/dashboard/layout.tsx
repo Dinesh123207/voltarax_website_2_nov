@@ -15,6 +15,7 @@ import {
 
 const NAV = [
   { label: 'Overview',       href: '/dashboard',              icon: LayoutDashboard },
+  { label: 'India state map', href: '/dashboard/map', icon: LayoutDashboard },
   { label: 'Panels',         href: '/dashboard/panels',       icon: Sun },
   { label: 'Power estimates',    href: '/dashboard/forecast',     icon: Zap },
   { label: 'Coating inspections',   href: '/dashboard/bfci',         icon: TestTube },

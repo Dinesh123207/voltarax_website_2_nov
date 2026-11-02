@@ -158,3 +158,6 @@ Final evidence is phase08-gate-build-reviewed, phase08-gate-generated-types-revi
 
 ### Phase 9 boundary checkpoint
 Exact original recovered and offline schema inspected; two focused boundary tests pass. Reader/CLI enforce property, geometry, review/hash and web budgets. Implement authorized device/IST-energy join and client-only Leaflet/table next. Current outline publication and web-sized approved dataset remain manual.
+
+### Phase 9 map implementation
+Authenticated boundary/state routes, operator state assignment, real recorded-energy/device join, safe client-only Leaflet and table/missing state implemented. Finish expanded CLI/auth tests and browser/full local gate; original oversized/current-outline review remains explicit manual dependency.

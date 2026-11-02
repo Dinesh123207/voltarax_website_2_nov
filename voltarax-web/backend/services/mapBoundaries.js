@@ -57,7 +57,9 @@ function createBoundaryReader({ env = process.env, file = path.join(__dirname, '
       const collection = JSON.parse(bytes.toString('utf8')), info = validateCollection(collection, properties);
       // Only names and geometry reach the client; arbitrary source properties are omitted.
       const geojson = { type: 'FeatureCollection', features: collection.features.map((feature, i) => ({ type: 'Feature', properties: info.states[i], geometry: feature.geometry })) };
-      return { available: true, dataQuality: 'Calculated', sha256, states: info.states, geojson, attribution: 'Boundary data: Tanmay53/india-state-boundries-geojson (Apache-2.0). Outline accuracy and currency require operator review.' };
+      const attribution = env.MAP_BOUNDARY_ATTRIBUTION?.trim();
+      if (!attribution || attribution.length > 1000) throw Error('Reviewed source attribution is required');
+      return { available: true, dataQuality: 'Calculated', sha256, states: info.states, geojson, attribution };
     } catch {
       return { available: false, reason: 'Map data missing or invalid. Install and verify reviewed boundaries.', dataQuality: 'Unavailable' };
     }

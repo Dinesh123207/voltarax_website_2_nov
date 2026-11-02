@@ -22,7 +22,8 @@ function annotate(value, rootQuality = QUALITY.CALCULATED, simulated = false) {
       const inferred = synthetic ? QUALITY.ESTIMATED : MEASURED_FIELDS.has(key) ? QUALITY.MEASURED : ESTIMATED_FIELDS.has(key) || key.startsWith('forecast_') || key.includes('co2') ? QUALITY.ESTIMATED : base;
       quality[path] = qualityOf(item, Array.isArray(item) && !item.length ? QUALITY.UNAVAILABLE : inferred);
       if (MEASURED_FIELDS.has(key) && (typeof item !== 'number' || !Number.isFinite(item))) quality[path] = QUALITY.UNAVAILABLE;
-      if (item && typeof item === 'object') walk(item, path + '.', synthetic);
+      // Geometry is one source object, not millions of independently measured metrics.
+      if (key !== 'geojson' && item && typeof item === 'object') walk(item, path + '.', synthetic);
     }
   }
   walk(value, '', simulated);

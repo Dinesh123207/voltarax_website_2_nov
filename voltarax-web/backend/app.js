@@ -19,6 +19,7 @@ function createApp({ logger, limiters, routes, env = process.env }) {
   app.get('/health', validate(), (req, res) => res.json({ status: 'ok', app: 'Voltarax API', testMode: require('./config/testMode').demoEmulator(env), simulatorAllowed: require('./config/testMode').simulatorAllowed(env) }));
   app.use('/api/auth', routes.auth);
   if (routes.commerce) app.use('/api', routes.commerce);
+  if (routes.map) app.use('/api/map', routes.map);
   if (routes.devices) app.use('/api/devices', routes.devices);
   app.use('/api', routes.content);
   if (routes.inspections) {

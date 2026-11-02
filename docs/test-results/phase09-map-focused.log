@@ -1,0 +1,16 @@
+✔ literal localization preserves opaque values, numbers and surrounding whitespace, with exact source binding (2.6103ms)
+✔ localized templates keep zero and interpolate operator content once without interpreting replacement tokens (0.791ms)
+✔ translated select labels always have explicit protocol values (461.3106ms)
+✔ all active copy keys bind exact source and preserve every template parameter in Hindi (13.5905ms)
+✔ boundary validation rejects missing/conflicting states, invalid coordinates, duplicates and CRS (3.5289ms)
+✔ boundary reader is review/hash/budget guarded and exposes only state names and geometry (62.1664ms)
+✔ state map joins only authorized configured-site counts and recorded IST energy, never zero-fills other states (14.3363ms)
+✔ state map preserves recorded zero; truncated/errors/unmapped/synthetic readings are disclosed (8.9515ms)
+ℹ tests 8
+ℹ suites 0
+ℹ pass 8
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 997.9464

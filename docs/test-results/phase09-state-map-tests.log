@@ -1,0 +1,12 @@
+✔ boundary validation rejects missing/conflicting states, invalid coordinates, duplicates and CRS (3.9021ms)
+✔ boundary reader is review/hash/budget guarded and exposes only state names and geometry (37.1859ms)
+✔ state map joins only authorized configured-site counts and recorded IST energy, never zero-fills other states (6.4048ms)
+✔ state map preserves recorded zero; truncated/errors/unmapped/synthetic readings are disclosed (4.7641ms)
+ℹ tests 4
+ℹ suites 0
+ℹ pass 4
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 226.0229

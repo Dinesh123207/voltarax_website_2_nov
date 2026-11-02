@@ -1,0 +1,18 @@
+✔ admin-only endpoint rejects unauthenticated and viewer requests (3450.3402ms)
+✔ literal localization preserves opaque values, numbers and surrounding whitespace, with exact source binding (1.9234ms)
+✔ localized templates keep zero and interpolate operator content once without interpreting replacement tokens (0.4938ms)
+✔ translated select labels always have explicit protocol values (692.6857ms)
+✔ all active copy keys bind exact source and preserve every template parameter in Hindi (11.9473ms)
+✔ boundary validation rejects missing/conflicting states, invalid coordinates, duplicates and CRS (3.2637ms)
+✔ boundary reader is review/hash/budget guarded and exposes only state names and geometry (21.2908ms)
+✔ offline verifier rejects LFS pointers and wrong collection type with clear failures (917.4485ms)
+✔ state map joins only authorized configured-site counts and recorded IST energy, never zero-fills other states (2.4549ms)
+✔ state map preserves recorded zero; truncated/errors/unmapped/synthetic readings are disclosed (4.0266ms)
+ℹ tests 10
+ℹ suites 0
+ℹ pass 10
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 5009.3554

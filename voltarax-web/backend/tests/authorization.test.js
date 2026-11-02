@@ -39,12 +39,23 @@ test('admin-only endpoint rejects unauthenticated and viewer requests', async t 
   app.use(require('../routes/operations').createOperationsRouter({ operations: async () => ({ listAlerts: async () => [], listWorkOrders: async () => [] }) }));
   app.use(require('../routes/reports').createReportsRouter({ reports: async () => ({}) }));
   app.use(require('../routes/inspections').createInspectionRouter({ inspections: async () => ({}), camera: require('../services/camera').createCamera({ env: {} }) }));
+  app.use('/map', require('../routes/map').createMapRouter({readBoundaries:async()=>({available:false,dataQuality:'Unavailable'}),readStates:async()=>({states:[],dataQuality:'Unavailable'})}));
   app.use(router);
   const server = app.listen(0, '127.0.0.1');
   await new Promise(resolve => server.once('listening', resolve));
   t.after(() => server.close());
   const url = `http://127.0.0.1:${server.address().port}/users`;
   assert.equal((await fetch(url)).status, 401);
+  for (const path of ['/map/states','/map/boundaries']) {
+    const endpoint=url.replace('/users',path);
+    assert.equal((await fetch(endpoint)).status,401);
+    for(const [id,status] of [['viewer',200],['admin',200],['unassigned',403]]) {
+      const token=jwt.sign({id,ver:0},process.env.JWT_SECRET,{audience:'voltarax-api',issuer:'voltarax'});
+      const headers={Authorization:`Bearer ${token}`};
+      assert.equal((await fetch(endpoint,{headers})).status,status);
+      if(status===200)assert.equal((await fetch(endpoint+'?site_id=another-site',{headers})).status,422);
+    }
+  }
   assert.equal((await fetch(url.replace('/users', '/devices'))).status, 401);
   for (const [role, expected] of [['viewer', 403], ['admin', 200]]) {
     const token = jwt.sign({ id: role, ver: 0 }, process.env.JWT_SECRET, { audience: 'voltarax-api', issuer: 'voltarax' });
