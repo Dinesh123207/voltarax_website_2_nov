@@ -1,0 +1,84 @@
+{
+  "pdf": "docs/Voltarax_Completion_Summary.pdf",
+  "pages": 12,
+  "current_pages": 2,
+  "historical_appendix_pages": 10,
+  "historical_pdf_sha256": "ded2f90428ef2b601d840718a0f88c26d1d72395ec0489e2a9a8c95c79c9cc91",
+  "sha256": "15b9868fdc517919a08f59d4647e686901ef10ea708ccc95018149f85499ac7a",
+  "tested_code_commit": "7cf096cde6ccaadea1a0c69acac1ad32a905d5bb",
+  "visual_review": "All pages rendered at 85 dpi and visually inspected",
+  "text_geometry_checks": [
+    {
+      "page": 1,
+      "chars": 2420,
+      "outside": 0,
+      "replacement_chars": 0
+    },
+    {
+      "page": 2,
+      "chars": 3012,
+      "outside": 0,
+      "replacement_chars": 0
+    },
+    {
+      "page": 3,
+      "chars": 1260,
+      "outside": 0,
+      "replacement_chars": 0
+    },
+    {
+      "page": 4,
+      "chars": 1754,
+      "outside": 0,
+      "replacement_chars": 0
+    },
+    {
+      "page": 5,
+      "chars": 2356,
+      "outside": 0,
+      "replacement_chars": 0
+    },
+    {
+      "page": 6,
+      "chars": 2544,
+      "outside": 0,
+      "replacement_chars": 0
+    },
+    {
+      "page": 7,
+      "chars": 2586,
+      "outside": 0,
+      "replacement_chars": 0
+    },
+    {
+      "page": 8,
+      "chars": 2526,
+      "outside": 0,
+      "replacement_chars": 0
+    },
+    {
+      "page": 9,
+      "chars": 2107,
+      "outside": 0,
+      "replacement_chars": 0
+    },
+    {
+      "page": 10,
+      "chars": 2828,
+      "outside": 0,
+      "replacement_chars": 0
+    },
+    {
+      "page": 11,
+      "chars": 2773,
+      "outside": 0,
+      "replacement_chars": 0
+    },
+    {
+      "page": 12,
+      "chars": 2705,
+      "outside": 0,
+      "replacement_chars": 0
+    }
+  ]
+}

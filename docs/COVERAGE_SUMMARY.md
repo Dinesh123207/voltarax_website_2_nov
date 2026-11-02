@@ -1,3 +1,11 @@
+# Phase 11 verification scope
+
+The current local gate and exact evidence are in test-results/phase11-gate-summary.json: 88 backend, 28 AI, 10 UI and 4 actual-API browser cases; 15 screens exercised loading, empty, offline and error states. Eighteen axe scans reported zero violations and two incomplete contrast checks for manual review. This is a description of exercised cases, not an instrumented code coverage percentage or accessibility certification. External services, physical hardware and real field accuracy remain unverified.
+
+---
+
+# Historical Phase 10 coverage notes
+
 # Verification coverage and limits
 
 Final local code gate: 81 Node backend cases, 28 Python AI cases, seven UI/browser cases, three actual-API browser cases, one RTDB rule case and four native C++ cases. Placeholder ESP8266 firmware compilation, lint/types/build, audits, configuration parsing and current/history pattern scans are separate checks. No instrumented line/branch coverage percentage or complete production workflow coverage was measured. Counts are framework test cases, not counts of individual assertions or distinct business capabilities.

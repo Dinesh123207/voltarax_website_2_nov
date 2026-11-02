@@ -81,6 +81,8 @@ env = {key: value for key, value in os.environ.items() if not key.startswith(('A
 env.update(AI_REMOTE_ACCESS_ENABLED='false', AI_PUBLISH_ENABLED='false', PYTHONDONTWRITEBYTECODE='1')
 code = "import sys,runpy; sys.path.insert(0,sys.argv[1]); import pipeline.orchestrator; [runpy.run_path('scripts/'+name, run_name='packaging_check') for name in ('predict_once.py','run_once.py','check_drift.py','evaluate_export.py')]; print('Staged runtime imports and batch entry points pass; no main function executed')"
 ai_stage = stage / 'ai-engine'
+# Stop python-dotenv's parent search at this owned empty file, never a private env.
+(ai_stage / '.env').write_text('# Owned offline packaging check\n', encoding='utf-8')
 result = subprocess.run([str(python), '-I', '-c', code, str(ai_stage)], cwd=ai_stage, env=env, capture_output=True, text=True, timeout=90)
 if result.returncode:
     errors.append('ai-engine: staged runtime import failed')

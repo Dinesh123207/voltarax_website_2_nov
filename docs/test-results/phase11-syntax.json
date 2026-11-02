@@ -1,0 +1,6 @@
+{
+  "scope": "Tracked Python AST and backend/tool Node syntax; frontend checked by TypeScript",
+  "python_files": 47,
+  "node_files": 128,
+  "errors": []
+}

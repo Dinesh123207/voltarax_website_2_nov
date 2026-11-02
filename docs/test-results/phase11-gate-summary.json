@@ -1,0 +1,522 @@
+{
+  "phase": 11,
+  "status": "Required local gates passed; external activation Partial; optional nonce CSP Skipped",
+  "local_checks_passed": true,
+  "tested_code_commit": "7cf096cde6ccaadea1a0c69acac1ad32a905d5bb",
+  "application_tree": "c11bc6b9c1add5969cb5afbc975332f8179e65f4",
+  "branch": "phase-11-gaps",
+  "counts": {
+    "backend": 88,
+    "ai": 28,
+    "public_ui_browser": 10,
+    "actual_api_browser": 4,
+    "rules": 1,
+    "native": 4,
+    "data_screens": 15
+  },
+  "checks": {
+    "backend": {
+      "command": [
+        "npm.cmd",
+        "test"
+      ],
+      "cwd": "voltarax-web/backend",
+      "exit_code": 0,
+      "seconds": 289.87
+    },
+    "ai": {
+      "command": [
+        "C:/Users/JARVIS/Desktop/VOLTARAX/.local-tools/ai-python/Scripts/python.exe",
+        "-m",
+        "pytest",
+        "tests",
+        "-q",
+        "-p",
+        "no:cacheprovider"
+      ],
+      "cwd": "voltarax-web/ai-engine",
+      "exit_code": 0,
+      "seconds": 40.51
+    },
+    "build": {
+      "command": [
+        "python",
+        "tools/verify-locale-routes.py",
+        "--build"
+      ],
+      "cwd": ".",
+      "exit_code": 0,
+      "seconds": 159.78
+    },
+    "lint": {
+      "command": [
+        "npm.cmd",
+        "run",
+        "lint"
+      ],
+      "cwd": "voltarax-web/frontend",
+      "exit_code": 0,
+      "seconds": 47.14
+    },
+    "source_types": {
+      "command": [
+        "npx.cmd",
+        "tsc",
+        "--noEmit",
+        "--project",
+        "tsconfig.source.json"
+      ],
+      "cwd": "voltarax-web/frontend",
+      "exit_code": 0,
+      "seconds": 8.12
+    },
+    "generated_types": {
+      "command": [
+        "npx.cmd",
+        "tsc",
+        "--noEmit"
+      ],
+      "cwd": "voltarax-web/frontend",
+      "exit_code": 0,
+      "seconds": 250.03
+    },
+    "web": {
+      "command": [
+        "python",
+        "tools/verify-locale-routes.py"
+      ],
+      "cwd": ".",
+      "exit_code": 0,
+      "seconds": 295.96
+    },
+    "api": {
+      "command": [
+        "python",
+        "tools/run-local-database.py",
+        "--log",
+        "docs/test-results/phase11-release-api-java.log",
+        "--",
+        "python",
+        "tools/verify-backend-browser.py"
+      ],
+      "cwd": ".",
+      "exit_code": 0,
+      "seconds": 109.98
+    },
+    "rules": {
+      "command": [
+        "python",
+        "tools/run-local-database.py",
+        "--log",
+        "docs/test-results/phase11-gate-rules-java.log",
+        "--",
+        "node",
+        "--test",
+        "voltarax-web/backend/tests/firebase-rules.test.cjs"
+      ],
+      "cwd": ".",
+      "exit_code": 0,
+      "seconds": 6.82
+    },
+    "native": {
+      "command": [
+        "C:/Users/JARVIS/Desktop/VOLTARAX/.local-tools/platformio/Scripts/python.exe",
+        "-m",
+        "platformio",
+        "test",
+        "-e",
+        "native"
+      ],
+      "cwd": "voltarax-web/hardware/nodemcu",
+      "exit_code": 0,
+      "seconds": 2.76
+    },
+    "firmware": {
+      "command": [
+        "C:/Users/JARVIS/Desktop/VOLTARAX/.local-tools/platformio/Scripts/python.exe",
+        "-m",
+        "platformio",
+        "run",
+        "-e",
+        "compile_check",
+        "-j",
+        "2"
+      ],
+      "cwd": "voltarax-web/hardware/nodemcu",
+      "exit_code": 0,
+      "seconds": 22.71
+    },
+    "audit": {
+      "command": [
+        "python",
+        "tools/audit-dependencies.py"
+      ],
+      "cwd": ".",
+      "exit_code": 0,
+      "seconds": 12.69
+    },
+    "packaging": {
+      "command": [
+        "python",
+        "tools/check-runtime-packaging.py"
+      ],
+      "cwd": ".",
+      "exit_code": 0,
+      "seconds": 36.01
+    },
+    "secrets": {
+      "command": [
+        "python",
+        "tools/scan-secrets.py",
+        "--history"
+      ],
+      "cwd": ".",
+      "exit_code": 0,
+      "seconds": 6.06
+    },
+    "latest_shared_regressions": {
+      "command": [
+        "node",
+        "--test",
+        "tests/localization.test.js",
+        "tests/reading-policy.test.js",
+        "tests/data-activity.test.js",
+        "tests/clock.test.js",
+        "tests/dashboard-freshness.test.js"
+      ],
+      "cwd": "voltarax-web/backend",
+      "exit_code": 0,
+      "seconds": 3.64
+    }
+  },
+  "browser": {
+    "web": {
+      "startTime": "2026-11-02T08:35:12.078Z",
+      "duration": 280166.418,
+      "expected": 10,
+      "skipped": 0,
+      "unexpected": 0,
+      "flaky": 0
+    },
+    "api": {
+      "startTime": "2026-11-02T08:49:16.934Z",
+      "duration": 87229.67,
+      "expected": 4,
+      "skipped": 0,
+      "unexpected": 0,
+      "flaky": 0
+    }
+  },
+  "axe": {
+    "version": "4.14.0",
+    "scans": 18,
+    "violations": 0,
+    "incomplete_findings": 2,
+    "incomplete_rules": [
+      "color-contrast"
+    ],
+    "reports": [
+      "docs/test-results/phase11-release-web-browser-axe-account-orders-empty.json",
+      "docs/test-results/phase11-release-web-browser-axe-dashboard-alerts-empty.json",
+      "docs/test-results/phase11-release-web-browser-axe-dashboard-bfci-empty.json",
+      "docs/test-results/phase11-release-web-browser-axe-dashboard-carbon-empty.json",
+      "docs/test-results/phase11-release-web-browser-axe-dashboard-commerce-empty.json",
+      "docs/test-results/phase11-release-web-browser-axe-dashboard-cv-empty.json",
+      "docs/test-results/phase11-release-web-browser-axe-dashboard-devices-empty.json",
+      "docs/test-results/phase11-release-web-browser-axe-dashboard-empty.json",
+      "docs/test-results/phase11-release-web-browser-axe-dashboard-forecast-empty.json",
+      "docs/test-results/phase11-release-web-browser-axe-dashboard-map-empty.json",
+      "docs/test-results/phase11-release-web-browser-axe-dashboard-panels-empty.json",
+      "docs/test-results/phase11-release-web-browser-axe-dashboard-relay-empty.json",
+      "docs/test-results/phase11-release-web-browser-axe-dashboard-savings.json",
+      "docs/test-results/phase11-release-web-browser-axe-dashboard-users-empty.json",
+      "docs/test-results/phase11-release-web-browser-axe-dashboard-work-orders-empty.json",
+      "docs/test-results/phase11-release-web-browser-axe-home-en-reduced.json",
+      "docs/test-results/phase11-release-web-browser-axe-home-hi-reduced.json",
+      "docs/test-results/phase11-release-web-browser-axe-pricing-empty.json"
+    ],
+    "scope": "Synthetic 360px owned-browser contexts; automated scan, not WCAG/Lighthouse/legal certification"
+  },
+  "contrast": {
+    "formula": "Relative sRGB luminance and (Lmax+0.05)/(Lmin+0.05)",
+    "samples": [
+      {
+        "role": "production",
+        "color": "#fbbf24",
+        "background": "#111a14",
+        "contrast": 10.645437132701149
+      },
+      {
+        "role": "production",
+        "color": "#fbbf24",
+        "background": "#0a0f0d",
+        "contrast": 11.5723048386163
+      },
+      {
+        "role": "production",
+        "color": "#fbbf24",
+        "background": "#102017",
+        "contrast": 10.136624622476463
+      },
+      {
+        "role": "savings",
+        "color": "#86efac",
+        "background": "#111a14",
+        "contrast": 12.656396524154099
+      },
+      {
+        "role": "savings",
+        "color": "#86efac",
+        "background": "#0a0f0d",
+        "contrast": 13.758352701741206
+      },
+      {
+        "role": "savings",
+        "color": "#86efac",
+        "background": "#102017",
+        "contrast": 12.051467594925635
+      },
+      {
+        "role": "consumption",
+        "color": "#cbd5e1",
+        "background": "#111a14",
+        "contrast": 11.969476890497257
+      },
+      {
+        "role": "consumption",
+        "color": "#cbd5e1",
+        "background": "#0a0f0d",
+        "contrast": 13.011624943997116
+      },
+      {
+        "role": "consumption",
+        "color": "#cbd5e1",
+        "background": "#102017",
+        "contrast": 11.39738017837427
+      },
+      {
+        "role": "grid",
+        "color": "#d1d5db",
+        "background": "#111a14",
+        "contrast": 12.060368469979952
+      },
+      {
+        "role": "grid",
+        "color": "#d1d5db",
+        "background": "#0a0f0d",
+        "contrast": 13.110430192849323
+      },
+      {
+        "role": "grid",
+        "color": "#d1d5db",
+        "background": "#102017",
+        "contrast": 11.483927476627516
+      }
+    ],
+    "minimum": 10.136624622476463,
+    "threshold": 4.5,
+    "scope": "Actual solid metric foregrounds against card/page/notice surfaces; gradients/images/transparency require browser review. No WCAG certification."
+  },
+  "production_audits": {
+    "frontend": {
+      "info": 0,
+      "low": 0,
+      "moderate": 0,
+      "high": 0,
+      "critical": 0,
+      "total": 0
+    },
+    "backend": {
+      "info": 0,
+      "low": 0,
+      "moderate": 8,
+      "high": 0,
+      "critical": 0,
+      "total": 8
+    }
+  },
+  "scan": {
+    "files_checked": 1420,
+    "findings": [],
+    "limit": "Pattern scan is not proof that every credential format is absent.",
+    "history_blobs_checked": 2168,
+    "history_large_blobs_skipped": 0
+  },
+  "matrix": {
+    "measurements": [
+      {
+        "screen": "/dashboard",
+        "loading": true,
+        "empty": true,
+        "offline": true,
+        "error": true,
+        "viewport": 360
+      },
+      {
+        "screen": "/dashboard/panels",
+        "loading": true,
+        "empty": true,
+        "offline": true,
+        "error": true,
+        "viewport": 360
+      },
+      {
+        "screen": "/dashboard/forecast",
+        "loading": true,
+        "empty": true,
+        "offline": true,
+        "error": true,
+        "viewport": 360
+      },
+      {
+        "screen": "/dashboard/map",
+        "loading": true,
+        "empty": true,
+        "offline": true,
+        "error": true,
+        "viewport": 360
+      },
+      {
+        "screen": "/dashboard/alerts",
+        "loading": true,
+        "empty": true,
+        "offline": true,
+        "error": true,
+        "viewport": 360
+      },
+      {
+        "screen": "/dashboard/work-orders",
+        "loading": true,
+        "empty": true,
+        "offline": true,
+        "error": true,
+        "viewport": 360
+      },
+      {
+        "screen": "/dashboard/cv",
+        "loading": true,
+        "empty": true,
+        "offline": true,
+        "error": true,
+        "viewport": 360
+      },
+      {
+        "screen": "/dashboard/bfci",
+        "loading": true,
+        "empty": true,
+        "offline": true,
+        "error": true,
+        "viewport": 360
+      },
+      {
+        "screen": "/dashboard/carbon",
+        "loading": true,
+        "empty": true,
+        "offline": true,
+        "error": true,
+        "viewport": 360
+      },
+      {
+        "screen": "/dashboard/users",
+        "loading": true,
+        "empty": true,
+        "offline": true,
+        "error": true,
+        "viewport": 360
+      },
+      {
+        "screen": "/dashboard/devices",
+        "loading": true,
+        "empty": true,
+        "offline": true,
+        "error": true,
+        "viewport": 360
+      },
+      {
+        "screen": "/dashboard/relay",
+        "loading": true,
+        "empty": true,
+        "offline": true,
+        "error": true,
+        "viewport": 360
+      },
+      {
+        "screen": "/dashboard/commerce",
+        "loading": true,
+        "empty": true,
+        "offline": true,
+        "error": true,
+        "viewport": 360
+      },
+      {
+        "screen": "/account/orders",
+        "loading": true,
+        "empty": true,
+        "offline": true,
+        "error": true,
+        "viewport": 360
+      },
+      {
+        "screen": "/pricing",
+        "loading": true,
+        "empty": true,
+        "offline": true,
+        "error": true,
+        "viewport": 360
+      }
+    ],
+    "synthetic": true,
+    "scope": "List/metric data screens; record details use their same shared boundary plus not-found/error states. Account/security forms retain session/validation controls."
+  },
+  "original_media": {
+    "original": true,
+    "files": [
+      {
+        "file": "system-flow.webm",
+        "bytes": 12914,
+        "ceiling": 524288,
+        "sha256": "48b7041a8981b12d251a178356d02bd7f880b451922c5c3df96e1f4790f282e6"
+      },
+      {
+        "file": "system-flow-poster.svg",
+        "bytes": 1120,
+        "ceiling": 32768,
+        "sha256": "abb5e4d511721acbbfc9e1e9f6550b5664029e0aa036ce918635a7bbd7d0e4f8"
+      },
+      {
+        "file": "system-flow.en.vtt",
+        "bytes": 186,
+        "ceiling": 16384,
+        "sha256": "d4b15bb86362c213b6af3dfd7890decaceec2f85f5c7f5078bbd71abb8f03c90"
+      },
+      {
+        "file": "system-flow.hi.vtt",
+        "bytes": 387,
+        "ceiling": 16384,
+        "sha256": "6628cb97c1762005b2d113b08051fd3392ca7ecaf18e55bafd314f6355aa8359"
+      }
+    ],
+    "totalBytes": 14607,
+    "withinBudget": true,
+    "policy": "Engineering resource caps, not performance/business claims"
+  },
+  "optional_csp": "Skipped: current static rendering/cache, Next boot scripts, Framer/React style attributes and Checkout need a coordinated nonce/style change; inline allowances remain",
+  "not_verified": [
+    "Actual Ollama model/server",
+    "Real SMTP/Firebase UID/rules/migration",
+    "PostgreSQL/Redis servers/queue/backup restoration",
+    "Physical hardware/camera/relay",
+    "Calibrated real-data AI/weather forecasting",
+    "Approved web-sized map/actual locations",
+    "Razorpay-hosted TEST provider and business/legal/tax inputs",
+    "Actual containers/hosted CI/hosting/TLS/monitoring",
+    "Independent fluent Hindi/assistive-technology review"
+  ],
+  "notes": [
+    "Earlier failed attempts retained; only named final checks pass",
+    "Full backend suite 88 plus latest 10 shared clock/data/localization regressions; no unrelated full-suite repetition after UI-only fixes",
+    "Existing locked installs, not a fresh reinstall",
+    "No instrumented coverage percentage",
+    "No push/deployment/real message/live payment/user-data migration/deletion/flash"
+  ]
+}

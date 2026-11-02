@@ -1,8 +1,8 @@
 # Autopilot progress
 
-RESUME HERE: Phase 11 active on phase-11-gaps from phase-10-release (6cbb487). Step 0 gap audit saved in PHASE11_GAP_MAP.md before product changes. Finish the preceding fresh verification/run-guide artifact, then implement required chatbot, original bounded media, 360px/data-state/contrast and clock gaps, optional nonce CSP if feasible, all gates plus axe, current completion/issue/progress docs and local commits. No external activation or user-data changes.
+RESUME HERE: Phase 11 required local work and gate complete on phase-11-gaps. External activation and optional nonce CSP remain as recorded in MANUAL_STEPS.md and KNOWN_ISSUES.md; no external action is authorized.
 
-Current checkpoint: Phase 11 Steps 0-4 local code committed at 98bbd20; fresh full backend 88 and AI 28 pass, audit frontend 0/backend 8 moderate/no high-critical. Build and expanded UI/browser/axe gates are in progress. Solid-role contrast minimum 10.137:1. Optional nonce CSP Skipped with concrete renderer/cache/style dependencies. Earlier Phase 10 counts/tags/PDF are historical checkpoints; current completion/run-guide artifacts follow the Phase 11 gate.
+Current checkpoint: Phase 11 local gate passed: 88 backend, 28 AI, 10 UI and 4 actual-API browser cases, 1 Firebase rules and 4 native cases, placeholder firmware compile, build, lint, types, packaging, production audit and supported-pattern scan. Axe: 18 scans, 0 violations, 2 incomplete color-contrast checks; solid-pair minimum 10.14:1. Reports and per-check evidence are saved in test-results/. Optional nonce CSP Skipped; external activation remains Partial.
 
 Status key: [ ] todo; [~] in progress; [x] done and verified as stated; [!] skipped with a reason. A phase is done only after its full gate passes.
 

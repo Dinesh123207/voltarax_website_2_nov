@@ -1,3 +1,15 @@
+# Phase 11 final report
+
+Required local Phase 11 work is Done; external activation remains Partial and optional nonce CSP is Skipped. The original 14 items and evidence are mapped in PHASE11_GAP_MAP.md. Current results and limitations are in COMPLETION_SUMMARY.md, KNOWN_ISSUES.md and test-results/phase11-gate-summary.json.
+
+88 backend, 28 AI, 10 UI and 4 actual-API browser cases passed, as did the production build, types, lint, rules, native helpers and placeholder firmware compile. Axe recorded 18 scans, zero violations and two incomplete color-contrast checks; 12 solid pairs measured a 10.14:1 minimum. Frontend production audit had zero findings; backend had eight moderate, no high/critical. These checks do not prove error-free operation or certification.
+
+Use VERIFICATION_AND_RUN_GUIDE.md or its PDF for public preview, isolated tests and connected test setup. External service, field, legal and hosting work remains in MANUAL_STEPS.md. No push, external deployment, real messages, live payments, user-data migration/deletion or hardware flash occurred.
+
+---
+
+# Historical Phase 10 report
+
 # Voltarax final local implementation report
 
 Date: 2 November 2026 IST. Branch: `phase-10-release`. Tested application source: `3d88e6bcd83defe089ca35d47fdc82f5d7d78525`. Code/evidence tag `release-candidate` points to `5b223e4aba3b3562a476b38d253aa75ce326e7b5`; its application tree exactly matches the tested source. Final Markdown/PDF generation and verification are complete: ten pages, required text, page bounds and all ten rendered pages passed review. The artifact commit follows the candidate tag with application source unchanged; `phase-10-done` identifies that final commit.

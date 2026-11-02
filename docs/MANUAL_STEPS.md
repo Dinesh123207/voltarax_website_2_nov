@@ -1,5 +1,11 @@
 # Manual steps and external verification
 
+## Phase 11 follow-up
+
+- [ ] Accessibility reviewer: inspect the two incomplete public-page gradient color-contrast contexts in `test-results/phase11-release-web-browser-axe-home-{en,hi}-reduced.json`, then independently test keyboard and assistive technology. The measured solid-color pairs do not cover those gradients.
+- [ ] Operator: keep `CHAT_PROVIDER=disabled` unless deliberately testing a separately installed loopback Ollama model. Follow CHAT_ASSISTANT.md; verify the reviewed knowledge and human contact, and do not add user text or personal data to provider inputs. Actual Ollama execution was not tested.
+- [ ] Security/frontend owner: design and test coordinated request nonces, static/cache changes, Next scripts, style attributes and Checkout policy before removing CSP inline allowances. Step 5 was Skipped.
+
 ## Pre-launch checklist and owners
 
 No live operation is authorized by these instructions. The owner must separately authorize actual messages, payments, deployment/publication and any data migration. Current detailed steps below supersede older pending-task wording; the final local gate is recorded in PROGRESS.md/FINAL_REPORT.md.

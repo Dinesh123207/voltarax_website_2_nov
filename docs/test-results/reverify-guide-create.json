@@ -1,0 +1,64 @@
+{
+  "file": "docs/Voltarax_Verification_and_Run_Guide.pdf",
+  "pages": 9,
+  "sha256": "8eb0827272f6ff4e068a370ed5b3d8f61c9c5ca5b6b99574148c1153b761f78a",
+  "required_sections_present": true,
+  "reviewed_source_commit": "7cf096cde6ccaadea1a0c69acac1ad32a905d5bb",
+  "visual_review": "All pages rendered at 85 dpi and visually inspected",
+  "text_geometry_checks": [
+    {
+      "page": 1,
+      "chars": 2312,
+      "outside": 0,
+      "replacement_chars": 0
+    },
+    {
+      "page": 2,
+      "chars": 2505,
+      "outside": 0,
+      "replacement_chars": 0
+    },
+    {
+      "page": 3,
+      "chars": 2026,
+      "outside": 0,
+      "replacement_chars": 0
+    },
+    {
+      "page": 4,
+      "chars": 2625,
+      "outside": 0,
+      "replacement_chars": 0
+    },
+    {
+      "page": 5,
+      "chars": 2542,
+      "outside": 0,
+      "replacement_chars": 0
+    },
+    {
+      "page": 6,
+      "chars": 2821,
+      "outside": 0,
+      "replacement_chars": 0
+    },
+    {
+      "page": 7,
+      "chars": 2765,
+      "outside": 0,
+      "replacement_chars": 0
+    },
+    {
+      "page": 8,
+      "chars": 3292,
+      "outside": 0,
+      "replacement_chars": 0
+    },
+    {
+      "page": 9,
+      "chars": 3351,
+      "outside": 0,
+      "replacement_chars": 0
+    }
+  ]
+}

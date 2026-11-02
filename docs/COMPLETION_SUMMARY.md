@@ -1,3 +1,81 @@
+# VOLTARAX completion summary
+## Phase 11 update - 2 November 2026 IST
+
+Branch: phase-11-gaps. Tested code/evidence checkpoint: `7cf096cde6ccaadea1a0c69acac1ad32a905d5bb`.
+
+**Required Phase 11 local work: Done. Connected activation: Partial. Optional nonce CSP: Skipped.**
+
+| Phase 11 task | Current local result |
+| --- | --- |
+| 0 Original-list audit | Done - 14 items mapped with file evidence |
+| 1 Reviewed EN/HI assistant | Done - source citations, human contact, no user text to provider; optional loopback Ollama selector remains off/unverified |
+| 2 Original flow media | Done - SVG/CSS hero, silent local clip/poster/captions, lazy/motion/control fallbacks and byte budget |
+| 3 360 px data experience | Done - savings first/units second, grouped tabular numbers, data states, measured contrast/axe and keyboard table scrolling |
+| 4 IST and reading age | Done - public/dashboard clocks, server-policy Last updated/offline expiry, hidden pause, hydration tests |
+| 5 Full nonce CSP | Skipped - coordinated rendering/cache/style/Checkout work needed; inline allowance remains |
+
+| Original pending item | Overall state after local work |
+| --- | --- |
+| 1 Website/software | Partial - connected inputs/services still needed |
+| 2 Payments | Partial - tested code; real TEST provider/business inputs pending |
+| 3 India map/locations | Partial - approved geometry and actual site locations missing |
+| 4 AI chatbot | Partial - local code Done; actual optional model runtime unverified |
+| 5 Real registration OTP | Partial - code/fake sender verified; real delivery not run |
+| 6 PostgreSQL | Partial - actual SQL tests; server/restore unverified |
+| 7 Hardware integration | Partial - code compiled/simulated; commissioning pending |
+| 8 Video UI/UX | Done locally - original assets and browser checks |
+| 9 Cybersecurity | Partial - controls verified; advisories/inline CSP/host checks remain |
+| 10 Live hosting | Not done - no deployment/hosted CI/container runtime |
+| 11 Hardware testing | Partial - local tests/compile; physical tests Not done |
+| 12 Dashboard dummy data | Partial - truthful code/tests; live records not inspected/deleted |
+| 13 Real AI on website | Partial - model code/validation; calibrated field/weather inputs missing |
+| 14 SEO | Partial - technical guards; indexing/publication off |
+
+Detailed baseline and later evidence: PHASE11_GAP_MAP.md. Earlier phases 1-10 passed their recorded local gates. The following appendix preserves their original report; its current/future wording and page numbers describe that historical checkpoint, not later Phase 11 work.
+
+
+<!-- pagebreak -->
+
+# Verification and activation limits
+
+| Saved current local checks | Measured outcome |
+| --- | --- |
+| Backend / AI | 88 / 28 passed; latest shared regressions 10 passed |
+| Browser | 10 UI + 4 actual API cases; no skips/flaky/unexpected cases |
+| Data-state matrix | 15 screens: loading, empty, offline and error |
+| Axe 4.14.0 | 18 scans, 0 violations; 2 incomplete checks retained |
+| Metric contrast | Minimum 10.14:1 across 12 solid role/surface pairs |
+| Rules / native / firmware | 1 / 4 cases; placeholder compile only, no flash |
+| Lint / types / build | Passed; standalone assets and bounded media checked |
+| Production dependency audit | Frontend 0; backend 8 moderate; no high/critical |
+| Packaging / config / patterns | Offline imports, relative dependencies, CI/Compose parse and supported secret patterns pass |
+
+Axe incomplete rule types: color-contrast. The remaining contexts are listed in the reports and need manual review, alongside independent assistive-technology checks. Zero automated violations is not WCAG, Lighthouse or legal certification. Failed attempts remain saved, including corrected semantic/scroll findings and browser-launch/clock-test setup failures. No instrumented coverage percentage is claimed.
+
+## Owner steps before relying on a connected installation
+
+1. Select an isolated project; configure private credentials and first administrator/site access.
+2. Review actual Firebase UID/rules/claims, backup and any separately authorized migration; preserve existing data.
+3. Calibrate sensors; verify safe relay/camera/reconnect/contact behavior on hardware.
+4. Run PostgreSQL/Redis, reviewed schema, shared limits/queues and an isolated encrypted-backup restore drill.
+5. Intentionally configure/verify controlled SMTP delivery; fake mail is not an inbox test.
+6. Supply approved licensed web-sized India geometry and actual location/state assignments.
+7. Validate AI with calibrated real data/labels and trusted artifacts before schedules; weather-ahead forecasting remains Not done.
+8. Verify actual Razorpay TEST Checkout/webhooks/refunds with reviewed prices/business/tax inputs; live/GST mode remains unsupported.
+9. Complete fluent Hindi, independent accessibility, business/public-asset and counsel review. Legal pages remain drafts/noindex.
+10. Separately authorize hosted CI/container/HTTPS/Coolify/DNS/monitoring and prove recovery on the intended host.
+
+No push, external deployment, real message, live payment, user-data migration/deletion or hardware flash occurred. Actual Ollama, server storage/queue/mail, Docker engine/runtime, hardware, approved boundaries and field accuracy remain unverified. Optional nonce work was Skipped rather than presented as hardened.
+
+Use VERIFICATION_AND_RUN_GUIDE.md and its PDF for public preview, owned tests and connected setup. Exact results: test-results/phase11-gate-summary.json. Current issues/manual owners: KNOWN_ISSUES.md and MANUAL_STEPS.md. Source/provenance: SOURCES.md. The next ten pages are the exact Phase 10 historical appendix, retaining its original numbering and source hashes.
+
+
+<!-- pagebreak -->
+
+# Historical Phase 10 appendix
+
+The following source is retained from phase-10-done. Current Phase 11 results above supersede its checkpoint wording.
+
 # VOLTARAX
 ## Completion summary
 

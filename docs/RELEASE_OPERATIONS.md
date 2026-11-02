@@ -24,7 +24,7 @@ The chosen path is a Git-based Compose application after the owner separately au
 | --- | --- |
 | Server/project/environment | Owner-selected non-production server and environment; no new paid resource is assumed |
 | Source | Owner-authorized private repository connection with read access; no source was uploaded here |
-| Branch | `phase-10-release`; disable automatic deploy/webhook/preview deployment and verify the recorded candidate commit before a manual rollout |
+| Branch | `phase-11-gaps`; disable automatic deploy/webhook/preview deployment and verify the recorded candidate commit before a manual rollout |
 | Build strategy | Compose |
 | Base Directory | `/voltarax-web` |
 | Docker Compose Location | `/docker-compose.yml`, relative to that base |
@@ -75,3 +75,7 @@ Record candidate commit and built image digests, private environment version and
 Follow the concrete pgBackRest/Firebase export and isolated restore steps in DEPLOY.md; none ran here. The operator must choose retention, encryption, recovery objectives and approved off-host storage. Preserve Firebase identities/claims and private configuration separately. Test restoration into a new empty isolated environment before accepting any recovery claim.
 
 Monitor frontend liveness, backend readiness through the same-origin proxy, protected telemetry freshness/last-seen, AI input/model/publication clocks, queue dead letters, failed webhook deliveries, SQL/Redis storage and backup age. Readiness alone is not evidence of operating hardware or complete business features. Establish actual alert routing and incident ownership with approved recipients; this run did not send monitoring messages or enable schedules. Record an observed non-production failure/recovery and restore drill, then review thresholds/capacity. No uptime percentage, recovery time or operational certification is claimed.
+
+
+## Phase 11 additions
+The current local branch is phase-11-gaps. CHAT_PROVIDER remains disabled by default; the reviewed assistant knowledge JSON is explicitly packaged, and no user text/context is sent to an optional provider. Loopback in the backend container means that container itself; no host/remote Ollama service is exposed. Original local flow assets have enforced postbuild budgets. Freshness metadata and Last updated are feature status, not additional dependency readiness guarantees. Current gate evidence is phase11-gate-summary.json once completed; earlier phase tags are immutable history.
