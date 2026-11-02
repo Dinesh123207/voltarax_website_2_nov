@@ -1,0 +1,399 @@
+{
+  "config": {
+    "argv": [
+      "C:\\Program Files\\nodejs\\node.exe",
+      "C:\\Users\\JARVIS\\Desktop\\VOLTARAX\\voltarax-web\\frontend\\node_modules\\@playwright\\test\\cli.js",
+      "test",
+      "--grep",
+      "@public"
+    ],
+    "configFile": "C:\\Users\\JARVIS\\Desktop\\VOLTARAX\\voltarax-web\\frontend\\playwright.config.ts",
+    "rootDir": "C:/Users/JARVIS/Desktop/VOLTARAX/voltarax-web/frontend/tests/e2e",
+    "failOnFlakyTests": false,
+    "forbidOnly": false,
+    "fullyParallel": false,
+    "globalSetup": null,
+    "globalTeardown": null,
+    "globalTimeout": 0,
+    "grep": {},
+    "grepInvert": null,
+    "maxFailures": 0,
+    "metadata": {
+      "actualWorkers": 1
+    },
+    "preserveOutput": "always",
+    "projects": [
+      {
+        "outputDir": "C:/Users/JARVIS/Desktop/VOLTARAX/.local-tools/playwright/phase10-gate-web-browser",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 1
+        },
+        "id": "",
+        "name": "",
+        "testDir": "C:/Users/JARVIS/Desktop/VOLTARAX/voltarax-web/frontend/tests/e2e",
+        "testIgnore": [],
+        "testMatch": [
+          "**/*.@(spec|test).?(c|m)[jt]s?(x)"
+        ],
+        "timeout": 45000
+      }
+    ],
+    "filteredProjects": [
+      {
+        "grep": {},
+        "grepInvert": null,
+        "outputDir": "C:\\Users\\JARVIS\\Desktop\\VOLTARAX\\.local-tools\\playwright\\phase10-gate-web-browser",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 1
+        },
+        "name": "",
+        "testDir": "C:\\Users\\JARVIS\\Desktop\\VOLTARAX\\voltarax-web\\frontend\\tests\\e2e",
+        "snapshotDir": "C:\\Users\\JARVIS\\Desktop\\VOLTARAX\\voltarax-web\\frontend\\tests\\e2e",
+        "testIgnore": [],
+        "testMatch": "**/*.@(spec|test).?(c|m)[jt]s?(x)",
+        "timeout": 45000,
+        "use": {
+          "baseURL": "http://localhost:38473",
+          "browserName": "chromium",
+          "channel": "msedge",
+          "headless": true,
+          "viewport": {
+            "width": 360,
+            "height": 800
+          },
+          "reducedMotion": "reduce",
+          "locale": "en-IN",
+          "timezoneId": "Asia/Kolkata",
+          "serviceWorkers": "block",
+          "trace": "retain-on-failure",
+          "screenshot": "only-on-failure",
+          "launchOptions": {
+            "args": [
+              "--disable-background-networking",
+              "--disable-component-update",
+              "--no-first-run"
+            ]
+          }
+        },
+        "dependencies": [],
+        "ignoreSnapshots": false,
+        "__projectId": ""
+      }
+    ],
+    "quiet": false,
+    "reporter": [
+      [
+        "list",
+        null
+      ],
+      [
+        "json",
+        {
+          "outputFile": "C:\\Users\\JARVIS\\Desktop\\VOLTARAX\\docs\\test-results\\phase10-gate-web-browser.json"
+        }
+      ]
+    ],
+    "reportSlowTests": {
+      "max": 5,
+      "threshold": 300000
+    },
+    "shard": null,
+    "tags": [],
+    "updateSnapshots": "default",
+    "updateSourceMethod": "patch",
+    "version": "1.64.1",
+    "workers": 1,
+    "webServer": null
+  },
+  "suites": [
+    {
+      "title": "map.spec.ts",
+      "file": "map.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [
+        {
+          "title": "@public @map Hindi missing-data state never invents an India outline",
+          "ok": true,
+          "tags": [
+            "public",
+            "map"
+          ],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 2842,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-02T01:10:27.102Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "2d8799038d2916f69765-5557be47d3924046bf32",
+          "file": "map.spec.ts",
+          "line": 8,
+          "column": 5
+        },
+        {
+          "title": "@public @map client-only vector map joins recorded zero and safe text with table alternative",
+          "ok": true,
+          "tags": [
+            "public",
+            "map"
+          ],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 5646,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-02T01:10:31.282Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "2d8799038d2916f69765-e52ec4fd4075797a323a",
+          "file": "map.spec.ts",
+          "line": 16,
+          "column": 5
+        }
+      ]
+    },
+    {
+      "title": "public.spec.ts",
+      "file": "public.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [
+        {
+          "title": "@public 360px language switch, native cursor, keyboard skip and navigation",
+          "ok": true,
+          "tags": [
+            "public"
+          ],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 10654,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-02T01:10:37.060Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "muted-text-contrast-against-page-background",
+                      "contentType": "application/json",
+                      "body": "eyJzYW1wbGVzIjo0OCwibWluaW11bSI6OS41NDMyOTgyNzQ3Mzc0NjUsImxpbWl0YXRpb24iOiJTb2xpZCBwYWdlIGJhY2tncm91bmQ7IG5vdCBhIGZ1bGwgV0NBRyBvciBpbWFnZS9ncmFkaWVudCBhdWRpdCJ9"
+                    }
+                  ]
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "349fc90c6061c792a808-4b92ce5cb876e3960a74",
+          "file": "public.spec.ts",
+          "line": 24,
+          "column": 5
+        },
+        {
+          "title": "@public clock crosses IST midnight, pauses on visibility event and has stable reduced-motion text",
+          "ok": true,
+          "tags": [
+            "public"
+          ],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 7153,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-02T01:10:47.778Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "349fc90c6061c792a808-5ab657a94a54901fbc1a",
+          "file": "public.spec.ts",
+          "line": 45,
+          "column": 5
+        },
+        {
+          "title": "@public prepared assistant preserves entered Hindi text and returns keyboard focus",
+          "ok": true,
+          "tags": [
+            "public"
+          ],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 6041,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-02T01:10:54.992Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "349fc90c6061c792a808-5e8bccaf4b62c8774f94",
+          "file": "public.spec.ts",
+          "line": 59,
+          "column": 5
+        },
+        {
+          "title": "@public Hindi draft metadata, form labels and synthetic submission only",
+          "ok": true,
+          "tags": [
+            "public"
+          ],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 10307,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-02T01:11:01.216Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "349fc90c6061c792a808-36104de94683af9984b0",
+          "file": "public.spec.ts",
+          "line": 69,
+          "column": 5
+        },
+        {
+          "title": "@public Hindi role labels retain API values and closed mobile sidebar stays hidden",
+          "ok": true,
+          "tags": [
+            "public"
+          ],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 6330,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-02T01:11:12.372Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "349fc90c6061c792a808-5de8619f81feed63c6b1",
+          "file": "public.spec.ts",
+          "line": 93,
+          "column": 5
+        }
+      ]
+    }
+  ],
+  "errors": [],
+  "stats": {
+    "startTime": "2026-11-02T01:10:26.402Z",
+    "duration": 63869.936,
+    "expected": 7,
+    "skipped": 0,
+    "unexpected": 0,
+    "flaky": 0
+  }
+}

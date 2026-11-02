@@ -1,0 +1,14 @@
+{
+  "command": [
+    "python",
+    "tools/run-local-database.py",
+    "--log",
+    "docs/test-results/phase10-gate-api-java.log",
+    "--",
+    "python",
+    "tools/verify-backend-browser.py"
+  ],
+  "cwd": ".",
+  "exit_code": 0,
+  "seconds": 174.32
+}

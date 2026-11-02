@@ -1,0 +1,31 @@
+[2026-11-02T01:17:44.900Z]  @firebase/database: FIREBASE WARNING: set at /readings/solar_site/wrong failed: permission_denied 
+[2026-11-02T01:17:44.960Z]  @firebase/database: FIREBASE WARNING: set at /readings/elsewhere/second failed: permission_denied 
+[2026-11-02T01:17:44.966Z]  @firebase/database: FIREBASE WARNING: set at /readings/solar_site/third failed: permission_denied 
+[2026-11-02T01:17:44.972Z]  @firebase/database: FIREBASE WARNING: set at /readings/solar_site/third failed: permission_denied 
+[2026-11-02T01:17:44.978Z]  @firebase/database: FIREBASE WARNING: set at /readings/solar_site/third failed: permission_denied 
+[2026-11-02T01:17:44.990Z]  @firebase/database: FIREBASE WARNING: set at /readings/solar_site/third failed: permission_denied 
+[2026-11-02T01:17:45.002Z]  @firebase/database: FIREBASE WARNING: set at /readings/solar_site/second failed: permission_denied 
+[2026-11-02T01:17:45.046Z]  @firebase/database: FIREBASE WARNING: set at /sites/solar_site/latest failed: permission_denied 
+[2026-11-02T01:17:45.055Z]  @firebase/database: FIREBASE WARNING: set at /users/forged failed: permission_denied 
+[2026-11-02T01:17:45.062Z]  @firebase/database: FIREBASE WARNING: set at /authChallenges/forged failed: permission_denied 
+[2026-11-02T01:17:45.069Z]  @firebase/database: FIREBASE WARNING: set at /auditLog/forged failed: permission_denied 
+[2026-11-02T01:17:45.086Z]  @firebase/database: FIREBASE WARNING: set at /userEmails/forged failed: permission_denied 
+[2026-11-02T01:17:45.098Z]  @firebase/database: FIREBASE WARNING: set at /access/forged failed: permission_denied 
+[2026-11-02T01:17:45.114Z]  @firebase/database: FIREBASE WARNING: set at /bootstrap/forged failed: permission_denied 
+[2026-11-02T01:17:45.122Z]  @firebase/database: FIREBASE WARNING: set at /content/forged failed: permission_denied 
+[2026-11-02T01:17:45.223Z]  @firebase/database: FIREBASE WARNING: set at /relayCommands/nodemcu-01 failed: permission_denied 
+[2026-11-02T01:17:45.230Z]  @firebase/database: FIREBASE WARNING: set at /relayAcks/nodemcu-01/command-current failed: permission_denied 
+[2026-11-02T01:17:45.242Z]  @firebase/database: FIREBASE WARNING: set at /relayAcks/nodemcu-01/command-current failed: permission_denied 
+[2026-11-02T01:17:45.295Z]  @firebase/database: FIREBASE WARNING: set at /relayAcks/nodemcu-01/command-current failed: permission_denied 
+[2026-11-02T01:17:45.370Z]  @firebase/database: FIREBASE WARNING: set at /readings/solar_site/impostor failed: permission_denied 
+[2026-11-02T01:17:45.465Z]  @firebase/database: FIREBASE WARNING: set at /readings/solar_site/disabled failed: permission_denied 
+[2026-11-02T01:17:45.478Z]  @firebase/database: FIREBASE WARNING: set at /relayAcks/nodemcu-01/expired-command failed: permission_denied 
+✔ RTDB rules isolate roles/sites/devices and reject client access to account secrets (2229.4886ms)
+ℹ tests 1
+ℹ suites 0
+ℹ pass 1
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 4552.2312

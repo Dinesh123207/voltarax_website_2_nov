@@ -1,0 +1,247 @@
+{
+  "phase": 10,
+  "status": "local gate passed; external activation partial",
+  "tested_code_commit": "3d88e6bcd83defe089ca35d47fdc82f5d7d78525",
+  "application_tree": "b93b97030ea330ffe70c736465c6c1634a314610",
+  "branch": "phase-10-release",
+  "counts": {
+    "backend": 81,
+    "ai": 28,
+    "public_browser": 7,
+    "actual_api_browser": 3,
+    "database_rules": 1,
+    "native": 4
+  },
+  "checks": {
+    "backend": {
+      "command": [
+        "npm.cmd",
+        "test"
+      ],
+      "cwd": "voltarax-web/backend",
+      "exit_code": 0,
+      "seconds": 94.79
+    },
+    "ai": {
+      "command": [
+        "C:/Users/JARVIS/Desktop/VOLTARAX/.local-tools/ai-python/Scripts/python.exe",
+        "-m",
+        "pytest",
+        "tests",
+        "-q",
+        "-p",
+        "no:cacheprovider"
+      ],
+      "cwd": "voltarax-web/ai-engine",
+      "exit_code": 0,
+      "seconds": 15.51
+    },
+    "lint": {
+      "command": [
+        "npm.cmd",
+        "run",
+        "lint"
+      ],
+      "cwd": "voltarax-web/frontend",
+      "exit_code": 0,
+      "seconds": 8.27
+    },
+    "source-types": {
+      "command": [
+        "npx.cmd",
+        "tsc",
+        "--noEmit",
+        "--project",
+        "tsconfig.source.json"
+      ],
+      "cwd": "voltarax-web/frontend",
+      "exit_code": 0,
+      "seconds": 9.66
+    },
+    "build": {
+      "command": [
+        "python",
+        "tools/verify-locale-routes.py",
+        "--build"
+      ],
+      "cwd": ".",
+      "exit_code": 0,
+      "seconds": 209.66
+    },
+    "generated-types": {
+      "command": [
+        "npx.cmd",
+        "tsc",
+        "--noEmit"
+      ],
+      "cwd": "voltarax-web/frontend",
+      "exit_code": 0,
+      "seconds": 10.71
+    },
+    "web": {
+      "command": [
+        "python",
+        "tools/verify-locale-routes.py"
+      ],
+      "cwd": ".",
+      "exit_code": 0,
+      "seconds": 71.18
+    },
+    "api": {
+      "command": [
+        "python",
+        "tools/run-local-database.py",
+        "--log",
+        "docs/test-results/phase10-gate-api-java.log",
+        "--",
+        "python",
+        "tools/verify-backend-browser.py"
+      ],
+      "cwd": ".",
+      "exit_code": 0,
+      "seconds": 174.32
+    },
+    "rules": {
+      "command": [
+        "python",
+        "tools/run-local-database.py",
+        "--log",
+        "docs/test-results/phase10-gate-rules-java.log",
+        "--",
+        "node",
+        "--test",
+        "voltarax-web/backend/tests/firebase-rules.test.cjs"
+      ],
+      "cwd": ".",
+      "exit_code": 0,
+      "seconds": 7.65
+    },
+    "native-corrected": {
+      "command": [
+        "C:/Users/JARVIS/Desktop/VOLTARAX/.local-tools/platformio/Scripts/python.exe",
+        "-m",
+        "platformio",
+        "test",
+        "-e",
+        "native"
+      ],
+      "cwd": "voltarax-web/hardware/nodemcu",
+      "exit_code": 0,
+      "seconds": 22.89
+    },
+    "firmware": {
+      "command": [
+        "C:/Users/JARVIS/Desktop/VOLTARAX/.local-tools/platformio/Scripts/python.exe",
+        "-m",
+        "platformio",
+        "run",
+        "-e",
+        "compile_check",
+        "-j",
+        "2"
+      ],
+      "cwd": "voltarax-web/hardware/nodemcu",
+      "exit_code": 0,
+      "seconds": 234.61
+    },
+    "audit": {
+      "command": [
+        "python",
+        "tools/audit-dependencies.py"
+      ],
+      "cwd": ".",
+      "exit_code": 0,
+      "seconds": 8.42
+    },
+    "compose": {
+      "command": [
+        "docker",
+        "compose",
+        "--profile",
+        "ai",
+        "config",
+        "--quiet"
+      ],
+      "cwd": "voltarax-web",
+      "exit_code": 0,
+      "seconds": 0.45
+    },
+    "secrets": {
+      "command": [
+        "python",
+        "tools/scan-secrets.py",
+        "--history"
+      ],
+      "cwd": ".",
+      "exit_code": 0,
+      "seconds": 8.56
+    }
+  },
+  "browser_stats": {
+    "web": {
+      "startTime": "2026-11-02T01:10:26.402Z",
+      "duration": 63869.936,
+      "expected": 7,
+      "skipped": 0,
+      "unexpected": 0,
+      "flaky": 0
+    },
+    "api": {
+      "startTime": "2026-11-02T01:12:47.991Z",
+      "duration": 150247.29799999998,
+      "expected": 3,
+      "skipped": 0,
+      "unexpected": 0,
+      "flaky": 0
+    }
+  },
+  "production_audits": {
+    "frontend": {
+      "info": 0,
+      "low": 0,
+      "moderate": 0,
+      "high": 0,
+      "critical": 0,
+      "total": 0
+    },
+    "backend": {
+      "info": 0,
+      "low": 0,
+      "moderate": 8,
+      "high": 0,
+      "critical": 0,
+      "total": 8
+    }
+  },
+  "history_pattern_scan": {
+    "files_checked": 1107,
+    "findings": [],
+    "limit": "Pattern scan is not proof that every credential format is absent.",
+    "history_blobs_checked": 1778,
+    "history_large_blobs_skipped": 0
+  },
+  "catalog_messages": 1045,
+  "configuration_only": [
+    "GitHub hosted CI",
+    "Docker images/runtime",
+    "Coolify",
+    "DNS/TLS",
+    "backups/restore/monitoring"
+  ],
+  "not_field_verified": [
+    "Sensors/relay contacts/camera",
+    "live Firebase UID/migrations",
+    "SMTP/Redis/PostgreSQL server",
+    "Razorpay provider TEST account",
+    "calibrated real-data AI/weather-ahead forecasting",
+    "approved web-sized India outline",
+    "counsel/fluent/independent AT review"
+  ],
+  "notes": [
+    "Earlier failures/timeouts retained; latest applicable reruns pass",
+    "Firmware placeholder compile only, no flash; default SDK package cache was populated",
+    "Public browser checks intercept API data; separate API cases use real auth/SQL/signatures with fake external responses",
+    "No instrumented line or branch coverage percentage",
+    "No push, external deployment, live payment or real message"
+  ]
+}

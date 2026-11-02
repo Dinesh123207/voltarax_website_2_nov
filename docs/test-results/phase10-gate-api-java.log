@@ -1,0 +1,4 @@
+06:42:27.212 [NamespaceSystem-akka.actor.default-dispatcher-5] INFO akka.event.slf4j.Slf4jLogger - Slf4jLogger started
+06:42:27.458 [main] INFO com.firebase.server.forge.App$ - Listening at 127.0.0.1:9000
+06:42:29.092 [NamespaceSystem-akka.actor.default-dispatcher-5] INFO com.firebase.core.namespace.NamespaceActor - demo-voltarax successfully activated FBKV (SurveyIdle(0)) wait: 187ms, init: 0ms
+06:42:29.273 [NamespaceSystem-blocking-namespace-operation-dispatcher-7] INFO com.firebase.core.namespace.StateManager - Namespace demo-voltarax status Active to Active

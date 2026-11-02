@@ -1,0 +1,25 @@
+{
+  "english_and_hindi_document_languages": true,
+  "hindi_navigation": true,
+  "hindi_about_content": true,
+  "hindi_home_products_technology_sustainability": true,
+  "locale_preference_redirect": true,
+  "api_and_health_proxy_unprefixed": true,
+  "localized_checkout_header": true,
+  "review_gated_metadata_robots_sitemap": true,
+  "localized_page_metadata": true,
+  "private_noindex_header": true,
+  "original_1200x630_png": true,
+  "hindi_legal_draft_noindex": true,
+  "frontend_liveness_and_validation": true,
+  "backend": "Owned loopback synthetic fixture only",
+  "browser_workflow": "Local synthetic UI checks passed; no real services or backend authentication verification",
+  "browser_stats": {
+    "startTime": "2026-11-02T01:10:26.402Z",
+    "duration": 63869.936,
+    "expected": 7,
+    "skipped": 0,
+    "unexpected": 0,
+    "flaky": 0
+  }
+}

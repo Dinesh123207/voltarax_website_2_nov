@@ -1,0 +1,239 @@
+{
+  "config": {
+    "argv": [
+      "C:\\Program Files\\nodejs\\node.exe",
+      "C:\\Users\\JARVIS\\Desktop\\VOLTARAX\\voltarax-web\\frontend\\node_modules\\@playwright\\test\\cli.js",
+      "test",
+      "--grep",
+      "@backend"
+    ],
+    "configFile": "C:\\Users\\JARVIS\\Desktop\\VOLTARAX\\voltarax-web\\frontend\\playwright.config.ts",
+    "rootDir": "C:/Users/JARVIS/Desktop/VOLTARAX/voltarax-web/frontend/tests/e2e",
+    "failOnFlakyTests": false,
+    "forbidOnly": false,
+    "fullyParallel": false,
+    "globalSetup": null,
+    "globalTeardown": null,
+    "globalTimeout": 0,
+    "grep": {},
+    "grepInvert": null,
+    "maxFailures": 0,
+    "metadata": {
+      "actualWorkers": 1
+    },
+    "preserveOutput": "always",
+    "projects": [
+      {
+        "outputDir": "C:/Users/JARVIS/Desktop/VOLTARAX/.local-tools/playwright/phase10-gate-api-browser",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 1
+        },
+        "id": "",
+        "name": "",
+        "testDir": "C:/Users/JARVIS/Desktop/VOLTARAX/voltarax-web/frontend/tests/e2e",
+        "testIgnore": [],
+        "testMatch": [
+          "**/*.@(spec|test).?(c|m)[jt]s?(x)"
+        ],
+        "timeout": 45000
+      }
+    ],
+    "filteredProjects": [
+      {
+        "grep": {},
+        "grepInvert": null,
+        "outputDir": "C:\\Users\\JARVIS\\Desktop\\VOLTARAX\\.local-tools\\playwright\\phase10-gate-api-browser",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 1
+        },
+        "name": "",
+        "testDir": "C:\\Users\\JARVIS\\Desktop\\VOLTARAX\\voltarax-web\\frontend\\tests\\e2e",
+        "snapshotDir": "C:\\Users\\JARVIS\\Desktop\\VOLTARAX\\voltarax-web\\frontend\\tests\\e2e",
+        "testIgnore": [],
+        "testMatch": "**/*.@(spec|test).?(c|m)[jt]s?(x)",
+        "timeout": 45000,
+        "use": {
+          "baseURL": "http://localhost:38473",
+          "browserName": "chromium",
+          "channel": "msedge",
+          "headless": true,
+          "viewport": {
+            "width": 360,
+            "height": 800
+          },
+          "reducedMotion": "reduce",
+          "locale": "en-IN",
+          "timezoneId": "Asia/Kolkata",
+          "serviceWorkers": "block",
+          "trace": "retain-on-failure",
+          "screenshot": "only-on-failure",
+          "launchOptions": {
+            "args": [
+              "--disable-background-networking",
+              "--disable-component-update",
+              "--no-first-run"
+            ]
+          }
+        },
+        "dependencies": [],
+        "ignoreSnapshots": false,
+        "__projectId": ""
+      }
+    ],
+    "quiet": false,
+    "reporter": [
+      [
+        "list",
+        null
+      ],
+      [
+        "json",
+        {
+          "outputFile": "C:\\Users\\JARVIS\\Desktop\\VOLTARAX\\docs\\test-results\\phase10-gate-api-browser.json"
+        }
+      ]
+    ],
+    "reportSlowTests": {
+      "max": 5,
+      "threshold": 300000
+    },
+    "shard": null,
+    "tags": [],
+    "updateSnapshots": "default",
+    "updateSourceMethod": "patch",
+    "version": "1.64.1",
+    "workers": 1,
+    "webServer": null
+  },
+  "suites": [
+    {
+      "title": "backend.spec.ts",
+      "file": "backend.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [
+        {
+          "title": "@backend registration OTP, real cookie login, site revocation, role access and Hindi switch",
+          "ok": true,
+          "tags": [
+            "backend"
+          ],
+          "tests": [
+            {
+              "timeout": 90000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 41495,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-02T01:12:50.076Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "339784efd424d58cb54b-4f60f919a907a8ddf79a",
+          "file": "backend.spec.ts",
+          "line": 19,
+          "column": 5
+        },
+        {
+          "title": "@backend administrator relay request and simulated acknowledgement keep physical feedback unavailable",
+          "ok": true,
+          "tags": [
+            "backend"
+          ],
+          "tests": [
+            {
+              "timeout": 90000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 30643,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-02T01:13:33.183Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "339784efd424d58cb54b-452441862e58e8635dac",
+          "file": "backend.spec.ts",
+          "line": 49,
+          "column": 5
+        },
+        {
+          "title": "@backend test checkout uses actual SQL/signatures, callback stays pending and capture creates one invoice",
+          "ok": true,
+          "tags": [
+            "backend"
+          ],
+          "tests": [
+            {
+              "timeout": 90000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 59595,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-02T01:14:03.997Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "339784efd424d58cb54b-5b3fd3ce237f168abc0d",
+          "file": "backend.spec.ts",
+          "line": 68,
+          "column": 5
+        }
+      ]
+    }
+  ],
+  "errors": [],
+  "stats": {
+    "startTime": "2026-11-02T01:12:47.991Z",
+    "duration": 150247.29799999998,
+    "expected": 3,
+    "skipped": 0,
+    "unexpected": 0,
+    "flaky": 0
+  }
+}

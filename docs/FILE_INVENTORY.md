@@ -1,6 +1,6 @@
-# Source file inventory
+# Baseline source inventory (Phase 1)
 
-Generated from current workspace; excludes dependency directories, generated artifacts, lockfiles and binary PDF. Line counts use text lines. All listed source text files were reviewed in chunks; entries changed during stabilization are marked accordingly. Lockfiles, generated artifacts, dependency directories and the binary reference PDF are excluded.
+Historical Phase 1 inventory, retained as review evidence. These line counts/statuses describe that checkpoint, not the expanded Phase 10 tree. Listed source text was reviewed in chunks; later changes/new modules are recorded in Git, PROGRESS.md, COVERAGE_SUMMARY.md and FINAL_REPORT.md. Dependency directories, generated artifacts, lockfiles and binary reference PDF were excluded. Do not treat these baseline counts as current line coverage or a claim that every third-party reference repository was read line by line.
 
 | Path under voltarax-web | Lines | Purpose | Review status |
 | --- | ---: | --- | --- |

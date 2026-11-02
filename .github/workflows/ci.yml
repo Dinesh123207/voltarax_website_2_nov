@@ -65,6 +65,8 @@ jobs:
           FRONTEND_CHECK_SERVER: production
           FRONTEND_CHECK_BROWSER: 'true'
         run: python tools/run-check.py --cwd . --name ci-public -- python tools/verify-locale-routes.py
+      - name: Role, site and device database rules
+        run: python tools/run-check.py --cwd . --name ci-rules -- python tools/run-local-database.py --log docs/test-results/ci-rules-java.log -- node --test voltarax-web/backend/tests/firebase-rules.test.cjs
       - name: Actual API browser workflows with fake delivery and gateway
         env:
           BACKEND_BROWSER_LABEL: ci-actual-api
