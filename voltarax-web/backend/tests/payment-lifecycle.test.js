@@ -34,7 +34,9 @@ test('valid browser signature is only a hint; verified capture atomically create
   const invoice = await service.invoice(order.id, 'buyer'), pdf = Buffer.from(invoice.pdfBase64, 'base64');
   assert.equal(pdf.subarray(0, 4).toString(), '%PDF'); assert.equal(createHash('sha256').update(pdf).digest('hex'), invoice.sha256);
   assert.equal(invoice.evidence.gst, null); assert.equal(invoice.evidence.mode, 'test');
-  require('node:fs').writeFileSync(require('node:path').resolve(__dirname, '../../../docs/test-results/phase07-invoice-layout-fixture.pdf'), pdf);
+  const fixtureDirectory=require('node:path').resolve(__dirname,'../../../.local-tools/generated-tests');
+  require('node:fs').mkdirSync(fixtureDirectory,{recursive:true});
+  require('node:fs').writeFileSync(require('node:path').join(fixtureDirectory,'invoice-layout-fixture.pdf'),pdf);
   await assert.rejects(service.invoice(order.id, 'other'), error => error.status === 404);
   await send(service, { ...event, synthetic_replay_variant: true }, 'event_capture2');
   assert.equal((await c.db.select().from(s.commerceInvoices)).length, 1);
