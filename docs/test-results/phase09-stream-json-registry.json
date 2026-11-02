@@ -1,0 +1,14 @@
+{
+  "command": [
+    "npm.cmd",
+    "view",
+    "stream-json",
+    "version",
+    "license",
+    "engines",
+    "--json"
+  ],
+  "cwd": "voltarax-web/backend",
+  "exit_code": 0,
+  "seconds": 2.0
+}

@@ -1,0 +1,13 @@
+{
+  "command": [
+    "npm.cmd",
+    "view",
+    "@types/leaflet",
+    "version",
+    "license",
+    "--json"
+  ],
+  "cwd": "voltarax-web/frontend",
+  "exit_code": 0,
+  "seconds": 3.55
+}

@@ -114,3 +114,8 @@ PostHog is not enabled; TimescaleDB is a design reference only. Boundary GeoJSON
 
 ### Phase 8 final verification update
 The five original Edge checks passed against the current owned production build; results are in phase08-gate-web-reviewed-browser.json (no skipped/unexpected/flaky cases). These prove the stated local UI behaviors with intercepted synthetic API calls, not actual backend authentication, mail, provider or hardware behavior. Existing installed Edge was used with an isolated profile; no browser or copyleft audit library was vendored. Current full Hindi PDF/email support and independent AT/full-contrast/performance/legal review remain partial/manual.
+
+### Phase 9 sources (2 November 2026 IST)
+- https://github.com/Tanmay53/india-state-boundries-geojson and its raw file: upstream recovered from sanitized archive download metadata and independently checked. Apache-2.0 license read/retained, not evidence of survey authority or current-outline accuracy. Raw 164447698-byte object exactly matches archive SHA-256; ignored local review only. Mapviewer reference MIT notice read; no source adapted.
+- https://leafletjs.com/reference.html and official v1.9.4 LICENSE: installed stable 1.9.4 BSD-2-Clause and types 1.9.22 MIT, notices retained, original integration only.
+- https://github.com/uhop/stream-json: registry/installed README and full BSD-3-Clause license read, exact 3.8.0 offline development dependency. stream-chain 4.4.1 BSD-3 notice read. Streaming components used through their documented API; no library source copied.

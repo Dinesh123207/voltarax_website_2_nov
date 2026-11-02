@@ -1,0 +1,11 @@
+{
+  "command": [
+    "npm.cmd",
+    "install",
+    "--save-exact",
+    "leaflet@1.9.4"
+  ],
+  "cwd": "voltarax-web/frontend",
+  "exit_code": 0,
+  "seconds": 7.8
+}

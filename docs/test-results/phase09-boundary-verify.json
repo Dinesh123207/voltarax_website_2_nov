@@ -1,0 +1,12 @@
+{
+  "command": [
+    "node",
+    "--max-old-space-size=768",
+    "scripts/verify-geojson.mjs",
+    "../../.local-tools/geojson/india_states.original.geojson",
+    "ST_NM,state"
+  ],
+  "cwd": "voltarax-web/backend",
+  "exit_code": 0,
+  "seconds": 6.94
+}

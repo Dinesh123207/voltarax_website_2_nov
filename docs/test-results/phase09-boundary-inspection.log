@@ -1,0 +1,37 @@
+{"index":1,"type":"Feature","properties":{"id":3,"state":"Arunachal Pradesh"}}
+{"index":2,"type":"Feature","properties":{"id":4,"state":"Assam"}}
+{"index":3,"type":"Feature","properties":{"id":6,"ST_NM":"Chandigarh"}}
+{"index":4,"type":"Feature","properties":{"id":17,"ST_NM":"Karnataka"}}
+{"index":5,"type":"Feature","properties":{"id":22,"ST_NM":"Manipur"}}
+{"index":6,"type":"Feature","properties":{"id":23,"ST_NM":"Meghalaya"}}
+{"index":7,"type":"Feature","properties":{"id":24,"ST_NM":"Mizoram"}}
+{"index":8,"type":"Feature","properties":{"id":25,"ST_NM":"Nagaland"}}
+{"index":9,"type":"Feature","properties":{"id":28,"ST_NM":"Punjab"}}
+{"index":10,"type":"Feature","properties":{"id":29,"ST_NM":"Rajasthan"}}
+{"index":11,"type":"Feature","properties":{"id":30,"ST_NM":"Sikkim"}}
+{"index":12,"type":"Feature","properties":{"id":32,"ST_NM":"Tripura"}}
+{"index":13,"type":"Feature","properties":{"id":34,"ST_NM":"Uttarakhand"}}
+{"index":14,"type":"Feature","properties":{"id":36,"ST_NM":"Telangana"}}
+{"index":15,"type":"Feature","properties":{"id":5,"ST_NM":"Bihar"}}
+{"index":16,"type":"Feature","properties":{"id":18,"ST_NM":"Kerala"}}
+{"index":17,"type":"Feature","properties":{"id":20,"ST_NM":"Madhya Pradesh"}}
+{"index":18,"type":"Feature","properties":{"id":1,"ST_NM":"Andaman & Nicobar"}}
+{"index":19,"type":"Feature","properties":{"id":12,"ST_NM":"Gujarat"}}
+{"index":20,"type":"Feature","properties":{"id":19,"ST_NM":"Lakshadweep"}}
+{"index":21,"type":"Feature","properties":{"id":26,"ST_NM":"Odisha"}}
+{"index":22,"type":"Feature","properties":{"id":8,"ST_NM":"Dadra and Nagar Haveli and Daman and Diu"}}
+{"index":23,"type":"Feature","properties":{"id":15,"ST_NM":"Jammu & Kashmir"}}
+{"index":24,"type":"Feature","properties":{"id":7,"ST_NM":"Chhattisgarh"}}
+{"index":25,"type":"Feature","properties":{"id":10,"ST_NM":"Delhi"}}
+{"index":26,"type":"Feature","properties":{"id":11,"ST_NM":"Goa"}}
+{"index":27,"type":"Feature","properties":{"id":13,"ST_NM":"Haryana"}}
+{"index":28,"type":"Feature","properties":{"id":14,"ST_NM":"Himachal Pradesh"}}
+{"index":29,"type":"Feature","properties":{"id":16,"ST_NM":"Jharkhand"}}
+{"index":30,"type":"Feature","properties":{"id":31,"ST_NM":"Tamil Nadu"}}
+{"index":31,"type":"Feature","properties":{"id":33,"ST_NM":"Uttar Pradesh"}}
+{"index":32,"type":"Feature","properties":{"id":35,"ST_NM":"West Bengal"}}
+{"index":33,"type":"Feature","properties":{"id":2,"ST_NM":"Andhra Pradesh"}}
+{"index":34,"type":"Feature","properties":{"id":27,"ST_NM":"Puducherry"}}
+{"index":35,"type":"Feature","properties":{"id":21,"ST_NM":"Maharashtra"}}
+{"index":36,"type":"Feature","properties":{"id":37,"ST_NM":"Ladakh"}}
+{"featureCount":36}

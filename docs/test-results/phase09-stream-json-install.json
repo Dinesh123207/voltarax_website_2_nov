@@ -1,0 +1,12 @@
+{
+  "command": [
+    "npm.cmd",
+    "install",
+    "--save-dev",
+    "--save-exact",
+    "stream-json@3.8.0"
+  ],
+  "cwd": "voltarax-web/backend",
+  "exit_code": 0,
+  "seconds": 8.01
+}

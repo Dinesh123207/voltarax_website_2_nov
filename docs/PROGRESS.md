@@ -1,6 +1,6 @@
 # Autopilot progress
 
-RESUME HERE: Phase 9 — verify/recover boundary data and provenance, build guarded real-data map/missing-data state and verification CLI, then phase gate
+RESUME HERE: Phase 9 — complete authenticated state metrics/map UI and localization, run focused checks and full phase gate
 
 Current checkpoint: Phase 8 final local gate passed: 74 backend, 28 AI, production build 72.60 s, generated types 7.02 s, five actual Edge browser cases 28.3 s and combined HTTP/browser 33.10 s. Current source has 1015/1015 catalog messages translated. Production audits frontend 0/backend 8 moderate; full frontend 18 moderate tooling, no high-critical. Final scan/diff passed. Hindi PDF font output, fluent/legal/independent AT/field reviews remain explicitly manual/partial. Phase 9 archive provenance was recovered from sanitized download metadata and confirmed at public Tanmay53/india-state-boundries-geojson; archived geometry is still an LFS pointer. Leaflet stable 1.9.4 BSD-2-Clause / types 1.9.22 MIT registry checks saved, not installed yet.
 
@@ -108,6 +108,7 @@ Status key: [ ] todo; [~] in progress; [x] done and verified as stated; [!] skip
 - [x] Visual follow-up: strengthened input boundaries, removed opacity from role explanations, and kept the prepared FAQ off account/dashboard/login/contact forms. Focused actual browser form check passed, including >=3:1 computed border contrast, associated labels, no assistant overlap and intercepted synthetic submission. Initial development compilation exceeded the case bound; prewarming selected pages before starting Edge reduced resource overlap and passed without relaxing production limits. Latest production rebuild/recheck is next.
 
 ## Phase 9 — India map
+- [x] Recovered exact LFS object for local review only: SHA-256/164447698 bytes match the archive. Offline streaming verifier found 36 features, 1071165 coordinate pairs and actual ST_NM/state/id properties. Two focused geometry/review/hash tests pass. Exact original remains ignored, unmodified and unpublished. Even compact geometry exceeds the explicit web budget; approved web-sized/current-outline review remains manual, no approximation invented. Leaflet 1.9.4 BSD-2, types 1.9.22 MIT and offline stream-json 3.8.0 BSD-3 installed after license review. Notices and exact installation/review steps retained.
 - [ ] Verify licensed boundary data, build real-data join and missing-data state, gate and phase tag.
 
 ## Phase 10 — testing, deployment and final report

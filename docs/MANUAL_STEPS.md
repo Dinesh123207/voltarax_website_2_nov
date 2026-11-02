@@ -190,3 +190,6 @@ Follow LEGAL_REVIEW.md in order: confirm actual operator/seller and working priv
 
 ### Remaining frontend development advisories
 Inspect docs/test-results/phase08-gate-frontend-full-audit.log for the exact 18 moderate matches. In a local maintenance branch from the current phase, run npm audit fix --dry-run, review compatible patch/transitive changes, apply npm audit fix only without --force, then run lint, generated-route types, tests and build/audits. If the same root chains remain, migrate the supported ESLint/Next config together; verify patched versions against current primary advisories. Do not accept suggested eslint@4.0.0 or eslint-config-next@0.2.4 downgrades. Production frontend audit is clean; run CI on untrusted inputs without production secrets. No major lint-tool migration was performed during the public-page work.
+
+### Phase 9 map activation
+Follow MAP_DATA.md exactly. Original raw archive object is recovered but 164 MB and unverified for outline currency/authority; it will not be published. Obtain approved web-sized geometry, retain its actual license/source, verify property names/hash/budget, install at backend/data/india-states.geojson, configure MAP_* and the real site-to-state assignment. Recheck geographic/India publication and rights requirements before enabling. No placeholder India outline is supplied.

@@ -155,3 +155,6 @@ Interaction, contact-label/validation, reduced-motion/performance and receipt gl
 
 ### Phase 8 local gate complete
 Final evidence is phase08-gate-build-reviewed, phase08-gate-generated-types-reviewed and phase08-gate-web-reviewed, plus the full backend/AI and audit/scan files. 74 backend + 28 AI + five actual browser cases pass; public claims/language/indexing/legal drafts/interaction/font limits are implemented and scoped. Partial Hindi PDF/email, legal/fluent/AT/field/service reviews remain manual. Proceed to Phase 9; preserve the archive pointer and verify actual boundary data/property names before use.
+
+### Phase 9 boundary checkpoint
+Exact original recovered and offline schema inspected; two focused boundary tests pass. Reader/CLI enforce property, geometry, review/hash and web budgets. Implement authorized device/IST-energy join and client-only Leaflet/table next. Current outline publication and web-sized approved dataset remain manual.

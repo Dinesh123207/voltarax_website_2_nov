@@ -1,0 +1,68 @@
+{
+  "file": "../../.local-tools/geojson/india_states.original.geojson",
+  "size": 164447698,
+  "sha256": "c7f0189a551d1bbb9d19384a9dc63036041515aad99d62859677ef9fce67c8dd",
+  "featureCount": 36,
+  "propertyNames": [
+    "ST_NM",
+    "id",
+    "state"
+  ],
+  "configuredNameProperties": [
+    "ST_NM",
+    "state"
+  ],
+  "stateKeys": [
+    "arunachal pradesh",
+    "assam",
+    "chandigarh",
+    "karnataka",
+    "manipur",
+    "meghalaya",
+    "mizoram",
+    "nagaland",
+    "punjab",
+    "rajasthan",
+    "sikkim",
+    "tripura",
+    "uttarakhand",
+    "telangana",
+    "bihar",
+    "kerala",
+    "madhya pradesh",
+    "andaman & nicobar",
+    "gujarat",
+    "lakshadweep",
+    "odisha",
+    "dadra and nagar haveli and daman and diu",
+    "jammu & kashmir",
+    "chhattisgarh",
+    "delhi",
+    "goa",
+    "haryana",
+    "himachal pradesh",
+    "jharkhand",
+    "tamil nadu",
+    "uttar pradesh",
+    "west bengal",
+    "andhra pradesh",
+    "puducherry",
+    "maharashtra",
+    "ladakh"
+  ],
+  "coordinatePairs": 1071165,
+  "bounds": [
+    68.09347709896305,
+    6.75436793493344,
+    97.41149826167937,
+    37.07761064660468
+  ],
+  "compactFeatureBytes": 41187944,
+  "webBudget": {
+    "bytes": 8388608,
+    "coordinatePairs": 250000
+  },
+  "webSizeEligible": false,
+  "outlineAccuracyVerified": false,
+  "publicationReviewRequired": true
+}

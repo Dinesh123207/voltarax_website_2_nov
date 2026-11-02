@@ -1,0 +1,10 @@
+{
+  "command": [
+    "node",
+    "--max-old-space-size=512",
+    ".local-tools/inspect-boundary.mjs"
+  ],
+  "cwd": ".",
+  "exit_code": 0,
+  "seconds": 3.07
+}

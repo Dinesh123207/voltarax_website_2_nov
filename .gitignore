@@ -29,6 +29,7 @@ firebase.local.rules.json
 *-debug.*.log
 .firebase/
 .local-tools/
+voltarax-web/backend/data/*.geojson
 .venv/
 venv/
 .pio/
