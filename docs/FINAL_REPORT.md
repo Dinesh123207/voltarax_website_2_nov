@@ -2,6 +2,8 @@
 
 Date: 2 November 2026 IST. Branch: `phase-10-release`. Tested application source: `3d88e6bcd83defe089ca35d47fdc82f5d7d78525`. Code/evidence tag `release-candidate` points to `5b223e4aba3b3562a476b38d253aa75ce326e7b5`; its application tree exactly matches the tested source. Final Markdown/PDF generation and verification are complete: ten pages, required text, page bounds and all ten rendered pages passed review. The artifact commit follows the candidate tag with application source unchanged; `phase-10-done` identifies that final commit.
 
+A subsequent metadata-only commit marks PDFs binary for byte-preserving Windows checkout. The initial artifact tag is retained unchanged; the current branch contains that portability rule, with identical verified PDF bytes and application tree. No tag or commit history was rewritten.
+
 The existing Next.js/Express/Firebase/NodeMCU/Raspberry Pi/Python architecture was maintained in place. PostgreSQL/Drizzle serves relational operations and commerce; telemetry remains in bounded Firebase repositories. No user data was migrated/deleted, no push or external deployment occurred, and no real message or live payment was sent. Downloaded archives stayed read-only references; no template rebuild or copyleft/source-available product code was copied.
 
 ## Per-phase outcomes
