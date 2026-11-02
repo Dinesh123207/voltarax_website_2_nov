@@ -1,0 +1,56 @@
+
+> voltarax-frontend@1.0.0 test:e2e
+> playwright test --grep @backend registration
+
+
+Running 1 test using 1 worker
+
+(node:13556) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  x  1 tests\e2e\backend.spec.ts:17:5 › @backend registration OTP, real cookie login, site revocation, role access and Hindi switch (16.6s)
+
+
+  1) tests\e2e\backend.spec.ts:17:5 › @backend registration OTP, real cookie login, site revocation, role access and Hindi switch 
+
+    Error: expect(locator).toBeVisible() failed
+
+    Locator: getByRole('heading', { name: 'Verify your email' })
+    Expected: visible
+    Timeout: 5000ms
+    Error: element(s) not found
+
+    Call log:
+      - Expect "toBeVisible" getByRole('heading', { name: 'Verify your email' }) with timeout 5000ms
+      - waiting for getByRole('heading', { name: 'Verify your email' })
+
+
+      20 |   await page.goto('/login');await page.getByRole('button',{name:'Create a viewer account'}).click();
+      21 |   await page.getByLabel('Name',{exact:true}).fill('Synthetic Registration');await page.getByLabel('Email address',{exact:true}).fill(email);await page.getByLabel('Password (12–72 characters)',{exact:true}).fill(password);
+    > 22 |   await page.getByRole('button',{name:'Create account',exact:true}).click();await expect(page.getByRole('heading',{name:'Verify your email'})).toBeVisible();
+         |                                                                                                                                                ^
+      23 |   const delivered=await control(page.request,'otp',{email,purpose:'registration'});
+      24 |   await page.getByLabel('Six-digit verification code').fill(delivered.code);
+      25 |   await page.getByRole('button',{name:'Verify email',exact:true}).click();await expect(page).toHaveURL(/\/dashboard$/);
+        at C:\Users\JARVIS\Desktop\VOLTARAX\voltarax-web\frontend\tests\e2e\backend.spec.ts:22:144
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    ..\..\.local-tools\playwright\phase10-register-rules-retry-browser\backend--backend-registrat-fe75b-ole-access-and-Hindi-switch\test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: ..\..\.local-tools\playwright\phase10-register-rules-retry-browser\backend--backend-registrat-fe75b-ole-access-and-Hindi-switch\error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    ..\..\.local-tools\playwright\phase10-register-rules-retry-browser\backend--backend-registrat-fe75b-ole-access-and-Hindi-switch\trace.zip
+    Usage:
+
+        npx playwright show-trace ..\..\.local-tools\playwright\phase10-register-rules-retry-browser\backend--backend-registrat-fe75b-ole-access-and-Hindi-switch\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  1 failed
+    tests\e2e\backend.spec.ts:17:5 › @backend registration OTP, real cookie login, site revocation, role access and Hindi switch 
+Traceback (most recent call last):
+  File "C:\Users\JARVIS\Desktop\VOLTARAX\tools\verify-backend-browser.py", line 40, in <module>
+    if result.returncode:raise RuntimeError('Actual-backend browser workflow failed; inspect browser evidence')
+                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+RuntimeError: Actual-backend browser workflow failed; inspect browser evidence

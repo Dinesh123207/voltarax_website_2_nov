@@ -1,0 +1,34 @@
+[
+  {
+    "image": "node",
+    "tag": "24.19.0-bookworm-slim",
+    "source": "https://hub.docker.com/v2/repositories/library/node/tags/24.19.0-bookworm-slim",
+    "digest": "sha256:a9f5f7c91a432850b2a8a7797adf5eadb6c733ceed61167806cee7ea7fbc29df",
+    "last_updated": "2026-08-25T05:41:08.587403Z",
+    "verified": true
+  },
+  {
+    "image": "python",
+    "tag": "3.13.15-slim-bookworm",
+    "source": "https://hub.docker.com/v2/repositories/library/python/tags/3.13.15-slim-bookworm",
+    "digest": "sha256:2325bb286ec344af3e5898cc224b5844e2707ac6e26b1632516fd3edc84a5e26",
+    "last_updated": "2026-09-19T08:10:43.93799Z",
+    "verified": true
+  },
+  {
+    "image": "postgres",
+    "tag": "18.6-alpine",
+    "source": "https://hub.docker.com/v2/repositories/library/postgres/tags/18.6-alpine",
+    "digest": "sha256:10a5c69a83035ab5239f5620d708520e8b28f5aa1f2b20143e6024532edadfb5",
+    "last_updated": "2026-10-26T04:10:01.620927Z",
+    "verified": true
+  },
+  {
+    "image": "redis",
+    "tag": "7.2.17-alpine",
+    "source": "https://hub.docker.com/v2/repositories/library/redis/tags/7.2.17-alpine",
+    "digest": "sha256:2c933526722b4126a61d5c170f766dc159adf97682f0b1cbbc27b1666ba96d84",
+    "last_updated": "2026-10-29T06:04:45.999442Z",
+    "verified": true
+  }
+]

@@ -1,0 +1,9 @@
+{
+  "command": [
+    "python",
+    ".local-tools/check-images.py"
+  ],
+  "cwd": ".",
+  "exit_code": 0,
+  "seconds": 2.09
+}

@@ -1,0 +1,8 @@
+Traceback (most recent call last):
+  File "C:\Users\JARVIS\Desktop\VOLTARAX\tools\verify-backend-browser.py", line 33, in <module>
+    wait_url('http://127.0.0.1:38475/api/__fixture/status',{'x-e2e-fixture':token})
+    ~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\JARVIS\Desktop\VOLTARAX\tools\verify-backend-browser.py", line 22, in wait_url
+    if any(process.poll() is not None for process in processes):raise RuntimeError('Owned fixture exited; inspect its safe log')
+                                                                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+RuntimeError: Owned fixture exited; inspect its safe log

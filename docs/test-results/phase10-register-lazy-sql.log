@@ -1,0 +1,13 @@
+
+> voltarax-frontend@1.0.0 test:e2e
+> playwright test --grep @backend registration
+
+
+Running 1 test using 1 worker
+
+(node:4772) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ok 1 tests\e2e\backend.spec.ts:18:5 › @backend registration OTP, real cookie login, site revocation, role access and Hindi switch (42.9s)
+
+  1 passed (1.0m)
+{"browser_stats": {"startTime": "2026-11-02T00:27:31.868Z", "duration": 60685.71, "expected": 1, "skipped": 0, "unexpected": 0, "flaky": 0}, "actual_product_routes": true, "actual_auth_cookies_otp_site_rbac": true, "storage": "Owned demo RTDB and ephemeral PGlite", "external_mail_gateway_hardware": "Fake sender, fake order/checkout and simulated GPIO acknowledgement only", "real_service_assurance": false}
