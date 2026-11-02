@@ -323,3 +323,6 @@ Date: 2026-11-01. This is an internal project document. The internal project ref
 
 
 - [FOUND] Actual first axe run found label-content-name-mismatch on the Discover anchor and heading-order on Site Health. Source corrections preserve visible design while fixing semantics. Initial 360px overview/explainer screenshots are readable without horizontal clipping; mobile synthetic-data marker and future/unavailable timestamp presentation were improved. Initial map precision and pauseAt failures were test expectations/setup, not invented missing data. Failed evidence is retained under phase11-gate-web/run2. No a11y success is claimed before the rerun.
+
+
+- [FOUND] Complete 15-screen axe collection in run3 identified scrollable-region-focusable on panels/devices/users, not missing form labels. Added tab stops and localized region names to make table scrolling keyboard reachable. Media, currency/clock and previous public regressions pass. Updated the contrast script to compare raw ratios (W3C warns against rounding before threshold comparison); display rounding remains explanatory. No certification claim.

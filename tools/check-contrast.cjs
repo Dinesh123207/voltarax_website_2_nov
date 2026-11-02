@@ -6,7 +6,7 @@ const surface=css.match(/--surface:\s*(#[a-f0-9]{6})/i)?.[1];if(!surface)throw E
 const results=[];
 for(const role of ['production','savings','consumption','grid']){
   const color=css.match(new RegExp('\\.metric-'+role+'\\s*\\{\\s*color:\\s*(#[a-f0-9]{6})','i'))?.[1];if(!color)throw Error('Metric color missing');
-  for(const background of [...new Set([surface,'#0a0f0d','#102017'])])results.push({role,color,background,contrast:Number(ratio(color,background).toFixed(3))});
+  for(const background of [...new Set([surface,'#0a0f0d','#102017'])])results.push({role,color,background,contrast:ratio(color,background)});
 }
 const proof={formula:'Relative sRGB luminance and (Lmax+0.05)/(Lmin+0.05)',samples:results,minimum:Math.min(...results.map(value=>value.contrast)),threshold:4.5,scope:'Actual solid metric foregrounds against card/page/notice surfaces; gradients/images/transparency require browser review. No WCAG certification.'};
 fs.writeFileSync(path.join(root,'docs/test-results/phase11-contrast.json'),JSON.stringify(proof,null,2)+'\n');console.log(JSON.stringify(proof));if(proof.minimum<proof.threshold)process.exit(1);

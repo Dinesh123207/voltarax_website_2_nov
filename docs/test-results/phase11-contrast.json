@@ -5,76 +5,76 @@
       "role": "production",
       "color": "#fbbf24",
       "background": "#111a14",
-      "contrast": 10.645
+      "contrast": 10.645437132701149
     },
     {
       "role": "production",
       "color": "#fbbf24",
       "background": "#0a0f0d",
-      "contrast": 11.572
+      "contrast": 11.5723048386163
     },
     {
       "role": "production",
       "color": "#fbbf24",
       "background": "#102017",
-      "contrast": 10.137
+      "contrast": 10.136624622476463
     },
     {
       "role": "savings",
       "color": "#86efac",
       "background": "#111a14",
-      "contrast": 12.656
+      "contrast": 12.656396524154099
     },
     {
       "role": "savings",
       "color": "#86efac",
       "background": "#0a0f0d",
-      "contrast": 13.758
+      "contrast": 13.758352701741206
     },
     {
       "role": "savings",
       "color": "#86efac",
       "background": "#102017",
-      "contrast": 12.051
+      "contrast": 12.051467594925635
     },
     {
       "role": "consumption",
       "color": "#cbd5e1",
       "background": "#111a14",
-      "contrast": 11.969
+      "contrast": 11.969476890497257
     },
     {
       "role": "consumption",
       "color": "#cbd5e1",
       "background": "#0a0f0d",
-      "contrast": 13.012
+      "contrast": 13.011624943997116
     },
     {
       "role": "consumption",
       "color": "#cbd5e1",
       "background": "#102017",
-      "contrast": 11.397
+      "contrast": 11.39738017837427
     },
     {
       "role": "grid",
       "color": "#d1d5db",
       "background": "#111a14",
-      "contrast": 12.06
+      "contrast": 12.060368469979952
     },
     {
       "role": "grid",
       "color": "#d1d5db",
       "background": "#0a0f0d",
-      "contrast": 13.11
+      "contrast": 13.110430192849323
     },
     {
       "role": "grid",
       "color": "#d1d5db",
       "background": "#102017",
-      "contrast": 11.484
+      "contrast": 11.483927476627516
     }
   ],
-  "minimum": 10.137,
+  "minimum": 10.136624622476463,
   "threshold": 4.5,
   "scope": "Actual solid metric foregrounds against card/page/notice surfaces; gradients/images/transparency require browser review. No WCAG certification."
 }

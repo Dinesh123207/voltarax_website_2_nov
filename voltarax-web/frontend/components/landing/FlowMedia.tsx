@@ -17,7 +17,7 @@ export default function FlowMedia({ variant = 'hero' }: { variant?: 'hero' | 'ex
     if(holder.current)observer.observe(holder.current);
     return()=>{observer.disconnect();query.removeEventListener('change',refresh);document.removeEventListener('visibilitychange',refresh);};
   },[]);
-  useEffect(()=>{if(active)video.current?.play().catch(()=>setFailed(true));else video.current?.pause();},[active]);
+  useEffect(()=>{if(active)video.current?.play().catch(error=>{if(error.name!=='AbortError')setFailed(true);});else video.current?.pause();},[active]);
   const title=variant==='hero'?'From readings to a site view':'How the configured system connects';
   const labels=['Sensors','Firebase','Authorized API','Site view'];
   return <figure ref={holder} className="flow-media rounded-2xl border border-slate-600 bg-[#102017] p-4 min-w-0" data-flow-variant={variant} data-motion={active?'running':'paused'}>

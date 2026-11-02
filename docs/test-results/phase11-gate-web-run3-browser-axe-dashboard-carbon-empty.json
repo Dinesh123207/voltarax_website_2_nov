@@ -1,0 +1,205 @@
+{
+  "path": "/dashboard/carbon",
+  "viewport": {
+    "width": 360,
+    "height": 800
+  },
+  "version": "4.14.0",
+  "violations": [],
+  "incomplete": [
+    {
+      "id": "aria-prohibited-attr",
+      "impact": "serious",
+      "tags": [
+        "cat.aria",
+        "wcag2a",
+        "wcag412",
+        "EN-301-549",
+        "EN-9.4.1.2",
+        "RGAAv4",
+        "RGAA-7.1.1"
+      ],
+      "description": "Ensure ARIA attributes are not prohibited for an element's role",
+      "help": "Elements must only use permitted ARIA attributes",
+      "helpUrl": "https://dequeuniversity.com/rules/axe/4.14/aria-prohibited-attr?application=axeAPI",
+      "nodes": [
+        {
+          "any": [],
+          "all": [],
+          "none": [
+            {
+              "id": "aria-prohibited-attr",
+              "data": {
+                "role": null,
+                "nodeName": "time",
+                "messageKey": "noRoleSingular",
+                "prohibited": [
+                  "aria-label"
+                ]
+              },
+              "relatedNodes": [],
+              "impact": "serious",
+              "message": "aria-label attribute is not well supported on \"time\" elements with no valid role attribute."
+            }
+          ],
+          "impact": "serious",
+          "html": "<time aria-live=\"off\" aria-label=\"Current Indian Standard Time, calculated from this device clock\" data-quality=\"Calculated\" class=\"text-[10px] sm:text-xs text-slate-300 tabular-nums whitespace-nowrap\" datetime=\"2026-11-02T07:23:39.018Z\">02/11/2026, 12:53:39 IST</time>",
+          "target": [
+            "time"
+          ],
+          "failureSummary": "Fix all of the following:\n  aria-label attribute is not well supported on \"time\" elements with no valid role attribute."
+        }
+      ]
+    },
+    {
+      "id": "color-contrast",
+      "impact": "serious",
+      "tags": [
+        "cat.color",
+        "wcag2aa",
+        "wcag143",
+        "TTv5",
+        "TT13.c",
+        "EN-301-549",
+        "EN-9.1.4.3",
+        "ACT",
+        "RGAAv4",
+        "RGAA-3.2.1"
+      ],
+      "description": "Ensure the contrast between foreground and background colors meets WCAG 2 AA minimum contrast ratio thresholds",
+      "help": "Elements must meet minimum color contrast ratio thresholds",
+      "helpUrl": "https://dequeuniversity.com/rules/axe/4.14/color-contrast?application=axeAPI",
+      "nodes": [
+        {
+          "any": [
+            {
+              "id": "color-contrast",
+              "data": {
+                "contrastRatio": 0,
+                "fontSize": "18.0pt (24px)",
+                "fontWeight": "bold",
+                "messageKey": "elmPartiallyObscured",
+                "expectedContrastRatio": "3:1"
+              },
+              "relatedNodes": [
+                {
+                  "html": "<div class=\"stat-card\"><div class=\"text-xs text-slate-500 mb-1\">Estimated Savings (Year)</div><div class=\"text-2xl font-counter font-bold metric-savings\">Unavailable<span class=\"text-sm text-slate-500 ml-1\"></span></div></div>",
+                  "target": [
+                    ".grid-cols-2 > .stat-card:nth-child(1)"
+                  ]
+                }
+              ],
+              "impact": "serious",
+              "message": "Element's background color could not be determined because it's partially obscured by another element"
+            }
+          ],
+          "all": [],
+          "none": [],
+          "impact": "serious",
+          "html": "<div class=\"text-2xl font-counter font-bold metric-savings\">Unavailable<span class=\"text-sm text-slate-500 ml-1\"></span></div>",
+          "target": [
+            ".stat-card:nth-child(1) > .metric-savings.font-counter.text-2xl"
+          ],
+          "failureSummary": "Fix any of the following:\n  Element's background color could not be determined because it's partially obscured by another element"
+        },
+        {
+          "any": [
+            {
+              "id": "color-contrast",
+              "data": {
+                "contrastRatio": 0,
+                "fontSize": "18.0pt (24px)",
+                "fontWeight": "bold",
+                "messageKey": "elmPartiallyObscured",
+                "expectedContrastRatio": "3:1"
+              },
+              "relatedNodes": [
+                {
+                  "html": "<div class=\"stat-card\"><div class=\"text-xs text-slate-500 mb-1\">Recorded Energy Today</div><div class=\"text-2xl font-counter font-bold metric-production\">Unavailable<span class=\"text-sm text-slate-500 ml-1\"></span></div></div>",
+                  "target": [
+                    ".stat-card:nth-child(2)"
+                  ]
+                }
+              ],
+              "impact": "serious",
+              "message": "Element's background color could not be determined because it's partially obscured by another element"
+            }
+          ],
+          "all": [],
+          "none": [],
+          "impact": "serious",
+          "html": "<div class=\"text-2xl font-counter font-bold metric-production\">Unavailable<span class=\"text-sm text-slate-500 ml-1\"></span></div>",
+          "target": [
+            ".metric-production"
+          ],
+          "failureSummary": "Fix any of the following:\n  Element's background color could not be determined because it's partially obscured by another element"
+        },
+        {
+          "any": [
+            {
+              "id": "color-contrast",
+              "data": {
+                "contrastRatio": 0,
+                "fontSize": "18.0pt (24px)",
+                "fontWeight": "bold",
+                "messageKey": "elmPartiallyObscured",
+                "expectedContrastRatio": "3:1"
+              },
+              "relatedNodes": [
+                {
+                  "html": "<div class=\"stat-card\"><div class=\"text-xs text-slate-500 mb-1\">Today's CO₂ Saved</div><div class=\"text-2xl font-counter font-bold metric-savings\">Unavailable<span class=\"text-sm text-slate-500 ml-1\"></span></div></div>",
+                  "target": [
+                    ".stat-card:nth-child(3)"
+                  ]
+                }
+              ],
+              "impact": "serious",
+              "message": "Element's background color could not be determined because it's partially obscured by another element"
+            }
+          ],
+          "all": [],
+          "none": [],
+          "impact": "serious",
+          "html": "<div class=\"text-2xl font-counter font-bold metric-savings\">Unavailable<span class=\"text-sm text-slate-500 ml-1\"></span></div>",
+          "target": [
+            ".stat-card:nth-child(3) > .metric-savings.font-counter.text-2xl"
+          ],
+          "failureSummary": "Fix any of the following:\n  Element's background color could not be determined because it's partially obscured by another element"
+        },
+        {
+          "any": [
+            {
+              "id": "color-contrast",
+              "data": {
+                "contrastRatio": 0,
+                "fontSize": "18.0pt (24px)",
+                "fontWeight": "bold",
+                "messageKey": "elmPartiallyObscured",
+                "expectedContrastRatio": "3:1"
+              },
+              "relatedNodes": [
+                {
+                  "html": "<div class=\"stat-card\"><div class=\"text-xs text-slate-500 mb-1\">This Month</div><div class=\"text-2xl font-counter font-bold metric-savings\">Unavailable<span class=\"text-sm text-slate-500 ml-1\"></span></div></div>",
+                  "target": [
+                    ".grid-cols-2 > .stat-card:nth-child(4)"
+                  ]
+                }
+              ],
+              "impact": "serious",
+              "message": "Element's background color could not be determined because it's partially obscured by another element"
+            }
+          ],
+          "all": [],
+          "none": [],
+          "impact": "serious",
+          "html": "<div class=\"text-2xl font-counter font-bold metric-savings\">Unavailable<span class=\"text-sm text-slate-500 ml-1\"></span></div>",
+          "target": [
+            ".stat-card:nth-child(4) > .metric-savings.font-counter.text-2xl"
+          ],
+          "failureSummary": "Fix any of the following:\n  Element's background color could not be determined because it's partially obscured by another element"
+        }
+      ]
+    }
+  ],
+  "scope": "Automated axe checks in a synthetic owned browser; no WCAG/Lighthouse/legal certification"
+}

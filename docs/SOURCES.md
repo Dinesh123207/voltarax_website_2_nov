@@ -137,3 +137,6 @@ Created locally with bundled ReportLab 4.4.9, pypdf 6.10.0 and pdfplumber 0.11.9
 
 ## Phase 11 original media and isolated accessibility tool
 System-flow SVG/CSS, poster, canvas recording generator and EN/HI captions are original project work, with no copied footage, statistics or Remotion. Hashes/sizes: test-results/phase11-media-budget.json. axe-core 4.14.0 metadata/installed LICENSE identify MPL-2.0 (license reviewed, notices retained unmodified under ignored .local-tools/a11y/node_modules/axe-core). It is installed only as an isolated browser-test tool, not a product dependency, vendored source or runtime bundle. Registry: https://registry.npmjs.org/axe-core/4.14.0; upstream https://github.com/dequelabs/axe-core. Test source/version/license hash is recorded in phase11-axe-source.json; no certification is inferred from a scan.
+
+
+Contrast method/threshold reference checked 2 November 2026: W3C Understanding SC 1.4.3, https://www.w3.org/WAI/WCAG22/Understanding/contrast-minimum.html . The script uses relative sRGB luminance and compares unrounded ratios; its scope is the recorded solid metric/surface pairs. Screenshot/axe checks do not establish WCAG or legal certification.

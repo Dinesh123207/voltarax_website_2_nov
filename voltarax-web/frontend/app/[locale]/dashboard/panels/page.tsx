@@ -154,7 +154,7 @@ export default function PanelsPage() {
       </div>
 
       {/* Panel table */}
-      <div className="stat-card overflow-auto">
+      <div tabIndex={0} role="region" aria-label={copyText('Panel records table')} className="stat-card overflow-auto">
         <table className="w-full min-w-[640px]">
           <thead>
             <tr className="border-b border-green-900/20">

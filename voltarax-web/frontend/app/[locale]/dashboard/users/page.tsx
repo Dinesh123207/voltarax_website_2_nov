@@ -104,7 +104,7 @@ export default function UsersPage() {
         <a className="block text-sm text-green-400" href="/api/auth/audit" target="_blank" rel="noopener noreferrer">{copyText("View administrator audit events")}</a>
       </form>
       {/* Users table */}
-      <div className="stat-card overflow-auto">
+      <div tabIndex={0} role="region" aria-label={copyText('User accounts table')} className="stat-card overflow-auto">
         <table className="w-full min-w-[480px]">
           <thead>
             <tr className="border-b border-green-900/20">
