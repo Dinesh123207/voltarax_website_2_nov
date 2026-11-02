@@ -1,7 +1,9 @@
 {
   "name": "voltarax-backend",
   "version": "2.0.0",
-  "description": "Voltarax Private Limited — Firebase-backed corporate and solar monitoring API",
+  "description": "Voltarax — Firebase-backed solar monitoring API",
+  "private": true,
+  "engines": { "node": ">=24.19.0 <25" },
   "main": "server.js",
   "scripts": {
     "start": "node server.js",

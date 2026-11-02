@@ -1,0 +1,13 @@
+{
+  "command": [
+    "docker",
+    "compose",
+    "--profile",
+    "ai",
+    "config",
+    "--quiet"
+  ],
+  "cwd": "voltarax-web",
+  "exit_code": 0,
+  "seconds": 0.73
+}

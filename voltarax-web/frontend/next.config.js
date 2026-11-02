@@ -4,6 +4,7 @@ const withNextIntl = createNextIntlPlugin('./i18n/request.ts');
 const backendUrl = (process.env.BACKEND_URL || 'http://127.0.0.1:5000').replace(/\/$/, '');
 
 const nextConfig = {
+  output: 'standalone',
   outputFileTracingRoot: __dirname,
   experimental: { cpus: 1 },
   images: { domains: ['voltarax.in'] },

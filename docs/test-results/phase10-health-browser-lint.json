@@ -1,0 +1,11 @@
+{
+  "command": [
+    "npx.cmd",
+    "eslint",
+    "app/healthz/route.ts",
+    "tests/e2e/backend.spec.ts"
+  ],
+  "cwd": "voltarax-web/frontend",
+  "exit_code": 0,
+  "seconds": 4.99
+}

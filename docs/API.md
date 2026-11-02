@@ -99,3 +99,6 @@ GET /api/devices/:id/history is administrator-only and accepts limit 1–1000. D
 
 ### Authenticated state map
 GET /api/map/boundaries and /api/map/states require verified session and configured-site access. Strict empty query prevents caller-selected site overrides. Boundary response is review/hash/budget guarded, with one geojson-level Calculated label; per-coordinate quality maps are intentionally omitted. State response covers only configured authorized site, explicit state assignment and recorded primary-device IST-day energy/coverage. Non-covered states have null values/Unavailable, never inferred zero. Registry reads overread one beyond 200 and refuse exact counts if truncated. Boundaries are missing by default; installation and schema in MAP_DATA.md.
+
+### Process health and dependency readiness
+GET /health is API liveness. GET /ready and GET /api/ready validate empty query and return safe 200/Calculated or 503/Unavailable, no-store. Probes share in-flight work with two-second response bound/five-second cache; configured Firebase/SQL/Redis must respond. Mail/payment/map/hardware/AI assurance is separate. Frontend GET /healthz is process liveness and rejects nonempty query with 422. None establishes field performance.

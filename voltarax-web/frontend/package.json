@@ -2,11 +2,12 @@
   "name": "voltarax-frontend",
   "version": "1.0.0",
   "private": true,
+  "engines": { "node": ">=24.19.0 <25" },
   "scripts": {
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint app components --ext .ts,.tsx",
+    "lint": "eslint app components i18n lib tests --ext .ts,.tsx",
     "test:e2e:public": "playwright test --grep @public",
     "test:e2e": "playwright test"
   },

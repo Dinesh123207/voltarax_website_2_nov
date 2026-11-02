@@ -13,7 +13,7 @@ async function main() {
   routes.commerce = require('./routes/commerce').createCommerceRouter();
   routes.commerceWebhook = require('./routes/commerce').createCommerceWebhook();
   routes.map = require('./routes/map').createMapRouter();
-  const app = createApp({ logger, limiters, routes });
+  const app = createApp({ logger, limiters, routes, readiness: require('./services/readiness').configuredReadiness({rateClient:client}) });
   await require('./config/db')();
   require('./services/telemetryWatcher').startTelemetryWatcher();
   const stopRelay = require('./services/relay').startRelayReconciler(logger);

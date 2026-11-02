@@ -11,9 +11,10 @@ async function login(page:Page,email:string){
   const response=page.waitForResponse(response=>new URL(response.url()).pathname==='/api/auth/login');
   await page.getByRole('button',{name:'Sign in',exact:true}).click();expect((await response).status()).toBe(200);await expect(page).toHaveURL(/\/dashboard$/);
 }
-test.beforeEach(async({context,baseURL})=>{
+test.beforeEach(async({context,baseURL,page})=>{
   expect(token).toMatch(/^[a-f0-9]{64}$/);
   await context.route('**/*',route=>route.request().url().startsWith(baseURL!+'/')?route.continue():route.abort());
+  expect((await page.request.get('/api/ready')).status()).toBe(200);
 });
 test('@backend registration OTP, real cookie login, site revocation, role access and Hindi switch',async({page,playwright,baseURL})=>{
   test.setTimeout(90000);

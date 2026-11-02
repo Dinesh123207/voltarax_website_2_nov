@@ -1,0 +1,15 @@
+.env
+.env.*
+!.env.example
+.venv
+venv
+__pycache__
+.pytest_cache
+artifacts
+tests
+*serviceAccount*.json
+*service-account*.json
+*.pem
+*.key
+*.joblib
+*.pkl

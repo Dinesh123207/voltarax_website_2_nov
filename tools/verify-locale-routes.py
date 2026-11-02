@@ -96,8 +96,14 @@ def run_browser(layouts_only=False):
 
 
 with log_path.open('w', encoding='utf-8') as log:
-    process = subprocess.Popen([shutil.which('node'), str(frontend / 'node_modules/next/dist/bin/next'), 'start' if production else 'dev', '--hostname', 'localhost', '--port', str(port)],
-                               cwd=frontend, env=environment, stdout=log, stderr=subprocess.STDOUT,
+    standalone=frontend/'.next/standalone'
+    if production and (standalone/'server.js').is_file():
+        subprocess.run([sys.executable,str(root/'tools/prepare-standalone.py')],check=True)
+        server_command=[shutil.which('node'),str(standalone/'server.js')];server_cwd=standalone
+    else:
+        server_command=[shutil.which('node'), str(frontend / 'node_modules/next/dist/bin/next'), 'start' if production else 'dev', '--hostname', 'localhost', '--port', str(port)];server_cwd=frontend
+    process = subprocess.Popen(server_command,
+                               cwd=server_cwd, env={**environment,'HOSTNAME':'localhost','PORT':str(port)}, stdout=log, stderr=subprocess.STDOUT,
                                **({'creationflags': subprocess.CREATE_NEW_PROCESS_GROUP} if os.name == 'nt' else {'start_new_session': True}))
     try:
         deadline = time.monotonic() + 180
@@ -124,6 +130,13 @@ with log_path.open('w', encoding='utf-8') as log:
             print(json.dumps(result))
             sys.exit(0)
         _, hindi, _ = request('/hi')
+        _, frontend_health, frontend_health_headers = request('/healthz')
+        assert json.loads(frontend_health)['app'] == 'Voltarax frontend' and 'no-store' in frontend_health_headers.get('Cache-Control','')
+        try:
+            request('/healthz?unexpected=1')
+            raise AssertionError('Frontend health input was not validated')
+        except urllib.error.HTTPError as error:
+            assert error.code == 422
         assert '<html lang="en"' in english and '<html lang="hi"' in hindi, 'Locale document language missing'
         assert 'मुख्य पृष्ठ' in hindi and 'उत्पाद' in hindi, 'Hindi navigation not rendered'
         assert 'स्वच्छ ऊर्जा के लिए बुद्धिमान तकनीक।' in hindi and 'उपकरण के दर्ज व्यवहार को समझें।' in hindi, 'Hindi home headings missing'
@@ -157,7 +170,7 @@ with log_path.open('w', encoding='utf-8') as log:
         result = {'english_and_hindi_document_languages': True, 'hindi_navigation': True, 'hindi_about_content': True, 'hindi_home_products_technology_sustainability': True, 'locale_preference_redirect': True,
                   'api_and_health_proxy_unprefixed': True, 'localized_checkout_header': True, 'review_gated_metadata_robots_sitemap': True,
                   'localized_page_metadata': True, 'private_noindex_header': True, 'original_1200x630_png': True,
-                  'hindi_legal_draft_noindex': True,
+                  'hindi_legal_draft_noindex': True, 'frontend_liveness_and_validation': True,
                   'backend': 'Owned loopback synthetic fixture only', 'browser_workflow': 'Not run by this HTTP smoke test'}
         if os.environ.get('FRONTEND_CHECK_BROWSER') == 'true':
             result['browser_stats'] = run_browser()

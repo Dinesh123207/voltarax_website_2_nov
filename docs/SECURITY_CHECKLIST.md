@@ -58,3 +58,11 @@ Express sessions and Firebase Authentication are separate trust systems. The web
 Simulator writes require an explicitly enabled, non-production demo project on the loopback database emulator. The CLI also verifies local API health before sending and refuses redirects. SMTP is disabled in demo mode. Tests use fake mail and generated short-lived credentials, never a real account or database.
 
 Relational tables are queried with the server's configured site; caller site overrides are rejected. SQL migrations/imports need explicit CLI flags and are never applied on API startup. Notification recipients come from reviewed server configuration, never from alert bodies; logs contain no message body, OTP, email or Redis credentials. Template rendering escapes text. Missing Redis/SMTP switches cleanly disable delivery; configured queue errors are logged without provider details. Report generation rejects synthetic/demo data and unverified factors; the saved synthetic PDF is only a test fixture.
+
+### Phase 9/10 route additions
+| Route | Method | Authentication / role | Boundary |
+| --- | --- | --- | --- |
+| /api/map/states, /api/map/boundaries | GET | Verified session + configured-site membership, existing admin exception | Empty query; no site override; review/hash/budget; actual counts/energy/nulls |
+| /ready, /api/ready | GET | Public safe dependency status | Empty query; no data/stack/secrets; bounded/coalesced/cache; 503 when unavailable |
+| Frontend /healthz | GET | Public process status | Empty query, no-store/noindex, no field assurance |
+/api/__fixture exists only in the owned test process, never mounted by server.js; the production image excludes tests. Each control needs an ephemeral nonce, loopback/demo guard.

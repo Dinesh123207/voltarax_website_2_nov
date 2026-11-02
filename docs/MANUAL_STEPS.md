@@ -196,3 +196,6 @@ Follow MAP_DATA.md exactly. Original raw archive object is recovered but 164 MB 
 
 ### Phase 10 hosted CI activation
 CI is prepared under .github/workflows/ci.yml and uses no real service secrets. After your separately authorized repository publication/push, run its manual workflow and review both application/AI jobs and seven-day synthetic evidence artifacts. Review hosted Linux browser/Python dependency compatibility; local Windows results do not prove a hosted run. Renovate automerge remains off. No push or GitHub workflow run occurred here.
+
+### Phase 10 container/recovery verification
+Docker engine is unavailable; Compose syntax/tag checks are not runtime verification. Follow RELEASE_OPERATIONS.md on an owner-selected isolated host: private root variables, image build, storage, guarded migrations, API/frontend health and HTTPS cookie/site checks. Verify read-only/cache/image paths and AI artifact ownership. Hosted CI, Coolify/DNS/TLS, real PostgreSQL/Redis/queue/shared limits, monitoring routing and encrypted backup/isolated restore/rollback were not run. Preserve source databases/volumes; never restore into a live directory. No external deployment or real recipient is authorized here.

@@ -1,6 +1,8 @@
-# Deployment notes (Phase 1)
+# Deployment and recovery
 
 These are configuration steps, not confirmation of a production-ready deployment.
+
+Current container, Compose, Coolify settings, environment scopes, readiness, DNS/TLS and rollback instructions are in [RELEASE_OPERATIONS.md](RELEASE_OPERATIONS.md). The storage backup/isolated restore procedures below remain applicable. Docker engine and actual deployment/recovery checks are not verified here.
 
 1. In `voltarax-web/hardware/nodemcu/`, copy `secrets.example.h` to `secrets.h`. Fill in the Wi-Fi and Firebase device values locally; never commit or share that file. Build the firmware with the existing libraries and flash the board using your normal workflow.
 2. `voltarax-web/firebase.rules.json` is a rules template. In Firebase Authentication, find the UID of the dedicated device account. Replace all occurrences of `PASTE_FIREBASE_DEVICE_UID_HERE` in a local copy of the rules with that UID, review the rules and indexes in the Firebase emulator, then deploy with the Firebase CLI using the intended project. Do not replace the UID with a wildcard. The Admin SDK bypasses these database rules.

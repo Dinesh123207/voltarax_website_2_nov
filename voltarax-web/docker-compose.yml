@@ -1,35 +1,207 @@
+# Private local/test stack. Runtime secrets are interpolated, never baked into images.
 services:
   postgres:
-    image: postgres:18.6-alpine
+    image: postgres:18.6-alpine@sha256:10a5c69a83035ab5239f5620d708520e8b28f5aa1f2b20143e6024532edadfb5
     environment:
       POSTGRES_USER: voltarax
       POSTGRES_DB: voltarax
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?Set a private local database password}
     ports:
-      - "127.0.0.1:15432:5432"
+      - 127.0.0.1:15432:5432
     volumes:
       - postgres_data:/var/lib/postgresql
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U voltarax -d voltarax"]
+      test:
+        - CMD-SHELL
+        - pg_isready -U voltarax -d voltarax
       interval: 10s
       timeout: 5s
       retries: 5
     restart: unless-stopped
   redis:
-    image: redis:7.2.17-alpine
-    command: ["redis-server", "--appendonly", "yes", "--requirepass", "${REDIS_PASSWORD:?Set a private local Redis password}"]
+    image: redis:7.2.17-alpine@sha256:2c933526722b4126a61d5c170f766dc159adf97682f0b1cbbc27b1666ba96d84
+    command:
+      - redis-server
+      - "--appendonly"
+      - "yes"
+      - "--requirepass"
+      - ${REDIS_PASSWORD:?Set a private local Redis password}
     environment:
       REDISCLI_AUTH: ${REDIS_PASSWORD:?Set a private local Redis password}
     ports:
-      - "127.0.0.1:16379:6379"
+      - 127.0.0.1:16379:6379
     volumes:
       - redis_data:/data
     healthcheck:
-      test: ["CMD", "redis-cli", "ping"]
+      test:
+        - CMD
+        - redis-cli
+        - ping
       interval: 10s
       timeout: 5s
       retries: 5
     restart: unless-stopped
+  backend:
+    build: ./backend
+    environment:
+      NODE_ENV: production
+      PORT: 5000
+      DATABASE_URL: ${DATABASE_URL:?Set a URL-encoded PostgreSQL URL for the postgres service}
+      REDIS_URL: ${REDIS_URL:?Set a URL-encoded Redis URL for the redis service}
+      FRONTEND_URL: ${FRONTEND_URL:-http://localhost:3000}
+      CORS_ORIGINS: ${FRONTEND_URL:-http://localhost:3000}
+      EMAIL_ENABLED: ${EMAIL_ENABLED:-false}
+      NOTIFICATIONS_ENABLED: ${NOTIFICATIONS_ENABLED:-false}
+      PAYMENTS_ENABLED: ${PAYMENTS_ENABLED:-false}
+      PAYMENTS_MODE: test
+      GST_ENABLED: "false"
+      CAMERA_ENABLED: ${CAMERA_ENABLED:-false}
+      ALLOW_RELATIONAL_MIGRATIONS: "false"
+      RAZORPAY_KEY_ID: ${RAZORPAY_KEY_ID:-}
+      RAZORPAY_KEY_SECRET: ${RAZORPAY_KEY_SECRET:-}
+      RAZORPAY_WEBHOOK_SECRET: ${RAZORPAY_WEBHOOK_SECRET:-}
+      FIREBASE_PROJECT_ID: ${FIREBASE_PROJECT_ID:-}
+      FIREBASE_CLIENT_EMAIL: ${FIREBASE_CLIENT_EMAIL:-}
+      FIREBASE_PRIVATE_KEY: ${FIREBASE_PRIVATE_KEY:-}
+      FIREBASE_DATABASE_URL: ${FIREBASE_DATABASE_URL:-}
+      JWT_SECRET: ${JWT_SECRET:-}
+      SOLAR_SITE_ID: ${SOLAR_SITE_ID:-}
+      SOLAR_PANEL_COUNT: ${SOLAR_PANEL_COUNT:-}
+      SOLAR_PANEL_PMAX_W: ${SOLAR_PANEL_PMAX_W:-}
+      SOLAR_TEMP_COEFF: ${SOLAR_TEMP_COEFF:-}
+      SOLAR_NOCT_C: ${SOLAR_NOCT_C:-}
+      SOLAR_BASELINE_PR: ${SOLAR_BASELINE_PR:-}
+      SOLAR_LUX_PER_WM2: ${SOLAR_LUX_PER_WM2:-}
+      SOLAR_DUST_HIGH: ${SOLAR_DUST_HIGH:-}
+      GRID_EMISSION_FACTOR: ${GRID_EMISSION_FACTOR:-}
+      GRID_EMISSION_FACTOR_SOURCE: ${GRID_EMISSION_FACTOR_SOURCE:-}
+      GRID_TARIFF_INR_PER_KWH: ${GRID_TARIFF_INR_PER_KWH:-}
+      TREE_CO2_KG_PER_YEAR: ${TREE_CO2_KG_PER_YEAR:-}
+      AI_MAX_AGE_SECONDS: ${AI_MAX_AGE_SECONDS:-}
+      AI_MAX_INPUT_AGE_SECONDS: ${AI_MAX_INPUT_AGE_SECONDS:-}
+      AI_MAX_MODEL_AGE_SECONDS: ${AI_MAX_MODEL_AGE_SECONDS:-}
+      AI_DAYLIGHT_LUX_THRESHOLD: ${AI_DAYLIGHT_LUX_THRESHOLD:-}
+      HARDWARE_API_KEY: ${HARDWARE_API_KEY:-}
+      FIREBASE_DEVICE_UID: ${FIREBASE_DEVICE_UID:-}
+      SMTP_HOST: ${SMTP_HOST:-}
+      SMTP_PORT: ${SMTP_PORT:-}
+      SMTP_USER: ${SMTP_USER:-}
+      SMTP_PASS: ${SMTP_PASS:-}
+      SMTP_FROM: ${SMTP_FROM:-}
+      OTP_SECRET: ${OTP_SECRET:-}
+      SESSION_TTL_SECONDS: ${SESSION_TTL_SECONDS:-}
+      TRUST_PROXY_HOPS: ${TRUST_PROXY_HOPS:-}
+      LOG_LEVEL: ${LOG_LEVEL:-}
+      BOOTSTRAP_ADMIN_ENABLED: ${BOOTSTRAP_ADMIN_ENABLED:-}
+      ADMIN_NAME: ${ADMIN_NAME:-}
+      ADMIN_EMAIL: ${ADMIN_EMAIL:-}
+      ADMIN_PASSWORD: ${ADMIN_PASSWORD:-}
+      SOLAR_DEVICE_ID: ${SOLAR_DEVICE_ID:-}
+      ALLOW_LEGACY_DEVICE_KEY: ${ALLOW_LEGACY_DEVICE_KEY:-}
+      MAX_TELEMETRY_AGE_SECONDS: ${MAX_TELEMETRY_AGE_SECONDS:-}
+      RELAY_CONTROL_ENABLED: ${RELAY_CONTROL_ENABLED:-}
+      DEVICE_SIMULATOR_ENABLED: ${DEVICE_SIMULATOR_ENABLED:-}
+      FIREBASE_DATABASE_EMULATOR_HOST: ${FIREBASE_DATABASE_EMULATOR_HOST:-}
+      NOTIFICATION_RECIPIENTS: ${NOTIFICATION_RECIPIENTS:-}
+      ALLOW_AUDIT_IMPORT: ${ALLOW_AUDIT_IMPORT:-}
+      GRID_EMISSION_FACTOR_VERIFIED: ${GRID_EMISSION_FACTOR_VERIFIED:-}
+      ESG_MIN_COVERAGE_PCT: ${ESG_MIN_COVERAGE_PCT:-}
+      CAMERA_STREAM_URL: ${CAMERA_STREAM_URL:-}
+      CAMERA_SNAPSHOT_URL: ${CAMERA_SNAPSHOT_URL:-}
+      CAMERA_USERNAME: ${CAMERA_USERNAME:-}
+      CAMERA_PASSWORD: ${CAMERA_PASSWORD:-}
+      INSPECTION_MAX_AGE_DAYS: ${INSPECTION_MAX_AGE_DAYS:-}
+      MAP_BOUNDARIES_REVIEWED: ${MAP_BOUNDARIES_REVIEWED:-}
+      MAP_BOUNDARY_SHA256: ${MAP_BOUNDARY_SHA256:-}
+      MAP_BOUNDARY_ATTRIBUTION: ${MAP_BOUNDARY_ATTRIBUTION:-}
+      MAP_STATE_PROPERTIES: ${MAP_STATE_PROPERTIES:-}
+      MAP_SITE_STATE: ${MAP_SITE_STATE:-}
+    expose:
+      - "5000"
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    read_only: true
+    tmpfs:
+      - /tmp
+    security_opt:
+      - no-new-privileges:true
+    cap_drop:
+      - ALL
+    restart: unless-stopped
+  frontend:
+    build:
+      context: ./frontend
+      args:
+        BACKEND_URL: http://backend:5000
+        SITE_URL: ${SITE_URL:-}
+        PUBLIC_INDEXING_ENABLED: ${PUBLIC_INDEXING_ENABLED:-false}
+        PUBLIC_CONTENT_REVIEWED: ${PUBLIC_CONTENT_REVIEWED:-false}
+        NEXT_PUBLIC_CONTACT_EMAIL: ${NEXT_PUBLIC_CONTACT_EMAIL:-}
+        NEXT_PUBLIC_CONTACT_PHONE: ${NEXT_PUBLIC_CONTACT_PHONE:-}
+        NEXT_PUBLIC_CONTACT_LOCATION: ${NEXT_PUBLIC_CONTACT_LOCATION:-}
+        NEXT_PUBLIC_LINKEDIN_URL: ${NEXT_PUBLIC_LINKEDIN_URL:-}
+        NEXT_PUBLIC_X_URL: ${NEXT_PUBLIC_X_URL:-}
+        NEXT_PUBLIC_GITHUB_URL: ${NEXT_PUBLIC_GITHUB_URL:-}
+        NEXT_PUBLIC_BACKGROUND_VIDEO_ENABLED: ${NEXT_PUBLIC_BACKGROUND_VIDEO_ENABLED:-false}
+    environment:
+      NODE_ENV: production
+      HOSTNAME: 0.0.0.0
+      PORT: 3000
+      SITE_URL: ${SITE_URL:-}
+      PUBLIC_INDEXING_ENABLED: ${PUBLIC_INDEXING_ENABLED:-false}
+      PUBLIC_CONTENT_REVIEWED: ${PUBLIC_CONTENT_REVIEWED:-false}
+    ports:
+      - 127.0.0.1:3000:3000
+    depends_on:
+      backend:
+        condition: service_healthy
+    read_only: true
+    tmpfs:
+      - /tmp
+      - /srv/.next/cache
+    security_opt:
+      - no-new-privileges:true
+    cap_drop:
+      - ALL
+    restart: unless-stopped
+  ai:
+    profiles:
+      - ai
+    build: ./ai-engine
+    environment:
+      AI_REMOTE_ACCESS_ENABLED: ${AI_REMOTE_ACCESS_ENABLED:-false}
+      AI_PUBLISH_ENABLED: ${AI_PUBLISH_ENABLED:-false}
+      AI_MAX_INPUT_AGE_SECONDS: ${AI_MAX_INPUT_AGE_SECONDS:-}
+      AI_MAX_MODEL_AGE_SECONDS: ${AI_MAX_MODEL_AGE_SECONDS:-}
+      FIREBASE_DATABASE_URL: ${AI_FIREBASE_DATABASE_URL:-}
+      FIREBASE_SERVICE_ACCOUNT_FILE: ${AI_FIREBASE_SERVICE_ACCOUNT_FILE:-}
+      SOLAR_SITE_ID: ${SOLAR_SITE_ID:-}
+      SOLAR_PANEL_PMAX_W: ${SOLAR_PANEL_PMAX_W:-}
+      SOLAR_TEMP_COEFF: ${SOLAR_TEMP_COEFF:-}
+      SOLAR_NOCT_C: ${SOLAR_NOCT_C:-}
+      SOLAR_LUX_PER_WM2: ${SOLAR_LUX_PER_WM2:-}
+      AI_MIN_ROWS_ANOMALY: ${AI_MIN_ROWS_ANOMALY:-}
+      AI_MIN_DAYLIGHT_ROWS_FORECAST: ${AI_MIN_DAYLIGHT_ROWS_FORECAST:-}
+      AI_MIN_ROWS_HEALTH_BASELINE: ${AI_MIN_ROWS_HEALTH_BASELINE:-}
+      AI_DAYLIGHT_LUX_THRESHOLD: ${AI_DAYLIGHT_LUX_THRESHOLD:-}
+      AI_MIN_NEW_ROWS_TO_RETRAIN: ${AI_MIN_NEW_ROWS_TO_RETRAIN:-}
+      AI_MAX_HISTORY_ROWS: ${AI_MAX_HISTORY_ROWS:-}
+      SOLAR_DEVICE_ID: ${SOLAR_DEVICE_ID:-}
+      FIREBASE_SERVICE_ACCOUNT_JSON: ${AI_FIREBASE_SERVICE_ACCOUNT_JSON:-}
+    volumes:
+      - ai_artifacts:/srv/artifacts
+    read_only: true
+    tmpfs:
+      - /tmp
+    security_opt:
+      - no-new-privileges:true
+    cap_drop:
+      - ALL
+    restart: "no"
 volumes:
-  postgres_data:
-  redis_data:
+  postgres_data: null
+  redis_data: null
+  ai_artifacts: null

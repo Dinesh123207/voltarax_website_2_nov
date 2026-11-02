@@ -1,5 +1,5 @@
 """Actual local API+browser workflows. Called under run-local-database.py/run-check.py."""
-import json,os,re,secrets,shutil,signal,socket,subprocess,time,urllib.request
+import json,os,re,secrets,shutil,signal,socket,subprocess,sys,time,urllib.request
 from pathlib import Path
 root=Path(__file__).resolve().parents[1]
 if os.environ.get('FIREBASE_DATABASE_EMULATOR_HOST')!='127.0.0.1:9000' or os.environ.get('FIREBASE_PROJECT_ID')!='demo-voltarax':
@@ -31,7 +31,12 @@ try:
         options={'creationflags':subprocess.CREATE_NEW_PROCESS_GROUP} if os.name=='nt' else {'start_new_session':True}
         processes.append(subprocess.Popen([shutil.which('node'),'tests/fixtures/e2e-server.cjs'],cwd=root/'voltarax-web/backend',env=env,stdout=api_log,stderr=subprocess.STDOUT,**options))
         wait_url('http://127.0.0.1:38475/api/__fixture/status',{'x-e2e-fixture':token})
-        processes.append(subprocess.Popen([shutil.which('node'),str(frontend/'node_modules/next/dist/bin/next'),'start','--hostname','localhost','--port','38473'],cwd=frontend,env=env,stdout=web_log,stderr=subprocess.STDOUT,**options))
+        standalone=frontend/'.next/standalone'
+        if (standalone/'server.js').is_file():
+            subprocess.run([sys.executable,str(root/'tools/prepare-standalone.py')],check=True)
+            command=[shutil.which('node'),str(standalone/'server.js')];server_cwd=standalone
+        else:command=[shutil.which('node'),str(frontend/'node_modules/next/dist/bin/next'),'start','--hostname','localhost','--port','38473'];server_cwd=frontend
+        processes.append(subprocess.Popen(command,cwd=server_cwd,env={**env,'HOSTNAME':'localhost','PORT':'38473'},stdout=web_log,stderr=subprocess.STDOUT,**options))
         wait_url('http://localhost:38473/login')
         command=[shutil.which('npm.cmd' if os.name=='nt' else 'npm'),'run','test:e2e','--','--grep','@backend']
         selected=os.environ.get('BACKEND_BROWSER_GREP')

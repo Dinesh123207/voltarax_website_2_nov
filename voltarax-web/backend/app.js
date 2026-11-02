@@ -3,7 +3,7 @@ const cookieParser = require('cookie-parser');
 const { responseQuality } = require('./services/dataQuality');
 const { security, errorHandler } = require('./middleware/security');
 const { validate } = require('./middleware/validate');
-function createApp({ logger, limiters, routes, env = process.env }) {
+function createApp({ logger, limiters, routes, env = process.env, readiness = async()=>false }) {
   const app = express();
   app.use(responseQuality);
   security(app, { env, logger });
@@ -17,6 +17,10 @@ function createApp({ logger, limiters, routes, env = process.env }) {
   app.use(['/api/contact', '/api/demo', '/api/subscribe', '/api/chat'], limiters.forms);
   app.use('/api/telemetry/ingest', limiters.ingest);
   app.get('/health', validate(), (req, res) => res.json({ status: 'ok', app: 'Voltarax API', testMode: require('./config/testMode').demoEmulator(env), simulatorAllowed: require('./config/testMode').simulatorAllowed(env) }));
+  app.get(['/ready','/api/ready'],validate(),async(req,res)=>{
+    let ready=false;try{ready=await readiness()===true;}catch{}
+    res.set('Cache-Control','no-store').status(ready?200:503).json({success:ready,status:ready?'ready':'unavailable',dataQuality:ready?'Calculated':'Unavailable'});
+  });
   app.use('/api/auth', routes.auth);
   if (routes.commerce) app.use('/api', routes.commerce);
   if (routes.map) app.use('/api/map', routes.map);

@@ -32,7 +32,7 @@ async function main(){
   stage='routes';const routes={auth:require('../../routes/auth').createAuthRouter({otp:verification}),content:require('../../routes/content'),dashboard:require('../../routes/voltvision'),telemetry:require('../../routes/telemetry'),chat:express.Router(),devices:require('../../routes/devices').createDeviceRouter({otp:verification}),
     operations:require('../../routes/operations').createOperationsRouter({operations:getOperations}),map:require('../../routes/map').createMapRouter(),
     commerce:require('../../routes/commerce').createCommerceRouter({commerce:getCommerce}),commerceWebhook:require('../../routes/commerce').createCommerceWebhook({commerce:getCommerce,env})};
-  const product=require('../../app').createApp({env,logger:{info(){},error(){}},limiters:require('../../services/rateLimits').createLimiters(),routes});
+  const product=require('../../app').createApp({env,logger:{info(){},error(){}},limiters:require('../../services/rateLimits').createLimiters(),routes,readiness:require('../../services/readiness').configuredReadiness({env})});
   const fixture=express.Router();fixture.use((req,res,next)=>req.get('x-e2e-fixture')===env.E2E_FIXTURE_TOKEN?next():res.sendStatus(404),express.json({limit:'4kb'}));
   const safe=fn=>async(req,res)=>{try{await fn(req,res);}catch{res.status(500).json({fixtureFailure:true});}};
   fixture.get('/status',(_req,res)=>res.json({ready:true,synthetic:true}));
