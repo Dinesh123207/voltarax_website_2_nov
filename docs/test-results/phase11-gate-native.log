@@ -1,0 +1,18 @@
+Verbosity level can be increased via `-v, -vv, or -vvv` option
+Collected 1 tests
+
+Processing test_reliability in native environment
+--------------------------------------------------------------------------------
+Building...
+Testing...
+test\test_reliability\test_main.cpp:34: buffer_is_bounded_and_preserves_capture_order	[PASSED]
+test\test_reliability\test_main.cpp:34: retry_delays_are_bounded_and_handle_millis_wrap	[PASSED]
+test\test_reliability\test_main.cpp:34: invalid_sensor_values_and_unsynced_time_are_not_measurements	[PASSED]
+test\test_reliability\test_main.cpp:34: relay_commands_require_synced_time_and_expire_before_execution	[PASSED]
+-------------- native:test_reliability [PASSED] Took 1.55 seconds --------------
+
+=================================== SUMMARY ===================================
+Environment    Test              Status    Duration
+-------------  ----------------  --------  ------------
+native         test_reliability  PASSED    00:00:01.550
+================== 4 test cases: 4 succeeded in 00:00:01.550 ==================

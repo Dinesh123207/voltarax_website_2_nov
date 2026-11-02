@@ -1,0 +1,56 @@
+{
+  "path": "/dashboard/users",
+  "viewport": {
+    "width": 360,
+    "height": 800
+  },
+  "version": "4.14.0",
+  "violations": [],
+  "incomplete": [
+    {
+      "id": "aria-prohibited-attr",
+      "impact": "serious",
+      "tags": [
+        "cat.aria",
+        "wcag2a",
+        "wcag412",
+        "EN-301-549",
+        "EN-9.4.1.2",
+        "RGAAv4",
+        "RGAA-7.1.1"
+      ],
+      "description": "Ensure ARIA attributes are not prohibited for an element's role",
+      "help": "Elements must only use permitted ARIA attributes",
+      "helpUrl": "https://dequeuniversity.com/rules/axe/4.14/aria-prohibited-attr?application=axeAPI",
+      "nodes": [
+        {
+          "any": [],
+          "all": [],
+          "none": [
+            {
+              "id": "aria-prohibited-attr",
+              "data": {
+                "role": null,
+                "nodeName": "time",
+                "messageKey": "noRoleSingular",
+                "prohibited": [
+                  "aria-label"
+                ]
+              },
+              "relatedNodes": [],
+              "impact": "serious",
+              "message": "aria-label attribute is not well supported on \"time\" elements with no valid role attribute."
+            }
+          ],
+          "impact": "serious",
+          "html": "<time aria-live=\"off\" aria-label=\"Current Indian Standard Time, calculated from this device clock\" data-quality=\"Calculated\" class=\"text-[10px] sm:text-xs text-slate-300 tabular-nums whitespace-nowrap\" datetime=\"2026-11-02T07:39:28.043Z\">02/11/2026, 13:09:28 IST</time>",
+          "target": [
+            "time"
+          ],
+          "failureSummary": "Fix all of the following:\n  aria-label attribute is not well supported on \"time\" elements with no valid role attribute."
+        }
+      ]
+    }
+  ],
+  "scope": "Automated axe checks in a synthetic owned browser; no WCAG/Lighthouse/legal certification"
+}

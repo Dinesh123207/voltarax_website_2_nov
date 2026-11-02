@@ -326,3 +326,6 @@ Date: 2026-11-01. This is an internal project document. The internal project ref
 
 
 - [FOUND] Complete 15-screen axe collection in run3 identified scrollable-region-focusable on panels/devices/users, not missing form labels. Added tab stops and localized region names to make table scrolling keyboard reachable. Media, currency/clock and previous public regressions pass. Updated the contrast script to compare raw ratios (W3C warns against rounding before threshold comparison); display rounding remains explanatory. No certification claim.
+
+
+- [FOUND] Did not treat 0 axe violations as complete accessibility. Inspected all 22 incomplete entries: time aria-label support, Carbon values obscured at 360px, empty-device table cells and public gradient/overlay contrast. Replaced the time label with native title (visible time/live-off retained), fixed Carbon mobile value sizing/priority, and added an explicit empty device row. Public complex contrast/independent AT remains manual; new types pass and new browser evidence follows.

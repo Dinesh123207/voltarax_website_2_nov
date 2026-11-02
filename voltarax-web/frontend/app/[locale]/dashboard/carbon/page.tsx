@@ -59,11 +59,11 @@ export default function CarbonPage() {
           { label: 'Recorded Energy Today', value: data.today_kwh, unit: 'kWh', color: 'metric-production' },
           { label: "Today's CO₂ Saved", value: data.today_co2_kg, unit: 'kg', color: 'metric-savings' },
           { label: 'This Month', value: data.month_co2_kg, unit: 'kg', color: 'metric-savings' },
-        ].map(k => (
-          <div key={k.label} className="stat-card">
+        ].map((k,index) => (
+          <div key={k.label} className={`stat-card ${index<2?'col-span-2 md:col-span-1':''}`}>
             <div className="text-xs text-slate-500 mb-1">{copyText(k.label)}</div>
-            <div className={`text-2xl font-counter font-bold ${k.color}`}>
-              {copyText(k.value == null ? 'Unavailable' : k.unit==='INR'?indianRupees(k.value):indianNumber(k.value))}<span className="text-sm text-slate-500 ml-1">{copyText(k.value == null || k.unit==='INR' ? '' : k.unit)}</span>
+            <div className={`metric-value font-counter font-bold ${k.color}`}>
+              {k.value==null?<span className="text-sm text-slate-300">{copyText('Unavailable')}</span>:copyText(k.unit==='INR'?indianRupees(k.value):indianNumber(k.value))}<span className="text-sm text-slate-500 ml-1">{copyText(k.value == null || k.unit==='INR' ? '' : k.unit)}</span>
             </div>
           </div>
         )) : (

@@ -1,0 +1,18 @@
+✔ clock crosses midnight in India and pauses/resumes/cleans up without continuing hidden ticks (109.4971ms)
+✔ stale or missing telemetry never becomes current zero power or offline panel counts (26.1029ms)
+✔ data activity reports loading/empty/error, retains real zero and isolates routes without consuming responses twice (104.6462ms)
+✔ Indian numeric grouping and rupees preserve valid zero and missing values (32.8417ms)
+✔ literal localization preserves opaque values, numbers and surrounding whitespace, with exact source binding (1.4538ms)
+✔ localized templates keep zero and interpolate operator content once without interpreting replacement tokens (0.5975ms)
+✔ translated select labels always have explicit protocol values (423.3791ms)
+✔ all active copy keys bind exact source and preserve every template parameter in Hindi (10.2706ms)
+✔ reading last-updated uses the server policy, crosses expiry without a response and rejects missing/future clocks (1.8181ms)
+✔ estimated rupees require recorded energy and an explicit finite tariff, preserving actual zero (0.2005ms)
+ℹ tests 10
+ℹ suites 0
+ℹ pass 10
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 811.2952

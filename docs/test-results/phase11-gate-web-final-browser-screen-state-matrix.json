@@ -1,0 +1,126 @@
+{
+  "measurements": [
+    {
+      "screen": "/dashboard",
+      "loading": true,
+      "empty": true,
+      "offline": true,
+      "error": true,
+      "viewport": 360
+    },
+    {
+      "screen": "/dashboard/panels",
+      "loading": true,
+      "empty": true,
+      "offline": true,
+      "error": true,
+      "viewport": 360
+    },
+    {
+      "screen": "/dashboard/forecast",
+      "loading": true,
+      "empty": true,
+      "offline": true,
+      "error": true,
+      "viewport": 360
+    },
+    {
+      "screen": "/dashboard/map",
+      "loading": true,
+      "empty": true,
+      "offline": true,
+      "error": true,
+      "viewport": 360
+    },
+    {
+      "screen": "/dashboard/alerts",
+      "loading": true,
+      "empty": true,
+      "offline": true,
+      "error": true,
+      "viewport": 360
+    },
+    {
+      "screen": "/dashboard/work-orders",
+      "loading": true,
+      "empty": true,
+      "offline": true,
+      "error": true,
+      "viewport": 360
+    },
+    {
+      "screen": "/dashboard/cv",
+      "loading": true,
+      "empty": true,
+      "offline": true,
+      "error": true,
+      "viewport": 360
+    },
+    {
+      "screen": "/dashboard/bfci",
+      "loading": true,
+      "empty": true,
+      "offline": true,
+      "error": true,
+      "viewport": 360
+    },
+    {
+      "screen": "/dashboard/carbon",
+      "loading": true,
+      "empty": true,
+      "offline": true,
+      "error": true,
+      "viewport": 360
+    },
+    {
+      "screen": "/dashboard/users",
+      "loading": true,
+      "empty": true,
+      "offline": true,
+      "error": true,
+      "viewport": 360
+    },
+    {
+      "screen": "/dashboard/devices",
+      "loading": true,
+      "empty": true,
+      "offline": true,
+      "error": true,
+      "viewport": 360
+    },
+    {
+      "screen": "/dashboard/relay",
+      "loading": true,
+      "empty": true,
+      "offline": true,
+      "error": true,
+      "viewport": 360
+    },
+    {
+      "screen": "/dashboard/commerce",
+      "loading": true,
+      "empty": true,
+      "offline": true,
+      "error": true,
+      "viewport": 360
+    },
+    {
+      "screen": "/account/orders",
+      "loading": true,
+      "empty": true,
+      "offline": true,
+      "error": true,
+      "viewport": 360
+    },
+    {
+      "screen": "/pricing",
+      "loading": true,
+      "empty": true,
+      "offline": true,
+      "error": true,
+      "viewport": 360
+    }
+  ],
+  "synthetic": true,
+  "scope": "List/metric data screens; record details use their same shared boundary plus not-found/error states. Account/security forms retain session/validation controls."
+}
