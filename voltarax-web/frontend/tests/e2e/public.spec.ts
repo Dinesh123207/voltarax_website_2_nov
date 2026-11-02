@@ -1,6 +1,7 @@
 import { test, expect } from '@playwright/test';
 import path from 'node:path';
 const fixture = { _id: 'synthetic-admin', name: 'Synthetic Admin', email: 'admin@local.test', role: 'admin', siteIds: ['synthetic-site'], isActive: true, emailVerified: true };
+const screenshot = (name:string) => path.resolve('../../docs/test-results', `${process.env.E2E_LABEL || 'public-browser'}-${name}.png`);
 test.beforeEach(async ({ context, page, baseURL }) => {
   const remote: string[] = [], errors: string[] = [];
   context.on('request', request => { if (!request.url().startsWith(baseURL! + '/') && !/^(data:|blob:)/.test(request.url())) remote.push(new URL(request.url()).origin); });
@@ -39,7 +40,7 @@ test('@public 360px language switch, native cursor, keyboard skip and navigation
   });
   expect(contrasts.length).toBeGreaterThan(0); expect(Math.min(...contrasts)).toBeGreaterThanOrEqual(4.5);
   await testInfo.attach('muted-text-contrast-against-page-background', { body: JSON.stringify({ samples: contrasts.length, minimum: Math.min(...contrasts), limitation: 'Solid page background; not a full WCAG or image/gradient audit' }), contentType: 'application/json' });
-  await page.screenshot({ path: path.resolve('../../docs/test-results/phase08-home-hi-360.png') });
+  await page.screenshot({ path: screenshot('home-hi-360') });
 });
 test('@public clock crosses IST midnight, pauses on visibility event and has stable reduced-motion text', async ({ page }) => {
   await page.clock.install({ time: new Date('2026-11-02T18:29:49.000Z') });
@@ -81,7 +82,7 @@ test('@public Hindi draft metadata, form labels and synthetic submission only', 
   });
   expect(borders.length).toBeGreaterThan(0); expect(Math.min(...borders)).toBeGreaterThanOrEqual(3);
   await expect(page.getByRole('button', { name: /सहायक खोलें|Open assistant/ })).toHaveCount(0);
-  await page.screenshot({ path: path.resolve('../../docs/test-results/phase08-contact-360.png'), fullPage: true });
+  await page.screenshot({ path: screenshot('contact-360'), fullPage: true });
   await page.locator('#contact-name').fill('Synthetic Person'); await page.locator('#contact-email').fill('synthetic@local.test');
   await page.locator('#contact-subject').fill('Synthetic browser check'); await page.locator('#contact-message').fill('Synthetic input only; no message is delivered.');
   const posted = page.waitForRequest(request => new URL(request.url()).pathname === '/api/contact' && request.method() === 'POST');
@@ -96,5 +97,5 @@ test('@public Hindi role labels retain API values and closed mobile sidebar stay
   const select = page.locator('#access-role'); await select.selectOption('operator');
   await expect(select).toHaveValue('operator'); await expect(select.locator('option:checked')).toHaveText('संचालक');
   expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true);
-  await page.screenshot({ path: path.resolve('../../docs/test-results/phase08-users-hi-360.png'), fullPage: true });
+  await page.screenshot({ path: screenshot('users-hi-360'), fullPage: true });
 });
