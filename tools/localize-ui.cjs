@@ -158,6 +158,23 @@ for (const directory of ['services', 'routes', 'middleware', 'data']) walk(path.
   };
   const visit = node => { if (ts.isStringLiteral(node) && visible(node)) add(node.text, path.relative(root, file).replaceAll('\\', '/')); ts.forEachChild(node, visit); }; visit(source);
 });
+// Library fallback text reaches UI through useCopy(error.message/inr/ist).
+// Collect only error/fallback literals, never currency codes, routes or IDs.
+for (const name of ['operations.ts', 'money.ts', 'checkout.ts']) {
+  const file = path.join(frontend, 'lib', name), relative = path.relative(root, file).replaceAll('\\', '/');
+  const source = ts.createSourceFile(file, fs.readFileSync(file, 'utf8'), ts.ScriptTarget.Latest, true);
+  const visit = node => {
+    if ((ts.isNewExpression(node) || ts.isCallExpression(node)) && ts.isIdentifier(node.expression) && node.expression.text === 'Error') {
+      let text = node.arguments?.[0];
+      while (text && ts.isBinaryExpression(text) && [ts.SyntaxKind.BarBarToken, ts.SyntaxKind.QuestionQuestionToken].includes(text.operatorToken.kind)) text = text.right;
+      if (text && ts.isStringLiteral(text)) add(text.text, relative, true);
+    }
+    if (ts.isReturnStatement(node) && node.expression && ts.isStringLiteral(node.expression)) add(node.expression.text, relative, true);
+    if (ts.isConditionalExpression(node)) for (const text of [node.whenTrue, node.whenFalse]) if (ts.isStringLiteral(text)) add(text.text, relative, true);
+    ts.forEachChild(node, visit);
+  };
+  visit(source);
+}
 for (const state of states) add(state.replaceAll('_', ' '), 'platform-status-enums', true);
 // Retire only messages no longer present in the scanned UI/error/status sources.
 // Explicit flag keeps ordinary coverage reports read-only.

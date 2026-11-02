@@ -1,0 +1,13 @@
+✔ literal localization preserves opaque values, numbers and surrounding whitespace, with exact source binding (4.5697ms)
+✔ localized templates keep zero and interpolate operator content once without interpreting replacement tokens (1.0374ms)
+✔ translated select labels always have explicit protocol values (844.6297ms)
+✔ all active copy keys bind exact source and preserve every template parameter in Hindi (23.5232ms)
+✔ INR inputs convert to exact integer paise and never round extra decimals or parse exponent notation (98.9097ms)
+ℹ tests 5
+ℹ suites 0
+ℹ pass 5
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 1193.506

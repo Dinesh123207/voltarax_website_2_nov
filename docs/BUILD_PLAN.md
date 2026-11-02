@@ -164,3 +164,6 @@ Authenticated boundary/state routes, operator state assignment, real recorded-en
 
 ### Phase 9 local gate complete
 79 backend, 28 AI, production build/types/full lint, seven Edge/HTTP checks, production audit and scan/diff pass. See phase09-gate-summary.json. Approved web boundary/current-outline review remains partial/manual; no outline approximated or published. Proceed directly to Phase 10 actual-backend E2E, release operations and final evidence PDF.
+
+### Phase 10 packaging/readiness checkpoint
+Pinned CI and three actual-backend browser cases are verified as scoped in PROGRESS. Two readiness regressions pass; non-root multi-stage/standalone images and portable private Compose are prepared; actual Compose syntax passed. Engine/hosted CI/runtime/TLS/recovery remain unverified, exact settings in RELEASE_OPERATIONS.md. Shared fallback translations complete the current 1045-entry catalog. Final local gate, audit disposition, final reports and PDF remain.
