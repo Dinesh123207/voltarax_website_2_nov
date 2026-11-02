@@ -48,7 +48,7 @@ test('@backend registration OTP, real cookie login, site revocation, role access
 test('@backend administrator relay request and simulated acknowledgement keep physical feedback unavailable',async({page})=>{
   test.setTimeout(90000);await login(page,'admin@local.test');await page.goto('/dashboard/relay');
   await expect(page.getByRole('heading',{name:'Physical relay state',exact:false})).toBeVisible();
-  await page.getByLabel('Requested output',{exact:true}).selectOption('off');
+  await page.getByRole('combobox',{name:'Requested output',exact:true}).selectOption('off');
   const requested=page.waitForResponse(response=>new URL(response.url()).pathname==='/api/auth/sensitive/request');
   await page.getByRole('button',{name:'Email command confirmation code'}).click();expect((await requested).status()).toBe(202);
   await expect(page.getByRole('status').filter({hasText:'Verification code requested.'})).toBeVisible();

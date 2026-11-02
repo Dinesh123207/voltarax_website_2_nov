@@ -1,0 +1,55 @@
+
+> voltarax-frontend@1.0.0 test:e2e
+> playwright test --grep @backend (administrator|test checkout)
+
+
+Running 2 tests using 1 worker
+
+(node:14844) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  x  1 tests\e2e\backend.spec.ts:48:5 › @backend administrator relay request and simulated acknowledgement keep physical feedback unavailable (1.5m)
+(node:17060) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ok 2 tests\e2e\backend.spec.ts:67:5 › @backend test checkout uses actual SQL/signatures, callback stays pending and capture creates one invoice (1.0m)
+
+
+  1) tests\e2e\backend.spec.ts:48:5 › @backend administrator relay request and simulated acknowledgement keep physical feedback unavailable 
+
+    Test timeout of 90000ms exceeded.
+
+    Error: locator.selectOption: Test timeout of 90000ms exceeded.
+    Call log:
+      - waiting for getByLabel('Requested output', { exact: true })
+
+
+      49 |   test.setTimeout(90000);await login(page,'admin@local.test');await page.goto('/dashboard/relay');
+      50 |   await expect(page.getByRole('heading',{name:'Physical relay state',exact:false})).toBeVisible();
+    > 51 |   await page.getByLabel('Requested output',{exact:true}).selectOption('off');
+         |                                                          ^
+      52 |   const requested=page.waitForResponse(response=>new URL(response.url()).pathname==='/api/auth/sensitive/request');
+      53 |   await page.getByRole('button',{name:'Email command confirmation code'}).click();expect((await requested).status()).toBe(202);
+      54 |   await expect(page.getByRole('status').filter({hasText:'Verification code requested.'})).toBeVisible();
+        at C:\Users\JARVIS\Desktop\VOLTARAX\voltarax-web\frontend\tests\e2e\backend.spec.ts:51:58
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    ..\..\.local-tools\playwright\phase10-relay-checkout-focused-browser\backend--backend-administr-d798b-ysical-feedback-unavailable\test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: ..\..\.local-tools\playwright\phase10-relay-checkout-focused-browser\backend--backend-administr-d798b-ysical-feedback-unavailable\error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    ..\..\.local-tools\playwright\phase10-relay-checkout-focused-browser\backend--backend-administr-d798b-ysical-feedback-unavailable\trace.zip
+    Usage:
+
+        npx playwright show-trace ..\..\.local-tools\playwright\phase10-relay-checkout-focused-browser\backend--backend-administr-d798b-ysical-feedback-unavailable\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  1 failed
+    tests\e2e\backend.spec.ts:48:5 › @backend administrator relay request and simulated acknowledgement keep physical feedback unavailable 
+  1 passed (2.9m)
+Traceback (most recent call last):
+  File "C:\Users\JARVIS\Desktop\VOLTARAX\tools\verify-backend-browser.py", line 40, in <module>
+    if result.returncode:raise RuntimeError('Actual-backend browser workflow failed; inspect browser evidence')
+                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+RuntimeError: Actual-backend browser workflow failed; inspect browser evidence

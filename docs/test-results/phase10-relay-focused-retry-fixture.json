@@ -1,0 +1,15 @@
+{
+  "browser_stats": {
+    "startTime": "2026-11-02T00:33:19.271Z",
+    "duration": 25863.592,
+    "expected": 1,
+    "skipped": 0,
+    "unexpected": 0,
+    "flaky": 0
+  },
+  "actual_product_routes": true,
+  "actual_auth_cookies_otp_site_rbac": true,
+  "storage": "Owned demo RTDB and ephemeral PGlite",
+  "external_mail_gateway_hardware": "Fake sender, fake order/checkout and simulated GPIO acknowledgement only",
+  "real_service_assurance": false
+}

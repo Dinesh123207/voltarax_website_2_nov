@@ -38,9 +38,11 @@ try:
         if selected: command[-1]='@backend '+selected
         result=subprocess.run(command,cwd=frontend,env=env,timeout=280)
         if result.returncode:raise RuntimeError('Actual-backend browser workflow failed; inspect browser evidence')
-        stats=json.loads((root/f'docs/test-results/{label}-browser.json').read_text(encoding='utf-8'))['stats']
+        report=json.loads((root/f'docs/test-results/{label}-browser.json').read_text(encoding='utf-8'));stats=report['stats']
         assert stats['expected']>0 and all(stats[key]==0 for key in ('unexpected','skipped','flaky'))
-        summary={'browser_stats':stats,'actual_product_routes':True,'actual_auth_cookies_otp_site_rbac':True,'storage':'Owned demo RTDB and ephemeral PGlite','external_mail_gateway_hardware':'Fake sender, fake order/checkout and simulated GPIO acknowledgement only','real_service_assurance':False}
+        def titles(suites):
+            return [title for suite in suites for title in ([spec['title'] for spec in suite.get('specs',[])]+titles(suite.get('suites',[])))]
+        summary={'browser_stats':stats,'passing_cases':titles(report['suites']),'actual_product_routes':True,'storage':'Owned demo RTDB; ephemeral PGlite initialized only for SQL cases','external_mail_gateway_hardware':'Fake sender, fake order/checkout and simulated GPIO acknowledgement only','real_service_assurance':False}
         (root/f'docs/test-results/{label}-fixture.json').write_text(json.dumps(summary,indent=2)+'\n',encoding='utf-8');print(json.dumps(summary))
 finally:
     for process in reversed(processes):
