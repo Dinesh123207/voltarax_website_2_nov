@@ -1,6 +1,6 @@
 # Autopilot progress
 
-RESUME HERE: Sustainability visual and isolated stack-connection recheck complete on codex/sustainability-connections. Follow STACK_CONNECTION_RECHECK.md and MANUAL_STEPS.md for external service and hardware verification; no external activation is authorized.
+RESUME HERE: Local launcher complete on codex/local-launcher. Use docs/START_HERE.md; connected external services, physical hardware and real AI remain separately configured and unverified.
 
 Current checkpoint: Phase 11 local gate passed: 88 backend, 28 AI, 10 UI and 4 actual-API browser cases, 1 Firebase rules and 4 native cases, placeholder firmware compile, build, lint, types, packaging, production audit and supported-pattern scan. Axe: 18 scans, 0 violations, 2 incomplete color-contrast checks; solid-pair minimum 10.14:1. Reports and per-check evidence are saved in test-results/. Optional nonce CSP Skipped; external activation remains Partial.
 
@@ -174,3 +174,7 @@ Original responsive solar landscape and PIB-attributed EN/HI slogans added, with
 
 
 Documentation index added at docs/README.md; the running guide, completion report, connection review, gap map and supporting evidence were already tracked in docs/. Index targets verified locally.
+
+
+## One-command local launcher
+Added run-voltarax.py with an isolated demo and opt-in configured test mode; no real services were contacted. Demo startup, Next-to-API synthetic login, safety guards, occupied-port refusal and cleanup passed (test-results/launcher-*.json). The existing API can bind to loopback via VOLTARAX_BIND_HOST without changing its default. Real connected mode, PostgreSQL/Redis, email, hardware and AI scheduling require operator setup and remain unverified.

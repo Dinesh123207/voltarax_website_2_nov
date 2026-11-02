@@ -15,6 +15,8 @@ Browser requests use the frontend's same-origin `/api` proxy. `BACKEND_URL` is s
 
 ## Public-page preview only
 
+For a single-command local website and synthetic API demo, run `python run-voltarax.py` from the workspace root. See [Start Voltarax](../docs/START_HERE.md) for setup and connected test mode. The manual preview instructions below remain available.
+
 Use the locked Node version from the service packages (24.19.0 was tested). In PowerShell:
 
 ```powershell
