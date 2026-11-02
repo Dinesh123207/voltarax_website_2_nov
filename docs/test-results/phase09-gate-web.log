@@ -1,0 +1,19 @@
+
+> voltarax-frontend@1.0.0 test:e2e:public
+> playwright test --grep @public
+
+
+Running 7 tests using 1 worker
+
+(node:17224) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ok 1 tests\e2e\map.spec.ts:8:5 › @public @map Hindi missing-data state never invents an India outline (7.3s)
+  ok 2 tests\e2e\map.spec.ts:16:5 › @public @map client-only vector map joins recorded zero and safe text with table alternative (19.8s)
+  ok 3 tests\e2e\public.spec.ts:24:5 › @public 360px language switch, native cursor, keyboard skip and navigation (8.5s)
+  ok 4 tests\e2e\public.spec.ts:45:5 › @public clock crosses IST midnight, pauses on visibility event and has stable reduced-motion text (9.0s)
+  ok 5 tests\e2e\public.spec.ts:59:5 › @public prepared assistant preserves entered Hindi text and returns keyboard focus (11.5s)
+  ok 6 tests\e2e\public.spec.ts:69:5 › @public Hindi draft metadata, form labels and synthetic submission only (17.7s)
+  ok 7 tests\e2e\public.spec.ts:93:5 › @public Hindi role labels retain API values and closed mobile sidebar stays hidden (21.1s)
+
+  7 passed (2.0m)
+{"english_and_hindi_document_languages": true, "hindi_navigation": true, "hindi_about_content": true, "hindi_home_products_technology_sustainability": true, "locale_preference_redirect": true, "api_and_health_proxy_unprefixed": true, "localized_checkout_header": true, "review_gated_metadata_robots_sitemap": true, "localized_page_metadata": true, "private_noindex_header": true, "original_1200x630_png": true, "hindi_legal_draft_noindex": true, "backend": "Owned loopback synthetic fixture only", "browser_workflow": "Five local synthetic UI checks passed; no real services or backend authentication verification"}

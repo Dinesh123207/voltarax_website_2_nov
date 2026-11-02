@@ -1,0 +1,9 @@
+{
+  "command": [
+    "python",
+    "tools/verify-locale-routes.py"
+  ],
+  "cwd": ".",
+  "exit_code": 0,
+  "seconds": 127.65
+}

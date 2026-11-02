@@ -1,0 +1,113 @@
+{
+  "phase": 9,
+  "code_commit": "df69cda58a3c6578dfa58da61d6c726d14d81174",
+  "checks": {
+    "backend": {
+      "command": [
+        "npm.cmd",
+        "test"
+      ],
+      "cwd": "voltarax-web/backend",
+      "exit_code": 0,
+      "seconds": 149.81
+    },
+    "ai": {
+      "command": [
+        "C:/Users/JARVIS/Desktop/VOLTARAX/.local-tools/ai-python/Scripts/python.exe",
+        "-m",
+        "pytest",
+        "tests",
+        "-q",
+        "-p",
+        "no:cacheprovider"
+      ],
+      "cwd": "voltarax-web/ai-engine",
+      "exit_code": 0,
+      "seconds": 16.71
+    },
+    "build": {
+      "command": [
+        "python",
+        "tools/verify-locale-routes.py",
+        "--build"
+      ],
+      "cwd": ".",
+      "exit_code": 0,
+      "seconds": 119.06
+    },
+    "generated-types": {
+      "command": [
+        "npx.cmd",
+        "tsc",
+        "--noEmit"
+      ],
+      "cwd": "voltarax-web/frontend",
+      "exit_code": 0,
+      "seconds": 10.92
+    },
+    "web": {
+      "command": [
+        "python",
+        "tools/verify-locale-routes.py"
+      ],
+      "cwd": ".",
+      "exit_code": 0,
+      "seconds": 127.65
+    },
+    "audit": {
+      "command": [
+        "python",
+        "tools/audit-dependencies.py"
+      ],
+      "cwd": ".",
+      "exit_code": 0,
+      "seconds": 12.28
+    },
+    "lint": {
+      "command": [
+        "npm.cmd",
+        "run",
+        "lint"
+      ],
+      "cwd": "voltarax-web/frontend",
+      "exit_code": 0,
+      "seconds": 8.09
+    },
+    "secrets-final": {
+      "command": [
+        "python",
+        "tools/scan-secrets.py"
+      ],
+      "cwd": ".",
+      "exit_code": 0,
+      "seconds": 0.66
+    }
+  },
+  "backend_tests": 79,
+  "ai_tests": 28,
+  "browser_tests": 7,
+  "browser_scope": "Owned production frontend with intercepted synthetic API fixtures, including arbitrary geometry; not real backend authentication or real India-outline approval",
+  "active_hindi_messages": 1038,
+  "boundary": {
+    "original_sha256": "c7f0189a551d1bbb9d19384a9dc63036041515aad99d62859677ef9fce67c8dd",
+    "size": 164447698,
+    "features": 36,
+    "coordinate_pairs": 1071165,
+    "product_geometry_installed": false,
+    "publication_approved": false
+  },
+  "manual": "Approved web-sized/current-outline dataset and true site assignment; MAP_DATA.md",
+  "production_audit": {
+    "frontend": 0,
+    "backend": {
+      "moderate": 8,
+      "high": 0,
+      "critical": 0
+    }
+  },
+  "secret_scan": {
+    "files_checked": 983,
+    "findings": [],
+    "limit": "Pattern scan is not proof that every credential format is absent."
+  }
+}

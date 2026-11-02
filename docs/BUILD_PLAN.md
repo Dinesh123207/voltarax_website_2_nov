@@ -161,3 +161,6 @@ Exact original recovered and offline schema inspected; two focused boundary test
 
 ### Phase 9 map implementation
 Authenticated boundary/state routes, operator state assignment, real recorded-energy/device join, safe client-only Leaflet and table/missing state implemented. Finish expanded CLI/auth tests and browser/full local gate; original oversized/current-outline review remains explicit manual dependency.
+
+### Phase 9 local gate complete
+79 backend, 28 AI, production build/types/full lint, seven Edge/HTTP checks, production audit and scan/diff pass. See phase09-gate-summary.json. Approved web boundary/current-outline review remains partial/manual; no outline approximated or published. Proceed directly to Phase 10 actual-backend E2E, release operations and final evidence PDF.
